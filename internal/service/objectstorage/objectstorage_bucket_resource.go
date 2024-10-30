@@ -320,8 +320,15 @@ func (s *ObjectStorageBucketResourceCrud) Create() error {
 		request.StorageTier = oci_object_storage.CreateBucketDetailsStorageTierEnum(storageTier.(string))
 	}
 
+	shouldUpdateVersioningToSuspended := false
 	if versioning, ok := s.D.GetOkExists("versioning"); ok {
-		request.Versioning = oci_object_storage.CreateBucketDetailsVersioningEnum(versioning.(string))
+		tmp := versioning.(string)
+		if strings.EqualFold(tmp, "suspended") {
+			log.Printf("[DEBUG] create bucket with versioning suspended")
+			shouldUpdateVersioningToSuspended = true
+			tmp = "enabled"
+		}
+		request.Versioning = oci_object_storage.CreateBucketDetailsVersioningEnum(tmp)
 	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "object_storage")
@@ -336,6 +343,13 @@ func (s *ObjectStorageBucketResourceCrud) Create() error {
 	if err := s.handleRetentionRules(); err != nil {
 		log.Printf("[ERROR] Error in retention rule Create: '%v'", err)
 		return err
+	}
+
+	if shouldUpdateVersioningToSuspended {
+		if err := s.updateVersioningToSuspended(); err != nil {
+			log.Printf("[ERROR] Error in handleVersioningSuspended: '%v'", err)
+			return err
+		}
 	}
 
 	return nil
@@ -990,4 +1004,36 @@ func retentionRulesHashCodeForSets(v interface{}) int {
 	}
 
 	return utils.GetStringHashcode(buf.String())
+}
+
+func (s *ObjectStorageBucketResourceCrud) updateVersioningToSuspended() error {
+	log.Printf("[DEBUG] update versioning to Suspended")
+	request := oci_object_storage.UpdateBucketRequest{}
+	request.Versioning = oci_object_storage.UpdateBucketDetailsVersioningEnum("Suspended")
+
+	if bucket, ok := s.D.GetOkExists("name"); ok {
+		tmp := bucket.(string)
+		request.BucketName = &tmp
+	}
+
+	if compartmentId, ok := s.D.GetOkExists("compartment_id"); ok {
+		tmp := compartmentId.(string)
+		request.CompartmentId = &tmp
+	}
+
+	if namespace, ok := s.D.GetOkExists("namespace"); ok {
+		tmp := namespace.(string)
+		request.NamespaceName = &tmp
+	}
+
+	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "object_storage")
+
+	response, err := s.Client.UpdateBucket(context.Background(), request)
+	if err != nil {
+		return err
+	}
+
+	s.Res = &response.Bucket
+
+	return nil
 }
