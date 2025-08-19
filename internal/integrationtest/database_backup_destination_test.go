@@ -16,9 +16,9 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/tfresource"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_database "github.com/oracle/oci-go-sdk/v65/database"
 
@@ -50,7 +50,7 @@ var (
 		"display_name":      acctest.Representation{RepType: acctest.Required, Create: `Recovery Appliance1`},
 		"type":              acctest.Representation{RepType: acctest.Required, Create: `RECOVERY_APPLIANCE`},
 		"connection_string": acctest.Representation{RepType: acctest.Optional, Create: `connectionString`, Update: `connectionString2`},
-		"defined_tags":      acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
+		"defined_tags":      acctest.Representation{RepType: acctest.Optional, Create: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"})}`, Update: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "updatedValue"})}`},
 		"freeform_tags":     acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
 		"vpc_users":         acctest.Representation{RepType: acctest.Optional, Create: []string{`bkupUser1`}, Update: []string{`bkupUser1`, `bkupUser2`}},
 	}
@@ -90,6 +90,7 @@ func TestDatabaseBackupDestinationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "connection_string", "connectionString"),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "Recovery Appliance1"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 				resource.TestCheckResourceAttr(resourceName, "type", "RECOVERY_APPLIANCE"),
 				resource.TestCheckResourceAttr(resourceName, "vpc_users.#", "1"),
 
@@ -117,6 +118,7 @@ func TestDatabaseBackupDestinationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "connection_string", "connectionString"),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "Recovery Appliance1"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 				resource.TestCheckResourceAttr(resourceName, "type", "RECOVERY_APPLIANCE"),
 				resource.TestCheckResourceAttr(resourceName, "vpc_users.#", "1"),
 
@@ -139,6 +141,7 @@ func TestDatabaseBackupDestinationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "connection_string", "connectionString2"),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "Recovery Appliance1"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 				resource.TestCheckResourceAttr(resourceName, "type", "RECOVERY_APPLIANCE"),
 				resource.TestCheckResourceAttr(resourceName, "vpc_users.#", "2"),
 
@@ -166,6 +169,7 @@ func TestDatabaseBackupDestinationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "backup_destinations.0.connection_string", "connectionString2"),
 				resource.TestCheckResourceAttr(datasourceName, "backup_destinations.0.display_name", "Recovery Appliance1"),
 				resource.TestCheckResourceAttr(datasourceName, "backup_destinations.0.freeform_tags.%", "1"),
+				resource.TestCheckResourceAttr(datasourceName, "backup_destinations.0.system_tags.%", "0"),
 				resource.TestCheckResourceAttrSet(datasourceName, "backup_destinations.0.id"),
 				resource.TestCheckResourceAttrSet(datasourceName, "backup_destinations.0.state"),
 				resource.TestCheckResourceAttrSet(datasourceName, "backup_destinations.0.time_created"),
@@ -186,6 +190,7 @@ func TestDatabaseBackupDestinationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(singularDatasourceName, "connection_string", "connectionString2"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "display_name", "Recovery Appliance1"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.%", "0"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "id"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "state"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),

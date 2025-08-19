@@ -137,6 +137,10 @@ func (s *DatabaseDbNodesDataSourceCrud) SetData() error {
 			dbNode["backup_ip_id"] = *r.BackupIpId
 		}
 
+		if r.BackupIpv6Id != nil {
+			dbNode["backup_ipv6id"] = *r.BackupIpv6Id
+		}
+
 		if r.BackupVnic2Id != nil {
 			dbNode["backup_vnic2id"] = *r.BackupVnic2Id
 		}
@@ -177,6 +181,10 @@ func (s *DatabaseDbNodesDataSourceCrud) SetData() error {
 			dbNode["host_ip_id"] = *r.HostIpId
 		}
 
+		if r.HostIpv6Id != nil {
+			dbNode["host_ipv6id"] = *r.HostIpv6Id
+		}
+
 		if r.Hostname != nil {
 			dbNode["hostname"] = *r.Hostname
 		}
@@ -201,6 +209,10 @@ func (s *DatabaseDbNodesDataSourceCrud) SetData() error {
 		}
 
 		dbNode["state"] = r.LifecycleState
+
+		if r.SystemTags != nil {
+			dbNode["system_tags"] = tfresource.SystemTagsToMap(r.SystemTags)
+		}
 
 		if r.TimeCreated != nil {
 			dbNode["time_created"] = r.TimeCreated.String()

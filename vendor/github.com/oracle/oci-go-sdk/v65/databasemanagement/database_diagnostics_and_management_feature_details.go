@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -6,7 +6,7 @@
 //
 // Use the Database Management API to monitor and manage resources such as
 // Oracle Databases, MySQL Databases, and External Database Systems.
-// For more information, see Database Management (https://docs.cloud.oracle.com/iaas/database-management/home.htm).
+// For more information, see Database Management (https://docs.oracle.com/iaas/database-management/home.htm).
 //
 
 package databasemanagement
@@ -24,10 +24,13 @@ type DatabaseDiagnosticsAndManagementFeatureDetails struct {
 
 	ConnectorDetails ConnectorDetails `mandatory:"true" json:"connectorDetails"`
 
-	// Indicates whether the pluggable database can be enabled automatically.
+	// Indicates whether Diagnostics & Management should be enabled automatically for all the pluggable databases in the container database.
 	IsAutoEnablePluggableDatabase *bool `mandatory:"false" json:"isAutoEnablePluggableDatabase"`
 
-	// The management type for the database.
+	// Indicates whether Diagnostics & Management should be enabled for all the current pluggable databases in the container database.
+	CanEnableAllCurrentPdbs *bool `mandatory:"false" json:"canEnableAllCurrentPdbs"`
+
+	// The management type for the database. Use "BASIC" for basic management. Use "ADVANCED" for full management.
 	ManagementType DatabaseDiagnosticsAndManagementFeatureDetailsManagementTypeEnum `mandatory:"true" json:"managementType"`
 }
 
@@ -78,6 +81,7 @@ func (m DatabaseDiagnosticsAndManagementFeatureDetails) MarshalJSON() (buff []by
 func (m *DatabaseDiagnosticsAndManagementFeatureDetails) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
 		IsAutoEnablePluggableDatabase *bool                                                            `json:"isAutoEnablePluggableDatabase"`
+		CanEnableAllCurrentPdbs       *bool                                                            `json:"canEnableAllCurrentPdbs"`
 		DatabaseConnectionDetails     *DatabaseConnectionDetails                                       `json:"databaseConnectionDetails"`
 		ConnectorDetails              connectordetails                                                 `json:"connectorDetails"`
 		ManagementType                DatabaseDiagnosticsAndManagementFeatureDetailsManagementTypeEnum `json:"managementType"`
@@ -89,6 +93,8 @@ func (m *DatabaseDiagnosticsAndManagementFeatureDetails) UnmarshalJSON(data []by
 	}
 	var nn interface{}
 	m.IsAutoEnablePluggableDatabase = model.IsAutoEnablePluggableDatabase
+
+	m.CanEnableAllCurrentPdbs = model.CanEnableAllCurrentPdbs
 
 	m.DatabaseConnectionDetails = model.DatabaseConnectionDetails
 

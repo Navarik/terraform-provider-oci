@@ -12,7 +12,7 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 )
 
@@ -71,6 +71,7 @@ func TestDatabaseDbServerResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(datasourceName, "db_servers.0.autonomous_virtual_machine_ids.#", "0"),
 					resource.TestCheckResourceAttr(datasourceName, "db_servers.0.autonomous_vm_cluster_ids.#", "0"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_servers.0.compartment_id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "db_servers.0.compute_model"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_servers.0.cpu_core_count"),
 					resource.TestCheckResourceAttr(datasourceName, "db_servers.0.db_node_ids.#", "0"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_servers.0.db_node_storage_size_in_gbs"),
@@ -84,6 +85,7 @@ func TestDatabaseDbServerResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(datasourceName, "db_servers.0.memory_size_in_gbs"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_servers.0.state"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_servers.0.time_created"),
+					resource.TestCheckResourceAttr(datasourceName, "db_servers.0.system_tags.#", "0"),
 					resource.TestCheckResourceAttr(datasourceName, "db_servers.0.vm_cluster_ids.#", "0"),
 				),
 			},
@@ -99,6 +101,7 @@ func TestDatabaseDbServerResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(singularDatasourceName, "autonomous_virtual_machine_ids.#", "0"),
 					resource.TestCheckResourceAttr(singularDatasourceName, "autonomous_vm_cluster_ids.#", "0"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "compartment_id"),
+					resource.TestCheckResourceAttrSet(singularDatasourceName, "compute_model"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "cpu_core_count"),
 					resource.TestCheckResourceAttr(singularDatasourceName, "db_node_ids.#", "0"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "db_node_storage_size_in_gbs"),
@@ -112,6 +115,7 @@ func TestDatabaseDbServerResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "state"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
 					resource.TestCheckResourceAttr(singularDatasourceName, "vm_cluster_ids.#", "0"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.#", "0"),
 				),
 			},
 		},

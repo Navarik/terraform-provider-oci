@@ -1,10 +1,10 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
 // Database Service API
 //
-// The API for the Database Service. Use this API to manage resources such as databases and DB Systems. For more information, see Overview of the Database Service (https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/databaseoverview.htm).
+// The API for the Database Service. Use this API to manage resources such as databases and DB Systems. For more information, see Overview of the Database Service (https://docs.oracle.com/iaas/Content/Database/Concepts/databaseoverview.htm).
 //
 
 package database
@@ -21,7 +21,7 @@ type BackupDestinationDetails struct {
 	// Type of the database backup destination.
 	Type BackupDestinationDetailsTypeEnum `mandatory:"true" json:"type"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup destination.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the backup destination.
 	Id *string `mandatory:"false" json:"id"`
 
 	// For a RECOVERY_APPLIANCE backup destination, the Virtual Private Catalog (VPC) user that is used to access the Recovery Appliance.
@@ -33,8 +33,16 @@ type BackupDestinationDetails struct {
 	// Proxy URL to connect to object store.
 	InternetProxy *string `mandatory:"false" json:"internetProxy"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DBRS policy used for backup.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DBRS policy used for backup.
 	DbrsPolicyId *string `mandatory:"false" json:"dbrsPolicyId"`
+
+	// Indicates whether the backup destination is cross-region or local region.
+	IsRemote *bool `mandatory:"false" json:"isRemote"`
+
+	// The name of the remote region where the remote automatic incremental backups will be stored.
+	// For information about valid region names, see
+	// Regions and Availability Domains (https://docs.oracle.com/iaas/Content/General/Concepts/regions.htm).
+	RemoteRegion *string `mandatory:"false" json:"remoteRegion"`
 }
 
 func (m BackupDestinationDetails) String() string {
@@ -66,6 +74,7 @@ const (
 	BackupDestinationDetailsTypeObjectStore       BackupDestinationDetailsTypeEnum = "OBJECT_STORE"
 	BackupDestinationDetailsTypeLocal             BackupDestinationDetailsTypeEnum = "LOCAL"
 	BackupDestinationDetailsTypeDbrs              BackupDestinationDetailsTypeEnum = "DBRS"
+	BackupDestinationDetailsTypeAwsS3             BackupDestinationDetailsTypeEnum = "AWS_S3"
 )
 
 var mappingBackupDestinationDetailsTypeEnum = map[string]BackupDestinationDetailsTypeEnum{
@@ -74,6 +83,7 @@ var mappingBackupDestinationDetailsTypeEnum = map[string]BackupDestinationDetail
 	"OBJECT_STORE":       BackupDestinationDetailsTypeObjectStore,
 	"LOCAL":              BackupDestinationDetailsTypeLocal,
 	"DBRS":               BackupDestinationDetailsTypeDbrs,
+	"AWS_S3":             BackupDestinationDetailsTypeAwsS3,
 }
 
 var mappingBackupDestinationDetailsTypeEnumLowerCase = map[string]BackupDestinationDetailsTypeEnum{
@@ -82,6 +92,7 @@ var mappingBackupDestinationDetailsTypeEnumLowerCase = map[string]BackupDestinat
 	"object_store":       BackupDestinationDetailsTypeObjectStore,
 	"local":              BackupDestinationDetailsTypeLocal,
 	"dbrs":               BackupDestinationDetailsTypeDbrs,
+	"aws_s3":             BackupDestinationDetailsTypeAwsS3,
 }
 
 // GetBackupDestinationDetailsTypeEnumValues Enumerates the set of values for BackupDestinationDetailsTypeEnum
@@ -101,6 +112,7 @@ func GetBackupDestinationDetailsTypeEnumStringValues() []string {
 		"OBJECT_STORE",
 		"LOCAL",
 		"DBRS",
+		"AWS_S3",
 	}
 }
 

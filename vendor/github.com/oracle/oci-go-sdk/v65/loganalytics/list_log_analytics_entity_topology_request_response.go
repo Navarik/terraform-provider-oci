@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListLogAnalyticsEntityTopology.go.html to see an example of how to use ListLogAnalyticsEntityTopologyRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListLogAnalyticsEntityTopology.go.html to see an example of how to use ListLogAnalyticsEntityTopologyRequest.
 type ListLogAnalyticsEntityTopologyRequest struct {
 
 	// The Logging Analytics namespace used for the request.
@@ -47,6 +47,9 @@ type ListLogAnalyticsEntityTopologyRequest struct {
 	// A filter to return only log analytics entities whose metadata name, value and type matches the specified string.
 	// Each item in the array has the format "{name}:{value}:{type}".  All inputs are case-insensitive.
 	MetadataEquals []string `contributesTo:"query" name:"metadataEquals" collectionFormat:"multi"`
+
+	// A filter to return log analytics entity toplogy whose context matches the specified string.
+	Context *string `mandatory:"false" contributesTo:"query" name:"context"`
 
 	// Metadata about the request. This information will not be transmitted to the service, but
 	// represents information that the SDK will consume to drive retry behavior.

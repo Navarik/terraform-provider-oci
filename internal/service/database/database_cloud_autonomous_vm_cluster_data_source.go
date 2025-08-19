@@ -238,6 +238,8 @@ func (s *DatabaseCloudAutonomousVmClusterDataSourceCrud) SetData() error {
 		s.D.Set("scan_listener_port_tls", *s.Res.ScanListenerPortTls)
 	}
 
+	s.D.Set("security_attributes", tfresource.SecurityAttributesToMap(s.Res.SecurityAttributes))
+
 	if s.Res.Shape != nil {
 		s.D.Set("shape", *s.Res.Shape)
 	}
@@ -248,8 +250,28 @@ func (s *DatabaseCloudAutonomousVmClusterDataSourceCrud) SetData() error {
 		s.D.Set("subnet_id", *s.Res.SubnetId)
 	}
 
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+	}
+
+	if s.Res.SubscriptionId != nil {
+		s.D.Set("subscription_id", *s.Res.SubscriptionId)
+	}
+
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+	}
+
 	if s.Res.TimeCreated != nil {
 		s.D.Set("time_created", s.Res.TimeCreated.String())
+	}
+
+	if s.Res.TimeDatabaseSslCertificateExpires != nil {
+		s.D.Set("time_database_ssl_certificate_expires", s.Res.TimeDatabaseSslCertificateExpires.String())
+	}
+
+	if s.Res.TimeOrdsCertificateExpires != nil {
+		s.D.Set("time_ords_certificate_expires", s.Res.TimeOrdsCertificateExpires.String())
 	}
 
 	if s.Res.TimeUpdated != nil {

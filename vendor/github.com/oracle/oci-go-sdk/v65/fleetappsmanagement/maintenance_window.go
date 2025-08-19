@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -21,7 +21,7 @@ type MaintenanceWindow struct {
 	// The OCID of the resource.
 	Id *string `mandatory:"true" json:"id"`
 
-	// Tenancy OCID
+	// Compartment OCID
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// A user-friendly name. Does not have to be unique, and it's changeable.
@@ -44,9 +44,6 @@ type MaintenanceWindow struct {
 	// Is this a recurring maintenance window?
 	IsRecurring *bool `mandatory:"true" json:"isRecurring"`
 
-	// Task initiation cutoff time for the maintenance window.
-	TaskInitiationCutoff *int `mandatory:"true" json:"taskInitiationCutoff"`
-
 	// The current state of the MaintenanceWindow.
 	LifecycleState MaintenanceWindowLifecycleStateEnum `mandatory:"true" json:"lifecycleState"`
 
@@ -67,9 +64,6 @@ type MaintenanceWindow struct {
 
 	// The time this resource was last updated. An RFC3339 formatted datetime string.
 	TimeUpdated *common.SDKTime `mandatory:"false" json:"timeUpdated"`
-
-	// Type of the MaintenanceWindow.
-	MaintenanceWindowType MaintenanceWindowTypeEnum `mandatory:"false" json:"maintenanceWindowType,omitempty"`
 
 	// Specify the date and time of the day that the maintenance window starts.
 	TimeScheduleStart *common.SDKTime `mandatory:"false" json:"timeScheduleStart"`
@@ -99,9 +93,6 @@ func (m MaintenanceWindow) ValidateEnumValue() (bool, error) {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LifecycleState: %s. Supported values are: %s.", m.LifecycleState, strings.Join(GetMaintenanceWindowLifecycleStateEnumStringValues(), ",")))
 	}
 
-	if _, ok := GetMappingMaintenanceWindowTypeEnum(string(m.MaintenanceWindowType)); !ok && m.MaintenanceWindowType != "" {
-		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for MaintenanceWindowType: %s. Supported values are: %s.", m.MaintenanceWindowType, strings.Join(GetMaintenanceWindowTypeEnumStringValues(), ",")))
-	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -95,7 +95,7 @@ func (client *ScheduleClient) ConfigurationProvider() *common.ConfigurationProvi
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ActivateSchedule.go.html to see an example of how to use ActivateSchedule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ActivateSchedule.go.html to see an example of how to use ActivateSchedule API.
 // A default retry strategy applies to this operation ActivateSchedule()
 func (client ScheduleClient) ActivateSchedule(ctx context.Context, request ActivateScheduleRequest) (response ActivateScheduleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -158,7 +158,7 @@ func (client ScheduleClient) activateSchedule(ctx context.Context, request commo
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/CancelWorkRequest.go.html to see an example of how to use CancelWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/CancelWorkRequest.go.html to see an example of how to use CancelWorkRequest API.
 // A default retry strategy applies to this operation CancelWorkRequest()
 func (client ScheduleClient) CancelWorkRequest(ctx context.Context, request CancelWorkRequestRequest) (response CancelWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -212,11 +212,75 @@ func (client ScheduleClient) cancelWorkRequest(ctx context.Context, request comm
 	return response, err
 }
 
-// CreateSchedule Creates a Schedule
+// ChangeScheduleCompartment This API) moves a schedule into a different compartment within the same tenancy. For information about moving resources between
+// compartments, see Moving Resources to a Different Compartment (https://docs.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/CreateSchedule.go.html to see an example of how to use CreateSchedule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ChangeScheduleCompartment.go.html to see an example of how to use ChangeScheduleCompartment API.
+// A default retry strategy applies to this operation ChangeScheduleCompartment()
+func (client ScheduleClient) ChangeScheduleCompartment(ctx context.Context, request ChangeScheduleCompartmentRequest) (response ChangeScheduleCompartmentResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.changeScheduleCompartment, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ChangeScheduleCompartmentResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ChangeScheduleCompartmentResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ChangeScheduleCompartmentResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ChangeScheduleCompartmentResponse")
+	}
+	return
+}
+
+// changeScheduleCompartment implements the OCIOperation interface (enables retrying operations)
+func (client ScheduleClient) changeScheduleCompartment(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/schedules/{scheduleId}/actions/changeCompartment", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ChangeScheduleCompartmentResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/resource-scheduler/20240430/Schedule/ChangeScheduleCompartment"
+		err = common.PostProcessServiceError(err, "Schedule", "ChangeScheduleCompartment", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// CreateSchedule This API creates a schedule. You must provide either resources or resourceFilters.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/CreateSchedule.go.html to see an example of how to use CreateSchedule API.
 // A default retry strategy applies to this operation CreateSchedule()
 func (client ScheduleClient) CreateSchedule(ctx context.Context, request CreateScheduleRequest) (response CreateScheduleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -279,7 +343,7 @@ func (client ScheduleClient) createSchedule(ctx context.Context, request common.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/DeactivateSchedule.go.html to see an example of how to use DeactivateSchedule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/DeactivateSchedule.go.html to see an example of how to use DeactivateSchedule API.
 // A default retry strategy applies to this operation DeactivateSchedule()
 func (client ScheduleClient) DeactivateSchedule(ctx context.Context, request DeactivateScheduleRequest) (response DeactivateScheduleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -342,7 +406,7 @@ func (client ScheduleClient) deactivateSchedule(ctx context.Context, request com
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/DeleteSchedule.go.html to see an example of how to use DeleteSchedule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/DeleteSchedule.go.html to see an example of how to use DeleteSchedule API.
 // A default retry strategy applies to this operation DeleteSchedule()
 func (client ScheduleClient) DeleteSchedule(ctx context.Context, request DeleteScheduleRequest) (response DeleteScheduleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -400,7 +464,7 @@ func (client ScheduleClient) deleteSchedule(ctx context.Context, request common.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/GetSchedule.go.html to see an example of how to use GetSchedule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/GetSchedule.go.html to see an example of how to use GetSchedule API.
 // A default retry strategy applies to this operation GetSchedule()
 func (client ScheduleClient) GetSchedule(ctx context.Context, request GetScheduleRequest) (response GetScheduleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -458,7 +522,7 @@ func (client ScheduleClient) getSchedule(ctx context.Context, request common.OCI
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
 // A default retry strategy applies to this operation GetWorkRequest()
 func (client ScheduleClient) GetWorkRequest(ctx context.Context, request GetWorkRequestRequest) (response GetWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -516,7 +580,7 @@ func (client ScheduleClient) getWorkRequest(ctx context.Context, request common.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListResourceTypes.go.html to see an example of how to use ListResourceTypes API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListResourceTypes.go.html to see an example of how to use ListResourceTypes API.
 // A default retry strategy applies to this operation ListResourceTypes()
 func (client ScheduleClient) ListResourceTypes(ctx context.Context, request ListResourceTypesRequest) (response ListResourceTypesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -570,11 +634,11 @@ func (client ScheduleClient) listResourceTypes(ctx context.Context, request comm
 	return response, err
 }
 
-// ListSchedules This API gets a list of schedules
+// ListSchedules This API gets a list of schedules. You must provide either a compartmentId or a scheduleId or both. You can list resources in this compartment OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm). This is required unless a specific schedule ID is passed.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListSchedules.go.html to see an example of how to use ListSchedules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListSchedules.go.html to see an example of how to use ListSchedules API.
 // A default retry strategy applies to this operation ListSchedules()
 func (client ScheduleClient) ListSchedules(ctx context.Context, request ListSchedulesRequest) (response ListSchedulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -632,7 +696,7 @@ func (client ScheduleClient) listSchedules(ctx context.Context, request common.O
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
 // A default retry strategy applies to this operation ListWorkRequestErrors()
 func (client ScheduleClient) ListWorkRequestErrors(ctx context.Context, request ListWorkRequestErrorsRequest) (response ListWorkRequestErrorsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -690,7 +754,7 @@ func (client ScheduleClient) listWorkRequestErrors(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
 // A default retry strategy applies to this operation ListWorkRequestLogs()
 func (client ScheduleClient) ListWorkRequestLogs(ctx context.Context, request ListWorkRequestLogsRequest) (response ListWorkRequestLogsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -744,11 +808,11 @@ func (client ScheduleClient) listWorkRequestLogs(ctx context.Context, request co
 	return response, err
 }
 
-// ListWorkRequests Lists the cloud scheduler work requests in a compartment.
+// ListWorkRequests This API gets a list of work requests. You must provide either a compartmentId or a workRequestId or both. You can list work requests in this compartment OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm). This is required unless a specific workRequestId is passed.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
 // A default retry strategy applies to this operation ListWorkRequests()
 func (client ScheduleClient) ListWorkRequests(ctx context.Context, request ListWorkRequestsRequest) (response ListWorkRequestsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -806,7 +870,7 @@ func (client ScheduleClient) listWorkRequests(ctx context.Context, request commo
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/UpdateSchedule.go.html to see an example of how to use UpdateSchedule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/resourcescheduler/UpdateSchedule.go.html to see an example of how to use UpdateSchedule API.
 // A default retry strategy applies to this operation UpdateSchedule()
 func (client ScheduleClient) UpdateSchedule(ctx context.Context, request UpdateScheduleRequest) (response UpdateScheduleResponse, err error) {
 	var ociResponse common.OCIResponse

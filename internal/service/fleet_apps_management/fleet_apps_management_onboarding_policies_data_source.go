@@ -18,6 +18,10 @@ func FleetAppsManagementOnboardingPoliciesDataSource() *schema.Resource {
 		Read: readFleetAppsManagementOnboardingPolicies,
 		Schema: map[string]*schema.Schema{
 			"filter": tfresource.DataSourceFiltersSchema(),
+			"compartment_id": {
+				Type:     schema.TypeString,
+				Required: true,
+			},
 			"onboarding_policy_collection": {
 				Type:     schema.TypeList,
 				Computed: true,
@@ -93,6 +97,11 @@ func (s *FleetAppsManagementOnboardingPoliciesDataSourceCrud) VoidState() {
 func (s *FleetAppsManagementOnboardingPoliciesDataSourceCrud) Get() error {
 	request := oci_fleet_apps_management.ListOnboardingPoliciesRequest{}
 
+	if compartmentId, ok := s.D.GetOkExists("compartment_id"); ok {
+		tmp := compartmentId.(string)
+		request.CompartmentId = &tmp
+	}
+
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(false, "fleet_apps_management")
 
 	response, err := s.Client.ListOnboardingPolicies(context.Background(), request)
@@ -127,7 +136,7 @@ func (s *FleetAppsManagementOnboardingPoliciesDataSourceCrud) SetData() error {
 
 	items := []interface{}{}
 	for _, item := range s.Res.Items {
-		items = append(items, OnboardingPolicySummaryToMap(item))
+		items = append(items, OnboardingPolicySummaryToMap(&item))
 	}
 	onboardingPolicy["items"] = items
 
@@ -144,7 +153,7 @@ func (s *FleetAppsManagementOnboardingPoliciesDataSourceCrud) SetData() error {
 	return nil
 }
 
-func OnboardingPolicySummaryToMap(obj oci_fleet_apps_management.OnboardingPolicySummary) map[string]interface{} {
+func OnboardingPolicySummaryToMap(obj *oci_fleet_apps_management.OnboardingPolicySummary) map[string]interface{} {
 	result := map[string]interface{}{}
 
 	if obj.Id != nil {

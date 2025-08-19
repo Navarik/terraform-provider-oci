@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,24 +18,27 @@ type DataPumpTableExistsActionEnum string
 
 // Set of constants representing the allowable values for DataPumpTableExistsActionEnum
 const (
-	DataPumpTableExistsActionTruncate DataPumpTableExistsActionEnum = "TRUNCATE"
-	DataPumpTableExistsActionReplace  DataPumpTableExistsActionEnum = "REPLACE"
-	DataPumpTableExistsActionAppend   DataPumpTableExistsActionEnum = "APPEND"
-	DataPumpTableExistsActionSkip     DataPumpTableExistsActionEnum = "SKIP"
+	DataPumpTableExistsActionTruncate    DataPumpTableExistsActionEnum = "TRUNCATE"
+	DataPumpTableExistsActionReplace     DataPumpTableExistsActionEnum = "REPLACE"
+	DataPumpTableExistsActionAppend      DataPumpTableExistsActionEnum = "APPEND"
+	DataPumpTableExistsActionSkip        DataPumpTableExistsActionEnum = "SKIP"
+	DataPumpTableExistsActionUnspecified DataPumpTableExistsActionEnum = "UNSPECIFIED"
 )
 
 var mappingDataPumpTableExistsActionEnum = map[string]DataPumpTableExistsActionEnum{
-	"TRUNCATE": DataPumpTableExistsActionTruncate,
-	"REPLACE":  DataPumpTableExistsActionReplace,
-	"APPEND":   DataPumpTableExistsActionAppend,
-	"SKIP":     DataPumpTableExistsActionSkip,
+	"TRUNCATE":    DataPumpTableExistsActionTruncate,
+	"REPLACE":     DataPumpTableExistsActionReplace,
+	"APPEND":      DataPumpTableExistsActionAppend,
+	"SKIP":        DataPumpTableExistsActionSkip,
+	"UNSPECIFIED": DataPumpTableExistsActionUnspecified,
 }
 
 var mappingDataPumpTableExistsActionEnumLowerCase = map[string]DataPumpTableExistsActionEnum{
-	"truncate": DataPumpTableExistsActionTruncate,
-	"replace":  DataPumpTableExistsActionReplace,
-	"append":   DataPumpTableExistsActionAppend,
-	"skip":     DataPumpTableExistsActionSkip,
+	"truncate":    DataPumpTableExistsActionTruncate,
+	"replace":     DataPumpTableExistsActionReplace,
+	"append":      DataPumpTableExistsActionAppend,
+	"skip":        DataPumpTableExistsActionSkip,
+	"unspecified": DataPumpTableExistsActionUnspecified,
 }
 
 // GetDataPumpTableExistsActionEnumValues Enumerates the set of values for DataPumpTableExistsActionEnum
@@ -54,6 +57,7 @@ func GetDataPumpTableExistsActionEnumStringValues() []string {
 		"REPLACE",
 		"APPEND",
 		"SKIP",
+		"UNSPECIFIED",
 	}
 }
 

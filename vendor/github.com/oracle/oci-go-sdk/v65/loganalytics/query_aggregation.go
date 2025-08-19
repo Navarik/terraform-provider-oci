@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -27,6 +27,14 @@ type QueryAggregation struct {
 
 	// Number of rows matched by query.
 	TotalMatchedCount *int64 `mandatory:"false" json:"totalMatchedCount"`
+
+	// Number of groups created by query.
+	TotalGroupCount *int `mandatory:"false" json:"totalGroupCount"`
+
+	TimeFilter *TimeRange `mandatory:"false" json:"timeFilter"`
+
+	// List of recalls in the query.
+	Recalls []RecallDefinition `mandatory:"false" json:"recalls"`
 
 	// True if query did not complete processing all data.
 	ArePartialResults *bool `mandatory:"false" json:"arePartialResults"`
@@ -71,6 +79,9 @@ func (m *QueryAggregation) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
 		TotalCount             *int                     `json:"totalCount"`
 		TotalMatchedCount      *int64                   `json:"totalMatchedCount"`
+		TotalGroupCount        *int                     `json:"totalGroupCount"`
+		TimeFilter             *TimeRange               `json:"timeFilter"`
+		Recalls                []RecallDefinition       `json:"recalls"`
 		ArePartialResults      *bool                    `json:"arePartialResults"`
 		PartialResultReason    *string                  `json:"partialResultReason"`
 		IsContentHidden        *bool                    `json:"isContentHidden"`
@@ -90,6 +101,12 @@ func (m *QueryAggregation) UnmarshalJSON(data []byte) (e error) {
 
 	m.TotalMatchedCount = model.TotalMatchedCount
 
+	m.TotalGroupCount = model.TotalGroupCount
+
+	m.TimeFilter = model.TimeFilter
+
+	m.Recalls = make([]RecallDefinition, len(model.Recalls))
+	copy(m.Recalls, model.Recalls)
 	m.ArePartialResults = model.ArePartialResults
 
 	m.PartialResultReason = model.PartialResultReason

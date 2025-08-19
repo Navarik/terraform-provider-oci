@@ -22,6 +22,10 @@ func DatabaseDatabaseSoftwareImagesDataSource() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"db_system_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"display_name": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -75,6 +79,11 @@ func (s *DatabaseDatabaseSoftwareImagesDataSourceCrud) Get() error {
 	if compartmentId, ok := s.D.GetOkExists("compartment_id"); ok {
 		tmp := compartmentId.(string)
 		request.CompartmentId = &tmp
+	}
+
+	if dbSystemId, ok := s.D.GetOkExists("db_system_id"); ok {
+		tmp := dbSystemId.(string)
+		request.DbSystemId = &tmp
 	}
 
 	if displayName, ok := s.D.GetOkExists("display_name"); ok {
@@ -182,6 +191,10 @@ func (s *DatabaseDatabaseSoftwareImagesDataSourceCrud) SetData() error {
 		}
 
 		databaseSoftwareImage["state"] = r.LifecycleState
+
+		if r.SystemTags != nil {
+			databaseSoftwareImage["system_tags"] = tfresource.SystemTagsToMap(r.SystemTags)
+		}
 
 		if r.TimeCreated != nil {
 			databaseSoftwareImage["time_created"] = r.TimeCreated.String()

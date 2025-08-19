@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/goldengate/ListDeploymentVersions.go.html to see an example of how to use ListDeploymentVersionsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/goldengate/ListDeploymentVersions.go.html to see an example of how to use ListDeploymentVersionsRequest.
 type ListDeploymentVersionsRequest struct {
 
 	// The OCID of the compartment that contains the work request. Work requests should be scoped
@@ -24,7 +24,7 @@ type ListDeploymentVersionsRequest struct {
 	// to pick the primary resource whose compartment should be used.
 	CompartmentId *string `mandatory:"true" contributesTo:"query" name:"compartmentId"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the deployment in which to list resources.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the deployment in which to list resources.
 	DeploymentId *string `mandatory:"false" contributesTo:"query" name:"deploymentId"`
 
 	// The type of deployment, the value determines the exact 'type' of the service executed in the deployment. Default value is DATABASE_ORACLE.
@@ -138,6 +138,7 @@ const (
 	ListDeploymentVersionsDeploymentTypeDatabaseMysql              ListDeploymentVersionsDeploymentTypeEnum = "DATABASE_MYSQL"
 	ListDeploymentVersionsDeploymentTypeDatabasePostgresql         ListDeploymentVersionsDeploymentTypeEnum = "DATABASE_POSTGRESQL"
 	ListDeploymentVersionsDeploymentTypeDatabaseDb2zos             ListDeploymentVersionsDeploymentTypeEnum = "DATABASE_DB2ZOS"
+	ListDeploymentVersionsDeploymentTypeDatabaseDb2i               ListDeploymentVersionsDeploymentTypeEnum = "DATABASE_DB2I"
 	ListDeploymentVersionsDeploymentTypeGgsa                       ListDeploymentVersionsDeploymentTypeEnum = "GGSA"
 	ListDeploymentVersionsDeploymentTypeDataTransforms             ListDeploymentVersionsDeploymentTypeEnum = "DATA_TRANSFORMS"
 )
@@ -150,6 +151,7 @@ var mappingListDeploymentVersionsDeploymentTypeEnum = map[string]ListDeploymentV
 	"DATABASE_MYSQL":               ListDeploymentVersionsDeploymentTypeDatabaseMysql,
 	"DATABASE_POSTGRESQL":          ListDeploymentVersionsDeploymentTypeDatabasePostgresql,
 	"DATABASE_DB2ZOS":              ListDeploymentVersionsDeploymentTypeDatabaseDb2zos,
+	"DATABASE_DB2I":                ListDeploymentVersionsDeploymentTypeDatabaseDb2i,
 	"GGSA":                         ListDeploymentVersionsDeploymentTypeGgsa,
 	"DATA_TRANSFORMS":              ListDeploymentVersionsDeploymentTypeDataTransforms,
 }
@@ -162,6 +164,7 @@ var mappingListDeploymentVersionsDeploymentTypeEnumLowerCase = map[string]ListDe
 	"database_mysql":               ListDeploymentVersionsDeploymentTypeDatabaseMysql,
 	"database_postgresql":          ListDeploymentVersionsDeploymentTypeDatabasePostgresql,
 	"database_db2zos":              ListDeploymentVersionsDeploymentTypeDatabaseDb2zos,
+	"database_db2i":                ListDeploymentVersionsDeploymentTypeDatabaseDb2i,
 	"ggsa":                         ListDeploymentVersionsDeploymentTypeGgsa,
 	"data_transforms":              ListDeploymentVersionsDeploymentTypeDataTransforms,
 }
@@ -185,6 +188,7 @@ func GetListDeploymentVersionsDeploymentTypeEnumStringValues() []string {
 		"DATABASE_MYSQL",
 		"DATABASE_POSTGRESQL",
 		"DATABASE_DB2ZOS",
+		"DATABASE_DB2I",
 		"GGSA",
 		"DATA_TRANSFORMS",
 	}

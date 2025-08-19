@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -36,6 +36,9 @@ type FindingSummary struct {
 	// The short title for the finding.
 	Title *string `mandatory:"false" json:"title"`
 
+	// The category to which the finding belongs to.
+	Category *string `mandatory:"false" json:"category"`
+
 	// The explanation of the issue in this finding. It explains the reason for the rule and, if a risk is reported, it may also explain the recommended actions for remediation.
 	Remarks *string `mandatory:"false" json:"remarks"`
 
@@ -47,6 +50,9 @@ type FindingSummary struct {
 
 	// Provides a recommended approach to take to remediate the finding reported.
 	Oneline *string `mandatory:"false" json:"oneline"`
+
+	// Documentation link provided by Oracle that explains a specific security finding or check.
+	Doclink *string `mandatory:"false" json:"doclink"`
 
 	// Provides information on whether the finding is related to a CIS Oracle Database Benchmark recommendation, a STIG rule, or a GDPR Article/Recital.
 	References *References `mandatory:"false" json:"references"`

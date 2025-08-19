@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -33,7 +33,6 @@ func DatabaseManagementDatabaseDbmFeaturesManagementResource() *schema.Resource 
 			"database_id": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 			"enable_database_dbm_feature": {
 				Type:     schema.TypeBool,
@@ -43,7 +42,20 @@ func DatabaseManagementDatabaseDbmFeaturesManagementResource() *schema.Resource 
 				Type:     schema.TypeBool,
 				Optional: true,
 			},
-
+			"feature": {
+				Type:             schema.TypeString,
+				Optional:         true,
+				DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
+				ValidateFunc: validation.StringInSlice([]string{
+					"DB_LIFECYCLE_MANAGEMENT",
+					"DIAGNOSTICS_AND_MANAGEMENT",
+					"SQLWATCH",
+				}, true),
+			},
+			"can_disable_all_pdbs": {
+				Type:     schema.TypeBool,
+				Optional: true,
+			},
 			// Optional
 			"feature_details": {
 				Type:     schema.TypeList,
@@ -64,8 +76,6 @@ func DatabaseManagementDatabaseDbmFeaturesManagementResource() *schema.Resource 
 								"SQLWATCH",
 							}, true),
 						},
-
-						// Optional
 						"connector_details": {
 							Type:     schema.TypeList,
 							Optional: true,
@@ -211,6 +221,13 @@ func DatabaseManagementDatabaseDbmFeaturesManagementResource() *schema.Resource 
 							Type:     schema.TypeString,
 							Optional: true,
 						},
+						// Optional
+						"can_enable_all_current_pdbs": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+						},
 
 						// Computed
 					},
@@ -334,7 +351,7 @@ func databaseDbmFeaturesManagementWaitForWorkRequest(wId *string, entityType str
 	retryPolicy.ShouldRetryOperation = databaseDbmFeaturesManagementWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_database_management.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_database_management.WorkRequestStatusInProgress),
 			string(oci_database_management.WorkRequestStatusAccepted),
@@ -426,14 +443,6 @@ func (s *DatabaseManagementDatabaseDbmFeaturesManagementResourceCrud) Update() e
 }
 
 func (s *DatabaseManagementDatabaseDbmFeaturesManagementResourceCrud) Delete() error {
-	var operation bool
-	if enableOperation, ok := s.D.GetOkExists("enable_database_dbm_feature"); ok {
-		operation = enableOperation.(bool)
-	}
-	if !operation {
-		return nil
-	}
-
 	// default value
 	return disableCloudDBFeature(s)
 }
@@ -649,6 +658,10 @@ func (s *DatabaseManagementDatabaseDbmFeaturesManagementResourceCrud) mapToDatab
 		baseObject = details
 	case strings.ToLower("DIAGNOSTICS_AND_MANAGEMENT"):
 		details := oci_database_management.DatabaseDiagnosticsAndManagementFeatureDetails{}
+		if canEnableAllCurrentPdbs, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "can_enable_all_current_pdbs")); ok {
+			tmp := canEnableAllCurrentPdbs.(bool)
+			details.CanEnableAllCurrentPdbs = &tmp
+		}
 		if isAutoEnablePluggableDatabase, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_auto_enable_pluggable_database")); ok {
 			tmp := isAutoEnablePluggableDatabase.(bool)
 			details.IsAutoEnablePluggableDatabase = &tmp
@@ -679,6 +692,14 @@ func (s *DatabaseManagementDatabaseDbmFeaturesManagementResourceCrud) mapToDatab
 		baseObject = details
 	case strings.ToLower("SQLWATCH"):
 		details := oci_database_management.DatabaseSqlWatchFeatureDetails{}
+		if canEnableAllCurrentPdbs, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "can_enable_all_current_pdbs")); ok {
+			tmp := canEnableAllCurrentPdbs.(bool)
+			details.CanEnableAllCurrentPdbs = &tmp
+		}
+		if isAutoEnablePluggableDatabase, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_auto_enable_pluggable_database")); ok {
+			tmp := isAutoEnablePluggableDatabase.(bool)
+			details.IsAutoEnablePluggableDatabase = &tmp
+		}
 		if connectorDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "connector_details")); ok {
 			if tmpList := connectorDetails.([]interface{}); len(tmpList) > 0 {
 				fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "connector_details"), 0)
@@ -714,6 +735,10 @@ func DatabaseFeatureDetailsToMap(obj *oci_database_management.DatabaseFeatureDet
 	case oci_database_management.DatabaseDiagnosticsAndManagementFeatureDetails:
 		result["feature"] = "DIAGNOSTICS_AND_MANAGEMENT"
 
+		if v.CanEnableAllCurrentPdbs != nil {
+			result["can_enable_all_current_pdbs"] = bool(*v.CanEnableAllCurrentPdbs)
+		}
+
 		if v.IsAutoEnablePluggableDatabase != nil {
 			result["is_auto_enable_pluggable_database"] = bool(*v.IsAutoEnablePluggableDatabase)
 		}
@@ -721,6 +746,14 @@ func DatabaseFeatureDetailsToMap(obj *oci_database_management.DatabaseFeatureDet
 		result["management_type"] = string(v.ManagementType)
 	case oci_database_management.DatabaseSqlWatchFeatureDetails:
 		result["feature"] = "SQLWATCH"
+
+		if v.CanEnableAllCurrentPdbs != nil {
+			result["can_enable_all_current_pdbs"] = bool(*v.CanEnableAllCurrentPdbs)
+		}
+
+		if v.IsAutoEnablePluggableDatabase != nil {
+			result["is_auto_enable_pluggable_database"] = bool(*v.IsAutoEnablePluggableDatabase)
+		}
 	default:
 		log.Printf("[WARN] Received 'feature' of unknown type %v", *obj)
 		return nil
@@ -767,22 +800,18 @@ func enableCloudDBFeature(s *DatabaseManagementDatabaseDbmFeaturesManagementReso
 func disableCloudDBFeature(s *DatabaseManagementDatabaseDbmFeaturesManagementResourceCrud) error {
 	request := oci_database_management.DisableDatabaseManagementFeatureRequest{}
 
+	request.Feature = resolveFeatureForDBOperation(&s.BaseCrud)
+
 	if databaseId, ok := s.D.GetOkExists("database_id"); ok {
 		tmp := databaseId.(string)
 		request.DatabaseId = &tmp
 	}
 
-	if featureDetails, ok := s.D.GetOkExists("feature_details"); ok {
-		if tmpList := featureDetails.([]interface{}); len(tmpList) > 0 {
-			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "feature_details", 0)
-			featureRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "feature"))
-			if ok {
-				request.Feature = oci_database_management.DbManagementFeatureEnum(featureRaw.(string))
-			} else {
-				request.Feature = ""
-			}
-		}
+	if canDisableAllPdbs, ok := s.D.GetOkExists("can_disable_all_pdbs"); ok {
+		tmp := canDisableAllPdbs.(bool)
+		request.CanDisableAllPdbs = &tmp
 	}
+
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "database_management")
 
 	response, err := s.Client.DisableDatabaseManagementFeature(context.Background(), request)

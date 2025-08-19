@@ -17,9 +17,9 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	oci_apm_synthetics "github.com/oracle/oci-go-sdk/v65/apmsynthetics"
 	"github.com/oracle/oci-go-sdk/v65/common"
 
@@ -925,6 +925,7 @@ func TestApmSyntheticsScriptedBrowserMonitorResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "repeat_interval_in_seconds", "600"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_id"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_name"),
+				resource.TestCheckResourceAttr(resourceName, "content_type", "SIDE"),
 				resource.TestCheckResourceAttr(resourceName, "script_parameters.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_parameters.0.is_overwritten"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_parameters.0.is_secret"),
@@ -986,6 +987,7 @@ func TestApmSyntheticsScriptedBrowserMonitorResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "repeat_interval_in_seconds", "1200"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_id"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_name"),
+				resource.TestCheckResourceAttr(resourceName, "content_type", "SIDE"),
 				resource.TestCheckResourceAttr(resourceName, "script_parameters.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_parameters.0.is_overwritten"),
 				resource.TestCheckResourceAttrSet(resourceName, "script_parameters.0.is_secret"),
@@ -1063,6 +1065,7 @@ func TestApmSyntheticsScriptedBrowserMonitorResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(singularDatasourceName, "monitor_type", "SCRIPTED_BROWSER"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "repeat_interval_in_seconds", "1200"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "script_name"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "content_type", "SIDE"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "script_parameters.#", "1"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "script_parameters.0.is_overwritten"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "script_parameters.0.is_secret"),

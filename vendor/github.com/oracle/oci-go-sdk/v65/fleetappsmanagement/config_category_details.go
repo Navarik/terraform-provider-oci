@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -66,12 +66,20 @@ func (m *configcategorydetails) UnmarshalPolymorphicJSON(data []byte) (interface
 		mm := PatchTypeConfigCategoryDetails{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
+	case "LIFECYCLE_OPERATION":
+		mm := LifecycleOperationConfigCategoryDetails{}
+		err = json.Unmarshal(data, &mm)
+		return mm, err
 	case "PRODUCT":
 		mm := ProductConfigCategoryDetails{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
+	case "SELF_HOSTED_INSTANCE":
+		mm := SelfHostedInstanceConfigCategoryDetails{}
+		err = json.Unmarshal(data, &mm)
+		return mm, err
 	default:
-		common.Logf("Recieved unsupported enum value for ConfigCategoryDetails: %s.", m.ConfigCategory)
+		common.Logf("Received unsupported enum value for ConfigCategoryDetails: %s.", m.ConfigCategory)
 		return *m, nil
 	}
 }
@@ -97,27 +105,33 @@ type ConfigCategoryDetailsConfigCategoryEnum string
 
 // Set of constants representing the allowable values for ConfigCategoryDetailsConfigCategoryEnum
 const (
-	ConfigCategoryDetailsConfigCategoryProduct      ConfigCategoryDetailsConfigCategoryEnum = "PRODUCT"
-	ConfigCategoryDetailsConfigCategoryProductStack ConfigCategoryDetailsConfigCategoryEnum = "PRODUCT_STACK"
-	ConfigCategoryDetailsConfigCategoryEnvironment  ConfigCategoryDetailsConfigCategoryEnum = "ENVIRONMENT"
-	ConfigCategoryDetailsConfigCategoryPatchType    ConfigCategoryDetailsConfigCategoryEnum = "PATCH_TYPE"
-	ConfigCategoryDetailsConfigCategoryCredential   ConfigCategoryDetailsConfigCategoryEnum = "CREDENTIAL"
+	ConfigCategoryDetailsConfigCategoryProduct            ConfigCategoryDetailsConfigCategoryEnum = "PRODUCT"
+	ConfigCategoryDetailsConfigCategoryProductStack       ConfigCategoryDetailsConfigCategoryEnum = "PRODUCT_STACK"
+	ConfigCategoryDetailsConfigCategoryEnvironment        ConfigCategoryDetailsConfigCategoryEnum = "ENVIRONMENT"
+	ConfigCategoryDetailsConfigCategoryPatchType          ConfigCategoryDetailsConfigCategoryEnum = "PATCH_TYPE"
+	ConfigCategoryDetailsConfigCategoryCredential         ConfigCategoryDetailsConfigCategoryEnum = "CREDENTIAL"
+	ConfigCategoryDetailsConfigCategorySelfHostedInstance ConfigCategoryDetailsConfigCategoryEnum = "SELF_HOSTED_INSTANCE"
+	ConfigCategoryDetailsConfigCategoryLifecycleOperation ConfigCategoryDetailsConfigCategoryEnum = "LIFECYCLE_OPERATION"
 )
 
 var mappingConfigCategoryDetailsConfigCategoryEnum = map[string]ConfigCategoryDetailsConfigCategoryEnum{
-	"PRODUCT":       ConfigCategoryDetailsConfigCategoryProduct,
-	"PRODUCT_STACK": ConfigCategoryDetailsConfigCategoryProductStack,
-	"ENVIRONMENT":   ConfigCategoryDetailsConfigCategoryEnvironment,
-	"PATCH_TYPE":    ConfigCategoryDetailsConfigCategoryPatchType,
-	"CREDENTIAL":    ConfigCategoryDetailsConfigCategoryCredential,
+	"PRODUCT":              ConfigCategoryDetailsConfigCategoryProduct,
+	"PRODUCT_STACK":        ConfigCategoryDetailsConfigCategoryProductStack,
+	"ENVIRONMENT":          ConfigCategoryDetailsConfigCategoryEnvironment,
+	"PATCH_TYPE":           ConfigCategoryDetailsConfigCategoryPatchType,
+	"CREDENTIAL":           ConfigCategoryDetailsConfigCategoryCredential,
+	"SELF_HOSTED_INSTANCE": ConfigCategoryDetailsConfigCategorySelfHostedInstance,
+	"LIFECYCLE_OPERATION":  ConfigCategoryDetailsConfigCategoryLifecycleOperation,
 }
 
 var mappingConfigCategoryDetailsConfigCategoryEnumLowerCase = map[string]ConfigCategoryDetailsConfigCategoryEnum{
-	"product":       ConfigCategoryDetailsConfigCategoryProduct,
-	"product_stack": ConfigCategoryDetailsConfigCategoryProductStack,
-	"environment":   ConfigCategoryDetailsConfigCategoryEnvironment,
-	"patch_type":    ConfigCategoryDetailsConfigCategoryPatchType,
-	"credential":    ConfigCategoryDetailsConfigCategoryCredential,
+	"product":              ConfigCategoryDetailsConfigCategoryProduct,
+	"product_stack":        ConfigCategoryDetailsConfigCategoryProductStack,
+	"environment":          ConfigCategoryDetailsConfigCategoryEnvironment,
+	"patch_type":           ConfigCategoryDetailsConfigCategoryPatchType,
+	"credential":           ConfigCategoryDetailsConfigCategoryCredential,
+	"self_hosted_instance": ConfigCategoryDetailsConfigCategorySelfHostedInstance,
+	"lifecycle_operation":  ConfigCategoryDetailsConfigCategoryLifecycleOperation,
 }
 
 // GetConfigCategoryDetailsConfigCategoryEnumValues Enumerates the set of values for ConfigCategoryDetailsConfigCategoryEnum
@@ -137,6 +151,8 @@ func GetConfigCategoryDetailsConfigCategoryEnumStringValues() []string {
 		"ENVIRONMENT",
 		"PATCH_TYPE",
 		"CREDENTIAL",
+		"SELF_HOSTED_INSTANCE",
+		"LIFECYCLE_OPERATION",
 	}
 }
 

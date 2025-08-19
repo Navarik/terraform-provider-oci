@@ -143,6 +143,13 @@ func (s *CoreIpv6sDataSourceCrud) SetData() error {
 			ipv6["vnic_id"] = *r.VnicId
 		}
 
+		if r.RouteTableId != nil {
+			ipv6["route_table_id"] = *r.RouteTableId
+		}
+
+		ipv6["ip_state"] = r.IpState
+		ipv6["lifetime"] = r.Lifetime
+
 		resources = append(resources, ipv6)
 	}
 

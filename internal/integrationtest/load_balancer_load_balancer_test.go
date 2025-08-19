@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_load_balancer "github.com/oracle/oci-go-sdk/v65/loadbalancer"
 
@@ -53,7 +53,9 @@ var (
 		// "defined_tags": acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
 
 		"freeform_tags":                acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
+		"ipv6subnet_cidr":              acctest.Representation{RepType: acctest.Optional, Create: `ipv6SubnetCidr`},
 		"is_private":                   acctest.Representation{RepType: acctest.Optional, Create: `false`},
+		"security_attributes":          acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"oracle-zpr.sa-test-lbaas.mode": "enforce", "oracle-zpr.sa-test-lbaas.value": "create-zpr-tersi-lbaas"}, Update: map[string]string{"oracle-zpr.sa-test-lbaas.value": "update-zpr-tersi-lbaas", "oracle-zpr.sa-test-lbaas.mode": "enforce"}},
 		"is_request_id_enabled":        acctest.Representation{RepType: acctest.Optional, Create: `true`, Update: `true`},
 		"request_id_header":            acctest.Representation{RepType: acctest.Optional, Create: ``, Update: `X-MyRequestB-Id`},
 		"is_delete_protection_enabled": acctest.Representation{RepType: acctest.Optional, Create: `false`, Update: `true`},
@@ -206,11 +208,15 @@ func TestLoadBalancerLoadBalancerResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "display_name", "example_load_balancer"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttr(resourceName, "ipv6subnet_cidr", "ipv6SubnetCidr"),
 				resource.TestCheckResourceAttr(resourceName, "is_delete_protection_enabled", "false"),
 				resource.TestCheckResourceAttr(resourceName, "is_private", "false"),
 				resource.TestCheckResourceAttr(resourceName, "is_request_id_enabled", "true"),
 				resource.TestCheckResourceAttr(resourceName, "request_id_header", "X-Request-Id"),
 				resource.TestCheckResourceAttr(resourceName, "reserved_ips.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "2"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.sa-test-lbaas.value", "create-zpr-tersi-lbaas"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.sa-test-lbaas.mode", "enforce"),
 				resource.TestCheckResourceAttrSet(resourceName, "reserved_ips.0.id"),
 				resource.TestCheckResourceAttr(resourceName, "network_security_group_ids.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "shape", "100Mbps"),
@@ -242,11 +248,14 @@ func TestLoadBalancerLoadBalancerResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "display_name", "example_load_balancer"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttr(resourceName, "ipv6subnet_cidr", "ipv6SubnetCidr"),
 				resource.TestCheckResourceAttr(resourceName, "is_delete_protection_enabled", "false"),
 				resource.TestCheckResourceAttr(resourceName, "is_private", "false"),
 				resource.TestCheckResourceAttr(resourceName, "is_request_id_enabled", "true"),
 				resource.TestCheckResourceAttr(resourceName, "request_id_header", "X-Request-Id"),
 				resource.TestCheckResourceAttr(resourceName, "reserved_ips.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "2"),
+
 				resource.TestCheckResourceAttrSet(resourceName, "reserved_ips.0.id"),
 				resource.TestCheckResourceAttr(resourceName, "shape", "100Mbps"),
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
@@ -272,11 +281,15 @@ func TestLoadBalancerLoadBalancerResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "display_name", "displayName2"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttr(resourceName, "ipv6subnet_cidr", "ipv6SubnetCidr"),
 				resource.TestCheckResourceAttr(resourceName, "is_delete_protection_enabled", "true"),
 				resource.TestCheckResourceAttr(resourceName, "is_private", "false"),
 				resource.TestCheckResourceAttr(resourceName, "is_request_id_enabled", "true"),
 				resource.TestCheckResourceAttr(resourceName, "request_id_header", "X-MyRequestB-Id"),
 				resource.TestCheckResourceAttr(resourceName, "reserved_ips.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "2"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.sa-test-lbaas.value", "update-zpr-tersi-lbaas"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.sa-test-lbaas.mode", "enforce"),
 				resource.TestCheckResourceAttr(resourceName, "shape", "400Mbps"),
 				resource.TestCheckResourceAttrSet(resourceName, "reserved_ips.0.id"),
 				resource.TestCheckResourceAttr(resourceName, "network_security_group_ids.#", "0"),
@@ -315,6 +328,7 @@ func TestLoadBalancerLoadBalancerResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "load_balancers.0.is_private", "false"),
 				resource.TestCheckResourceAttr(datasourceName, "load_balancers.0.network_security_group_ids.#", "0"),
 				resource.TestCheckResourceAttr(datasourceName, "load_balancers.0.is_request_id_enabled", "true"),
+				resource.TestCheckResourceAttr(datasourceName, "load_balancers.0.security_attributes.%", "2"),
 				resource.TestCheckResourceAttr(datasourceName, "load_balancers.0.request_id_header", "X-MyRequestB-Id"),
 				resource.TestCheckResourceAttr(datasourceName, "load_balancers.0.shape", "400Mbps"),
 				resource.TestCheckResourceAttrSet(datasourceName, "load_balancers.0.state"),
@@ -329,6 +343,7 @@ func TestLoadBalancerLoadBalancerResource_basic(t *testing.T) {
 			ImportStateVerify: true,
 			ImportStateVerifyIgnore: []string{
 				"ip_mode",
+				"ipv6subnet_cidr",
 				"reserved_ips",
 			},
 			ResourceName: resourceName,

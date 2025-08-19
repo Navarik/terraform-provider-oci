@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -50,12 +50,16 @@ func (m *contentdetails) UnmarshalPolymorphicJSON(data []byte) (interface{}, err
 
 	var err error
 	switch m.SourceType {
+	case "CATALOG":
+		mm := CatalogContentDetails{}
+		err = json.Unmarshal(data, &mm)
+		return mm, err
 	case "OBJECT_STORAGE_BUCKET":
 		mm := ObjectStorageBucketContentDetails{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
 	default:
-		common.Logf("Recieved unsupported enum value for ContentDetails: %s.", m.SourceType)
+		common.Logf("Received unsupported enum value for ContentDetails: %s.", m.SourceType)
 		return *m, nil
 	}
 }
@@ -82,14 +86,17 @@ type ContentDetailsSourceTypeEnum string
 // Set of constants representing the allowable values for ContentDetailsSourceTypeEnum
 const (
 	ContentDetailsSourceTypeObjectStorageBucket ContentDetailsSourceTypeEnum = "OBJECT_STORAGE_BUCKET"
+	ContentDetailsSourceTypeCatalog             ContentDetailsSourceTypeEnum = "CATALOG"
 )
 
 var mappingContentDetailsSourceTypeEnum = map[string]ContentDetailsSourceTypeEnum{
 	"OBJECT_STORAGE_BUCKET": ContentDetailsSourceTypeObjectStorageBucket,
+	"CATALOG":               ContentDetailsSourceTypeCatalog,
 }
 
 var mappingContentDetailsSourceTypeEnumLowerCase = map[string]ContentDetailsSourceTypeEnum{
 	"object_storage_bucket": ContentDetailsSourceTypeObjectStorageBucket,
+	"catalog":               ContentDetailsSourceTypeCatalog,
 }
 
 // GetContentDetailsSourceTypeEnumValues Enumerates the set of values for ContentDetailsSourceTypeEnum
@@ -105,6 +112,7 @@ func GetContentDetailsSourceTypeEnumValues() []ContentDetailsSourceTypeEnum {
 func GetContentDetailsSourceTypeEnumStringValues() []string {
 	return []string{
 		"OBJECT_STORAGE_BUCKET",
+		"CATALOG",
 	}
 }
 

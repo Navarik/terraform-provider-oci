@@ -66,19 +66,11 @@ func (s *FleetAppsManagementSchedulerDefinitionDataSourceCrud) SetData() error {
 
 	s.D.SetId(*s.Res.Id)
 
-	s.D.Set("action_group_types", s.Res.ActionGroupTypes)
-
 	actionGroups := []interface{}{}
 	for _, item := range s.Res.ActionGroups {
 		actionGroups = append(actionGroups, ActionGroupToMap(item))
 	}
 	s.D.Set("action_groups", actionGroups)
-
-	if s.Res.ActivityInitiationCutOff != nil {
-		s.D.Set("activity_initiation_cut_off", *s.Res.ActivityInitiationCutOff)
-	}
-
-	s.D.Set("application_types", s.Res.ApplicationTypes)
 
 	if s.Res.CompartmentId != nil {
 		s.D.Set("compartment_id", *s.Res.CompartmentId)
@@ -131,7 +123,11 @@ func (s *FleetAppsManagementSchedulerDefinitionDataSourceCrud) SetData() error {
 	s.D.Set("run_books", runBooks)
 
 	if s.Res.Schedule != nil {
-		s.D.Set("schedule", []interface{}{ScheduleToMap(s.Res.Schedule)})
+		scheduleArray := []interface{}{}
+		if scheduleMap := ScheduleToMap(&s.Res.Schedule); scheduleMap != nil {
+			scheduleArray = append(scheduleArray, scheduleMap)
+		}
+		s.D.Set("schedule", scheduleArray)
 	} else {
 		s.D.Set("schedule", nil)
 	}

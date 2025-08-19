@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,13 +18,13 @@ import (
 // LogAnalyticsObjectCollectionRule The configuration details of an Object Storage based collection rule.
 type LogAnalyticsObjectCollectionRule struct {
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of this rule.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of this rule.
 	Id *string `mandatory:"true" json:"id"`
 
 	// A unique name to the rule. The name must be unique, within the tenancy, and cannot be changed.
 	Name *string `mandatory:"true" json:"name"`
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to which this rule belongs.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to which this rule belongs.
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// Object Storage namespace.
@@ -113,6 +113,24 @@ type LogAnalyticsObjectCollectionRule struct {
 	// Flag to allow historic collection if poll period overlaps with existing ACTIVE collection rule
 	IsForceHistoricCollection *bool `mandatory:"false" json:"isForceHistoricCollection"`
 
+	// A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE, which will be used by Logging Analytics while creating Event Rule and consume the event notifications created by the Object Storage.
+	StreamId *string `mandatory:"false" json:"streamId"`
+
+	// Cursor type used to fetch messages from stream.
+	// When the streamCursorType is set to DEFAULT, the existing cursor position will be used if already set by any previous objection collection rule(s) using the same stream.
+	// Otherwise, the behaviour is to consume from the oldest available message in the stream.
+	// When the streamCursorType is set to TRIM_HORIZON, the behaviour is to start consuming from the oldest available message in the stream.
+	// When the streamCursorType is set to LATEST, the behavior is to start consuming messages that were published after the creation of this rule.
+	// When the streamCursorType is set to AT_TIME, the behavior is to start consuming from a given time.
+	// For more information on cursor types, see Stream Consumer Groups (https://docs.oracle.com/en-us/iaas/Content/Streaming/Tasks/using_consumer_groups.htm).
+	StreamCursorType StreamCursorTypesEnum `mandatory:"false" json:"streamCursorType,omitempty"`
+
+	// The time from which to consume the objects, if streamCursorType is AT_TIME.
+	StreamCursorTime *common.SDKTime `mandatory:"false" json:"streamCursorTime"`
+
+	// Last Collected Object for the rule
+	LastCollectedObject *string `mandatory:"false" json:"lastCollectedObject"`
+
 	// Defined tags for this resource. Each key is predefined and scoped to a namespace.
 	// Example: `{"foo-namespace": {"bar-key": "value"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
@@ -143,6 +161,9 @@ func (m LogAnalyticsObjectCollectionRule) ValidateEnumValue() (bool, error) {
 	}
 	if _, ok := GetMappingLogTypesEnum(string(m.LogType)); !ok && m.LogType != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LogType: %s. Supported values are: %s.", m.LogType, strings.Join(GetLogTypesEnumStringValues(), ",")))
+	}
+	if _, ok := GetMappingStreamCursorTypesEnum(string(m.StreamCursorType)); !ok && m.StreamCursorType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for StreamCursorType: %s. Supported values are: %s.", m.StreamCursorType, strings.Join(GetStreamCursorTypesEnumStringValues(), ",")))
 	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))

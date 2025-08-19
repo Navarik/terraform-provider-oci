@@ -142,6 +142,13 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"clone_table_space_list": {
+							Type:     schema.TypeList,
+							Computed: true,
+							Elem: &schema.Schema{
+								Type: schema.TypeInt,
+							},
+						},
 						"cluster_placement_group_id": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -577,6 +584,10 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 							Type:     schema.TypeBool,
 							Computed: true,
 						},
+						"is_backup_retention_locked": {
+							Type:     schema.TypeBool,
+							Computed: true,
+						},
 						"is_data_guard_enabled": {
 							Type:     schema.TypeBool,
 							Computed: true,
@@ -704,6 +715,10 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
+									"maintenance_target_component": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
 									"state": {
 										Type:     schema.TypeString,
 										Computed: true,
@@ -713,6 +728,14 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 										Computed: true,
 									},
 									"time_disaster_recovery_role_changed": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"time_maintenance_begin": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"time_maintenance_end": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -751,6 +774,10 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 									},
 								},
 							},
+						},
+						"maintenance_target_component": {
+							Type:     schema.TypeString,
+							Computed: true,
 						},
 						"max_cpu_core_count": {
 							Type:     schema.TypeInt,
@@ -962,6 +989,11 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 								},
 							},
 						},
+						"security_attributes": {
+							Type:     schema.TypeMap,
+							Computed: true,
+							Elem:     schema.TypeString,
+						},
 						"service_console_url": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -992,6 +1024,10 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
+									"maintenance_target_component": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
 									"state": {
 										Type:     schema.TypeString,
 										Computed: true,
@@ -1001,6 +1037,14 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 										Computed: true,
 									},
 									"time_disaster_recovery_role_changed": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"time_maintenance_begin": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"time_maintenance_end": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -1054,6 +1098,14 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"time_earliest_available_db_version_upgrade": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"time_latest_available_db_version_upgrade": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"time_local_data_guard_enabled": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -1095,6 +1147,10 @@ func DatabaseAutonomousDatabasesClonesDataSource() *schema.Resource {
 							Computed: true,
 						},
 						"time_reclamation_of_free_autonomous_database": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"time_scheduled_db_version_upgrade": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
@@ -1272,6 +1328,8 @@ func (s *DatabaseAutonomousDatabasesClonesDataSourceCrud) SetData() error {
 			autonomousDatabasesClone["character_set"] = *r.CharacterSet
 		}
 
+		autonomousDatabasesClone["clone_table_space_list"] = r.CloneTableSpaceList
+
 		if r.ClusterPlacementGroupId != nil {
 			autonomousDatabasesClone["cluster_placement_group_id"] = *r.ClusterPlacementGroupId
 		}
@@ -1394,6 +1452,10 @@ func (s *DatabaseAutonomousDatabasesClonesDataSourceCrud) SetData() error {
 			autonomousDatabasesClone["is_auto_scaling_for_storage_enabled"] = *r.IsAutoScalingForStorageEnabled
 		}
 
+		if r.IsBackupRetentionLocked != nil {
+			autonomousDatabasesClone["is_backup_retention_locked"] = *r.IsBackupRetentionLocked
+		}
+
 		if r.IsDataGuardEnabled != nil {
 			autonomousDatabasesClone["is_data_guard_enabled"] = *r.IsDataGuardEnabled
 		}
@@ -1484,9 +1546,20 @@ func (s *DatabaseAutonomousDatabasesClonesDataSourceCrud) SetData() error {
 			autonomousDatabasesClone["long_term_backup_schedule"] = nil
 		}
 
+		if r.MaintenanceTargetComponent != nil {
+			autonomousDatabasesClone["maintenance_target_component"] = *r.MaintenanceTargetComponent
+		}
+		//if r.MaxCpuCoreCount != nil {
+		//	autonomousDatabasesClone["max_cpu_core_count"] = *r.MaxCpuCoreCount
+		//}
+
 		if r.MemoryPerOracleComputeUnitInGBs != nil {
 			autonomousDatabasesClone["memory_per_oracle_compute_unit_in_gbs"] = *r.MemoryPerOracleComputeUnitInGBs
 		}
+
+		//if r.MaxCpuCoreCount != nil {
+		//	autonomousDatabasesClone["max_cpu_core_count"] = *r.MaxCpuCoreCount
+		//}
 
 		if r.NcharacterSet != nil {
 			autonomousDatabasesClone["ncharacter_set"] = *r.NcharacterSet
@@ -1560,6 +1633,8 @@ func (s *DatabaseAutonomousDatabasesClonesDataSourceCrud) SetData() error {
 		}
 		autonomousDatabasesClone["scheduled_operations"] = scheduledOperations
 
+		autonomousDatabasesClone["security_attributes"] = tfresource.SecurityAttributesToMap(r.SecurityAttributes)
+
 		if r.ServiceConsoleUrl != nil {
 			autonomousDatabasesClone["service_console_url"] = *r.ServiceConsoleUrl
 		}
@@ -1608,6 +1683,14 @@ func (s *DatabaseAutonomousDatabasesClonesDataSourceCrud) SetData() error {
 			autonomousDatabasesClone["time_disaster_recovery_role_changed"] = r.TimeDisasterRecoveryRoleChanged.String()
 		}
 
+		if r.TimeEarliestAvailableDbVersionUpgrade != nil {
+			autonomousDatabasesClone["time_earliest_available_db_version_upgrade"] = r.TimeEarliestAvailableDbVersionUpgrade.String()
+		}
+
+		if r.TimeLatestAvailableDbVersionUpgrade != nil {
+			autonomousDatabasesClone["time_latest_available_db_version_upgrade"] = r.TimeLatestAvailableDbVersionUpgrade.String()
+		}
+
 		if r.TimeLocalDataGuardEnabled != nil {
 			autonomousDatabasesClone["time_local_data_guard_enabled"] = r.TimeLocalDataGuardEnabled.String()
 		}
@@ -1650,6 +1733,10 @@ func (s *DatabaseAutonomousDatabasesClonesDataSourceCrud) SetData() error {
 
 		if r.TimeReclamationOfFreeAutonomousDatabase != nil {
 			autonomousDatabasesClone["time_reclamation_of_free_autonomous_database"] = r.TimeReclamationOfFreeAutonomousDatabase.String()
+		}
+
+		if r.TimeScheduledDbVersionUpgrade != nil {
+			autonomousDatabasesClone["time_scheduled_db_version_upgrade"] = r.TimeScheduledDbVersionUpgrade.String()
 		}
 
 		if r.TimeUndeleted != nil {

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,19 +18,19 @@ import (
 // CreatePropertyDetails The information about new Property.
 type CreatePropertyDetails struct {
 
-	// Tenancy OCID
+	// Compartment OCID
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
+
+	// A user-friendly name. Does not have to be unique, and it's changeable.
+	// Avoid entering confidential information.
+	// Example: `My new resource`
+	DisplayName *string `mandatory:"true" json:"displayName"`
 
 	// Text selection of the property.
 	Selection SelectionEnum `mandatory:"true" json:"selection"`
 
 	// Format of the value.
 	ValueType ValueTypeEnum `mandatory:"true" json:"valueType"`
-
-	// A user-friendly name. Does not have to be unique, and it's changeable.
-	// Avoid entering confidential information.
-	// Example: `My new resource`
-	DisplayName *string `mandatory:"false" json:"displayName"`
 
 	// Values of the property (must be a single value if selection = 'SINGLE_CHOICE').
 	Values []string `mandatory:"false" json:"values"`

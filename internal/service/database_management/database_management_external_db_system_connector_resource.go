@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -392,7 +392,7 @@ func externalDbSystemConnectorWaitForWorkRequest(wId *string, entityType string,
 	retryPolicy.ShouldRetryOperation = externalDbSystemConnectorWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_database_management.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_database_management.WorkRequestStatusInProgress),
 			string(oci_database_management.WorkRequestStatusAccepted),
@@ -692,25 +692,6 @@ func (s *DatabaseManagementExternalDbSystemConnectorResourceCrud) mapToAsmConnec
 	}
 
 	return result, nil
-}
-
-func AsmConnectionStringToMap(obj *oci_database_management.AsmConnectionString) map[string]interface{} {
-	result := map[string]interface{}{}
-
-	result["hosts"] = obj.Hosts
-	result["hosts"] = obj.Hosts
-
-	if obj.Port != nil {
-		result["port"] = int(*obj.Port)
-	}
-
-	result["protocol"] = string(obj.Protocol)
-
-	if obj.Service != nil {
-		result["service"] = string(*obj.Service)
-	}
-
-	return result
 }
 
 func (s *DatabaseManagementExternalDbSystemConnectorResourceCrud) mapToDatabaseConnectionCredentials(fieldKeyFormat string) (oci_database_management.DatabaseConnectionCredentials, error) {

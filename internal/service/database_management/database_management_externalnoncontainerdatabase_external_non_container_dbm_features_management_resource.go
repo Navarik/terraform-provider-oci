@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -63,6 +63,12 @@ func DatabaseManagementExternalnoncontainerdatabaseExternalNonContainerDbmFeatur
 						},
 
 						// Optional
+						"can_enable_all_current_pdbs": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+						},
 						"connector_details": {
 							Type:     schema.TypeList,
 							Optional: true,
@@ -109,6 +115,12 @@ func DatabaseManagementExternalnoncontainerdatabaseExternalNonContainerDbmFeatur
 									// Computed
 								},
 							},
+						},
+						"is_auto_enable_pluggable_database": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
 						},
 						"license_model": {
 							Type:     schema.TypeString,
@@ -286,7 +298,7 @@ func externalnoncontainerdatabaseExternalNonContainerDbmFeaturesManagementWaitFo
 	retryPolicy.ShouldRetryOperation = externalnoncontainerdatabaseExternalNonContainerDbmFeaturesManagementWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_database_management.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_database_management.WorkRequestStatusInProgress),
 			string(oci_database_management.WorkRequestStatusAccepted),
@@ -553,6 +565,14 @@ func (s *DatabaseManagementExternalnoncontainerdatabaseExternalNonContainerDbmFe
 		baseObject = details
 	case strings.ToLower("DIAGNOSTICS_AND_MANAGEMENT"):
 		details := oci_database_management.ExternalDatabaseDiagnosticsAndManagementFeatureDetails{}
+		if canEnableAllCurrentPdbs, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "can_enable_all_current_pdbs")); ok {
+			tmp := canEnableAllCurrentPdbs.(bool)
+			details.CanEnableAllCurrentPdbs = &tmp
+		}
+		if isAutoEnablePluggableDatabase, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_auto_enable_pluggable_database")); ok {
+			tmp := isAutoEnablePluggableDatabase.(bool)
+			details.IsAutoEnablePluggableDatabase = &tmp
+		}
 		if licenseModel, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "license_model")); ok {
 			details.LicenseModel = oci_database_management.ExternalDatabaseDiagnosticsAndManagementFeatureDetailsLicenseModelEnum(licenseModel.(string))
 		}

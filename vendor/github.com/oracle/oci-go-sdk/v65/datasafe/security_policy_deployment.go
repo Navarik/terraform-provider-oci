@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -27,7 +27,7 @@ type SecurityPolicyDeployment struct {
 	// The display name of the security policy deployment.
 	DisplayName *string `mandatory:"true" json:"displayName"`
 
-	// The OCID of the target where the security policy is deployed.
+	// The OCID of the target/target group where the security policy is deployed.
 	TargetId *string `mandatory:"true" json:"targetId"`
 
 	// The OCID of the security policy corresponding to the security policy deployment.
@@ -42,17 +42,23 @@ type SecurityPolicyDeployment struct {
 	// The description of the security policy deployment.
 	Description *string `mandatory:"false" json:"description"`
 
+	// Indicates whether the security policy deployment is for a target database or a target database group.
+	TargetType SecurityPolicyDeploymentTargetTypeEnum `mandatory:"false" json:"targetType,omitempty"`
+
+	// The last date and time the security policy was deployed, in the format defined by RFC3339.
+	TimeDeployed *common.SDKTime `mandatory:"false" json:"timeDeployed"`
+
 	// The last date and time the security policy deployment was updated, in the format defined by RFC3339.
 	TimeUpdated *common.SDKTime `mandatory:"false" json:"timeUpdated"`
 
 	// Details about the current state of the security policy deployment in Data Safe.
 	LifecycleDetails *string `mandatory:"false" json:"lifecycleDetails"`
 
-	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Department": "Finance"}`
 	FreeformTags map[string]string `mandatory:"false" json:"freeformTags"`
 
-	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Operations": {"CostCenter": "42"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
 
@@ -74,8 +80,53 @@ func (m SecurityPolicyDeployment) ValidateEnumValue() (bool, error) {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LifecycleState: %s. Supported values are: %s.", m.LifecycleState, strings.Join(GetSecurityPolicyDeploymentLifecycleStateEnumStringValues(), ",")))
 	}
 
+	if _, ok := GetMappingSecurityPolicyDeploymentTargetTypeEnum(string(m.TargetType)); !ok && m.TargetType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TargetType: %s. Supported values are: %s.", m.TargetType, strings.Join(GetSecurityPolicyDeploymentTargetTypeEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
 	return false, nil
+}
+
+// SecurityPolicyDeploymentTargetTypeEnum Enum with underlying type: string
+type SecurityPolicyDeploymentTargetTypeEnum string
+
+// Set of constants representing the allowable values for SecurityPolicyDeploymentTargetTypeEnum
+const (
+	SecurityPolicyDeploymentTargetTypeDatabase      SecurityPolicyDeploymentTargetTypeEnum = "TARGET_DATABASE"
+	SecurityPolicyDeploymentTargetTypeDatabaseGroup SecurityPolicyDeploymentTargetTypeEnum = "TARGET_DATABASE_GROUP"
+)
+
+var mappingSecurityPolicyDeploymentTargetTypeEnum = map[string]SecurityPolicyDeploymentTargetTypeEnum{
+	"TARGET_DATABASE":       SecurityPolicyDeploymentTargetTypeDatabase,
+	"TARGET_DATABASE_GROUP": SecurityPolicyDeploymentTargetTypeDatabaseGroup,
+}
+
+var mappingSecurityPolicyDeploymentTargetTypeEnumLowerCase = map[string]SecurityPolicyDeploymentTargetTypeEnum{
+	"target_database":       SecurityPolicyDeploymentTargetTypeDatabase,
+	"target_database_group": SecurityPolicyDeploymentTargetTypeDatabaseGroup,
+}
+
+// GetSecurityPolicyDeploymentTargetTypeEnumValues Enumerates the set of values for SecurityPolicyDeploymentTargetTypeEnum
+func GetSecurityPolicyDeploymentTargetTypeEnumValues() []SecurityPolicyDeploymentTargetTypeEnum {
+	values := make([]SecurityPolicyDeploymentTargetTypeEnum, 0)
+	for _, v := range mappingSecurityPolicyDeploymentTargetTypeEnum {
+		values = append(values, v)
+	}
+	return values
+}
+
+// GetSecurityPolicyDeploymentTargetTypeEnumStringValues Enumerates the set of values in String for SecurityPolicyDeploymentTargetTypeEnum
+func GetSecurityPolicyDeploymentTargetTypeEnumStringValues() []string {
+	return []string{
+		"TARGET_DATABASE",
+		"TARGET_DATABASE_GROUP",
+	}
+}
+
+// GetMappingSecurityPolicyDeploymentTargetTypeEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingSecurityPolicyDeploymentTargetTypeEnum(val string) (SecurityPolicyDeploymentTargetTypeEnum, bool) {
+	enum, ok := mappingSecurityPolicyDeploymentTargetTypeEnumLowerCase[strings.ToLower(val)]
+	return enum, ok
 }

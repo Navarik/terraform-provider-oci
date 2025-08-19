@@ -10,13 +10,15 @@ description: |-
 # Data Source: oci_fleet_apps_management_onboarding_policies
 This data source provides the list of Onboarding Policies in Oracle Cloud Infrastructure Fleet Apps Management service.
 
-Returns a list of onboarding policy information for FAMS.
+Returns a list of onboarding policy information for Fleet Application Management.
 
 
 ## Example Usage
 
 ```hcl
 data "oci_fleet_apps_management_onboarding_policies" "test_onboarding_policies" {
+	#Required
+	compartment_id = var.compartment_id
 }
 ```
 
@@ -24,6 +26,7 @@ data "oci_fleet_apps_management_onboarding_policies" "test_onboarding_policies" 
 
 The following arguments are supported:
 
+* `compartment_id` - (Required) The ID of the compartment in which to list resources.
 
 
 ## Attributes Reference
@@ -36,7 +39,7 @@ The following attributes are exported:
 
 The following attributes are exported:
 
-* `items` - List of FleetAppManagementService Onboard policies.
+* `items` - List of Fleet Application Management Onboard policies.
 	* `id` - The unique id of the resource.
 	* `statements` - Policy statements.
 	* `system_tags` - System tags for this resource. Each key is predefined and scoped to a namespace. Example: `{"orcl-cloud.free-tier-retained": "true"}` 

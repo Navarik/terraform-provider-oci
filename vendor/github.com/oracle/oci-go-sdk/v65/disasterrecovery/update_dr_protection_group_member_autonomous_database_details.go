@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -30,6 +30,8 @@ type UpdateDrProtectionGroupMemberAutonomousDatabaseDetails struct {
 	// This password is required and used for performing database DR Drill operations when using full clone.
 	// Example: `ocid1.vaultsecret.oc1..uniqueID`
 	PasswordVaultSecretId *string `mandatory:"false" json:"passwordVaultSecretId"`
+
+	DestinationEncryptionKey *UpdateVaultAndEncryptionKeyDetails `mandatory:"false" json:"destinationEncryptionKey"`
 
 	// This specifies the mechanism used to create a temporary Autonomous Database instance for DR Drills.
 	// See https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/autonomous-clone-about.html for information about these clone types.

@@ -1,11 +1,11 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
 // PGSQL Control Plane API
 //
 // Use the OCI Database with PostgreSQL API to manage resources such as database systems, database nodes, backups, and configurations.
-// For information, see the user guide documentation for the service (https://docs.cloud.oracle.com/iaas/Content/postgresql/home.htm).
+// For information, see the user guide documentation for the service (https://docs.oracle.com/iaas/Content/postgresql/home.htm).
 //
 
 package psql
@@ -25,7 +25,7 @@ type Configuration struct {
 	// A user-friendly display name for the configuration. Avoid entering confidential information.
 	DisplayName *string `mandatory:"true" json:"displayName"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment that contains the configuration.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment that contains the configuration.
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// The date and time that the configuration was created, expressed in
@@ -40,7 +40,7 @@ type Configuration struct {
 	DbVersion *string `mandatory:"true" json:"dbVersion"`
 
 	// The name of the shape for the configuration.
-	// Example: `VM.Standard.E4.Flex`
+	// For multi-shape enabled configurations, it is set to PostgreSQL. Please use compatibleShapes property to get list of supported shapes for such configurations.
 	Shape *string `mandatory:"true" json:"shape"`
 
 	// CPU core count.
@@ -50,6 +50,12 @@ type Configuration struct {
 	// Memory size in gigabytes with 1GB increment.
 	// It's value is set to 0 if configuration is for a flexible shape.
 	InstanceMemorySizeInGBs *int `mandatory:"true" json:"instanceMemorySizeInGBs"`
+
+	// Indicates the collection of compatible shapes for this configuration.
+	CompatibleShapes []string `mandatory:"true" json:"compatibleShapes"`
+
+	// The Default configuration used for this configuration.
+	DefaultConfigId *string `mandatory:"true" json:"defaultConfigId"`
 
 	ConfigurationDetails *ConfigurationDetails `mandatory:"true" json:"configurationDetails"`
 
@@ -157,16 +163,19 @@ type ConfigurationConfigTypeEnum string
 const (
 	ConfigurationConfigTypeDefault ConfigurationConfigTypeEnum = "DEFAULT"
 	ConfigurationConfigTypeCustom  ConfigurationConfigTypeEnum = "CUSTOM"
+	ConfigurationConfigTypeCopied  ConfigurationConfigTypeEnum = "COPIED"
 )
 
 var mappingConfigurationConfigTypeEnum = map[string]ConfigurationConfigTypeEnum{
 	"DEFAULT": ConfigurationConfigTypeDefault,
 	"CUSTOM":  ConfigurationConfigTypeCustom,
+	"COPIED":  ConfigurationConfigTypeCopied,
 }
 
 var mappingConfigurationConfigTypeEnumLowerCase = map[string]ConfigurationConfigTypeEnum{
 	"default": ConfigurationConfigTypeDefault,
 	"custom":  ConfigurationConfigTypeCustom,
+	"copied":  ConfigurationConfigTypeCopied,
 }
 
 // GetConfigurationConfigTypeEnumValues Enumerates the set of values for ConfigurationConfigTypeEnum
@@ -183,6 +192,7 @@ func GetConfigurationConfigTypeEnumStringValues() []string {
 	return []string{
 		"DEFAULT",
 		"CUSTOM",
+		"COPIED",
 	}
 }
 

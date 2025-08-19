@@ -544,11 +544,77 @@ func CoreInstanceResource() *schema.Resource {
 					},
 				},
 			},
+			"licensing_configs": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Computed: true,
+				MaxItems: 1,
+				MinItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						// Required
+						"type": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+
+						// Optional
+						"license_type": {
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
+
+						// Computed
+						"os_version": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+					},
+				},
+			},
 			"metadata": {
 				Type:     schema.TypeMap,
 				Optional: true,
 				Computed: true,
 				Elem:     schema.TypeString,
+			},
+			"placement_constraint_details": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
+				MaxItems: 1,
+				MinItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						// Required
+						"type": {
+							Type:             schema.TypeString,
+							Required:         true,
+							ForceNew:         true,
+							DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
+							ValidateFunc: validation.StringInSlice([]string{
+								"COMPUTE_BARE_METAL_HOST",
+								"HOST_GROUP",
+							}, true),
+						},
+
+						// Optional
+						"compute_bare_metal_host_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+						},
+						"compute_host_group_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+						},
+					},
+				},
 			},
 			"platform_config": {
 				Type:     schema.TypeList,
@@ -1288,8 +1354,36 @@ func (s *CoreInstanceResourceCrud) Create() error {
 		}
 	}
 
+	if licensingConfigs, ok := s.D.GetOkExists("licensing_configs"); ok {
+		interfaces := licensingConfigs.([]interface{})
+		tmp := make([]oci_core.LaunchInstanceLicensingConfig, len(interfaces))
+		for i := range interfaces {
+			stateDataIndex := i
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "licensing_configs", stateDataIndex)
+			converted, err := s.mapToLaunchInstanceLicensingConfig(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			tmp[i] = converted
+		}
+		if len(tmp) != 0 || s.D.HasChange("licensing_configs") {
+			request.LicensingConfigs = tmp
+		}
+	}
+
 	if metadata, ok := s.D.GetOkExists("metadata"); ok {
 		request.Metadata = tfresource.ObjectMapToStringMap(metadata.(map[string]interface{}))
+	}
+
+	if placementConstraintDetails, ok := s.D.GetOkExists("placement_constraint_details"); ok {
+		if tmpList := placementConstraintDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "placement_constraint_details", 0)
+			tmp, err := s.mapToPlacementConstraintDetails(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			request.PlacementConstraintDetails = tmp
+		}
 	}
 
 	if platformConfig, ok := s.D.GetOkExists("platform_config"); ok {
@@ -1455,10 +1549,6 @@ func (s *CoreInstanceResourceCrud) Update() error {
 		}
 	}
 
-	if capacityReservationId, ok := s.D.GetOkExists("capacity_reservation_id"); ok {
-		tmp := capacityReservationId.(string)
-		request.CapacityReservationId = &tmp
-	}
 	if dedicatedVmHostId, ok := s.D.GetOkExists("dedicated_vm_host_id"); ok {
 		tmp := dedicatedVmHostId.(string)
 		request.DedicatedVmHostId = &tmp
@@ -1502,6 +1592,23 @@ func (s *CoreInstanceResourceCrud) Update() error {
 		}
 	}
 
+	if licensingConfigs, ok := s.D.GetOkExists("licensing_configs"); ok {
+		interfaces := licensingConfigs.([]interface{})
+		tmp := make([]oci_core.UpdateInstanceLicensingConfig, len(interfaces))
+		for i := range interfaces {
+			stateDataIndex := i
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "licensing_configs", stateDataIndex)
+			converted, err := s.mapToUpdateInstanceLicensingConfig(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			tmp[i] = converted
+		}
+		if len(tmp) != 0 || s.D.HasChange("licensing_configs") {
+			request.LicensingConfigs = tmp
+		}
+	}
+
 	if metadata, ok := s.D.GetOkExists("metadata"); ok {
 		request.Metadata = tfresource.ObjectMapToStringMap(metadata.(map[string]interface{}))
 	}
@@ -1513,11 +1620,35 @@ func (s *CoreInstanceResourceCrud) Update() error {
 		return err
 	}
 
-	if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
-		request.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
-	}
-
 	s.Res = &response.Instance
+
+	if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+		if s.D.HasChange("security_attributes") {
+			securityAttributesRequest := oci_core.UpdateInstanceRequest{}
+			tmp := s.D.Id()
+			securityAttributesRequest.InstanceId = &tmp
+			securityAttributesRequest.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+			securityAttributesResponse, err := s.Client.UpdateInstance(context.Background(), securityAttributesRequest)
+			securityAttributeErrorMsgTemplate := `[ERROR] Failed to update Security Attributes: %q (Instance ID: "%v"`
+			if err != nil {
+				log.Printf(securityAttributeErrorMsgTemplate+`, desired Security Attributes: %q)`, err, s.Res.Id, securityAttributes)
+				return err
+			}
+			s.Res = &securityAttributesResponse.Instance
+			areSecurityAttributesStable := func() bool {
+				return s.Res != nil &&
+					s.Res.SecurityAttributesState == oci_core.InstanceSecurityAttributesStateStable
+			}
+			if !areSecurityAttributesStable() {
+				log.Printf(`[DEBUG] Waiting for securityAttributesState to become [%s]`, oci_core.InstanceSecurityAttributesStateStable)
+				err := tfresource.WaitForResourceCondition(s, areSecurityAttributesStable, s.D.Timeout(schema.TimeoutUpdate))
+				if err != nil {
+					log.Printf(securityAttributeErrorMsgTemplate+`, timed out waiting for Security Attributes to update)`, err, s.Res.Id)
+					return err
+				}
+			}
+		}
+	}
 
 	// Check for changes in the create_vnic_details sub resource and separately Update the vnic
 	_, ok := s.D.GetOkExists("create_vnic_details")
@@ -1690,11 +1821,22 @@ func (s *CoreInstanceResourceCrud) SetData() error {
 		s.D.Set("launch_options", nil)
 	}
 
-	if s.Res.Metadata != nil {
-		err := s.D.Set("metadata", s.Res.Metadata)
-		if err != nil {
-			log.Printf("error setting metadata %q", err)
+	licensingConfigs := []interface{}{}
+	for _, item := range s.Res.LicensingConfigs {
+		licensingConfigs = append(licensingConfigs, LicensingConfigToMap(item))
+	}
+	s.D.Set("licensing_configs", licensingConfigs)
+
+	s.D.Set("metadata", s.Res.Metadata)
+
+	if s.Res.PlacementConstraintDetails != nil {
+		placementConstraintDetailsArray := []interface{}{}
+		if placementConstraintDetailsMap := PlacementConstraintDetailsToMap(&s.Res.PlacementConstraintDetails); placementConstraintDetailsMap != nil {
+			placementConstraintDetailsArray = append(placementConstraintDetailsArray, placementConstraintDetailsMap)
 		}
+		s.D.Set("placement_constraint_details", placementConstraintDetailsArray)
+	} else {
+		s.D.Set("placement_constraint_details", nil)
 	}
 
 	if s.Res.PlatformConfig != nil {
@@ -2728,6 +2870,71 @@ func InstanceAvailabilityConfigToMap(obj *oci_core.InstanceAvailabilityConfig) m
 	return result
 }
 
+func (s *CoreInstanceResourceCrud) mapToLaunchInstanceLicensingConfig(fieldKeyFormat string) (oci_core.LaunchInstanceLicensingConfig, error) {
+	var baseObject oci_core.LaunchInstanceLicensingConfig
+	//discriminator
+	typeRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type"))
+	var type_ string
+	if ok {
+		type_ = typeRaw.(string)
+	} else {
+		type_ = "" // default value
+	}
+	switch strings.ToLower(type_) {
+	case strings.ToLower("WINDOWS"):
+		details := oci_core.LaunchInstanceWindowsLicensingConfig{}
+		if licenseType, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "license_type")); ok {
+			tmp := licenseType.(string)
+			details.LicenseType = oci_core.LaunchInstanceLicensingConfigLicenseTypeEnum(tmp)
+		}
+		baseObject = details
+	default:
+		return nil, fmt.Errorf("unknown type '%v' was specified", type_)
+	}
+	return baseObject, nil
+}
+
+func (s *CoreInstanceResourceCrud) mapToUpdateInstanceLicensingConfig(fieldKeyFormat string) (oci_core.UpdateInstanceLicensingConfig, error) {
+	var baseObject oci_core.UpdateInstanceLicensingConfig
+	//discriminator
+	typeRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type"))
+	var type_ string
+	if ok {
+		type_ = typeRaw.(string)
+	} else {
+		type_ = "" // default value
+	}
+	switch strings.ToLower(type_) {
+	case strings.ToLower("WINDOWS"):
+		details := oci_core.UpdateInstanceWindowsLicensingConfig{}
+		if licenseType, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "license_type")); ok {
+			tmp := licenseType.(string)
+			details.LicenseType = oci_core.UpdateInstanceLicensingConfigLicenseTypeEnum(tmp)
+		}
+		baseObject = details
+	default:
+		return nil, fmt.Errorf("unknown type '%v' was specified", type_)
+	}
+	return baseObject, nil
+}
+
+func LicensingConfigToMap(obj oci_core.LicensingConfig) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	var v interface{} = oci_core.UpdateInstanceWindowsLicensingConfig{}
+	if _, ok := v.(oci_core.UpdateInstanceWindowsLicensingConfig); ok {
+		result["type"] = "WINDOWS"
+		result["license_type"] = string(obj.LicenseType)
+		if obj.OsVersion != nil {
+			result["os_version"] = *obj.OsVersion
+		}
+	} else {
+		log.Printf("[WARN] Received 'type' of unknown type %v", obj)
+		return nil
+	}
+	return result
+}
+
 func (s *CoreInstanceResourceCrud) mapToLaunchInstancePlatformConfig(fieldKeyFormat string) (oci_core.LaunchInstancePlatformConfig, error) {
 	var baseObject oci_core.LaunchInstancePlatformConfig
 	//discriminator
@@ -3673,6 +3880,37 @@ func (s *CoreInstanceResourceCrud) getPrimaryVnic() (*oci_core.Vnic, error) {
 	return nil, errors.New("Primary VNIC not found.")
 }
 
+func (s *CoreInstanceResourceCrud) mapToPlacementConstraintDetails(fieldKeyFormat string) (oci_core.PlacementConstraintDetails, error) {
+	var baseObject oci_core.PlacementConstraintDetails
+	//discriminator
+	typeRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type"))
+	var type_ string
+	if ok {
+		type_ = typeRaw.(string)
+	} else {
+		type_ = "" // default value
+	}
+	switch strings.ToLower(type_) {
+	case strings.ToLower("COMPUTE_BARE_METAL_HOST"):
+		details := oci_core.ComputeBareMetalHostPlacementConstraintDetails{}
+		if computeBareMetalHostId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "compute_bare_metal_host_id")); ok {
+			tmp := computeBareMetalHostId.(string)
+			details.ComputeBareMetalHostId = &tmp
+		}
+		baseObject = details
+	case strings.ToLower("HOST_GROUP"):
+		details := oci_core.HostGroupPlacementConstraintDetails{}
+		if computeHostGroupId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "compute_host_group_id")); ok {
+			tmp := computeHostGroupId.(string)
+			details.ComputeHostGroupId = &tmp
+		}
+		baseObject = details
+	default:
+		return nil, fmt.Errorf("unknown type '%v' was specified", type_)
+	}
+	return baseObject, nil
+}
+
 func (s *CoreInstanceResourceCrud) getBootVolume() (*oci_core.BootVolume, error) {
 	request := oci_core.ListBootVolumeAttachmentsRequest{
 		AvailabilityDomain: s.Res.AvailabilityDomain,
@@ -3944,6 +4182,11 @@ func (s *CoreInstanceResourceCrud) updateOptionsViaWorkRequest() error {
 			}
 			request.ShapeConfig = &tmp
 		}
+	}
+
+	if capacityReservationId, ok := s.D.GetOkExists("capacity_reservation_id"); ok {
+		tmp := capacityReservationId.(string)
+		request.CapacityReservationId = &tmp
 	}
 
 	if platformConfig, ok := s.D.GetOkExists("platform_config"); ok && s.D.HasChange("platform_config") {

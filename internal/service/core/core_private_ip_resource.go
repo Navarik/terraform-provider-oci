@@ -58,6 +58,21 @@ func CorePrivateIpResource() *schema.Resource {
 				Computed: true,
 				ForceNew: true,
 			},
+			"lifetime": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"route_table_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"subnet_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
+			},
 			"vlan_id": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -67,7 +82,6 @@ func CorePrivateIpResource() *schema.Resource {
 			"vnic_id": {
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 
 			// Computed
@@ -79,16 +93,16 @@ func CorePrivateIpResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"ip_state": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"is_primary": {
 				Type:     schema.TypeBool,
 				Computed: true,
 			},
 			"is_reserved": {
 				Type:     schema.TypeBool,
-				Computed: true,
-			},
-			"subnet_id": {
-				Type:     schema.TypeString,
 				Computed: true,
 			},
 			"time_created": {
@@ -173,6 +187,20 @@ func (s *CorePrivateIpResourceCrud) Create() error {
 		request.IpAddress = &tmp
 	}
 
+	if lifetime, ok := s.D.GetOkExists("lifetime"); ok {
+		request.Lifetime = oci_core.CreatePrivateIpDetailsLifetimeEnum(lifetime.(string))
+	}
+
+	if routeTableId, ok := s.D.GetOkExists("route_table_id"); ok {
+		tmp := routeTableId.(string)
+		request.RouteTableId = &tmp
+	}
+
+	if subnetId, ok := s.D.GetOkExists("subnet_id"); ok {
+		tmp := subnetId.(string)
+		request.SubnetId = &tmp
+	}
+
 	if vlanId, ok := s.D.GetOkExists("vlan_id"); ok {
 		tmp := vlanId.(string)
 		request.VlanId = &tmp
@@ -236,12 +264,46 @@ func (s *CorePrivateIpResourceCrud) Update() error {
 		request.HostnameLabel = &tmp
 	}
 
+	if lifetime, ok := s.D.GetOkExists("lifetime"); ok {
+		request.Lifetime = oci_core.UpdatePrivateIpDetailsLifetimeEnum(lifetime.(string))
+	}
+
 	tmp := s.D.Id()
 	request.PrivateIpId = &tmp
 
-	if vnicId, ok := s.D.GetOkExists("vnic_id"); ok {
+	if routeTableId, ok := s.D.GetOkExists("route_table_id"); ok {
+		tmp := routeTableId.(string)
+		request.RouteTableId = &tmp
+	}
+
+	if vnicId, ok := s.D.GetOkExists("vnic_id"); ok && vnicId != "" {
 		tmp := vnicId.(string)
 		request.VnicId = &tmp
+	} else {
+		// call detach
+		request_get := oci_core.GetPrivateIpRequest{}
+		request_get.PrivateIpId = &tmp
+
+		request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "core")
+
+		response, err := s.Client.GetPrivateIp(context.Background(), request_get)
+		if err != nil {
+			return err
+		}
+		if response.Lifetime == "RESERVED" {
+			if response.IpState == "ASSIGNED" {
+				err := s.PrivateIpVnicDetach()
+				if err != nil {
+					return err
+				}
+				response, err := s.Client.GetPrivateIp(context.Background(), request_get)
+				s.Res = &response.PrivateIp
+				if err != nil {
+					return err
+				}
+				return nil
+			}
+		}
 	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "core")
@@ -260,6 +322,25 @@ func (s *CorePrivateIpResourceCrud) Delete() error {
 
 	tmp := s.D.Id()
 	request.PrivateIpId = &tmp
+
+	// use detach API
+	request_get := oci_core.GetPrivateIpRequest{}
+	request_get.PrivateIpId = &tmp
+
+	request_get.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "core")
+
+	response, err_get := s.Client.GetPrivateIp(context.Background(), request_get)
+	if err_get != nil {
+		return err_get
+	}
+	if response.Lifetime == "RESERVED" {
+		if response.IpState == "ASSIGNED" {
+			err := s.PrivateIpVnicDetach()
+			if err != nil {
+				return err
+			}
+		}
+	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "core")
 
@@ -294,8 +375,16 @@ func (s *CorePrivateIpResourceCrud) SetData() error {
 		s.D.Set("ip_address", *s.Res.IpAddress)
 	}
 
+	s.D.Set("ip_state", s.Res.IpState)
+
 	if s.Res.IsPrimary != nil {
 		s.D.Set("is_primary", *s.Res.IsPrimary)
+	}
+
+	s.D.Set("lifetime", s.Res.Lifetime)
+
+	if s.Res.RouteTableId != nil {
+		s.D.Set("route_table_id", *s.Res.RouteTableId)
 	}
 
 	/*if s.Res.IsReserved != nil {
@@ -316,6 +405,26 @@ func (s *CorePrivateIpResourceCrud) SetData() error {
 
 	if s.Res.VnicId != nil {
 		s.D.Set("vnic_id", *s.Res.VnicId)
+	}
+
+	return nil
+}
+
+func (s *CorePrivateIpResourceCrud) PrivateIpVnicDetach() error {
+	request := oci_core.PrivateIpVnicDetachRequest{}
+
+	idTmp := s.D.Id()
+	request.PrivateIpId = &idTmp
+
+	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "core")
+
+	_, err := s.Client.PrivateIpVnicDetach(context.Background(), request)
+	if err != nil {
+		return err
+	}
+
+	if waitErr := tfresource.WaitForUpdatedState(s.D, s); waitErr != nil {
+		return waitErr
 	}
 
 	return nil

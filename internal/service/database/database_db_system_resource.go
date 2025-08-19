@@ -162,6 +162,18 @@ func DatabaseDbSystemResource() *schema.Resource {
 																Computed: true,
 																ForceNew: true,
 															},
+															"is_remote": {
+																Type:     schema.TypeBool,
+																Optional: true,
+																Computed: true,
+																ForceNew: true,
+															},
+															"remote_region": {
+																Type:     schema.TypeString,
+																Optional: true,
+																Computed: true,
+																ForceNew: true,
+															},
 															"type": {
 																Type:     schema.TypeString,
 																Optional: true,
@@ -361,6 +373,11 @@ func DatabaseDbSystemResource() *schema.Resource {
 							Optional: true,
 							Computed: true,
 							Elem:     schema.TypeString,
+						},
+						"is_unified_auditing_enabled": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Computed: true,
 						},
 
 						// Computed
@@ -700,6 +717,18 @@ func DatabaseDbSystemResource() *schema.Resource {
 				Computed: true,
 				ForceNew: true,
 			},
+			"security_attributes": {
+				Type:     schema.TypeMap,
+				Optional: true,
+				Computed: true,
+				Elem:     schema.TypeString,
+			},
+			"private_ip_v6": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
+			},
 			"source": {
 				Type:             schema.TypeString,
 				Optional:         true,
@@ -937,9 +966,21 @@ func DatabaseDbSystemResource() *schema.Resource {
 					Type: schema.TypeString,
 				},
 			},
+			"scan_ipv6ids": {
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
 			"state": {
 				Type:     schema.TypeString,
 				Computed: true,
+			},
+			"system_tags": {
+				Type:     schema.TypeMap,
+				Computed: true,
+				Elem:     schema.TypeString,
 			},
 			"time_created": {
 				Type:     schema.TypeString,
@@ -950,6 +991,13 @@ func DatabaseDbSystemResource() *schema.Resource {
 				Computed: true,
 			},
 			"vip_ids": {
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
+			"vipv6ids": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -1086,7 +1134,7 @@ func (s *DatabaseDbSystemResourceCrud) Create() error {
 		if identifier != nil {
 			s.D.SetId(*identifier)
 		}
-		_, err = tfresource.WaitForWorkRequestWithErrorHandling(s.WorkRequestClient, workId, "database", oci_work_requests.WorkRequestResourceActionTypeCreated, s.D.Timeout(schema.TimeoutCreate), s.DisableNotFoundRetries)
+		_, err = tfresource.WaitForWorkRequestWithErrorHandling(s.WorkRequestClient, workId, "dbSystem", oci_work_requests.WorkRequestResourceActionTypeCreated, s.D.Timeout(schema.TimeoutCreate), s.DisableNotFoundRetries)
 		if err != nil {
 			return err
 		}
@@ -1221,6 +1269,10 @@ func (s *DatabaseDbSystemResourceCrud) Update() error {
 		request.RecoStorageSizeInGBs = &tmp
 	}
 
+	if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+		request.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+	}
+
 	if shape, ok := s.D.GetOkExists("shape"); ok && s.D.HasChange("shape") {
 		tmp := shape.(string)
 		request.Shape = &tmp
@@ -1249,7 +1301,7 @@ func (s *DatabaseDbSystemResourceCrud) Update() error {
 
 	workId := response.OpcWorkRequestId
 	if workId != nil {
-		_, err = tfresource.WaitForWorkRequestWithErrorHandling(s.WorkRequestClient, workId, "database", oci_work_requests.WorkRequestResourceActionTypeUpdated, s.D.Timeout(schema.TimeoutUpdate), s.DisableNotFoundRetries)
+		_, err = tfresource.WaitForWorkRequestWithErrorHandling(s.WorkRequestClient, workId, "dbSystem", oci_work_requests.WorkRequestResourceActionTypeUpdated, s.D.Timeout(schema.TimeoutUpdate), s.DisableNotFoundRetries)
 		if err != nil {
 			return err
 		}
@@ -1447,6 +1499,10 @@ func (s *DatabaseDbSystemResourceCrud) SetData() error {
 
 	s.D.Set("scan_ip_ids", s.Res.ScanIpIds)
 
+	s.D.Set("security_attributes", tfresource.SecurityAttributesToMap(s.Res.SecurityAttributes))
+
+	s.D.Set("scan_ipv6ids", s.Res.ScanIpv6Ids)
+
 	if s.Res.Shape != nil {
 		s.D.Set("shape", *s.Res.Shape)
 	}
@@ -1473,6 +1529,8 @@ func (s *DatabaseDbSystemResourceCrud) SetData() error {
 		s.D.Set("subnet_id", *s.Res.SubnetId)
 	}
 
+	s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+
 	if s.Res.TimeCreated != nil {
 		s.D.Set("time_created", s.Res.TimeCreated.String())
 	}
@@ -1486,6 +1544,8 @@ func (s *DatabaseDbSystemResourceCrud) SetData() error {
 	}
 
 	s.D.Set("vip_ids", s.Res.VipIds)
+
+	s.D.Set("vipv6ids", s.Res.Vipv6Ids)
 
 	if s.Res.ZoneId != nil {
 		s.D.Set("zone_id", *s.Res.ZoneId)
@@ -1505,6 +1565,21 @@ func (s *DatabaseDbSystemResourceCrud) mapToBackupDestinationDetails(fieldKeyFor
 	if id, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "id")); ok {
 		tmp := id.(string)
 		result.Id = &tmp
+	}
+
+	if internetProxy, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "internet_proxy")); ok {
+		tmp := internetProxy.(string)
+		result.InternetProxy = &tmp
+	}
+
+	if isRemote, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_remote")); ok {
+		tmp := isRemote.(bool)
+		result.IsRemote = &tmp
+	}
+
+	if remoteRegion, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "remote_region")); ok {
+		tmp := remoteRegion.(string)
+		result.RemoteRegion = &tmp
 	}
 
 	if type_, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type")); ok {
@@ -1776,6 +1851,18 @@ func (s *DatabaseDbSystemResourceCrud) mapToCreateDatabaseFromBackupDetails(fiel
 		result.DbUniqueName = &tmp
 	}
 
+	if definedTags, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "defined_tags")); ok {
+		tmp, err := tfresource.MapToDefinedTags(definedTags.(map[string]interface{}))
+		if err != nil {
+			return result, fmt.Errorf("unable to convert defined_tags, encountered error: %v", err)
+		}
+		result.DefinedTags = tmp
+	}
+
+	if freeformTags, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "freeform_tags")); ok {
+		result.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
+	}
+
 	if pluggableDatabases, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "pluggable_databases")); ok {
 		interfaces := pluggableDatabases.([]interface{})
 		tmp := make([]string, len(interfaces))
@@ -1819,6 +1906,12 @@ func CreateDatabaseFromBackupDetailsToMap(obj *oci_database.CreateDatabaseFromBa
 	if obj.DbUniqueName != nil {
 		result["db_unique_name"] = string(*obj.DbUniqueName)
 	}
+
+	if obj.DefinedTags != nil {
+		result["defined_tags"] = tfresource.DefinedTagsToMap(obj.DefinedTags)
+	}
+
+	result["freeform_tags"] = obj.FreeformTags
 
 	result["pluggable_databases"] = obj.PluggableDatabases
 
@@ -1947,6 +2040,11 @@ func (s *DatabaseDbSystemResourceCrud) mapToCreateDbHomeDetails(fieldKeyFormat s
 		result.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
 	}
 
+	if isUnifiedAuditingEnabled, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_unified_auditing_enabled")); ok {
+		tmp := isUnifiedAuditingEnabled.(bool)
+		result.IsUnifiedAuditingEnabled = &tmp
+	}
+
 	return result, nil
 }
 
@@ -1975,6 +2073,10 @@ func CreateDbHomeDetailsToMap(obj *oci_database.CreateDbHomeDetails) map[string]
 
 	result["freeform_tags"] = obj.FreeformTags
 
+	if obj.IsUnifiedAuditingEnabled != nil {
+		result["is_unified_auditing_enabled"] = bool(*obj.IsUnifiedAuditingEnabled)
+	}
+
 	return result
 }
 
@@ -2002,6 +2104,15 @@ func (s *DatabaseDbSystemResourceCrud) mapToCreateDbHomeFromBackupDetails(fieldK
 		result.DisplayName = &tmp
 	}
 
+	if freeformTags, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "freeform_tags")); ok {
+		result.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
+	}
+
+	if isUnifiedAuditingEnabled, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_unified_auditing_enabled")); ok {
+		tmp := isUnifiedAuditingEnabled.(bool)
+		result.IsUnifiedAuditingEnabled = &tmp
+	}
+
 	return result, nil
 }
 
@@ -2018,6 +2129,12 @@ func CreateDbHomeFromBackupDetailsToMap(obj *oci_database.CreateDbHomeFromBackup
 
 	if obj.DisplayName != nil {
 		result["display_name"] = string(*obj.DisplayName)
+	}
+
+	result["freeform_tags"] = obj.FreeformTags
+
+	if obj.IsUnifiedAuditingEnabled != nil {
+		result["is_unified_auditing_enabled"] = bool(*obj.IsUnifiedAuditingEnabled)
 	}
 
 	return result
@@ -2557,6 +2674,13 @@ func (s *DatabaseDbSystemResourceCrud) populateTopLevelPolymorphicLaunchDbSystem
 			tmp := privateIp.(string)
 			details.PrivateIp = &tmp
 		}
+		if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+			details.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+		}
+		if privateIpV6, ok := s.D.GetOkExists("private_ip_v6"); ok {
+			tmp := privateIpV6.(string)
+			details.PrivateIpV6 = &tmp
+		}
 		if shape, ok := s.D.GetOkExists("shape"); ok {
 			tmp := shape.(string)
 			details.Shape = &tmp
@@ -2738,6 +2862,13 @@ func (s *DatabaseDbSystemResourceCrud) populateTopLevelPolymorphicLaunchDbSystem
 			tmp := privateIp.(string)
 			details.PrivateIp = &tmp
 		}
+		if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+			details.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+		}
+		if privateIpV6, ok := s.D.GetOkExists("private_ip_v6"); ok {
+			tmp := privateIpV6.(string)
+			details.PrivateIpV6 = &tmp
+		}
 		if shape, ok := s.D.GetOkExists("shape"); ok {
 			tmp := shape.(string)
 			details.Shape = &tmp
@@ -2916,6 +3047,13 @@ func (s *DatabaseDbSystemResourceCrud) populateTopLevelPolymorphicLaunchDbSystem
 		if privateIp, ok := s.D.GetOkExists("private_ip"); ok {
 			tmp := privateIp.(string)
 			details.PrivateIp = &tmp
+		}
+		if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+			details.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+		}
+		if privateIpV6, ok := s.D.GetOkExists("private_ip_v6"); ok {
+			tmp := privateIpV6.(string)
+			details.PrivateIpV6 = &tmp
 		}
 		if shape, ok := s.D.GetOkExists("shape"); ok {
 			tmp := shape.(string)
@@ -3107,6 +3245,13 @@ func (s *DatabaseDbSystemResourceCrud) populateTopLevelPolymorphicLaunchDbSystem
 		if privateIp, ok := s.D.GetOkExists("private_ip"); ok {
 			tmp := privateIp.(string)
 			details.PrivateIp = &tmp
+		}
+		if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+			details.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+		}
+		if privateIpV6, ok := s.D.GetOkExists("private_ip_v6"); ok {
+			tmp := privateIpV6.(string)
+			details.PrivateIpV6 = &tmp
 		}
 		if shape, ok := s.D.GetOkExists("shape"); ok {
 			tmp := shape.(string)
@@ -3391,7 +3536,7 @@ func (s *DatabaseDbSystemResourceCrud) UpdateDatabaseOperation() error {
 		return fmt.Errorf("[ERROR] unable to get database after the Update: %v", err)
 	}
 
-	errKms := s.setDbKeyVersion(s.Database.Id)
+	errKms := s.setDbKeyVersion()
 	if errKms != nil {
 		return errKms
 	}
@@ -3400,21 +3545,21 @@ func (s *DatabaseDbSystemResourceCrud) UpdateDatabaseOperation() error {
 	return nil
 }
 
-func (s *DatabaseDbSystemResourceCrud) setDbKeyVersion(databaseId *string) error {
+func (s *DatabaseDbSystemResourceCrud) setDbKeyVersion() error {
 	setDbKeyVersionRequest := oci_database.SetDbKeyVersionRequest{}
-	setDbKeyVersionRequest.DatabaseId = databaseId
+	setDbKeyVersionRequest.DatabaseId = s.Database.Id
 	setDbKeyVersionRequest.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "database")
 	details := oci_database.OciProviderSetKeyVersionDetails{}
-
-	if kmsKeyVersionId, ok := s.D.GetOkExists("kms_key_version_id"); ok && s.D.HasChange("kms_key_version_id") {
-		oldRaw, newRaw := s.D.GetChange("kms_key_version_id")
-		if oldRaw == "" && newRaw != "" {
-			temp := kmsKeyVersionId.(string)
-			details.KmsKeyVersionId = &temp
-			setDbKeyVersionRequest.SetKeyVersionDetails = details
-		} else {
+	if kmsKeyVersionId, ok := s.D.GetOkExists("db_home.0.database.0.kms_key_version_id"); ok && s.D.HasChange("db_home.0.database.0.kms_key_version_id") {
+		newKmsKeyVersionId := kmsKeyVersionId.(string)
+		oldKmsKeyVersionId, _ := s.D.GetChange("db_home.0.database.0.kms_key_version_id")
+		if oldKmsKeyVersionId == newKmsKeyVersionId {
 			return nil
 		}
+		details.KmsKeyVersionId = &newKmsKeyVersionId
+		setDbKeyVersionRequest.SetKeyVersionDetails = details
+	} else {
+		return nil
 	}
 
 	response, err := s.Client.SetDbKeyVersion(context.Background(), setDbKeyVersionRequest)
@@ -3444,7 +3589,7 @@ func (s *DatabaseDbSystemResourceCrud) sendUpdateForLicenseModel(dbSystemId stri
 
 	workId := response.OpcWorkRequestId
 	if workId != nil {
-		_, err = tfresource.WaitForWorkRequestWithErrorHandling(s.WorkRequestClient, workId, "database", oci_work_requests.WorkRequestResourceActionTypeUpdated, s.D.Timeout(schema.TimeoutUpdate), s.DisableNotFoundRetries)
+		_, err = tfresource.WaitForWorkRequestWithErrorHandling(s.WorkRequestClient, workId, "dbSystem", oci_work_requests.WorkRequestResourceActionTypeUpdated, s.D.Timeout(schema.TimeoutUpdate), s.DisableNotFoundRetries)
 		if err != nil {
 			return err
 		}

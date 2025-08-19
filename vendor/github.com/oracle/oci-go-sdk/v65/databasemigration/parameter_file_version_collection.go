@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,10 +15,10 @@ import (
 	"strings"
 )
 
-// ParameterFileVersionCollection Results of request for Parameter Files.  Contents is a collection of ParameterFileVersionSummary.
+// ParameterFileVersionCollection The result of the request for Parameter Files. It contains a collection of ParameterFileVersionSummary
 type ParameterFileVersionCollection struct {
 
-	// A list of A parameter file metadata
+	// List of parameter file metadata
 	Items []ParameterFileVersionSummary `mandatory:"true" json:"items"`
 }
 

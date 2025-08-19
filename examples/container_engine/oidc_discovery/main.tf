@@ -227,3 +227,16 @@ data "oci_containerengine_clusters" "test_clusters" {
   name  = var.cluster_name
   state = var.cluster_state
 }
+
+data "oci_containerengine_cluster" "test_cluster" {
+  #Required
+  cluster_id = oci_containerengine_cluster.test_cluster.id
+}
+
+output "oidc_discovery_endpoint" {
+  value = data.oci_containerengine_cluster.test_cluster.open_id_connect_discovery_endpoint
+}
+
+output "oidc_discovery_key" {
+  value = data.oci_containerengine_cluster.test_cluster.open_id_connect_discovery_key
+}

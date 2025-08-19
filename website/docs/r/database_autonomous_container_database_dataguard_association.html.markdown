@@ -10,14 +10,8 @@ description: |-
 # oci_database_autonomous_container_database_dataguard_association
 This resource provides the Autonomous Container Database Dataguard Association resource in Oracle Cloud Infrastructure Database service.
 
-Create a new Autonomous Data Guard association. An Autonomous Data Guard association represents the replication relationship between the
-specified Autonomous Container database and a peer Autonomous Container database. For more information, see [Using Oracle Data Guard](https://docs.cloud.oracle.com/iaas/Content/Database/Tasks/usingdataguard.htm).
-
-All Oracle Cloud Infrastructure resources, including Data Guard associations, get an Oracle-assigned, unique ID
-called an Oracle Cloud Identifier (OCID). When you create a resource, you can find its OCID in the response.
-You can also retrieve a resource's OCID by using a List API operation on that resource type, or by viewing the
-resource in the Console. For more information, see
-[Resource Identifiers](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+**Deprecated.** Use the [AddStandbyAutonomousContainerDatabase](https://docs.cloud.oracle.com/iaas/api/#/en/database/latest/AutonomousContainerDatabase/AddStandbyAutonomousContainerDatabase) operation to create a new Autonomous Data Guard association. An Autonomous Data Guard association represents the replication relationship between the
+specified Autonomous Container database and a peer Autonomous Container database. For more information, see [Using Oracle Data Guard](https://docs.oracle.com/en/cloud/paas/autonomous-database/dedicated/adbau/#articletitle.html).        
 
 
 ## Example Usage
@@ -43,6 +37,8 @@ resource "oci_database_autonomous_container_database_dataguard_association" "tes
 			dbrs_policy_id = oci_identity_policy.test_policy.id
 			id = var.autonomous_container_database_dataguard_association_peer_autonomous_container_database_backup_config_backup_destination_details_id
 			internet_proxy = var.autonomous_container_database_dataguard_association_peer_autonomous_container_database_backup_config_backup_destination_details_internet_proxy
+			is_remote = var.autonomous_container_database_dataguard_association_peer_autonomous_container_database_backup_config_backup_destination_details_is_remote
+			remote_region = var.autonomous_container_database_dataguard_association_peer_autonomous_container_database_backup_config_backup_destination_details_remote_region
 			vpc_password = var.autonomous_container_database_dataguard_association_peer_autonomous_container_database_backup_config_backup_destination_details_vpc_password
 			vpc_user = var.autonomous_container_database_dataguard_association_peer_autonomous_container_database_backup_config_backup_destination_details_vpc_user
 		}
@@ -67,6 +63,10 @@ The following arguments are supported:
 		* `dbrs_policy_id` - (Optional) The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DBRS policy used for backup.
 		* `id` - (Optional) The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the backup destination.
 		* `internet_proxy` - (Optional) Proxy URL to connect to object store.
+		* `is_remote` - (Optional) Indicates whether the backup destination is cross-region or local region.
+		* `remote_region` - (Optional) The name of the remote region where the remote automatic incremental backups will be stored.
+
+			For information about valid region names, see [Regions and Availability Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm). 
 		* `type` - (Required) Type of the database backup destination.
 		* `vpc_password` - (Optional) For a RECOVERY_APPLIANCE backup destination, the password for the VPC user that is used to access the Recovery Appliance.
 		* `vpc_user` - (Optional) For a RECOVERY_APPLIANCE backup destination, the Virtual Private Catalog (VPC) user that is used to access the Recovery Appliance.
@@ -78,9 +78,8 @@ The following arguments are supported:
 * `peer_db_unique_name` - (Optional) Specifies the `DB_UNIQUE_NAME` of the peer database to be created. 
 * `protection_mode` - (Required) (Updatable) The protection mode of this Autonomous Data Guard association. For more information, see [Oracle Data Guard Protection Modes](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000) in the Oracle Data Guard documentation. 
 * `standby_maintenance_buffer_in_days` - (Optional) The scheduling detail for the quarterly maintenance window of the standby Autonomous Container Database. This value represents the number of days before scheduled maintenance of the primary database. 
-* `is_automatic_failover_enabled` - (Optional) (Updatable) Indicates whether Automatic Failover is enabled for Autonomous Container Database Dataguard Association. Input DataType: boolean. Example : `is_automatic_failover_enabled = true`.  
-* `protection_mode` - (Optional) (Updatable) The protection mode of this Autonomous Data Guard association. For more information, see [Oracle Data Guard Protection Modes](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000) in the Oracle Data Guard documentation. 
-
+* `migrate_trigger` - (Optional) (Updatable) An optional property when incremented triggers Migrate. Could be set to any integer value.
+* `is_automatic_failover_enabled` - (Optional) (Updatable) Indicates whether Automatic Failover is enabled for Autonomous Container Database Dataguard Association. Input DataType: boolean. Example : `is_automatic_failover_enabled = true`.
 
 
 ** IMPORTANT **

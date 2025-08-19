@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,7 +18,7 @@ import (
 // ExportDetails Input arguments for running a query synchronosly and streaming the results as soon as they become available.
 type ExportDetails struct {
 
-	// Compartment Identifier OCID  (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+	// Compartment Identifier OCID  (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// Query to perform.
@@ -87,18 +87,21 @@ type ExportDetailsOutputFormatEnum string
 
 // Set of constants representing the allowable values for ExportDetailsOutputFormatEnum
 const (
-	ExportDetailsOutputFormatCsv  ExportDetailsOutputFormatEnum = "CSV"
-	ExportDetailsOutputFormatJson ExportDetailsOutputFormatEnum = "JSON"
+	ExportDetailsOutputFormatCsv     ExportDetailsOutputFormatEnum = "CSV"
+	ExportDetailsOutputFormatJson    ExportDetailsOutputFormatEnum = "JSON"
+	ExportDetailsOutputFormatParquet ExportDetailsOutputFormatEnum = "PARQUET"
 )
 
 var mappingExportDetailsOutputFormatEnum = map[string]ExportDetailsOutputFormatEnum{
-	"CSV":  ExportDetailsOutputFormatCsv,
-	"JSON": ExportDetailsOutputFormatJson,
+	"CSV":     ExportDetailsOutputFormatCsv,
+	"JSON":    ExportDetailsOutputFormatJson,
+	"PARQUET": ExportDetailsOutputFormatParquet,
 }
 
 var mappingExportDetailsOutputFormatEnumLowerCase = map[string]ExportDetailsOutputFormatEnum{
-	"csv":  ExportDetailsOutputFormatCsv,
-	"json": ExportDetailsOutputFormatJson,
+	"csv":     ExportDetailsOutputFormatCsv,
+	"json":    ExportDetailsOutputFormatJson,
+	"parquet": ExportDetailsOutputFormatParquet,
 }
 
 // GetExportDetailsOutputFormatEnumValues Enumerates the set of values for ExportDetailsOutputFormatEnum
@@ -115,6 +118,7 @@ func GetExportDetailsOutputFormatEnumStringValues() []string {
 	return []string{
 		"CSV",
 		"JSON",
+		"PARQUET",
 	}
 }
 

@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
@@ -83,7 +83,6 @@ func ContainerengineAddonResource() *schema.Resource {
 			"version": {
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 
 			// Computed
@@ -234,7 +233,9 @@ func (s *ContainerengineAddonResourceCrud) Create() error {
 
 	if version, ok := s.D.GetOkExists("version"); ok {
 		tmp := version.(string)
-		request.Version = &tmp
+		if len(tmp) > 0 {
+			request.Version = &tmp
+		}
 	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "containerengine")
@@ -326,7 +327,7 @@ func addonWaitForWorkRequest(wId *string, entityType string,
 	retryPolicy.ShouldRetryOperation = addonWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_containerengine.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_containerengine.WorkRequestStatusInProgress),
 			string(oci_containerengine.WorkRequestStatusAccepted),
@@ -469,7 +470,9 @@ func (s *ContainerengineAddonResourceCrud) Update() error {
 
 	if version, ok := s.D.GetOkExists("version"); ok {
 		tmp := version.(string)
-		request.Version = &tmp
+		if len(tmp) > 0 {
+			request.Version = &tmp
+		}
 	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "containerengine")

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,10 +15,11 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListPlatformConfigurations.go.html to see an example of how to use ListPlatformConfigurationsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListPlatformConfigurations.go.html to see an example of how to use ListPlatformConfigurationsRequest.
 type ListPlatformConfigurationsRequest struct {
 
 	// The ID of the compartment in which to list resources.
+	// Empty only if the resource OCID query param is not specified.
 	CompartmentId *string `mandatory:"false" contributesTo:"query" name:"compartmentId"`
 
 	// A filter to return only resources their lifecycleState matches the given lifecycleState.
@@ -27,11 +28,19 @@ type ListPlatformConfigurationsRequest struct {
 	// A filter to return only resources that match the entire display name given.
 	DisplayName *string `mandatory:"false" contributesTo:"query" name:"displayName"`
 
-	// unique PlatformConfiguration identifier
+	// Unique identifier or OCID for listing a single Platform Configuration by id.
+	// Either compartmentId or id must be provided.
 	Id *string `mandatory:"false" contributesTo:"query" name:"id"`
 
 	// Config Category
 	ConfigCategory ConfigCategoryDetailsConfigCategoryEnum `mandatory:"false" contributesTo:"query" name:"configCategory" omitEmpty:"true"`
+
+	// If set to true, resources will be returned for not only the provided compartment, but all compartments which
+	// descend from it. Which resources are returned and their field contents depends on the value of accessLevel.
+	CompartmentIdInSubtree *bool `mandatory:"false" contributesTo:"query" name:"compartmentIdInSubtree"`
+
+	// A filter to return Platform Configurations whose type matches the given type.
+	Type PlatformConfigurationTypeEnum `mandatory:"false" contributesTo:"query" name:"type" omitEmpty:"true"`
 
 	// The maximum number of items to return.
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
@@ -89,6 +98,9 @@ func (request ListPlatformConfigurationsRequest) ValidateEnumValue() (bool, erro
 	}
 	if _, ok := GetMappingConfigCategoryDetailsConfigCategoryEnum(string(request.ConfigCategory)); !ok && request.ConfigCategory != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for ConfigCategory: %s. Supported values are: %s.", request.ConfigCategory, strings.Join(GetConfigCategoryDetailsConfigCategoryEnumStringValues(), ",")))
+	}
+	if _, ok := GetMappingPlatformConfigurationTypeEnum(string(request.Type)); !ok && request.Type != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for Type: %s. Supported values are: %s.", request.Type, strings.Join(GetPlatformConfigurationTypeEnumStringValues(), ",")))
 	}
 	if _, ok := GetMappingListPlatformConfigurationsSortOrderEnum(string(request.SortOrder)); !ok && request.SortOrder != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for SortOrder: %s. Supported values are: %s.", request.SortOrder, strings.Join(GetListPlatformConfigurationsSortOrderEnumStringValues(), ",")))

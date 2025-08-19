@@ -258,6 +258,10 @@ func (s *DatabaseDbSystemsDataSourceCrud) SetData() error {
 
 		dbSystem["scan_ip_ids"] = r.ScanIpIds
 
+		dbSystem["security_attributes"] = tfresource.SecurityAttributesToMap(r.SecurityAttributes)
+
+		dbSystem["scan_ipv6ids"] = r.ScanIpv6Ids
+
 		if r.Shape != nil {
 			dbSystem["shape"] = *r.Shape
 		}
@@ -280,6 +284,10 @@ func (s *DatabaseDbSystemsDataSourceCrud) SetData() error {
 			dbSystem["subnet_id"] = *r.SubnetId
 		}
 
+		if r.SystemTags != nil {
+			dbSystem["system_tags"] = tfresource.SystemTagsToMap(r.SystemTags)
+		}
+
 		if r.TimeCreated != nil {
 			dbSystem["time_created"] = r.TimeCreated.String()
 		}
@@ -293,6 +301,8 @@ func (s *DatabaseDbSystemsDataSourceCrud) SetData() error {
 		}
 
 		dbSystem["vip_ids"] = r.VipIds
+
+		dbSystem["vipv6ids"] = r.Vipv6Ids
 
 		if r.ZoneId != nil {
 			dbSystem["zone_id"] = *r.ZoneId

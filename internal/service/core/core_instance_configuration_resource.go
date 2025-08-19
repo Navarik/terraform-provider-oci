@@ -480,6 +480,12 @@ func CoreInstanceConfigurationResource() *schema.Resource {
 										Computed: true,
 										ForceNew: true,
 									},
+									"compute_cluster_id": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
 									"create_vnic_details": {
 										Type:     schema.TypeList,
 										Optional: true,
@@ -738,12 +744,71 @@ func CoreInstanceConfigurationResource() *schema.Resource {
 											},
 										},
 									},
+									"licensing_configs": {
+										Type:     schema.TypeList,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+										MaxItems: 1,
+										MinItems: 1,
+										Elem: &schema.Resource{
+											Schema: map[string]*schema.Schema{
+												// Required
+												"type": {
+													Type:     schema.TypeString,
+													Required: true,
+													ForceNew: true,
+												},
+
+												// Optional
+												"license_type": {
+													Type:     schema.TypeString,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+
+												// Computed
+											},
+										},
+									},
 									"metadata": {
 										Type:     schema.TypeMap,
 										Optional: true,
 										Computed: true,
 										ForceNew: true,
 										Elem:     schema.TypeString,
+									},
+									"placement_constraint_details": {
+										Type:     schema.TypeList,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+										MaxItems: 1,
+										MinItems: 1,
+										Elem: &schema.Resource{
+											Schema: map[string]*schema.Schema{
+												// Required
+												"compute_host_group_id": {
+													Type:     schema.TypeString,
+													Required: true,
+													ForceNew: true,
+												},
+												"type": {
+													Type:             schema.TypeString,
+													Required:         true,
+													ForceNew:         true,
+													DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
+													ValidateFunc: validation.StringInSlice([]string{
+														"HOST_GROUP",
+													}, true),
+												},
+
+												// Optional
+
+												// Computed
+											},
+										},
 									},
 									"platform_config": {
 										Type:     schema.TypeList,
@@ -1480,6 +1545,12 @@ func CoreInstanceConfigurationResource() *schema.Resource {
 													Optional: true,
 													Computed: true,
 												},
+												"compute_cluster_id": {
+													Type:     schema.TypeString,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
 												"create_vnic_details": {
 													Type:     schema.TypeList,
 													Optional: true,
@@ -1739,12 +1810,71 @@ func CoreInstanceConfigurationResource() *schema.Resource {
 														},
 													},
 												},
+												"licensing_configs": {
+													Type:     schema.TypeList,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+													MaxItems: 1,
+													MinItems: 1,
+													Elem: &schema.Resource{
+														Schema: map[string]*schema.Schema{
+															// Required
+															"type": {
+																Type:     schema.TypeString,
+																Required: true,
+																ForceNew: true,
+															},
+
+															// Optional
+															"license_type": {
+																Type:     schema.TypeString,
+																Optional: true,
+																Computed: true,
+																ForceNew: true,
+															},
+
+															// Computed
+														},
+													},
+												},
 												"metadata": {
 													Type:     schema.TypeMap,
 													Optional: true,
 													Computed: true,
 													ForceNew: true,
 													Elem:     schema.TypeString,
+												},
+												"placement_constraint_details": {
+													Type:     schema.TypeList,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+													MaxItems: 1,
+													MinItems: 1,
+													Elem: &schema.Resource{
+														Schema: map[string]*schema.Schema{
+															// Required
+															"compute_host_group_id": {
+																Type:     schema.TypeString,
+																Required: true,
+																ForceNew: true,
+															},
+															"type": {
+																Type:             schema.TypeString,
+																Required:         true,
+																ForceNew:         true,
+																DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
+																ValidateFunc: validation.StringInSlice([]string{
+																	"HOST_GROUP",
+																}, true),
+															},
+
+															// Optional
+
+															// Computed
+														},
+													},
 												},
 												"platform_config": {
 													Type:     schema.TypeList,
@@ -3015,6 +3145,9 @@ func (s *CoreInstanceConfigurationResourceCrud) mapToInstanceConfigurationCreate
 	if assignPublicIp, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "assign_public_ip")); ok {
 		tmp := assignPublicIp.(bool)
 		result.AssignPublicIp = &tmp
+	} else {
+		t := true
+		result.AssignPublicIp = &t
 	}
 
 	if definedTags, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "defined_tags")); ok {
@@ -3537,6 +3670,10 @@ func (s *CoreInstanceConfigurationResourceCrud) mapToInstanceConfigurationInstan
 			tmp := imageId.(string)
 			details.ImageId = &tmp
 		}
+		if kmsKeyId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "kms_key_id")); ok {
+			tmp := kmsKeyId.(string)
+			details.KmsKeyId = &tmp
+		}
 		if instanceSourceImageFilterDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "instance_source_image_filter_details")); ok {
 			if tmpList := instanceSourceImageFilterDetails.([]interface{}); len(tmpList) > 0 {
 				fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "instance_source_image_filter_details"), 0)
@@ -3781,6 +3918,11 @@ func (s *CoreInstanceConfigurationResourceCrud) mapToInstanceConfigurationLaunch
 		result.CompartmentId = &tmp
 	}
 
+	if computeClusterId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "compute_cluster_id")); ok {
+		tmp := computeClusterId.(string)
+		result.ComputeClusterId = &tmp
+	}
+
 	if createVnicDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "create_vnic_details")); ok {
 		if tmpList := createVnicDetails.([]interface{}); len(tmpList) > 0 {
 			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "create_vnic_details"), 0)
@@ -3863,8 +4005,36 @@ func (s *CoreInstanceConfigurationResourceCrud) mapToInstanceConfigurationLaunch
 		}
 	}
 
+	if licensingConfigs, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "licensing_configs")); ok {
+		interfaces := licensingConfigs.([]interface{})
+		tmp := make([]oci_core.LaunchInstanceLicensingConfig, len(interfaces))
+		for i := range interfaces {
+			stateDataIndex := i
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "licensing_configs"), stateDataIndex)
+			converted, err := s.mapToLaunchInstanceLicensingConfig(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, err
+			}
+			tmp[i] = converted
+		}
+		if len(tmp) != 0 || s.D.HasChange(fmt.Sprintf(fieldKeyFormat, "licensing_configs")) {
+			result.LicensingConfigs = tmp
+		}
+	}
+
 	if metadata, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "metadata")); ok {
 		result.Metadata = tfresource.ObjectMapToStringMap(metadata.(map[string]interface{}))
+	}
+
+	if placementConstraintDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "placement_constraint_details")); ok {
+		if tmpList := placementConstraintDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "placement_constraint_details"), 0)
+			tmp, err := s.mapToInstanceConfigurationPlacementConstraintDetails(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, fmt.Errorf("unable to convert placement_constraint_details, encountered error: %v", err)
+			}
+			result.PlacementConstraintDetails = tmp
+		}
 	}
 
 	if platformConfig, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "platform_config")); ok {
@@ -3954,6 +4124,10 @@ func InstanceConfigurationLaunchInstanceDetailsToMap(obj *oci_core.InstanceConfi
 		result["compartment_id"] = string(*obj.CompartmentId)
 	}
 
+	if obj.ComputeClusterId != nil {
+		result["compute_cluster_id"] = string(*obj.ComputeClusterId)
+	}
+
 	if obj.CreateVnicDetails != nil {
 		result["create_vnic_details"] = []interface{}{InstanceConfigurationCreateVnicDetailsToMap(obj.CreateVnicDetails, datasource)}
 	}
@@ -3996,7 +4170,21 @@ func InstanceConfigurationLaunchInstanceDetailsToMap(obj *oci_core.InstanceConfi
 		result["launch_options"] = []interface{}{InstanceConfigurationLaunchOptionsToMap(obj.LaunchOptions)}
 	}
 
+	licensingConfigs := []interface{}{}
+	for _, item := range obj.LicensingConfigs {
+		licensingConfigs = append(licensingConfigs, LaunchInstanceLicensingConfigToMap(item))
+	}
+	result["licensing_configs"] = licensingConfigs
+
 	result["metadata"] = obj.Metadata
+
+	if obj.PlacementConstraintDetails != nil {
+		placementConstraintDetailsArray := []interface{}{}
+		if placementConstraintDetailsMap := InstanceConfigurationPlacementConstraintDetailsToMap(&obj.PlacementConstraintDetails); placementConstraintDetailsMap != nil {
+			placementConstraintDetailsArray = append(placementConstraintDetailsArray, placementConstraintDetailsMap)
+		}
+		result["placement_constraint_details"] = placementConstraintDetailsArray
+	}
 
 	if obj.PlatformConfig != nil {
 		platformConfigArray := []interface{}{}
@@ -4417,6 +4605,22 @@ func InstanceConfigurationLaunchInstancePlatformConfigToMap(obj *oci_core.Instan
 		if v.PercentageOfCoresEnabled != nil {
 			result["percentage_of_cores_enabled"] = int(*v.PercentageOfCoresEnabled)
 		}
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
+		}
 	case oci_core.InstanceConfigurationAmdMilanBmGpuLaunchInstancePlatformConfig:
 		result["type"] = "AMD_MILAN_BM_GPU"
 
@@ -4440,6 +4644,22 @@ func InstanceConfigurationLaunchInstancePlatformConfigToMap(obj *oci_core.Instan
 		}
 
 		result["numa_nodes_per_socket"] = string(v.NumaNodesPerSocket)
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
+		}
 	case oci_core.InstanceConfigurationAmdRomeBmLaunchInstancePlatformConfig:
 		result["type"] = "AMD_ROME_BM"
 
@@ -4467,6 +4687,22 @@ func InstanceConfigurationLaunchInstancePlatformConfigToMap(obj *oci_core.Instan
 		if v.PercentageOfCoresEnabled != nil {
 			result["percentage_of_cores_enabled"] = int(*v.PercentageOfCoresEnabled)
 		}
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
+		}
 	case oci_core.InstanceConfigurationAmdRomeBmGpuLaunchInstancePlatformConfig:
 		result["type"] = "AMD_ROME_BM_GPU"
 
@@ -4490,11 +4726,43 @@ func InstanceConfigurationLaunchInstancePlatformConfigToMap(obj *oci_core.Instan
 		}
 
 		result["numa_nodes_per_socket"] = string(v.NumaNodesPerSocket)
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
+		}
 	case oci_core.InstanceConfigurationAmdVmLaunchInstancePlatformConfig:
 		result["type"] = "AMD_VM"
 
 		if v.IsSymmetricMultiThreadingEnabled != nil {
 			result["is_symmetric_multi_threading_enabled"] = bool(*v.IsSymmetricMultiThreadingEnabled)
+		}
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
 		}
 	case oci_core.InstanceConfigurationGenericBmLaunchInstancePlatformConfig:
 		result["type"] = "GENERIC_BM"
@@ -4523,6 +4791,22 @@ func InstanceConfigurationLaunchInstancePlatformConfigToMap(obj *oci_core.Instan
 		if v.PercentageOfCoresEnabled != nil {
 			result["percentage_of_cores_enabled"] = int(*v.PercentageOfCoresEnabled)
 		}
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
+		}
 	case oci_core.InstanceConfigurationIntelIcelakeBmLaunchInstancePlatformConfig:
 		result["type"] = "INTEL_ICELAKE_BM"
 
@@ -4541,6 +4825,22 @@ func InstanceConfigurationLaunchInstancePlatformConfigToMap(obj *oci_core.Instan
 
 		if v.PercentageOfCoresEnabled != nil {
 			result["percentage_of_cores_enabled"] = int(*v.PercentageOfCoresEnabled)
+		}
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
 		}
 	case oci_core.InstanceConfigurationIntelSkylakeBmLaunchInstancePlatformConfig:
 		result["type"] = "INTEL_SKYLAKE_BM"
@@ -4561,11 +4861,43 @@ func InstanceConfigurationLaunchInstancePlatformConfigToMap(obj *oci_core.Instan
 		if v.PercentageOfCoresEnabled != nil {
 			result["percentage_of_cores_enabled"] = int(*v.PercentageOfCoresEnabled)
 		}
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
+		}
 	case oci_core.InstanceConfigurationIntelVmLaunchInstancePlatformConfig:
 		result["type"] = "INTEL_VM"
 
 		if v.IsSymmetricMultiThreadingEnabled != nil {
 			result["is_symmetric_multi_threading_enabled"] = bool(*v.IsSymmetricMultiThreadingEnabled)
+		}
+
+		if v.IsMeasuredBootEnabled != nil {
+			result["is_measured_boot_enabled"] = bool(*v.IsMeasuredBootEnabled)
+		}
+
+		if v.IsMemoryEncryptionEnabled != nil {
+			result["is_memory_encryption_enabled"] = bool(*v.IsMemoryEncryptionEnabled)
+		}
+
+		if v.IsSecureBootEnabled != nil {
+			result["is_secure_boot_enabled"] = bool(*v.IsSecureBootEnabled)
+		}
+
+		if v.IsTrustedPlatformModuleEnabled != nil {
+			result["is_trusted_platform_module_enabled"] = bool(*v.IsTrustedPlatformModuleEnabled)
 		}
 	default:
 		log.Printf("[WARN] Received 'type' of unknown type %v", *obj)
@@ -4683,6 +5015,47 @@ func InstanceConfigurationLaunchOptionsToMap(obj *oci_core.InstanceConfiguration
 	return result
 }
 
+func (s *CoreInstanceConfigurationResourceCrud) mapToInstanceConfigurationPlacementConstraintDetails(fieldKeyFormat string) (oci_core.InstanceConfigurationPlacementConstraintDetails, error) {
+	var baseObject oci_core.InstanceConfigurationPlacementConstraintDetails
+	//discriminator
+	typeRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type"))
+	var type_ string
+	if ok {
+		type_ = typeRaw.(string)
+	} else {
+		type_ = "" // default value
+	}
+	switch strings.ToLower(type_) {
+	case strings.ToLower("HOST_GROUP"):
+		details := oci_core.InstanceConfigurationHostGroupPlacementConstraintDetails{}
+		if computeHostGroupId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "compute_host_group_id")); ok {
+			tmp := computeHostGroupId.(string)
+			details.ComputeHostGroupId = &tmp
+		}
+		baseObject = details
+	default:
+		return nil, fmt.Errorf("unknown type '%v' was specified", type_)
+	}
+	return baseObject, nil
+}
+
+func InstanceConfigurationPlacementConstraintDetailsToMap(obj *oci_core.InstanceConfigurationPlacementConstraintDetails) map[string]interface{} {
+	result := map[string]interface{}{}
+	switch v := (*obj).(type) {
+	case oci_core.InstanceConfigurationHostGroupPlacementConstraintDetails:
+		result["type"] = "HOST_GROUP"
+
+		if v.ComputeHostGroupId != nil {
+			result["compute_host_group_id"] = string(*v.ComputeHostGroupId)
+		}
+	default:
+		log.Printf("[WARN] Received 'type' of unknown type %v", *obj)
+		return nil
+	}
+
+	return result
+}
+
 func (s *CoreInstanceConfigurationResourceCrud) mapToInstanceConfigurationVolumeSourceDetails(fieldKeyFormat string) (oci_core.InstanceConfigurationVolumeSourceDetails, error) {
 	var baseObject oci_core.InstanceConfigurationVolumeSourceDetails
 	//discriminator
@@ -4733,6 +5106,50 @@ func InstanceConfigurationVolumeSourceDetailsToMap(obj *oci_core.InstanceConfigu
 		log.Printf("[WARN] Received 'type' of unknown type %v", *obj)
 		return nil
 	}
+
+	return result
+}
+
+func (s *CoreInstanceConfigurationResourceCrud) mapToLaunchInstanceLicensingConfig(fieldKeyFormat string) (oci_core.LaunchInstanceLicensingConfig, error) {
+	var baseObject oci_core.LaunchInstanceLicensingConfig
+	//discriminator
+	typeRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type"))
+	var type_ string
+	if ok {
+		type_ = typeRaw.(string)
+	} else {
+		type_ = "" // default value
+	}
+	switch strings.ToLower(type_) {
+	case strings.ToLower("WINDOWS"):
+		details := oci_core.LaunchInstanceWindowsLicensingConfig{}
+		if licenseType, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "license_type")); ok {
+			tmp := licenseType.(string)
+			details.LicenseType = oci_core.LaunchInstanceLicensingConfigLicenseTypeEnum(tmp)
+		}
+		baseObject = details
+	default:
+		return nil, fmt.Errorf("unknown type '%v' was specified", type_)
+	}
+	return baseObject, nil
+}
+
+func LaunchInstanceLicensingConfigToMap(obj oci_core.LaunchInstanceLicensingConfig) map[string]interface{} {
+	result := map[string]interface{}{}
+	if obj, ok := obj.(oci_core.LaunchInstanceWindowsLicensingConfig); ok {
+		result["type"] = "WINDOWS"
+		result["license_type"] = string(obj.LicenseType)
+	} else {
+		log.Printf("[WARN] Received 'type' of unknown type %v", obj)
+		return nil
+	}
+	/*switch v := (obj).(type) {
+	case oci_core.LaunchInstanceWindowsLicensingConfig:
+		result["type"] = "WINDOWS"
+	default:
+		log.Printf("[WARN] Received 'type' of unknown type %v", obj)
+		return nil
+	}*/
 
 	return result
 }

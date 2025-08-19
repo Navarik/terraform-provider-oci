@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,11 +18,12 @@ import (
 	"strings"
 )
 
-// UpdateBlockVolumeAttachmentDetails The details for attaching or detaching a block volume.
+// UpdateBlockVolumeAttachmentDetails Deprecated. Use the 'UpdateComputeInstanceNonMovableBlockVolumeAttachOperationDetails' definition instead of this.
+// The details for attaching or detaching a block volume.
 type UpdateBlockVolumeAttachmentDetails struct {
 
-	// The OCID of the reference compute instance from which to obtain the attachment details for the volume.
-	// This reference compute instance is from the peer DR protection group.
+	// The OCID of the reference compute instance needed to obtain the volume attachment details.
+	// This reference compute instance belongs to the peer DR protection group.
 	// Example: `ocid1.instance.oc1..uniqueID`
 	VolumeAttachmentReferenceInstanceId *string `mandatory:"false" json:"volumeAttachmentReferenceInstanceId"`
 }

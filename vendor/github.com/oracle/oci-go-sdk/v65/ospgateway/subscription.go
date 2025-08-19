@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -42,6 +42,9 @@ type Subscription struct {
 
 	// Payment intension.
 	IsIntentToPay *bool `mandatory:"false" json:"isIntentToPay"`
+
+	// Corporate conversion allowed status
+	IsCorporateConversionAllowed *bool `mandatory:"false" json:"isCorporateConversionAllowed"`
 
 	// Currency code
 	CurrencyCode *string `mandatory:"false" json:"currencyCode"`
@@ -111,27 +114,28 @@ func (m Subscription) ValidateEnumValue() (bool, error) {
 // UnmarshalJSON unmarshals from json
 func (m *Subscription) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		Id                          *string                             `json:"id"`
-		PlanType                    SubscriptionPlanTypeEnum            `json:"planType"`
-		TimeStart                   *common.SDKTime                     `json:"timeStart"`
-		ShipToCustAcctSiteId        *string                             `json:"shipToCustAcctSiteId"`
-		ShipToCustAcctRoleId        *string                             `json:"shipToCustAcctRoleId"`
-		BillToCustAccountId         *string                             `json:"billToCustAccountId"`
-		IsIntentToPay               *bool                               `json:"isIntentToPay"`
-		CurrencyCode                *string                             `json:"currencyCode"`
-		GsiOrgCode                  *string                             `json:"gsiOrgCode"`
-		LanguageCode                *string                             `json:"languageCode"`
-		OrganizationId              *string                             `json:"organizationId"`
-		UpgradeState                SubscriptionUpgradeStateEnum        `json:"upgradeState"`
-		UpgradeStateDetails         SubscriptionUpgradeStateDetailsEnum `json:"upgradeStateDetails"`
-		AccountType                 SubscriptionAccountTypeEnum         `json:"accountType"`
-		TaxInfo                     *TaxInfo                            `json:"taxInfo"`
-		PaymentOptions              []paymentoption                     `json:"paymentOptions"`
-		PaymentGateway              *PaymentGateway                     `json:"paymentGateway"`
-		BillingAddress              *Address                            `json:"billingAddress"`
-		TimePlanUpgrade             *common.SDKTime                     `json:"timePlanUpgrade"`
-		TimePersonalToCorporateConv *common.SDKTime                     `json:"timePersonalToCorporateConv"`
-		SubscriptionPlanNumber      *string                             `json:"subscriptionPlanNumber"`
+		Id                           *string                             `json:"id"`
+		PlanType                     SubscriptionPlanTypeEnum            `json:"planType"`
+		TimeStart                    *common.SDKTime                     `json:"timeStart"`
+		ShipToCustAcctSiteId         *string                             `json:"shipToCustAcctSiteId"`
+		ShipToCustAcctRoleId         *string                             `json:"shipToCustAcctRoleId"`
+		BillToCustAccountId          *string                             `json:"billToCustAccountId"`
+		IsIntentToPay                *bool                               `json:"isIntentToPay"`
+		IsCorporateConversionAllowed *bool                               `json:"isCorporateConversionAllowed"`
+		CurrencyCode                 *string                             `json:"currencyCode"`
+		GsiOrgCode                   *string                             `json:"gsiOrgCode"`
+		LanguageCode                 *string                             `json:"languageCode"`
+		OrganizationId               *string                             `json:"organizationId"`
+		UpgradeState                 SubscriptionUpgradeStateEnum        `json:"upgradeState"`
+		UpgradeStateDetails          SubscriptionUpgradeStateDetailsEnum `json:"upgradeStateDetails"`
+		AccountType                  SubscriptionAccountTypeEnum         `json:"accountType"`
+		TaxInfo                      *TaxInfo                            `json:"taxInfo"`
+		PaymentOptions               []paymentoption                     `json:"paymentOptions"`
+		PaymentGateway               *PaymentGateway                     `json:"paymentGateway"`
+		BillingAddress               *Address                            `json:"billingAddress"`
+		TimePlanUpgrade              *common.SDKTime                     `json:"timePlanUpgrade"`
+		TimePersonalToCorporateConv  *common.SDKTime                     `json:"timePersonalToCorporateConv"`
+		SubscriptionPlanNumber       *string                             `json:"subscriptionPlanNumber"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -152,6 +156,8 @@ func (m *Subscription) UnmarshalJSON(data []byte) (e error) {
 	m.BillToCustAccountId = model.BillToCustAccountId
 
 	m.IsIntentToPay = model.IsIntentToPay
+
+	m.IsCorporateConversionAllowed = model.IsCorporateConversionAllowed
 
 	m.CurrencyCode = model.CurrencyCode
 
@@ -293,16 +299,19 @@ type SubscriptionUpgradeStateDetailsEnum string
 const (
 	SubscriptionUpgradeStateDetailsTaxError     SubscriptionUpgradeStateDetailsEnum = "TAX_ERROR"
 	SubscriptionUpgradeStateDetailsUpgradeError SubscriptionUpgradeStateDetailsEnum = "UPGRADE_ERROR"
+	SubscriptionUpgradeStateDetailsP2cError     SubscriptionUpgradeStateDetailsEnum = "P2C_ERROR"
 )
 
 var mappingSubscriptionUpgradeStateDetailsEnum = map[string]SubscriptionUpgradeStateDetailsEnum{
 	"TAX_ERROR":     SubscriptionUpgradeStateDetailsTaxError,
 	"UPGRADE_ERROR": SubscriptionUpgradeStateDetailsUpgradeError,
+	"P2C_ERROR":     SubscriptionUpgradeStateDetailsP2cError,
 }
 
 var mappingSubscriptionUpgradeStateDetailsEnumLowerCase = map[string]SubscriptionUpgradeStateDetailsEnum{
 	"tax_error":     SubscriptionUpgradeStateDetailsTaxError,
 	"upgrade_error": SubscriptionUpgradeStateDetailsUpgradeError,
+	"p2c_error":     SubscriptionUpgradeStateDetailsP2cError,
 }
 
 // GetSubscriptionUpgradeStateDetailsEnumValues Enumerates the set of values for SubscriptionUpgradeStateDetailsEnum
@@ -319,6 +328,7 @@ func GetSubscriptionUpgradeStateDetailsEnumStringValues() []string {
 	return []string{
 		"TAX_ERROR",
 		"UPGRADE_ERROR",
+		"P2C_ERROR",
 	}
 }
 

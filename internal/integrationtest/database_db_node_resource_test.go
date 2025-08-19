@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
@@ -63,9 +63,12 @@ func TestDatabaseDbNodeResource_basic(t *testing.T) {
 
 					resource.TestCheckResourceAttrSet(datasourceName, "db_nodes.#"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_nodes.0.backup_ip_id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "db_nodes.0.backup_ipv6id"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_nodes.0.backup_vnic2id"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_nodes.0.host_ip_id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "db_nodes.0.host_ipv6id"),
 					resource.TestCheckResourceAttrSet(datasourceName, "db_nodes.0.vnic2id"),
+					resource.TestCheckResourceAttr(datasourceName, "db_nodes.0.system_tags.%", "0"),
 				),
 			},
 			// verify singular datasource
@@ -78,9 +81,12 @@ func TestDatabaseDbNodeResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "db_node_id"),
 
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "backup_ip_id"),
+					resource.TestCheckResourceAttrSet(singularDatasourceName, "backup_ipv6id"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "backup_vnic2id"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "host_ip_id"),
+					resource.TestCheckResourceAttrSet(singularDatasourceName, "host_ipv6id"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "vnic2id"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.%", "0"),
 				),
 			},
 		},

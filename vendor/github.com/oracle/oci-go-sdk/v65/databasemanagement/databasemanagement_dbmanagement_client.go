@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -6,7 +6,7 @@
 //
 // Use the Database Management API to monitor and manage resources such as
 // Oracle Databases, MySQL Databases, and External Database Systems.
-// For more information, see Database Management (https://docs.cloud.oracle.com/iaas/database-management/home.htm).
+// For more information, see Database Management (https://docs.oracle.com/iaas/database-management/home.htm).
 //
 
 package databasemanagement
@@ -97,7 +97,7 @@ func (client *DbManagementClient) ConfigurationProvider() *common.ConfigurationP
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/AddDataFiles.go.html to see an example of how to use AddDataFiles API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/AddDataFiles.go.html to see an example of how to use AddDataFiles API.
 func (client DbManagementClient) AddDataFiles(ctx context.Context, request AddDataFilesRequest) (response AddDataFilesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -161,7 +161,7 @@ func (client DbManagementClient) addDataFiles(ctx context.Context, request commo
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/AddManagedDatabaseToManagedDatabaseGroup.go.html to see an example of how to use AddManagedDatabaseToManagedDatabaseGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/AddManagedDatabaseToManagedDatabaseGroup.go.html to see an example of how to use AddManagedDatabaseToManagedDatabaseGroup API.
 func (client DbManagementClient) AddManagedDatabaseToManagedDatabaseGroup(ctx context.Context, request AddManagedDatabaseToManagedDatabaseGroupRequest) (response AddManagedDatabaseToManagedDatabaseGroupResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -224,7 +224,7 @@ func (client DbManagementClient) addManagedDatabaseToManagedDatabaseGroup(ctx co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/AddmTasks.go.html to see an example of how to use AddmTasks API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/AddmTasks.go.html to see an example of how to use AddmTasks API.
 func (client DbManagementClient) AddmTasks(ctx context.Context, request AddmTasksRequest) (response AddmTasksResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -291,7 +291,7 @@ func (client DbManagementClient) addmTasks(ctx context.Context, request common.O
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeDatabaseParameters.go.html to see an example of how to use ChangeDatabaseParameters API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeDatabaseParameters.go.html to see an example of how to use ChangeDatabaseParameters API.
 func (client DbManagementClient) ChangeDatabaseParameters(ctx context.Context, request ChangeDatabaseParametersRequest) (response ChangeDatabaseParametersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -353,7 +353,7 @@ func (client DbManagementClient) changeDatabaseParameters(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeDbManagementPrivateEndpointCompartment.go.html to see an example of how to use ChangeDbManagementPrivateEndpointCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeDbManagementPrivateEndpointCompartment.go.html to see an example of how to use ChangeDbManagementPrivateEndpointCompartment API.
 func (client DbManagementClient) ChangeDbManagementPrivateEndpointCompartment(ctx context.Context, request ChangeDbManagementPrivateEndpointCompartmentRequest) (response ChangeDbManagementPrivateEndpointCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -415,7 +415,7 @@ func (client DbManagementClient) changeDbManagementPrivateEndpointCompartment(ct
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeExternalDbSystemCompartment.go.html to see an example of how to use ChangeExternalDbSystemCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeExternalDbSystemCompartment.go.html to see an example of how to use ChangeExternalDbSystemCompartment API.
 // A default retry strategy applies to this operation ChangeExternalDbSystemCompartment()
 func (client DbManagementClient) ChangeExternalDbSystemCompartment(ctx context.Context, request ChangeExternalDbSystemCompartmentRequest) (response ChangeExternalDbSystemCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -478,7 +478,7 @@ func (client DbManagementClient) changeExternalDbSystemCompartment(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeExternalExadataInfrastructureCompartment.go.html to see an example of how to use ChangeExternalExadataInfrastructureCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeExternalExadataInfrastructureCompartment.go.html to see an example of how to use ChangeExternalExadataInfrastructureCompartment API.
 // A default retry strategy applies to this operation ChangeExternalExadataInfrastructureCompartment()
 func (client DbManagementClient) ChangeExternalExadataInfrastructureCompartment(ctx context.Context, request ChangeExternalExadataInfrastructureCompartmentRequest) (response ChangeExternalExadataInfrastructureCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -541,7 +541,7 @@ func (client DbManagementClient) changeExternalExadataInfrastructureCompartment(
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeJobCompartment.go.html to see an example of how to use ChangeJobCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeJobCompartment.go.html to see an example of how to use ChangeJobCompartment API.
 func (client DbManagementClient) ChangeJobCompartment(ctx context.Context, request ChangeJobCompartmentRequest) (response ChangeJobCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -605,7 +605,7 @@ func (client DbManagementClient) changeJobCompartment(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeManagedDatabaseGroupCompartment.go.html to see an example of how to use ChangeManagedDatabaseGroupCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeManagedDatabaseGroupCompartment.go.html to see an example of how to use ChangeManagedDatabaseGroupCompartment API.
 func (client DbManagementClient) ChangeManagedDatabaseGroupCompartment(ctx context.Context, request ChangeManagedDatabaseGroupCompartmentRequest) (response ChangeManagedDatabaseGroupCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -669,7 +669,7 @@ func (client DbManagementClient) changeManagedDatabaseGroupCompartment(ctx conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeNamedCredentialCompartment.go.html to see an example of how to use ChangeNamedCredentialCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeNamedCredentialCompartment.go.html to see an example of how to use ChangeNamedCredentialCompartment API.
 func (client DbManagementClient) ChangeNamedCredentialCompartment(ctx context.Context, request ChangeNamedCredentialCompartmentRequest) (response ChangeNamedCredentialCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -734,7 +734,7 @@ func (client DbManagementClient) changeNamedCredentialCompartment(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangePlanRetention.go.html to see an example of how to use ChangePlanRetention API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangePlanRetention.go.html to see an example of how to use ChangePlanRetention API.
 func (client DbManagementClient) ChangePlanRetention(ctx context.Context, request ChangePlanRetentionRequest) (response ChangePlanRetentionResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -792,7 +792,7 @@ func (client DbManagementClient) changePlanRetention(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeSpaceBudget.go.html to see an example of how to use ChangeSpaceBudget API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeSpaceBudget.go.html to see an example of how to use ChangeSpaceBudget API.
 func (client DbManagementClient) ChangeSpaceBudget(ctx context.Context, request ChangeSpaceBudgetRequest) (response ChangeSpaceBudgetResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -849,7 +849,7 @@ func (client DbManagementClient) changeSpaceBudget(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeSqlPlanBaselinesAttributes.go.html to see an example of how to use ChangeSqlPlanBaselinesAttributes API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ChangeSqlPlanBaselinesAttributes.go.html to see an example of how to use ChangeSqlPlanBaselinesAttributes API.
 func (client DbManagementClient) ChangeSqlPlanBaselinesAttributes(ctx context.Context, request ChangeSqlPlanBaselinesAttributesRequest) (response ChangeSqlPlanBaselinesAttributesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -902,12 +902,76 @@ func (client DbManagementClient) changeSqlPlanBaselinesAttributes(ctx context.Co
 	return response, err
 }
 
+// CheckCloudDbSystemConnectorConnectionStatus Checks the status of the cloud DB system component connection specified in this connector.
+// This operation will refresh the connectionStatus and timeConnectionStatusLastUpdated fields.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CheckCloudDbSystemConnectorConnectionStatus.go.html to see an example of how to use CheckCloudDbSystemConnectorConnectionStatus API.
+// A default retry strategy applies to this operation CheckCloudDbSystemConnectorConnectionStatus()
+func (client DbManagementClient) CheckCloudDbSystemConnectorConnectionStatus(ctx context.Context, request CheckCloudDbSystemConnectorConnectionStatusRequest) (response CheckCloudDbSystemConnectorConnectionStatusResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.checkCloudDbSystemConnectorConnectionStatus, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CheckCloudDbSystemConnectorConnectionStatusResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CheckCloudDbSystemConnectorConnectionStatusResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CheckCloudDbSystemConnectorConnectionStatusResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CheckCloudDbSystemConnectorConnectionStatusResponse")
+	}
+	return
+}
+
+// checkCloudDbSystemConnectorConnectionStatus implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) checkCloudDbSystemConnectorConnectionStatus(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystemConnectors/{cloudDbSystemConnectorId}/actions/checkConnectionStatus", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CheckCloudDbSystemConnectorConnectionStatusResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemConnector/CheckCloudDbSystemConnectorConnectionStatus"
+		err = common.PostProcessServiceError(err, "DbManagement", "CheckCloudDbSystemConnectorConnectionStatus", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponseWithPolymorphicBody(httpResponse, &response, &clouddbsystemconnector{})
+	return response, err
+}
+
 // CheckExternalDbSystemConnectorConnectionStatus Checks the status of the external DB system component connection specified in this connector.
 // This operation will refresh the connectionStatus and timeConnectionStatusLastUpdated fields.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CheckExternalDbSystemConnectorConnectionStatus.go.html to see an example of how to use CheckExternalDbSystemConnectorConnectionStatus API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CheckExternalDbSystemConnectorConnectionStatus.go.html to see an example of how to use CheckExternalDbSystemConnectorConnectionStatus API.
 // A default retry strategy applies to this operation CheckExternalDbSystemConnectorConnectionStatus()
 func (client DbManagementClient) CheckExternalDbSystemConnectorConnectionStatus(ctx context.Context, request CheckExternalDbSystemConnectorConnectionStatusRequest) (response CheckExternalDbSystemConnectorConnectionStatusResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -970,7 +1034,7 @@ func (client DbManagementClient) checkExternalDbSystemConnectorConnectionStatus(
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CheckExternalExadataStorageConnector.go.html to see an example of how to use CheckExternalExadataStorageConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CheckExternalExadataStorageConnector.go.html to see an example of how to use CheckExternalExadataStorageConnector API.
 // A default retry strategy applies to this operation CheckExternalExadataStorageConnector()
 func (client DbManagementClient) CheckExternalExadataStorageConnector(ctx context.Context, request CheckExternalExadataStorageConnectorRequest) (response CheckExternalExadataStorageConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1029,12 +1093,76 @@ func (client DbManagementClient) checkExternalExadataStorageConnector(ctx contex
 	return response, err
 }
 
+// CheckExternalMySqlDatabaseConnectorConnectionStatus Check the status of the external database connection specified in this connector.
+// This operation will refresh the connectionStatus and timeConnectionStatusLastUpdated fields.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CheckExternalMySqlDatabaseConnectorConnectionStatus.go.html to see an example of how to use CheckExternalMySqlDatabaseConnectorConnectionStatus API.
+// A default retry strategy applies to this operation CheckExternalMySqlDatabaseConnectorConnectionStatus()
+func (client DbManagementClient) CheckExternalMySqlDatabaseConnectorConnectionStatus(ctx context.Context, request CheckExternalMySqlDatabaseConnectorConnectionStatusRequest) (response CheckExternalMySqlDatabaseConnectorConnectionStatusResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.checkExternalMySqlDatabaseConnectorConnectionStatus, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CheckExternalMySqlDatabaseConnectorConnectionStatusResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CheckExternalMySqlDatabaseConnectorConnectionStatusResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CheckExternalMySqlDatabaseConnectorConnectionStatusResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CheckExternalMySqlDatabaseConnectorConnectionStatusResponse")
+	}
+	return
+}
+
+// checkExternalMySqlDatabaseConnectorConnectionStatus implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) checkExternalMySqlDatabaseConnectorConnectionStatus(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/externalMySqlDatabaseConnectors/{externalMySqlDatabaseConnectorId}/actions/checkConnectionStatus", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CheckExternalMySqlDatabaseConnectorConnectionStatusResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabaseConnector/CheckExternalMySqlDatabaseConnectorConnectionStatus"
+		err = common.PostProcessServiceError(err, "DbManagement", "CheckExternalMySqlDatabaseConnectorConnectionStatus", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // ConfigureAutomaticCaptureFilters Configures automatic capture filters to capture only those statements
 // that match the filter criteria.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ConfigureAutomaticCaptureFilters.go.html to see an example of how to use ConfigureAutomaticCaptureFilters API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ConfigureAutomaticCaptureFilters.go.html to see an example of how to use ConfigureAutomaticCaptureFilters API.
 func (client DbManagementClient) ConfigureAutomaticCaptureFilters(ctx context.Context, request ConfigureAutomaticCaptureFiltersRequest) (response ConfigureAutomaticCaptureFiltersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1093,7 +1221,7 @@ func (client DbManagementClient) configureAutomaticCaptureFilters(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ConfigureAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use ConfigureAutomaticSpmEvolveAdvisorTask API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ConfigureAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use ConfigureAutomaticSpmEvolveAdvisorTask API.
 func (client DbManagementClient) ConfigureAutomaticSpmEvolveAdvisorTask(ctx context.Context, request ConfigureAutomaticSpmEvolveAdvisorTaskRequest) (response ConfigureAutomaticSpmEvolveAdvisorTaskResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1146,11 +1274,200 @@ func (client DbManagementClient) configureAutomaticSpmEvolveAdvisorTask(ctx cont
 	return response, err
 }
 
+// CreateCloudDbSystem Creates a cloud DB system and its related resources.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateCloudDbSystem.go.html to see an example of how to use CreateCloudDbSystem API.
+// A default retry strategy applies to this operation CreateCloudDbSystem()
+func (client DbManagementClient) CreateCloudDbSystem(ctx context.Context, request CreateCloudDbSystemRequest) (response CreateCloudDbSystemResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.createCloudDbSystem, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CreateCloudDbSystemResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CreateCloudDbSystemResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CreateCloudDbSystemResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CreateCloudDbSystemResponse")
+	}
+	return
+}
+
+// createCloudDbSystem implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) createCloudDbSystem(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystems", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CreateCloudDbSystemResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/CreateCloudDbSystem"
+		err = common.PostProcessServiceError(err, "DbManagement", "CreateCloudDbSystem", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// CreateCloudDbSystemConnector Creates a new cloud connector.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateCloudDbSystemConnector.go.html to see an example of how to use CreateCloudDbSystemConnector API.
+// A default retry strategy applies to this operation CreateCloudDbSystemConnector()
+func (client DbManagementClient) CreateCloudDbSystemConnector(ctx context.Context, request CreateCloudDbSystemConnectorRequest) (response CreateCloudDbSystemConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.createCloudDbSystemConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CreateCloudDbSystemConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CreateCloudDbSystemConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CreateCloudDbSystemConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CreateCloudDbSystemConnectorResponse")
+	}
+	return
+}
+
+// createCloudDbSystemConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) createCloudDbSystemConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystemConnectors", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CreateCloudDbSystemConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemConnector/CreateCloudDbSystemConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "CreateCloudDbSystemConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponseWithPolymorphicBody(httpResponse, &response, &clouddbsystemconnector{})
+	return response, err
+}
+
+// CreateCloudDbSystemDiscovery Creates a cloud DB system discovery resource and initiates the discovery process.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateCloudDbSystemDiscovery.go.html to see an example of how to use CreateCloudDbSystemDiscovery API.
+// A default retry strategy applies to this operation CreateCloudDbSystemDiscovery()
+func (client DbManagementClient) CreateCloudDbSystemDiscovery(ctx context.Context, request CreateCloudDbSystemDiscoveryRequest) (response CreateCloudDbSystemDiscoveryResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.createCloudDbSystemDiscovery, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CreateCloudDbSystemDiscoveryResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CreateCloudDbSystemDiscoveryResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CreateCloudDbSystemDiscoveryResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CreateCloudDbSystemDiscoveryResponse")
+	}
+	return
+}
+
+// createCloudDbSystemDiscovery implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) createCloudDbSystemDiscovery(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystemDiscoveries", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CreateCloudDbSystemDiscoveryResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemDiscovery/CreateCloudDbSystemDiscovery"
+		err = common.PostProcessServiceError(err, "DbManagement", "CreateCloudDbSystemDiscovery", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // CreateDbManagementPrivateEndpoint Creates a new Database Management private endpoint.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateDbManagementPrivateEndpoint.go.html to see an example of how to use CreateDbManagementPrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateDbManagementPrivateEndpoint.go.html to see an example of how to use CreateDbManagementPrivateEndpoint API.
 func (client DbManagementClient) CreateDbManagementPrivateEndpoint(ctx context.Context, request CreateDbManagementPrivateEndpointRequest) (response CreateDbManagementPrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1212,7 +1529,7 @@ func (client DbManagementClient) createDbManagementPrivateEndpoint(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalDbSystem.go.html to see an example of how to use CreateExternalDbSystem API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalDbSystem.go.html to see an example of how to use CreateExternalDbSystem API.
 // A default retry strategy applies to this operation CreateExternalDbSystem()
 func (client DbManagementClient) CreateExternalDbSystem(ctx context.Context, request CreateExternalDbSystemRequest) (response CreateExternalDbSystemResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1275,7 +1592,7 @@ func (client DbManagementClient) createExternalDbSystem(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalDbSystemConnector.go.html to see an example of how to use CreateExternalDbSystemConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalDbSystemConnector.go.html to see an example of how to use CreateExternalDbSystemConnector API.
 // A default retry strategy applies to this operation CreateExternalDbSystemConnector()
 func (client DbManagementClient) CreateExternalDbSystemConnector(ctx context.Context, request CreateExternalDbSystemConnectorRequest) (response CreateExternalDbSystemConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1338,7 +1655,7 @@ func (client DbManagementClient) createExternalDbSystemConnector(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalDbSystemDiscovery.go.html to see an example of how to use CreateExternalDbSystemDiscovery API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalDbSystemDiscovery.go.html to see an example of how to use CreateExternalDbSystemDiscovery API.
 // A default retry strategy applies to this operation CreateExternalDbSystemDiscovery()
 func (client DbManagementClient) CreateExternalDbSystemDiscovery(ctx context.Context, request CreateExternalDbSystemDiscoveryRequest) (response CreateExternalDbSystemDiscoveryResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1407,7 +1724,7 @@ func (client DbManagementClient) createExternalDbSystemDiscovery(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalExadataInfrastructure.go.html to see an example of how to use CreateExternalExadataInfrastructure API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalExadataInfrastructure.go.html to see an example of how to use CreateExternalExadataInfrastructure API.
 // A default retry strategy applies to this operation CreateExternalExadataInfrastructure()
 func (client DbManagementClient) CreateExternalExadataInfrastructure(ctx context.Context, request CreateExternalExadataInfrastructureRequest) (response CreateExternalExadataInfrastructureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1470,7 +1787,7 @@ func (client DbManagementClient) createExternalExadataInfrastructure(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalExadataStorageConnector.go.html to see an example of how to use CreateExternalExadataStorageConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalExadataStorageConnector.go.html to see an example of how to use CreateExternalExadataStorageConnector API.
 // A default retry strategy applies to this operation CreateExternalExadataStorageConnector()
 func (client DbManagementClient) CreateExternalExadataStorageConnector(ctx context.Context, request CreateExternalExadataStorageConnectorRequest) (response CreateExternalExadataStorageConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1529,13 +1846,139 @@ func (client DbManagementClient) createExternalExadataStorageConnector(ctx conte
 	return response, err
 }
 
+// CreateExternalMySqlDatabase Creates an external MySQL database.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalMySqlDatabase.go.html to see an example of how to use CreateExternalMySqlDatabase API.
+// A default retry strategy applies to this operation CreateExternalMySqlDatabase()
+func (client DbManagementClient) CreateExternalMySqlDatabase(ctx context.Context, request CreateExternalMySqlDatabaseRequest) (response CreateExternalMySqlDatabaseResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.createExternalMySqlDatabase, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CreateExternalMySqlDatabaseResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CreateExternalMySqlDatabaseResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CreateExternalMySqlDatabaseResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CreateExternalMySqlDatabaseResponse")
+	}
+	return
+}
+
+// createExternalMySqlDatabase implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) createExternalMySqlDatabase(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/externalMySqlDatabases", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CreateExternalMySqlDatabaseResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabase/CreateExternalMySqlDatabase"
+		err = common.PostProcessServiceError(err, "DbManagement", "CreateExternalMySqlDatabase", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// CreateExternalMySqlDatabaseConnector Creates an external MySQL connector resource.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateExternalMySqlDatabaseConnector.go.html to see an example of how to use CreateExternalMySqlDatabaseConnector API.
+// A default retry strategy applies to this operation CreateExternalMySqlDatabaseConnector()
+func (client DbManagementClient) CreateExternalMySqlDatabaseConnector(ctx context.Context, request CreateExternalMySqlDatabaseConnectorRequest) (response CreateExternalMySqlDatabaseConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.createExternalMySqlDatabaseConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CreateExternalMySqlDatabaseConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CreateExternalMySqlDatabaseConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CreateExternalMySqlDatabaseConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CreateExternalMySqlDatabaseConnectorResponse")
+	}
+	return
+}
+
+// createExternalMySqlDatabaseConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) createExternalMySqlDatabaseConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/externalMySqlDatabaseConnectors", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CreateExternalMySqlDatabaseConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabaseConnector/CreateExternalMySqlDatabaseConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "CreateExternalMySqlDatabaseConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // CreateJob Creates a job to be executed on a Managed Database or Managed Database Group. Only one
 // of the parameters, managedDatabaseId or managedDatabaseGroupId should be provided as
 // input in CreateJobDetails resource in request body.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateJob.go.html to see an example of how to use CreateJob API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateJob.go.html to see an example of how to use CreateJob API.
 func (client DbManagementClient) CreateJob(ctx context.Context, request CreateJobRequest) (response CreateJobResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1598,7 +2041,7 @@ func (client DbManagementClient) createJob(ctx context.Context, request common.O
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateManagedDatabaseGroup.go.html to see an example of how to use CreateManagedDatabaseGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateManagedDatabaseGroup.go.html to see an example of how to use CreateManagedDatabaseGroup API.
 func (client DbManagementClient) CreateManagedDatabaseGroup(ctx context.Context, request CreateManagedDatabaseGroupRequest) (response CreateManagedDatabaseGroupResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1660,7 +2103,7 @@ func (client DbManagementClient) createManagedDatabaseGroup(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateNamedCredential.go.html to see an example of how to use CreateNamedCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateNamedCredential.go.html to see an example of how to use CreateNamedCredential API.
 func (client DbManagementClient) CreateNamedCredential(ctx context.Context, request CreateNamedCredentialRequest) (response CreateNamedCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1722,7 +2165,7 @@ func (client DbManagementClient) createNamedCredential(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateTablespace.go.html to see an example of how to use CreateTablespace API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/CreateTablespace.go.html to see an example of how to use CreateTablespace API.
 func (client DbManagementClient) CreateTablespace(ctx context.Context, request CreateTablespaceRequest) (response CreateTablespaceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1780,11 +2223,182 @@ func (client DbManagementClient) createTablespace(ctx context.Context, request c
 	return response, err
 }
 
+// DeleteCloudDbSystem Deletes the cloud DB system specified by `cloudDbSystemId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteCloudDbSystem.go.html to see an example of how to use DeleteCloudDbSystem API.
+func (client DbManagementClient) DeleteCloudDbSystem(ctx context.Context, request DeleteCloudDbSystemRequest) (response DeleteCloudDbSystemResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.deleteCloudDbSystem, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DeleteCloudDbSystemResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DeleteCloudDbSystemResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DeleteCloudDbSystemResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DeleteCloudDbSystemResponse")
+	}
+	return
+}
+
+// deleteCloudDbSystem implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) deleteCloudDbSystem(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/cloudDbSystems/{cloudDbSystemId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DeleteCloudDbSystemResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/DeleteCloudDbSystem"
+		err = common.PostProcessServiceError(err, "DbManagement", "DeleteCloudDbSystem", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// DeleteCloudDbSystemConnector Deletes the cloud connector specified by `cloudDbSystemConnectorId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteCloudDbSystemConnector.go.html to see an example of how to use DeleteCloudDbSystemConnector API.
+func (client DbManagementClient) DeleteCloudDbSystemConnector(ctx context.Context, request DeleteCloudDbSystemConnectorRequest) (response DeleteCloudDbSystemConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.deleteCloudDbSystemConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DeleteCloudDbSystemConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DeleteCloudDbSystemConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DeleteCloudDbSystemConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DeleteCloudDbSystemConnectorResponse")
+	}
+	return
+}
+
+// deleteCloudDbSystemConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) deleteCloudDbSystemConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/cloudDbSystemConnectors/{cloudDbSystemConnectorId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DeleteCloudDbSystemConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemConnector/DeleteCloudDbSystemConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "DeleteCloudDbSystemConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// DeleteCloudDbSystemDiscovery Deletes the cloud DB system discovery resource specified by `cloudDbSystemDiscoveryId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteCloudDbSystemDiscovery.go.html to see an example of how to use DeleteCloudDbSystemDiscovery API.
+func (client DbManagementClient) DeleteCloudDbSystemDiscovery(ctx context.Context, request DeleteCloudDbSystemDiscoveryRequest) (response DeleteCloudDbSystemDiscoveryResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.deleteCloudDbSystemDiscovery, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DeleteCloudDbSystemDiscoveryResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DeleteCloudDbSystemDiscoveryResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DeleteCloudDbSystemDiscoveryResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DeleteCloudDbSystemDiscoveryResponse")
+	}
+	return
+}
+
+// deleteCloudDbSystemDiscovery implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) deleteCloudDbSystemDiscovery(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/cloudDbSystemDiscoveries/{cloudDbSystemDiscoveryId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DeleteCloudDbSystemDiscoveryResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemDiscovery/DeleteCloudDbSystemDiscovery"
+		err = common.PostProcessServiceError(err, "DbManagement", "DeleteCloudDbSystemDiscovery", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // DeleteDbManagementPrivateEndpoint Deletes a specific Database Management private endpoint.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteDbManagementPrivateEndpoint.go.html to see an example of how to use DeleteDbManagementPrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteDbManagementPrivateEndpoint.go.html to see an example of how to use DeleteDbManagementPrivateEndpoint API.
 func (client DbManagementClient) DeleteDbManagementPrivateEndpoint(ctx context.Context, request DeleteDbManagementPrivateEndpointRequest) (response DeleteDbManagementPrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1841,7 +2455,7 @@ func (client DbManagementClient) deleteDbManagementPrivateEndpoint(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalDbSystem.go.html to see an example of how to use DeleteExternalDbSystem API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalDbSystem.go.html to see an example of how to use DeleteExternalDbSystem API.
 func (client DbManagementClient) DeleteExternalDbSystem(ctx context.Context, request DeleteExternalDbSystemRequest) (response DeleteExternalDbSystemResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1898,7 +2512,7 @@ func (client DbManagementClient) deleteExternalDbSystem(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalDbSystemConnector.go.html to see an example of how to use DeleteExternalDbSystemConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalDbSystemConnector.go.html to see an example of how to use DeleteExternalDbSystemConnector API.
 func (client DbManagementClient) DeleteExternalDbSystemConnector(ctx context.Context, request DeleteExternalDbSystemConnectorRequest) (response DeleteExternalDbSystemConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1955,7 +2569,7 @@ func (client DbManagementClient) deleteExternalDbSystemConnector(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalDbSystemDiscovery.go.html to see an example of how to use DeleteExternalDbSystemDiscovery API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalDbSystemDiscovery.go.html to see an example of how to use DeleteExternalDbSystemDiscovery API.
 func (client DbManagementClient) DeleteExternalDbSystemDiscovery(ctx context.Context, request DeleteExternalDbSystemDiscoveryRequest) (response DeleteExternalDbSystemDiscoveryResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2012,7 +2626,7 @@ func (client DbManagementClient) deleteExternalDbSystemDiscovery(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalExadataInfrastructure.go.html to see an example of how to use DeleteExternalExadataInfrastructure API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalExadataInfrastructure.go.html to see an example of how to use DeleteExternalExadataInfrastructure API.
 func (client DbManagementClient) DeleteExternalExadataInfrastructure(ctx context.Context, request DeleteExternalExadataInfrastructureRequest) (response DeleteExternalExadataInfrastructureResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2069,7 +2683,7 @@ func (client DbManagementClient) deleteExternalExadataInfrastructure(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalExadataStorageConnector.go.html to see an example of how to use DeleteExternalExadataStorageConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalExadataStorageConnector.go.html to see an example of how to use DeleteExternalExadataStorageConnector API.
 func (client DbManagementClient) DeleteExternalExadataStorageConnector(ctx context.Context, request DeleteExternalExadataStorageConnectorRequest) (response DeleteExternalExadataStorageConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2122,11 +2736,125 @@ func (client DbManagementClient) deleteExternalExadataStorageConnector(ctx conte
 	return response, err
 }
 
+// DeleteExternalMySqlDatabase Deletes the Oracle Cloud Infrastructure resource representing an external MySQL database.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalMySqlDatabase.go.html to see an example of how to use DeleteExternalMySqlDatabase API.
+func (client DbManagementClient) DeleteExternalMySqlDatabase(ctx context.Context, request DeleteExternalMySqlDatabaseRequest) (response DeleteExternalMySqlDatabaseResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.deleteExternalMySqlDatabase, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DeleteExternalMySqlDatabaseResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DeleteExternalMySqlDatabaseResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DeleteExternalMySqlDatabaseResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DeleteExternalMySqlDatabaseResponse")
+	}
+	return
+}
+
+// deleteExternalMySqlDatabase implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) deleteExternalMySqlDatabase(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/externalMySqlDatabases/{externalMySqlDatabaseId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DeleteExternalMySqlDatabaseResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabase/DeleteExternalMySqlDatabase"
+		err = common.PostProcessServiceError(err, "DbManagement", "DeleteExternalMySqlDatabase", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// DeleteExternalMySqlDatabaseConnector Deletes the Oracle Cloud Infrastructure resource representing an external MySQL database connector.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteExternalMySqlDatabaseConnector.go.html to see an example of how to use DeleteExternalMySqlDatabaseConnector API.
+func (client DbManagementClient) DeleteExternalMySqlDatabaseConnector(ctx context.Context, request DeleteExternalMySqlDatabaseConnectorRequest) (response DeleteExternalMySqlDatabaseConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.deleteExternalMySqlDatabaseConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DeleteExternalMySqlDatabaseConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DeleteExternalMySqlDatabaseConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DeleteExternalMySqlDatabaseConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DeleteExternalMySqlDatabaseConnectorResponse")
+	}
+	return
+}
+
+// deleteExternalMySqlDatabaseConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) deleteExternalMySqlDatabaseConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/externalMySqlDatabaseConnectors/{externalMySqlDatabaseConnectorId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DeleteExternalMySqlDatabaseConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabaseConnector/DeleteExternalMySqlDatabaseConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "DeleteExternalMySqlDatabaseConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // DeleteJob Deletes the job specified by jobId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteJob.go.html to see an example of how to use DeleteJob API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteJob.go.html to see an example of how to use DeleteJob API.
 func (client DbManagementClient) DeleteJob(ctx context.Context, request DeleteJobRequest) (response DeleteJobResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2184,7 +2912,7 @@ func (client DbManagementClient) deleteJob(ctx context.Context, request common.O
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteManagedDatabaseGroup.go.html to see an example of how to use DeleteManagedDatabaseGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteManagedDatabaseGroup.go.html to see an example of how to use DeleteManagedDatabaseGroup API.
 func (client DbManagementClient) DeleteManagedDatabaseGroup(ctx context.Context, request DeleteManagedDatabaseGroupRequest) (response DeleteManagedDatabaseGroupResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2241,7 +2969,7 @@ func (client DbManagementClient) deleteManagedDatabaseGroup(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteNamedCredential.go.html to see an example of how to use DeleteNamedCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeleteNamedCredential.go.html to see an example of how to use DeleteNamedCredential API.
 func (client DbManagementClient) DeleteNamedCredential(ctx context.Context, request DeleteNamedCredentialRequest) (response DeleteNamedCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2298,7 +3026,7 @@ func (client DbManagementClient) deleteNamedCredential(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeletePreferredCredential.go.html to see an example of how to use DeletePreferredCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DeletePreferredCredential.go.html to see an example of how to use DeletePreferredCredential API.
 func (client DbManagementClient) DeletePreferredCredential(ctx context.Context, request DeletePreferredCredentialRequest) (response DeletePreferredCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2355,7 +3083,7 @@ func (client DbManagementClient) deletePreferredCredential(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableAutomaticInitialPlanCapture.go.html to see an example of how to use DisableAutomaticInitialPlanCapture API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableAutomaticInitialPlanCapture.go.html to see an example of how to use DisableAutomaticInitialPlanCapture API.
 func (client DbManagementClient) DisableAutomaticInitialPlanCapture(ctx context.Context, request DisableAutomaticInitialPlanCaptureRequest) (response DisableAutomaticInitialPlanCaptureResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2414,7 +3142,7 @@ func (client DbManagementClient) disableAutomaticInitialPlanCapture(ctx context.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use DisableAutomaticSpmEvolveAdvisorTask API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use DisableAutomaticSpmEvolveAdvisorTask API.
 func (client DbManagementClient) DisableAutomaticSpmEvolveAdvisorTask(ctx context.Context, request DisableAutomaticSpmEvolveAdvisorTaskRequest) (response DisableAutomaticSpmEvolveAdvisorTaskResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -2471,7 +3199,7 @@ func (client DbManagementClient) disableAutomaticSpmEvolveAdvisorTask(ctx contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableAutonomousDatabaseManagementFeature.go.html to see an example of how to use DisableAutonomousDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableAutonomousDatabaseManagementFeature.go.html to see an example of how to use DisableAutonomousDatabaseManagementFeature API.
 // A default retry strategy applies to this operation DisableAutonomousDatabaseManagementFeature()
 func (client DbManagementClient) DisableAutonomousDatabaseManagementFeature(ctx context.Context, request DisableAutonomousDatabaseManagementFeatureRequest) (response DisableAutonomousDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2530,11 +3258,139 @@ func (client DbManagementClient) disableAutonomousDatabaseManagementFeature(ctx 
 	return response, err
 }
 
+// DisableCloudDbSystemDatabaseManagement Disables Database Management service for all the components of the specified
+// cloud DB system (except databases).
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableCloudDbSystemDatabaseManagement.go.html to see an example of how to use DisableCloudDbSystemDatabaseManagement API.
+// A default retry strategy applies to this operation DisableCloudDbSystemDatabaseManagement()
+func (client DbManagementClient) DisableCloudDbSystemDatabaseManagement(ctx context.Context, request DisableCloudDbSystemDatabaseManagementRequest) (response DisableCloudDbSystemDatabaseManagementResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.disableCloudDbSystemDatabaseManagement, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DisableCloudDbSystemDatabaseManagementResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DisableCloudDbSystemDatabaseManagementResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DisableCloudDbSystemDatabaseManagementResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DisableCloudDbSystemDatabaseManagementResponse")
+	}
+	return
+}
+
+// disableCloudDbSystemDatabaseManagement implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) disableCloudDbSystemDatabaseManagement(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystems/{cloudDbSystemId}/actions/disableDatabaseManagement", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DisableCloudDbSystemDatabaseManagementResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/DisableCloudDbSystemDatabaseManagement"
+		err = common.PostProcessServiceError(err, "DbManagement", "DisableCloudDbSystemDatabaseManagement", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// DisableCloudDbSystemStackMonitoring Disables Stack Monitoring for all the components of the specified
+// cloud DB system (except databases).
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableCloudDbSystemStackMonitoring.go.html to see an example of how to use DisableCloudDbSystemStackMonitoring API.
+// A default retry strategy applies to this operation DisableCloudDbSystemStackMonitoring()
+func (client DbManagementClient) DisableCloudDbSystemStackMonitoring(ctx context.Context, request DisableCloudDbSystemStackMonitoringRequest) (response DisableCloudDbSystemStackMonitoringResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.disableCloudDbSystemStackMonitoring, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DisableCloudDbSystemStackMonitoringResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DisableCloudDbSystemStackMonitoringResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DisableCloudDbSystemStackMonitoringResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DisableCloudDbSystemStackMonitoringResponse")
+	}
+	return
+}
+
+// disableCloudDbSystemStackMonitoring implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) disableCloudDbSystemStackMonitoring(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystems/{cloudDbSystemId}/actions/disableStackMonitoring", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DisableCloudDbSystemStackMonitoringResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/DisableCloudDbSystemStackMonitoring"
+		err = common.PostProcessServiceError(err, "DbManagement", "DisableCloudDbSystemStackMonitoring", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // DisableDatabaseManagementFeature Disables a Database Management feature for the specified Oracle cloud database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableDatabaseManagementFeature.go.html to see an example of how to use DisableDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableDatabaseManagementFeature.go.html to see an example of how to use DisableDatabaseManagementFeature API.
 // A default retry strategy applies to this operation DisableDatabaseManagementFeature()
 func (client DbManagementClient) DisableDatabaseManagementFeature(ctx context.Context, request DisableDatabaseManagementFeatureRequest) (response DisableDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2597,7 +3453,7 @@ func (client DbManagementClient) disableDatabaseManagementFeature(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalContainerDatabaseManagementFeature.go.html to see an example of how to use DisableExternalContainerDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalContainerDatabaseManagementFeature.go.html to see an example of how to use DisableExternalContainerDatabaseManagementFeature API.
 // A default retry strategy applies to this operation DisableExternalContainerDatabaseManagementFeature()
 func (client DbManagementClient) DisableExternalContainerDatabaseManagementFeature(ctx context.Context, request DisableExternalContainerDatabaseManagementFeatureRequest) (response DisableExternalContainerDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2661,7 +3517,7 @@ func (client DbManagementClient) disableExternalContainerDatabaseManagementFeatu
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalDbSystemDatabaseManagement.go.html to see an example of how to use DisableExternalDbSystemDatabaseManagement API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalDbSystemDatabaseManagement.go.html to see an example of how to use DisableExternalDbSystemDatabaseManagement API.
 // A default retry strategy applies to this operation DisableExternalDbSystemDatabaseManagement()
 func (client DbManagementClient) DisableExternalDbSystemDatabaseManagement(ctx context.Context, request DisableExternalDbSystemDatabaseManagementRequest) (response DisableExternalDbSystemDatabaseManagementResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2725,7 +3581,7 @@ func (client DbManagementClient) disableExternalDbSystemDatabaseManagement(ctx c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalDbSystemStackMonitoring.go.html to see an example of how to use DisableExternalDbSystemStackMonitoring API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalDbSystemStackMonitoring.go.html to see an example of how to use DisableExternalDbSystemStackMonitoring API.
 // A default retry strategy applies to this operation DisableExternalDbSystemStackMonitoring()
 func (client DbManagementClient) DisableExternalDbSystemStackMonitoring(ctx context.Context, request DisableExternalDbSystemStackMonitoringRequest) (response DisableExternalDbSystemStackMonitoringResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2793,7 +3649,7 @@ func (client DbManagementClient) disableExternalDbSystemStackMonitoring(ctx cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalExadataInfrastructureManagement.go.html to see an example of how to use DisableExternalExadataInfrastructureManagement API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalExadataInfrastructureManagement.go.html to see an example of how to use DisableExternalExadataInfrastructureManagement API.
 // A default retry strategy applies to this operation DisableExternalExadataInfrastructureManagement()
 func (client DbManagementClient) DisableExternalExadataInfrastructureManagement(ctx context.Context, request DisableExternalExadataInfrastructureManagementRequest) (response DisableExternalExadataInfrastructureManagementResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2852,11 +3708,74 @@ func (client DbManagementClient) disableExternalExadataInfrastructureManagement(
 	return response, err
 }
 
+// DisableExternalMySqlDatabaseManagement Disables Database Management for an external MySQL Database.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalMySqlDatabaseManagement.go.html to see an example of how to use DisableExternalMySqlDatabaseManagement API.
+// A default retry strategy applies to this operation DisableExternalMySqlDatabaseManagement()
+func (client DbManagementClient) DisableExternalMySqlDatabaseManagement(ctx context.Context, request DisableExternalMySqlDatabaseManagementRequest) (response DisableExternalMySqlDatabaseManagementResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.disableExternalMySqlDatabaseManagement, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DisableExternalMySqlDatabaseManagementResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DisableExternalMySqlDatabaseManagementResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DisableExternalMySqlDatabaseManagementResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DisableExternalMySqlDatabaseManagementResponse")
+	}
+	return
+}
+
+// disableExternalMySqlDatabaseManagement implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) disableExternalMySqlDatabaseManagement(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/externalMySqlDatabases/{externalMySqlDatabaseId}/actions/disableDatabaseManagement", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DisableExternalMySqlDatabaseManagementResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabase/DisableExternalMySqlDatabaseManagement"
+		err = common.PostProcessServiceError(err, "DbManagement", "DisableExternalMySqlDatabaseManagement", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // DisableExternalNonContainerDatabaseManagementFeature Disables a Database Management feature for the specified external non-container database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalNonContainerDatabaseManagementFeature.go.html to see an example of how to use DisableExternalNonContainerDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalNonContainerDatabaseManagementFeature.go.html to see an example of how to use DisableExternalNonContainerDatabaseManagementFeature API.
 // A default retry strategy applies to this operation DisableExternalNonContainerDatabaseManagementFeature()
 func (client DbManagementClient) DisableExternalNonContainerDatabaseManagementFeature(ctx context.Context, request DisableExternalNonContainerDatabaseManagementFeatureRequest) (response DisableExternalNonContainerDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2919,7 +3838,7 @@ func (client DbManagementClient) disableExternalNonContainerDatabaseManagementFe
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalPluggableDatabaseManagementFeature.go.html to see an example of how to use DisableExternalPluggableDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableExternalPluggableDatabaseManagementFeature.go.html to see an example of how to use DisableExternalPluggableDatabaseManagementFeature API.
 // A default retry strategy applies to this operation DisableExternalPluggableDatabaseManagementFeature()
 func (client DbManagementClient) DisableExternalPluggableDatabaseManagementFeature(ctx context.Context, request DisableExternalPluggableDatabaseManagementFeatureRequest) (response DisableExternalPluggableDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2984,7 +3903,7 @@ func (client DbManagementClient) disableExternalPluggableDatabaseManagementFeatu
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableHighFrequencyAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use DisableHighFrequencyAutomaticSpmEvolveAdvisorTask API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableHighFrequencyAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use DisableHighFrequencyAutomaticSpmEvolveAdvisorTask API.
 func (client DbManagementClient) DisableHighFrequencyAutomaticSpmEvolveAdvisorTask(ctx context.Context, request DisableHighFrequencyAutomaticSpmEvolveAdvisorTaskRequest) (response DisableHighFrequencyAutomaticSpmEvolveAdvisorTaskResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -3041,7 +3960,7 @@ func (client DbManagementClient) disableHighFrequencyAutomaticSpmEvolveAdvisorTa
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisablePluggableDatabaseManagementFeature.go.html to see an example of how to use DisablePluggableDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisablePluggableDatabaseManagementFeature.go.html to see an example of how to use DisablePluggableDatabaseManagementFeature API.
 // A default retry strategy applies to this operation DisablePluggableDatabaseManagementFeature()
 func (client DbManagementClient) DisablePluggableDatabaseManagementFeature(ctx context.Context, request DisablePluggableDatabaseManagementFeatureRequest) (response DisablePluggableDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3105,7 +4024,7 @@ func (client DbManagementClient) disablePluggableDatabaseManagementFeature(ctx c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableSqlPlanBaselinesUsage.go.html to see an example of how to use DisableSqlPlanBaselinesUsage API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DisableSqlPlanBaselinesUsage.go.html to see an example of how to use DisableSqlPlanBaselinesUsage API.
 func (client DbManagementClient) DisableSqlPlanBaselinesUsage(ctx context.Context, request DisableSqlPlanBaselinesUsageRequest) (response DisableSqlPlanBaselinesUsageResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -3179,7 +4098,7 @@ func (client DbManagementClient) disableSqlPlanBaselinesUsage(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DiscoverExternalExadataInfrastructure.go.html to see an example of how to use DiscoverExternalExadataInfrastructure API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DiscoverExternalExadataInfrastructure.go.html to see an example of how to use DiscoverExternalExadataInfrastructure API.
 // A default retry strategy applies to this operation DiscoverExternalExadataInfrastructure()
 func (client DbManagementClient) DiscoverExternalExadataInfrastructure(ctx context.Context, request DiscoverExternalExadataInfrastructureRequest) (response DiscoverExternalExadataInfrastructureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3242,7 +4161,7 @@ func (client DbManagementClient) discoverExternalExadataInfrastructure(ctx conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DropSqlPlanBaselines.go.html to see an example of how to use DropSqlPlanBaselines API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DropSqlPlanBaselines.go.html to see an example of how to use DropSqlPlanBaselines API.
 func (client DbManagementClient) DropSqlPlanBaselines(ctx context.Context, request DropSqlPlanBaselinesRequest) (response DropSqlPlanBaselinesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -3299,7 +4218,7 @@ func (client DbManagementClient) dropSqlPlanBaselines(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DropTablespace.go.html to see an example of how to use DropTablespace API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/DropTablespace.go.html to see an example of how to use DropTablespace API.
 func (client DbManagementClient) DropTablespace(ctx context.Context, request DropTablespaceRequest) (response DropTablespaceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -3367,7 +4286,7 @@ func (client DbManagementClient) dropTablespace(ctx context.Context, request com
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableAutomaticInitialPlanCapture.go.html to see an example of how to use EnableAutomaticInitialPlanCapture API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableAutomaticInitialPlanCapture.go.html to see an example of how to use EnableAutomaticInitialPlanCapture API.
 func (client DbManagementClient) EnableAutomaticInitialPlanCapture(ctx context.Context, request EnableAutomaticInitialPlanCaptureRequest) (response EnableAutomaticInitialPlanCaptureResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -3433,7 +4352,7 @@ func (client DbManagementClient) enableAutomaticInitialPlanCapture(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use EnableAutomaticSpmEvolveAdvisorTask API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use EnableAutomaticSpmEvolveAdvisorTask API.
 func (client DbManagementClient) EnableAutomaticSpmEvolveAdvisorTask(ctx context.Context, request EnableAutomaticSpmEvolveAdvisorTaskRequest) (response EnableAutomaticSpmEvolveAdvisorTaskResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -3490,7 +4409,7 @@ func (client DbManagementClient) enableAutomaticSpmEvolveAdvisorTask(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableAutonomousDatabaseManagementFeature.go.html to see an example of how to use EnableAutonomousDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableAutonomousDatabaseManagementFeature.go.html to see an example of how to use EnableAutonomousDatabaseManagementFeature API.
 // A default retry strategy applies to this operation EnableAutonomousDatabaseManagementFeature()
 func (client DbManagementClient) EnableAutonomousDatabaseManagementFeature(ctx context.Context, request EnableAutonomousDatabaseManagementFeatureRequest) (response EnableAutonomousDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3549,11 +4468,139 @@ func (client DbManagementClient) enableAutonomousDatabaseManagementFeature(ctx c
 	return response, err
 }
 
+// EnableCloudDbSystemDatabaseManagement Enables Database Management service for all the components of the specified
+// cloud DB system (except databases).
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableCloudDbSystemDatabaseManagement.go.html to see an example of how to use EnableCloudDbSystemDatabaseManagement API.
+// A default retry strategy applies to this operation EnableCloudDbSystemDatabaseManagement()
+func (client DbManagementClient) EnableCloudDbSystemDatabaseManagement(ctx context.Context, request EnableCloudDbSystemDatabaseManagementRequest) (response EnableCloudDbSystemDatabaseManagementResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.enableCloudDbSystemDatabaseManagement, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = EnableCloudDbSystemDatabaseManagementResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = EnableCloudDbSystemDatabaseManagementResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(EnableCloudDbSystemDatabaseManagementResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into EnableCloudDbSystemDatabaseManagementResponse")
+	}
+	return
+}
+
+// enableCloudDbSystemDatabaseManagement implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) enableCloudDbSystemDatabaseManagement(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystems/{cloudDbSystemId}/actions/enableDatabaseManagement", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response EnableCloudDbSystemDatabaseManagementResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/EnableCloudDbSystemDatabaseManagement"
+		err = common.PostProcessServiceError(err, "DbManagement", "EnableCloudDbSystemDatabaseManagement", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// EnableCloudDbSystemStackMonitoring Enables Stack Monitoring for all the components of the specified
+// cloud DB system (except databases).
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableCloudDbSystemStackMonitoring.go.html to see an example of how to use EnableCloudDbSystemStackMonitoring API.
+// A default retry strategy applies to this operation EnableCloudDbSystemStackMonitoring()
+func (client DbManagementClient) EnableCloudDbSystemStackMonitoring(ctx context.Context, request EnableCloudDbSystemStackMonitoringRequest) (response EnableCloudDbSystemStackMonitoringResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.enableCloudDbSystemStackMonitoring, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = EnableCloudDbSystemStackMonitoringResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = EnableCloudDbSystemStackMonitoringResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(EnableCloudDbSystemStackMonitoringResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into EnableCloudDbSystemStackMonitoringResponse")
+	}
+	return
+}
+
+// enableCloudDbSystemStackMonitoring implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) enableCloudDbSystemStackMonitoring(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/cloudDbSystems/{cloudDbSystemId}/actions/enableStackMonitoring", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response EnableCloudDbSystemStackMonitoringResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/EnableCloudDbSystemStackMonitoring"
+		err = common.PostProcessServiceError(err, "DbManagement", "EnableCloudDbSystemStackMonitoring", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // EnableDatabaseManagementFeature Enables a Database Management feature for the specified cloud database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableDatabaseManagementFeature.go.html to see an example of how to use EnableDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableDatabaseManagementFeature.go.html to see an example of how to use EnableDatabaseManagementFeature API.
 // A default retry strategy applies to this operation EnableDatabaseManagementFeature()
 func (client DbManagementClient) EnableDatabaseManagementFeature(ctx context.Context, request EnableDatabaseManagementFeatureRequest) (response EnableDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3616,7 +4663,7 @@ func (client DbManagementClient) enableDatabaseManagementFeature(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalContainerDatabaseManagementFeature.go.html to see an example of how to use EnableExternalContainerDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalContainerDatabaseManagementFeature.go.html to see an example of how to use EnableExternalContainerDatabaseManagementFeature API.
 // A default retry strategy applies to this operation EnableExternalContainerDatabaseManagementFeature()
 func (client DbManagementClient) EnableExternalContainerDatabaseManagementFeature(ctx context.Context, request EnableExternalContainerDatabaseManagementFeatureRequest) (response EnableExternalContainerDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3680,7 +4727,7 @@ func (client DbManagementClient) enableExternalContainerDatabaseManagementFeatur
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalDbSystemDatabaseManagement.go.html to see an example of how to use EnableExternalDbSystemDatabaseManagement API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalDbSystemDatabaseManagement.go.html to see an example of how to use EnableExternalDbSystemDatabaseManagement API.
 // A default retry strategy applies to this operation EnableExternalDbSystemDatabaseManagement()
 func (client DbManagementClient) EnableExternalDbSystemDatabaseManagement(ctx context.Context, request EnableExternalDbSystemDatabaseManagementRequest) (response EnableExternalDbSystemDatabaseManagementResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3744,7 +4791,7 @@ func (client DbManagementClient) enableExternalDbSystemDatabaseManagement(ctx co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalDbSystemStackMonitoring.go.html to see an example of how to use EnableExternalDbSystemStackMonitoring API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalDbSystemStackMonitoring.go.html to see an example of how to use EnableExternalDbSystemStackMonitoring API.
 // A default retry strategy applies to this operation EnableExternalDbSystemStackMonitoring()
 func (client DbManagementClient) EnableExternalDbSystemStackMonitoring(ctx context.Context, request EnableExternalDbSystemStackMonitoringRequest) (response EnableExternalDbSystemStackMonitoringResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3811,7 +4858,7 @@ func (client DbManagementClient) enableExternalDbSystemStackMonitoring(ctx conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalExadataInfrastructureManagement.go.html to see an example of how to use EnableExternalExadataInfrastructureManagement API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalExadataInfrastructureManagement.go.html to see an example of how to use EnableExternalExadataInfrastructureManagement API.
 // A default retry strategy applies to this operation EnableExternalExadataInfrastructureManagement()
 func (client DbManagementClient) EnableExternalExadataInfrastructureManagement(ctx context.Context, request EnableExternalExadataInfrastructureManagementRequest) (response EnableExternalExadataInfrastructureManagementResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3870,11 +4917,74 @@ func (client DbManagementClient) enableExternalExadataInfrastructureManagement(c
 	return response, err
 }
 
+// EnableExternalMySqlDatabaseManagement Enables Database Management for an external MySQL Database.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalMySqlDatabaseManagement.go.html to see an example of how to use EnableExternalMySqlDatabaseManagement API.
+// A default retry strategy applies to this operation EnableExternalMySqlDatabaseManagement()
+func (client DbManagementClient) EnableExternalMySqlDatabaseManagement(ctx context.Context, request EnableExternalMySqlDatabaseManagementRequest) (response EnableExternalMySqlDatabaseManagementResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.enableExternalMySqlDatabaseManagement, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = EnableExternalMySqlDatabaseManagementResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = EnableExternalMySqlDatabaseManagementResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(EnableExternalMySqlDatabaseManagementResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into EnableExternalMySqlDatabaseManagementResponse")
+	}
+	return
+}
+
+// enableExternalMySqlDatabaseManagement implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) enableExternalMySqlDatabaseManagement(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/externalMySqlDatabases/{externalMySqlDatabaseId}/actions/enableDatabaseManagement", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response EnableExternalMySqlDatabaseManagementResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabase/EnableExternalMySqlDatabaseManagement"
+		err = common.PostProcessServiceError(err, "DbManagement", "EnableExternalMySqlDatabaseManagement", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // EnableExternalNonContainerDatabaseManagementFeature Enables Database Management feature for the specified external non-container database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalNonContainerDatabaseManagementFeature.go.html to see an example of how to use EnableExternalNonContainerDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalNonContainerDatabaseManagementFeature.go.html to see an example of how to use EnableExternalNonContainerDatabaseManagementFeature API.
 // A default retry strategy applies to this operation EnableExternalNonContainerDatabaseManagementFeature()
 func (client DbManagementClient) EnableExternalNonContainerDatabaseManagementFeature(ctx context.Context, request EnableExternalNonContainerDatabaseManagementFeatureRequest) (response EnableExternalNonContainerDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3937,7 +5047,7 @@ func (client DbManagementClient) enableExternalNonContainerDatabaseManagementFea
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalPluggableDatabaseManagementFeature.go.html to see an example of how to use EnableExternalPluggableDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableExternalPluggableDatabaseManagementFeature.go.html to see an example of how to use EnableExternalPluggableDatabaseManagementFeature API.
 // A default retry strategy applies to this operation EnableExternalPluggableDatabaseManagementFeature()
 func (client DbManagementClient) EnableExternalPluggableDatabaseManagementFeature(ctx context.Context, request EnableExternalPluggableDatabaseManagementFeatureRequest) (response EnableExternalPluggableDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4006,7 +5116,7 @@ func (client DbManagementClient) enableExternalPluggableDatabaseManagementFeatur
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableHighFrequencyAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use EnableHighFrequencyAutomaticSpmEvolveAdvisorTask API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableHighFrequencyAutomaticSpmEvolveAdvisorTask.go.html to see an example of how to use EnableHighFrequencyAutomaticSpmEvolveAdvisorTask API.
 func (client DbManagementClient) EnableHighFrequencyAutomaticSpmEvolveAdvisorTask(ctx context.Context, request EnableHighFrequencyAutomaticSpmEvolveAdvisorTaskRequest) (response EnableHighFrequencyAutomaticSpmEvolveAdvisorTaskResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4063,7 +5173,7 @@ func (client DbManagementClient) enableHighFrequencyAutomaticSpmEvolveAdvisorTas
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnablePluggableDatabaseManagementFeature.go.html to see an example of how to use EnablePluggableDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnablePluggableDatabaseManagementFeature.go.html to see an example of how to use EnablePluggableDatabaseManagementFeature API.
 // A default retry strategy applies to this operation EnablePluggableDatabaseManagementFeature()
 func (client DbManagementClient) EnablePluggableDatabaseManagementFeature(ctx context.Context, request EnablePluggableDatabaseManagementFeatureRequest) (response EnablePluggableDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4128,7 +5238,7 @@ func (client DbManagementClient) enablePluggableDatabaseManagementFeature(ctx co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableSqlPlanBaselinesUsage.go.html to see an example of how to use EnableSqlPlanBaselinesUsage API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/EnableSqlPlanBaselinesUsage.go.html to see an example of how to use EnableSqlPlanBaselinesUsage API.
 func (client DbManagementClient) EnableSqlPlanBaselinesUsage(ctx context.Context, request EnableSqlPlanBaselinesUsageRequest) (response EnableSqlPlanBaselinesUsageResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4185,7 +5295,7 @@ func (client DbManagementClient) enableSqlPlanBaselinesUsage(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GenerateAwrSnapshot.go.html to see an example of how to use GenerateAwrSnapshot API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GenerateAwrSnapshot.go.html to see an example of how to use GenerateAwrSnapshot API.
 func (client DbManagementClient) GenerateAwrSnapshot(ctx context.Context, request GenerateAwrSnapshotRequest) (response GenerateAwrSnapshotResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4243,11 +5353,11 @@ func (client DbManagementClient) generateAwrSnapshot(ctx context.Context, reques
 	return response, err
 }
 
-// GetAwrDbReport Gets the AWR report for the specific database.
+// GetAwrDbReport Gets the AWR report for the specified database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetAwrDbReport.go.html to see an example of how to use GetAwrDbReport API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetAwrDbReport.go.html to see an example of how to use GetAwrDbReport API.
 func (client DbManagementClient) GetAwrDbReport(ctx context.Context, request GetAwrDbReportRequest) (response GetAwrDbReportResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4305,11 +5415,11 @@ func (client DbManagementClient) getAwrDbReport(ctx context.Context, request com
 	return response, err
 }
 
-// GetAwrDbSqlReport Gets the SQL health check report for one SQL of the specific database.
+// GetAwrDbSqlReport Gets the SQL health check report for one SQL of the specified database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetAwrDbSqlReport.go.html to see an example of how to use GetAwrDbSqlReport API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetAwrDbSqlReport.go.html to see an example of how to use GetAwrDbSqlReport API.
 func (client DbManagementClient) GetAwrDbSqlReport(ctx context.Context, request GetAwrDbSqlReportRequest) (response GetAwrDbSqlReportResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4367,13 +5477,651 @@ func (client DbManagementClient) getAwrDbSqlReport(ctx context.Context, request 
 	return response, err
 }
 
+// GetCloudAsm Gets the details for the cloud ASM specified by `cloudAsmId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudAsm.go.html to see an example of how to use GetCloudAsm API.
+// A default retry strategy applies to this operation GetCloudAsm()
+func (client DbManagementClient) GetCloudAsm(ctx context.Context, request GetCloudAsmRequest) (response GetCloudAsmResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudAsm, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudAsmResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudAsmResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudAsmResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudAsmResponse")
+	}
+	return
+}
+
+// getCloudAsm implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudAsm(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsms/{cloudAsmId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudAsmResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsm/GetCloudAsm"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudAsm", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudAsmConfiguration Gets configuration details including disk groups for the cloud ASM specified by `cloudAsmId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudAsmConfiguration.go.html to see an example of how to use GetCloudAsmConfiguration API.
+// A default retry strategy applies to this operation GetCloudAsmConfiguration()
+func (client DbManagementClient) GetCloudAsmConfiguration(ctx context.Context, request GetCloudAsmConfigurationRequest) (response GetCloudAsmConfigurationResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudAsmConfiguration, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudAsmConfigurationResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudAsmConfigurationResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudAsmConfigurationResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudAsmConfigurationResponse")
+	}
+	return
+}
+
+// getCloudAsmConfiguration implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudAsmConfiguration(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsms/{cloudAsmId}/configuration", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudAsmConfigurationResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsm/GetCloudAsmConfiguration"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudAsmConfiguration", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudAsmInstance Gets the details for the cloud ASM instance specified by `cloudAsmInstanceId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudAsmInstance.go.html to see an example of how to use GetCloudAsmInstance API.
+// A default retry strategy applies to this operation GetCloudAsmInstance()
+func (client DbManagementClient) GetCloudAsmInstance(ctx context.Context, request GetCloudAsmInstanceRequest) (response GetCloudAsmInstanceResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudAsmInstance, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudAsmInstanceResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudAsmInstanceResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudAsmInstanceResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudAsmInstanceResponse")
+	}
+	return
+}
+
+// getCloudAsmInstance implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudAsmInstance(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsmInstances/{cloudAsmInstanceId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudAsmInstanceResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsmInstance/GetCloudAsmInstance"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudAsmInstance", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudCluster Gets the details for the cloud cluster specified by `cloudClusterId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudCluster.go.html to see an example of how to use GetCloudCluster API.
+// A default retry strategy applies to this operation GetCloudCluster()
+func (client DbManagementClient) GetCloudCluster(ctx context.Context, request GetCloudClusterRequest) (response GetCloudClusterResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudCluster, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudClusterResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudClusterResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudClusterResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudClusterResponse")
+	}
+	return
+}
+
+// getCloudCluster implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudCluster(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudClusters/{cloudClusterId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudClusterResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudCluster/GetCloudCluster"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudCluster", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudClusterInstance Gets the details for the cloud cluster instance specified by `cloudClusterInstanceId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudClusterInstance.go.html to see an example of how to use GetCloudClusterInstance API.
+// A default retry strategy applies to this operation GetCloudClusterInstance()
+func (client DbManagementClient) GetCloudClusterInstance(ctx context.Context, request GetCloudClusterInstanceRequest) (response GetCloudClusterInstanceResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudClusterInstance, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudClusterInstanceResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudClusterInstanceResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudClusterInstanceResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudClusterInstanceResponse")
+	}
+	return
+}
+
+// getCloudClusterInstance implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudClusterInstance(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudClusterInstances/{cloudClusterInstanceId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudClusterInstanceResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudClusterInstance/GetCloudClusterInstance"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudClusterInstance", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudDbHome Gets the details for the cloud DB home specified by `cloudDbHomeId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudDbHome.go.html to see an example of how to use GetCloudDbHome API.
+// A default retry strategy applies to this operation GetCloudDbHome()
+func (client DbManagementClient) GetCloudDbHome(ctx context.Context, request GetCloudDbHomeRequest) (response GetCloudDbHomeResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudDbHome, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudDbHomeResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudDbHomeResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudDbHomeResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudDbHomeResponse")
+	}
+	return
+}
+
+// getCloudDbHome implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudDbHome(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbHomes/{cloudDbHomeId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudDbHomeResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbHome/GetCloudDbHome"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudDbHome", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudDbNode Gets the details for the cloud DB node specified by `cloudDbNodeId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudDbNode.go.html to see an example of how to use GetCloudDbNode API.
+// A default retry strategy applies to this operation GetCloudDbNode()
+func (client DbManagementClient) GetCloudDbNode(ctx context.Context, request GetCloudDbNodeRequest) (response GetCloudDbNodeResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudDbNode, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudDbNodeResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudDbNodeResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudDbNodeResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudDbNodeResponse")
+	}
+	return
+}
+
+// getCloudDbNode implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudDbNode(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbNodes/{cloudDbNodeId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudDbNodeResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbNode/GetCloudDbNode"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudDbNode", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudDbSystem Gets the details for the cloud DB system specified by `cloudDbSystemId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudDbSystem.go.html to see an example of how to use GetCloudDbSystem API.
+// A default retry strategy applies to this operation GetCloudDbSystem()
+func (client DbManagementClient) GetCloudDbSystem(ctx context.Context, request GetCloudDbSystemRequest) (response GetCloudDbSystemResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudDbSystem, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudDbSystemResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudDbSystemResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudDbSystemResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudDbSystemResponse")
+	}
+	return
+}
+
+// getCloudDbSystem implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudDbSystem(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbSystems/{cloudDbSystemId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudDbSystemResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/GetCloudDbSystem"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudDbSystem", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudDbSystemConnector Gets the details for the cloud connector specified by `cloudDbSystemConnectorId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudDbSystemConnector.go.html to see an example of how to use GetCloudDbSystemConnector API.
+// A default retry strategy applies to this operation GetCloudDbSystemConnector()
+func (client DbManagementClient) GetCloudDbSystemConnector(ctx context.Context, request GetCloudDbSystemConnectorRequest) (response GetCloudDbSystemConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudDbSystemConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudDbSystemConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudDbSystemConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudDbSystemConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudDbSystemConnectorResponse")
+	}
+	return
+}
+
+// getCloudDbSystemConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudDbSystemConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbSystemConnectors/{cloudDbSystemConnectorId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudDbSystemConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemConnector/GetCloudDbSystemConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudDbSystemConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponseWithPolymorphicBody(httpResponse, &response, &clouddbsystemconnector{})
+	return response, err
+}
+
+// GetCloudDbSystemDiscovery Gets the details for the cloud DB system discovery resource specified by `cloudDbSystemDiscoveryId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudDbSystemDiscovery.go.html to see an example of how to use GetCloudDbSystemDiscovery API.
+// A default retry strategy applies to this operation GetCloudDbSystemDiscovery()
+func (client DbManagementClient) GetCloudDbSystemDiscovery(ctx context.Context, request GetCloudDbSystemDiscoveryRequest) (response GetCloudDbSystemDiscoveryResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudDbSystemDiscovery, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudDbSystemDiscoveryResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudDbSystemDiscoveryResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudDbSystemDiscoveryResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudDbSystemDiscoveryResponse")
+	}
+	return
+}
+
+// getCloudDbSystemDiscovery implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudDbSystemDiscovery(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbSystemDiscoveries/{cloudDbSystemDiscoveryId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudDbSystemDiscoveryResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemDiscovery/GetCloudDbSystemDiscovery"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudDbSystemDiscovery", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetCloudListener Gets the details for the cloud listener specified by `cloudListenerId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetCloudListener.go.html to see an example of how to use GetCloudListener API.
+// A default retry strategy applies to this operation GetCloudListener()
+func (client DbManagementClient) GetCloudListener(ctx context.Context, request GetCloudListenerRequest) (response GetCloudListenerResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getCloudListener, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetCloudListenerResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetCloudListenerResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetCloudListenerResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetCloudListenerResponse")
+	}
+	return
+}
+
+// getCloudListener implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getCloudListener(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudListeners/{cloudListenerId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetCloudListenerResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudListener/GetCloudListener"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetCloudListener", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // GetClusterCacheMetric Gets the metrics related to cluster cache for the Oracle
 // Real Application Clusters (Oracle RAC) database specified
 // by managedDatabaseId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetClusterCacheMetric.go.html to see an example of how to use GetClusterCacheMetric API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetClusterCacheMetric.go.html to see an example of how to use GetClusterCacheMetric API.
 func (client DbManagementClient) GetClusterCacheMetric(ctx context.Context, request GetClusterCacheMetricRequest) (response GetClusterCacheMetricResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4426,12 +6174,190 @@ func (client DbManagementClient) getClusterCacheMetric(ctx context.Context, requ
 	return response, err
 }
 
+// GetDatabaseFleetBackupMetrics Gets the fleet of container databases (CDBs) and their backup details and metrics, in a compartment or Database Group.
+// The databaseHostedIn query parameter must be provided to list either cloud or external databases.
+// Either the CompartmentId or the ManagedDatabaseGroupId query parameters must be provided to retrieve the HA and backup metrics.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseFleetBackupMetrics.go.html to see an example of how to use GetDatabaseFleetBackupMetrics API.
+// A default retry strategy applies to this operation GetDatabaseFleetBackupMetrics()
+func (client DbManagementClient) GetDatabaseFleetBackupMetrics(ctx context.Context, request GetDatabaseFleetBackupMetricsRequest) (response GetDatabaseFleetBackupMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getDatabaseFleetBackupMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetDatabaseFleetBackupMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetDatabaseFleetBackupMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetDatabaseFleetBackupMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetDatabaseFleetBackupMetricsResponse")
+	}
+	return
+}
+
+// getDatabaseFleetBackupMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getDatabaseFleetBackupMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/databaseFleetBackupMetrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetDatabaseFleetBackupMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/DatabaseFleetBackupMetrics/GetDatabaseFleetBackupMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetDatabaseFleetBackupMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetDatabaseFleetDataguardMetrics Gets the fleet of Oracle Data Guard-enabled container databases (CDBs) along with Data Guard metrics and standby databases, in a compartment or Database Group.
+// Either the CompartmentId or the ManagedDatabaseGroupId query parameters must be provided to retrieve the list of databases and Data Guard metrics.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseFleetDataguardMetrics.go.html to see an example of how to use GetDatabaseFleetDataguardMetrics API.
+// A default retry strategy applies to this operation GetDatabaseFleetDataguardMetrics()
+func (client DbManagementClient) GetDatabaseFleetDataguardMetrics(ctx context.Context, request GetDatabaseFleetDataguardMetricsRequest) (response GetDatabaseFleetDataguardMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getDatabaseFleetDataguardMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetDatabaseFleetDataguardMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetDatabaseFleetDataguardMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetDatabaseFleetDataguardMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetDatabaseFleetDataguardMetricsResponse")
+	}
+	return
+}
+
+// getDatabaseFleetDataguardMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getDatabaseFleetDataguardMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/databaseFleetDataguardMetrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetDatabaseFleetDataguardMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/DatabaseFleetDataguardMetrics/GetDatabaseFleetDataguardMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetDatabaseFleetDataguardMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetDatabaseFleetHaOverviewMetrics Gets the fleet of container databases (CDBs) and their HA and backup metrics in a compartment or in a Database Group.
+// Either the CompartmentId or the ManagedDatabaseGroupId query parameters must be provided to retrieve the HA and backup metrics.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseFleetHaOverviewMetrics.go.html to see an example of how to use GetDatabaseFleetHaOverviewMetrics API.
+// A default retry strategy applies to this operation GetDatabaseFleetHaOverviewMetrics()
+func (client DbManagementClient) GetDatabaseFleetHaOverviewMetrics(ctx context.Context, request GetDatabaseFleetHaOverviewMetricsRequest) (response GetDatabaseFleetHaOverviewMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getDatabaseFleetHaOverviewMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetDatabaseFleetHaOverviewMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetDatabaseFleetHaOverviewMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetDatabaseFleetHaOverviewMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetDatabaseFleetHaOverviewMetricsResponse")
+	}
+	return
+}
+
+// getDatabaseFleetHaOverviewMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getDatabaseFleetHaOverviewMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/databaseFleetHaOverviewMetrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetDatabaseFleetHaOverviewMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/DatabaseFleetHaOverviewMetrics/GetDatabaseFleetHaOverviewMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetDatabaseFleetHaOverviewMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // GetDatabaseFleetHealthMetrics Gets the health metrics for a fleet of databases in a compartment or in a Managed Database Group.
 // Either the CompartmentId or the ManagedDatabaseGroupId query parameters must be provided to retrieve the health metrics.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseFleetHealthMetrics.go.html to see an example of how to use GetDatabaseFleetHealthMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseFleetHealthMetrics.go.html to see an example of how to use GetDatabaseFleetHealthMetrics API.
 func (client DbManagementClient) GetDatabaseFleetHealthMetrics(ctx context.Context, request GetDatabaseFleetHealthMetricsRequest) (response GetDatabaseFleetHealthMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4484,11 +6410,69 @@ func (client DbManagementClient) getDatabaseFleetHealthMetrics(ctx context.Conte
 	return response, err
 }
 
+// GetDatabaseHaBackupDetails Gets HA and backup details with metrics and backup history for a single database.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseHaBackupDetails.go.html to see an example of how to use GetDatabaseHaBackupDetails API.
+// A default retry strategy applies to this operation GetDatabaseHaBackupDetails()
+func (client DbManagementClient) GetDatabaseHaBackupDetails(ctx context.Context, request GetDatabaseHaBackupDetailsRequest) (response GetDatabaseHaBackupDetailsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getDatabaseHaBackupDetails, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetDatabaseHaBackupDetailsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetDatabaseHaBackupDetailsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetDatabaseHaBackupDetailsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetDatabaseHaBackupDetailsResponse")
+	}
+	return
+}
+
+// getDatabaseHaBackupDetails implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getDatabaseHaBackupDetails(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/managedDatabases/{managedDatabaseId}/haBackupDetails", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetDatabaseHaBackupDetailsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/DatabaseHaBackupDetails/GetDatabaseHaBackupDetails"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetDatabaseHaBackupDetails", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // GetDatabaseHomeMetrics Gets a summary of the activity and resource usage metrics like DB Time, CPU, User I/O, Wait, Storage, and Memory for a Managed Database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseHomeMetrics.go.html to see an example of how to use GetDatabaseHomeMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDatabaseHomeMetrics.go.html to see an example of how to use GetDatabaseHomeMetrics API.
 func (client DbManagementClient) GetDatabaseHomeMetrics(ctx context.Context, request GetDatabaseHomeMetricsRequest) (response GetDatabaseHomeMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4547,7 +6531,7 @@ func (client DbManagementClient) getDatabaseHomeMetrics(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDataguardPerformanceMetrics.go.html to see an example of how to use GetDataguardPerformanceMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDataguardPerformanceMetrics.go.html to see an example of how to use GetDataguardPerformanceMetrics API.
 func (client DbManagementClient) GetDataguardPerformanceMetrics(ctx context.Context, request GetDataguardPerformanceMetricsRequest) (response GetDataguardPerformanceMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4604,7 +6588,7 @@ func (client DbManagementClient) getDataguardPerformanceMetrics(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDbManagementPrivateEndpoint.go.html to see an example of how to use GetDbManagementPrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetDbManagementPrivateEndpoint.go.html to see an example of how to use GetDbManagementPrivateEndpoint API.
 func (client DbManagementClient) GetDbManagementPrivateEndpoint(ctx context.Context, request GetDbManagementPrivateEndpointRequest) (response GetDbManagementPrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -4661,7 +6645,7 @@ func (client DbManagementClient) getDbManagementPrivateEndpoint(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalAsm.go.html to see an example of how to use GetExternalAsm API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalAsm.go.html to see an example of how to use GetExternalAsm API.
 // A default retry strategy applies to this operation GetExternalAsm()
 func (client DbManagementClient) GetExternalAsm(ctx context.Context, request GetExternalAsmRequest) (response GetExternalAsmResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4719,7 +6703,7 @@ func (client DbManagementClient) getExternalAsm(ctx context.Context, request com
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalAsmConfiguration.go.html to see an example of how to use GetExternalAsmConfiguration API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalAsmConfiguration.go.html to see an example of how to use GetExternalAsmConfiguration API.
 // A default retry strategy applies to this operation GetExternalAsmConfiguration()
 func (client DbManagementClient) GetExternalAsmConfiguration(ctx context.Context, request GetExternalAsmConfigurationRequest) (response GetExternalAsmConfigurationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4777,7 +6761,7 @@ func (client DbManagementClient) getExternalAsmConfiguration(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalAsmInstance.go.html to see an example of how to use GetExternalAsmInstance API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalAsmInstance.go.html to see an example of how to use GetExternalAsmInstance API.
 // A default retry strategy applies to this operation GetExternalAsmInstance()
 func (client DbManagementClient) GetExternalAsmInstance(ctx context.Context, request GetExternalAsmInstanceRequest) (response GetExternalAsmInstanceResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4835,7 +6819,7 @@ func (client DbManagementClient) getExternalAsmInstance(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalCluster.go.html to see an example of how to use GetExternalCluster API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalCluster.go.html to see an example of how to use GetExternalCluster API.
 // A default retry strategy applies to this operation GetExternalCluster()
 func (client DbManagementClient) GetExternalCluster(ctx context.Context, request GetExternalClusterRequest) (response GetExternalClusterResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4893,7 +6877,7 @@ func (client DbManagementClient) getExternalCluster(ctx context.Context, request
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalClusterInstance.go.html to see an example of how to use GetExternalClusterInstance API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalClusterInstance.go.html to see an example of how to use GetExternalClusterInstance API.
 // A default retry strategy applies to this operation GetExternalClusterInstance()
 func (client DbManagementClient) GetExternalClusterInstance(ctx context.Context, request GetExternalClusterInstanceRequest) (response GetExternalClusterInstanceResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4951,7 +6935,7 @@ func (client DbManagementClient) getExternalClusterInstance(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbHome.go.html to see an example of how to use GetExternalDbHome API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbHome.go.html to see an example of how to use GetExternalDbHome API.
 // A default retry strategy applies to this operation GetExternalDbHome()
 func (client DbManagementClient) GetExternalDbHome(ctx context.Context, request GetExternalDbHomeRequest) (response GetExternalDbHomeResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5009,7 +6993,7 @@ func (client DbManagementClient) getExternalDbHome(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbNode.go.html to see an example of how to use GetExternalDbNode API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbNode.go.html to see an example of how to use GetExternalDbNode API.
 // A default retry strategy applies to this operation GetExternalDbNode()
 func (client DbManagementClient) GetExternalDbNode(ctx context.Context, request GetExternalDbNodeRequest) (response GetExternalDbNodeResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5067,7 +7051,7 @@ func (client DbManagementClient) getExternalDbNode(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbSystem.go.html to see an example of how to use GetExternalDbSystem API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbSystem.go.html to see an example of how to use GetExternalDbSystem API.
 // A default retry strategy applies to this operation GetExternalDbSystem()
 func (client DbManagementClient) GetExternalDbSystem(ctx context.Context, request GetExternalDbSystemRequest) (response GetExternalDbSystemResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5125,7 +7109,7 @@ func (client DbManagementClient) getExternalDbSystem(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbSystemConnector.go.html to see an example of how to use GetExternalDbSystemConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbSystemConnector.go.html to see an example of how to use GetExternalDbSystemConnector API.
 // A default retry strategy applies to this operation GetExternalDbSystemConnector()
 func (client DbManagementClient) GetExternalDbSystemConnector(ctx context.Context, request GetExternalDbSystemConnectorRequest) (response GetExternalDbSystemConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5183,7 +7167,7 @@ func (client DbManagementClient) getExternalDbSystemConnector(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbSystemDiscovery.go.html to see an example of how to use GetExternalDbSystemDiscovery API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalDbSystemDiscovery.go.html to see an example of how to use GetExternalDbSystemDiscovery API.
 // A default retry strategy applies to this operation GetExternalDbSystemDiscovery()
 func (client DbManagementClient) GetExternalDbSystemDiscovery(ctx context.Context, request GetExternalDbSystemDiscoveryRequest) (response GetExternalDbSystemDiscoveryResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5242,7 +7226,7 @@ func (client DbManagementClient) getExternalDbSystemDiscovery(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataInfrastructure.go.html to see an example of how to use GetExternalExadataInfrastructure API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataInfrastructure.go.html to see an example of how to use GetExternalExadataInfrastructure API.
 // A default retry strategy applies to this operation GetExternalExadataInfrastructure()
 func (client DbManagementClient) GetExternalExadataInfrastructure(ctx context.Context, request GetExternalExadataInfrastructureRequest) (response GetExternalExadataInfrastructureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5300,7 +7284,7 @@ func (client DbManagementClient) getExternalExadataInfrastructure(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataStorageConnector.go.html to see an example of how to use GetExternalExadataStorageConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataStorageConnector.go.html to see an example of how to use GetExternalExadataStorageConnector API.
 // A default retry strategy applies to this operation GetExternalExadataStorageConnector()
 func (client DbManagementClient) GetExternalExadataStorageConnector(ctx context.Context, request GetExternalExadataStorageConnectorRequest) (response GetExternalExadataStorageConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5358,7 +7342,7 @@ func (client DbManagementClient) getExternalExadataStorageConnector(ctx context.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataStorageGrid.go.html to see an example of how to use GetExternalExadataStorageGrid API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataStorageGrid.go.html to see an example of how to use GetExternalExadataStorageGrid API.
 // A default retry strategy applies to this operation GetExternalExadataStorageGrid()
 func (client DbManagementClient) GetExternalExadataStorageGrid(ctx context.Context, request GetExternalExadataStorageGridRequest) (response GetExternalExadataStorageGridResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5416,7 +7400,7 @@ func (client DbManagementClient) getExternalExadataStorageGrid(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataStorageServer.go.html to see an example of how to use GetExternalExadataStorageServer API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalExadataStorageServer.go.html to see an example of how to use GetExternalExadataStorageServer API.
 // A default retry strategy applies to this operation GetExternalExadataStorageServer()
 func (client DbManagementClient) GetExternalExadataStorageServer(ctx context.Context, request GetExternalExadataStorageServerRequest) (response GetExternalExadataStorageServerResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5474,7 +7458,7 @@ func (client DbManagementClient) getExternalExadataStorageServer(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalListener.go.html to see an example of how to use GetExternalListener API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalListener.go.html to see an example of how to use GetExternalListener API.
 // A default retry strategy applies to this operation GetExternalListener()
 func (client DbManagementClient) GetExternalListener(ctx context.Context, request GetExternalListenerRequest) (response GetExternalListenerResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5528,11 +7512,127 @@ func (client DbManagementClient) getExternalListener(ctx context.Context, reques
 	return response, err
 }
 
+// GetExternalMySqlDatabase Retrieves the external MySQL database information.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalMySqlDatabase.go.html to see an example of how to use GetExternalMySqlDatabase API.
+// A default retry strategy applies to this operation GetExternalMySqlDatabase()
+func (client DbManagementClient) GetExternalMySqlDatabase(ctx context.Context, request GetExternalMySqlDatabaseRequest) (response GetExternalMySqlDatabaseResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getExternalMySqlDatabase, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetExternalMySqlDatabaseResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetExternalMySqlDatabaseResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetExternalMySqlDatabaseResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetExternalMySqlDatabaseResponse")
+	}
+	return
+}
+
+// getExternalMySqlDatabase implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getExternalMySqlDatabase(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/externalMySqlDatabases/{externalMySqlDatabaseId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetExternalMySqlDatabaseResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabase/GetExternalMySqlDatabase"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetExternalMySqlDatabase", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetExternalMySqlDatabaseConnector Retrieves the MySQL database connector.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetExternalMySqlDatabaseConnector.go.html to see an example of how to use GetExternalMySqlDatabaseConnector API.
+// A default retry strategy applies to this operation GetExternalMySqlDatabaseConnector()
+func (client DbManagementClient) GetExternalMySqlDatabaseConnector(ctx context.Context, request GetExternalMySqlDatabaseConnectorRequest) (response GetExternalMySqlDatabaseConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getExternalMySqlDatabaseConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetExternalMySqlDatabaseConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetExternalMySqlDatabaseConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetExternalMySqlDatabaseConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetExternalMySqlDatabaseConnectorResponse")
+	}
+	return
+}
+
+// getExternalMySqlDatabaseConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) getExternalMySqlDatabaseConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/externalMySqlDatabaseConnectors/{externalMySqlDatabaseConnectorId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetExternalMySqlDatabaseConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabase/GetExternalMySqlDatabaseConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "GetExternalMySqlDatabaseConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // GetIormPlan Get the IORM plan from the specific Exadata storage server.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetIormPlan.go.html to see an example of how to use GetIormPlan API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetIormPlan.go.html to see an example of how to use GetIormPlan API.
 // A default retry strategy applies to this operation GetIormPlan()
 func (client DbManagementClient) GetIormPlan(ctx context.Context, request GetIormPlanRequest) (response GetIormPlanResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5586,11 +7686,11 @@ func (client DbManagementClient) getIormPlan(ctx context.Context, request common
 	return response, err
 }
 
-// GetJob Gets the details for the job specified by jobId.
+// GetJob Gets the details of the job specified by jobId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetJob.go.html to see an example of how to use GetJob API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetJob.go.html to see an example of how to use GetJob API.
 func (client DbManagementClient) GetJob(ctx context.Context, request GetJobRequest) (response GetJobResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -5643,11 +7743,11 @@ func (client DbManagementClient) getJob(ctx context.Context, request common.OCIR
 	return response, err
 }
 
-// GetJobExecution Gets the details for the job execution specified by jobExecutionId.
+// GetJobExecution Gets the details of the job execution specified by jobExecutionId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetJobExecution.go.html to see an example of how to use GetJobExecution API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetJobExecution.go.html to see an example of how to use GetJobExecution API.
 func (client DbManagementClient) GetJobExecution(ctx context.Context, request GetJobExecutionRequest) (response GetJobExecutionResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -5700,11 +7800,11 @@ func (client DbManagementClient) getJobExecution(ctx context.Context, request co
 	return response, err
 }
 
-// GetJobRun Gets the details for the job run specified by jobRunId.
+// GetJobRun Gets the details of the job run specified by jobRunId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetJobRun.go.html to see an example of how to use GetJobRun API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetJobRun.go.html to see an example of how to use GetJobRun API.
 func (client DbManagementClient) GetJobRun(ctx context.Context, request GetJobRunRequest) (response GetJobRunResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -5757,11 +7857,11 @@ func (client DbManagementClient) getJobRun(ctx context.Context, request common.O
 	return response, err
 }
 
-// GetManagedDatabase Gets the details for the Managed Database specified by managedDatabaseId.
+// GetManagedDatabase Gets the details of the Managed Database specified by managedDatabaseId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetManagedDatabase.go.html to see an example of how to use GetManagedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetManagedDatabase.go.html to see an example of how to use GetManagedDatabase API.
 func (client DbManagementClient) GetManagedDatabase(ctx context.Context, request GetManagedDatabaseRequest) (response GetManagedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -5814,11 +7914,11 @@ func (client DbManagementClient) getManagedDatabase(ctx context.Context, request
 	return response, err
 }
 
-// GetManagedDatabaseGroup Gets the details for the Managed Database Group specified by managedDatabaseGroupId.
+// GetManagedDatabaseGroup Gets the details of the Managed Database Group specified by managedDatabaseGroupId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetManagedDatabaseGroup.go.html to see an example of how to use GetManagedDatabaseGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetManagedDatabaseGroup.go.html to see an example of how to use GetManagedDatabaseGroup API.
 func (client DbManagementClient) GetManagedDatabaseGroup(ctx context.Context, request GetManagedDatabaseGroupRequest) (response GetManagedDatabaseGroupResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -5875,10 +7975,11 @@ func (client DbManagementClient) getManagedDatabaseGroup(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetNamedCredential.go.html to see an example of how to use GetNamedCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetNamedCredential.go.html to see an example of how to use GetNamedCredential API.
+// A default retry strategy applies to this operation GetNamedCredential()
 func (client DbManagementClient) GetNamedCredential(ctx context.Context, request GetNamedCredentialRequest) (response GetNamedCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
-	policy := common.NoRetryPolicy()
+	policy := common.DefaultRetryPolicy()
 	if client.RetryPolicy() != nil {
 		policy = *client.RetryPolicy()
 	}
@@ -5932,7 +8033,7 @@ func (client DbManagementClient) getNamedCredential(ctx context.Context, request
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOpenAlertHistory.go.html to see an example of how to use GetOpenAlertHistory API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOpenAlertHistory.go.html to see an example of how to use GetOpenAlertHistory API.
 // A default retry strategy applies to this operation GetOpenAlertHistory()
 func (client DbManagementClient) GetOpenAlertHistory(ctx context.Context, request GetOpenAlertHistoryRequest) (response GetOpenAlertHistoryResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5991,7 +8092,7 @@ func (client DbManagementClient) getOpenAlertHistory(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOptimizerStatisticsAdvisorExecution.go.html to see an example of how to use GetOptimizerStatisticsAdvisorExecution API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOptimizerStatisticsAdvisorExecution.go.html to see an example of how to use GetOptimizerStatisticsAdvisorExecution API.
 func (client DbManagementClient) GetOptimizerStatisticsAdvisorExecution(ctx context.Context, request GetOptimizerStatisticsAdvisorExecutionRequest) (response GetOptimizerStatisticsAdvisorExecutionResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6048,7 +8149,7 @@ func (client DbManagementClient) getOptimizerStatisticsAdvisorExecution(ctx cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOptimizerStatisticsAdvisorExecutionScript.go.html to see an example of how to use GetOptimizerStatisticsAdvisorExecutionScript API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOptimizerStatisticsAdvisorExecutionScript.go.html to see an example of how to use GetOptimizerStatisticsAdvisorExecutionScript API.
 func (client DbManagementClient) GetOptimizerStatisticsAdvisorExecutionScript(ctx context.Context, request GetOptimizerStatisticsAdvisorExecutionScriptRequest) (response GetOptimizerStatisticsAdvisorExecutionScriptResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6105,7 +8206,7 @@ func (client DbManagementClient) getOptimizerStatisticsAdvisorExecutionScript(ct
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOptimizerStatisticsCollectionOperation.go.html to see an example of how to use GetOptimizerStatisticsCollectionOperation API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetOptimizerStatisticsCollectionOperation.go.html to see an example of how to use GetOptimizerStatisticsCollectionOperation API.
 func (client DbManagementClient) GetOptimizerStatisticsCollectionOperation(ctx context.Context, request GetOptimizerStatisticsCollectionOperationRequest) (response GetOptimizerStatisticsCollectionOperationResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6165,7 +8266,7 @@ func (client DbManagementClient) getOptimizerStatisticsCollectionOperation(ctx c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetPdbMetrics.go.html to see an example of how to use GetPdbMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetPdbMetrics.go.html to see an example of how to use GetPdbMetrics API.
 func (client DbManagementClient) GetPdbMetrics(ctx context.Context, request GetPdbMetricsRequest) (response GetPdbMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6224,7 +8325,7 @@ func (client DbManagementClient) getPdbMetrics(ctx context.Context, request comm
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetPeerDatabaseMetrics.go.html to see an example of how to use GetPeerDatabaseMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetPeerDatabaseMetrics.go.html to see an example of how to use GetPeerDatabaseMetrics API.
 func (client DbManagementClient) GetPeerDatabaseMetrics(ctx context.Context, request GetPeerDatabaseMetricsRequest) (response GetPeerDatabaseMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6281,7 +8382,7 @@ func (client DbManagementClient) getPeerDatabaseMetrics(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetPreferredCredential.go.html to see an example of how to use GetPreferredCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetPreferredCredential.go.html to see an example of how to use GetPreferredCredential API.
 func (client DbManagementClient) GetPreferredCredential(ctx context.Context, request GetPreferredCredentialRequest) (response GetPreferredCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6338,7 +8439,7 @@ func (client DbManagementClient) getPreferredCredential(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetSqlPlanBaseline.go.html to see an example of how to use GetSqlPlanBaseline API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetSqlPlanBaseline.go.html to see an example of how to use GetSqlPlanBaseline API.
 // A default retry strategy applies to this operation GetSqlPlanBaseline()
 func (client DbManagementClient) GetSqlPlanBaseline(ctx context.Context, request GetSqlPlanBaselineRequest) (response GetSqlPlanBaselineResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -6398,7 +8499,7 @@ func (client DbManagementClient) getSqlPlanBaseline(ctx context.Context, request
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetSqlPlanBaselineConfiguration.go.html to see an example of how to use GetSqlPlanBaselineConfiguration API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetSqlPlanBaselineConfiguration.go.html to see an example of how to use GetSqlPlanBaselineConfiguration API.
 // A default retry strategy applies to this operation GetSqlPlanBaselineConfiguration()
 func (client DbManagementClient) GetSqlPlanBaselineConfiguration(ctx context.Context, request GetSqlPlanBaselineConfigurationRequest) (response GetSqlPlanBaselineConfigurationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -6456,7 +8557,7 @@ func (client DbManagementClient) getSqlPlanBaselineConfiguration(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetTablespace.go.html to see an example of how to use GetTablespace API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetTablespace.go.html to see an example of how to use GetTablespace API.
 func (client DbManagementClient) GetTablespace(ctx context.Context, request GetTablespaceRequest) (response GetTablespaceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6513,7 +8614,7 @@ func (client DbManagementClient) getTablespace(ctx context.Context, request comm
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetTopSqlCpuActivity.go.html to see an example of how to use GetTopSqlCpuActivity API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetTopSqlCpuActivity.go.html to see an example of how to use GetTopSqlCpuActivity API.
 // A default retry strategy applies to this operation GetTopSqlCpuActivity()
 func (client DbManagementClient) GetTopSqlCpuActivity(ctx context.Context, request GetTopSqlCpuActivityRequest) (response GetTopSqlCpuActivityResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -6571,7 +8672,7 @@ func (client DbManagementClient) getTopSqlCpuActivity(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetUser.go.html to see an example of how to use GetUser API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetUser.go.html to see an example of how to use GetUser API.
 func (client DbManagementClient) GetUser(ctx context.Context, request GetUserRequest) (response GetUserResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6624,11 +8725,11 @@ func (client DbManagementClient) getUser(ctx context.Context, request common.OCI
 	return response, err
 }
 
-// GetWorkRequest Gets the status of the work request with the given Work Request ID
+// GetWorkRequest Gets the status of the work request with the given Work Request ID.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
 func (client DbManagementClient) GetWorkRequest(ctx context.Context, request GetWorkRequestRequest) (response GetWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6685,7 +8786,7 @@ func (client DbManagementClient) getWorkRequest(ctx context.Context, request com
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ImplementOptimizerStatisticsAdvisorRecommendations.go.html to see an example of how to use ImplementOptimizerStatisticsAdvisorRecommendations API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ImplementOptimizerStatisticsAdvisorRecommendations.go.html to see an example of how to use ImplementOptimizerStatisticsAdvisorRecommendations API.
 func (client DbManagementClient) ImplementOptimizerStatisticsAdvisorRecommendations(ctx context.Context, request ImplementOptimizerStatisticsAdvisorRecommendationsRequest) (response ImplementOptimizerStatisticsAdvisorRecommendationsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6742,7 +8843,7 @@ func (client DbManagementClient) implementOptimizerStatisticsAdvisorRecommendati
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAsmProperties.go.html to see an example of how to use ListAsmProperties API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAsmProperties.go.html to see an example of how to use ListAsmProperties API.
 func (client DbManagementClient) ListAsmProperties(ctx context.Context, request ListAsmPropertiesRequest) (response ListAsmPropertiesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6799,7 +8900,7 @@ func (client DbManagementClient) listAsmProperties(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAssociatedDatabases.go.html to see an example of how to use ListAssociatedDatabases API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAssociatedDatabases.go.html to see an example of how to use ListAssociatedDatabases API.
 func (client DbManagementClient) ListAssociatedDatabases(ctx context.Context, request ListAssociatedDatabasesRequest) (response ListAssociatedDatabasesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6856,7 +8957,7 @@ func (client DbManagementClient) listAssociatedDatabases(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAwrDbSnapshots.go.html to see an example of how to use ListAwrDbSnapshots API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAwrDbSnapshots.go.html to see an example of how to use ListAwrDbSnapshots API.
 func (client DbManagementClient) ListAwrDbSnapshots(ctx context.Context, request ListAwrDbSnapshotsRequest) (response ListAwrDbSnapshotsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6918,7 +9019,7 @@ func (client DbManagementClient) listAwrDbSnapshots(ctx context.Context, request
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAwrDbs.go.html to see an example of how to use ListAwrDbs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListAwrDbs.go.html to see an example of how to use ListAwrDbs API.
 func (client DbManagementClient) ListAwrDbs(ctx context.Context, request ListAwrDbsRequest) (response ListAwrDbsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -6976,11 +9077,824 @@ func (client DbManagementClient) listAwrDbs(ctx context.Context, request common.
 	return response, err
 }
 
+// ListCloudAsmDiskGroups Lists ASM disk groups for the cloud ASM specified by `cloudAsmId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudAsmDiskGroups.go.html to see an example of how to use ListCloudAsmDiskGroups API.
+// A default retry strategy applies to this operation ListCloudAsmDiskGroups()
+func (client DbManagementClient) ListCloudAsmDiskGroups(ctx context.Context, request ListCloudAsmDiskGroupsRequest) (response ListCloudAsmDiskGroupsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudAsmDiskGroups, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudAsmDiskGroupsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudAsmDiskGroupsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudAsmDiskGroupsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudAsmDiskGroupsResponse")
+	}
+	return
+}
+
+// listCloudAsmDiskGroups implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudAsmDiskGroups(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsms/{cloudAsmId}/diskGroups", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudAsmDiskGroupsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsm/ListCloudAsmDiskGroups"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudAsmDiskGroups", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudAsmInstances Lists the ASM instances in the specified cloud ASM.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudAsmInstances.go.html to see an example of how to use ListCloudAsmInstances API.
+// A default retry strategy applies to this operation ListCloudAsmInstances()
+func (client DbManagementClient) ListCloudAsmInstances(ctx context.Context, request ListCloudAsmInstancesRequest) (response ListCloudAsmInstancesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudAsmInstances, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudAsmInstancesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudAsmInstancesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudAsmInstancesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudAsmInstancesResponse")
+	}
+	return
+}
+
+// listCloudAsmInstances implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudAsmInstances(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsmInstances", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudAsmInstancesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsmInstance/ListCloudAsmInstances"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudAsmInstances", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudAsmUsers Lists ASM users for the cloud ASM specified by `cloudAsmId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudAsmUsers.go.html to see an example of how to use ListCloudAsmUsers API.
+// A default retry strategy applies to this operation ListCloudAsmUsers()
+func (client DbManagementClient) ListCloudAsmUsers(ctx context.Context, request ListCloudAsmUsersRequest) (response ListCloudAsmUsersResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudAsmUsers, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudAsmUsersResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudAsmUsersResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudAsmUsersResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudAsmUsersResponse")
+	}
+	return
+}
+
+// listCloudAsmUsers implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudAsmUsers(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsms/{cloudAsmId}/users", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudAsmUsersResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsm/ListCloudAsmUsers"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudAsmUsers", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudAsms Lists the ASMs in the specified cloud DB system.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudAsms.go.html to see an example of how to use ListCloudAsms API.
+// A default retry strategy applies to this operation ListCloudAsms()
+func (client DbManagementClient) ListCloudAsms(ctx context.Context, request ListCloudAsmsRequest) (response ListCloudAsmsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudAsms, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudAsmsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudAsmsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudAsmsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudAsmsResponse")
+	}
+	return
+}
+
+// listCloudAsms implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudAsms(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsms", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudAsmsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsm/ListCloudAsms"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudAsms", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudClusterInstances Lists the cluster instances in the specified cloud cluster.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudClusterInstances.go.html to see an example of how to use ListCloudClusterInstances API.
+// A default retry strategy applies to this operation ListCloudClusterInstances()
+func (client DbManagementClient) ListCloudClusterInstances(ctx context.Context, request ListCloudClusterInstancesRequest) (response ListCloudClusterInstancesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudClusterInstances, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudClusterInstancesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudClusterInstancesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudClusterInstancesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudClusterInstancesResponse")
+	}
+	return
+}
+
+// listCloudClusterInstances implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudClusterInstances(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudClusterInstances", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudClusterInstancesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudClusterInstance/ListCloudClusterInstances"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudClusterInstances", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudClusters Lists the clusters in the specified cloud DB system.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudClusters.go.html to see an example of how to use ListCloudClusters API.
+// A default retry strategy applies to this operation ListCloudClusters()
+func (client DbManagementClient) ListCloudClusters(ctx context.Context, request ListCloudClustersRequest) (response ListCloudClustersResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudClusters, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudClustersResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudClustersResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudClustersResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudClustersResponse")
+	}
+	return
+}
+
+// listCloudClusters implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudClusters(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudClusters", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudClustersResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudCluster/ListCloudClusters"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudClusters", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudDatabases Lists the cloud databases in the specified compartment or in the specified DB system.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudDatabases.go.html to see an example of how to use ListCloudDatabases API.
+// A default retry strategy applies to this operation ListCloudDatabases()
+func (client DbManagementClient) ListCloudDatabases(ctx context.Context, request ListCloudDatabasesRequest) (response ListCloudDatabasesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudDatabases, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudDatabasesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudDatabasesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudDatabasesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudDatabasesResponse")
+	}
+	return
+}
+
+// listCloudDatabases implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudDatabases(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDatabases", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudDatabasesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDatabaseCollection/ListCloudDatabases"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudDatabases", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudDbHomes Lists the DB homes in the specified cloud DB system.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudDbHomes.go.html to see an example of how to use ListCloudDbHomes API.
+// A default retry strategy applies to this operation ListCloudDbHomes()
+func (client DbManagementClient) ListCloudDbHomes(ctx context.Context, request ListCloudDbHomesRequest) (response ListCloudDbHomesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudDbHomes, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudDbHomesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudDbHomesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudDbHomesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudDbHomesResponse")
+	}
+	return
+}
+
+// listCloudDbHomes implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudDbHomes(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbHomes", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudDbHomesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbHome/ListCloudDbHomes"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudDbHomes", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudDbNodes Lists the cloud DB nodes in the specified cloud DB system.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudDbNodes.go.html to see an example of how to use ListCloudDbNodes API.
+// A default retry strategy applies to this operation ListCloudDbNodes()
+func (client DbManagementClient) ListCloudDbNodes(ctx context.Context, request ListCloudDbNodesRequest) (response ListCloudDbNodesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudDbNodes, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudDbNodesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudDbNodesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudDbNodesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudDbNodesResponse")
+	}
+	return
+}
+
+// listCloudDbNodes implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudDbNodes(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbNodes", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudDbNodesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbNode/ListCloudDbNodes"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudDbNodes", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudDbSystemConnectors Lists the cloud connectors in the specified cloud DB system.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudDbSystemConnectors.go.html to see an example of how to use ListCloudDbSystemConnectors API.
+// A default retry strategy applies to this operation ListCloudDbSystemConnectors()
+func (client DbManagementClient) ListCloudDbSystemConnectors(ctx context.Context, request ListCloudDbSystemConnectorsRequest) (response ListCloudDbSystemConnectorsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudDbSystemConnectors, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudDbSystemConnectorsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudDbSystemConnectorsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudDbSystemConnectorsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudDbSystemConnectorsResponse")
+	}
+	return
+}
+
+// listCloudDbSystemConnectors implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudDbSystemConnectors(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbSystemConnectors", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudDbSystemConnectorsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemConnector/ListCloudDbSystemConnectors"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudDbSystemConnectors", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudDbSystemDiscoveries Lists the cloud DB system discovery resources in the specified compartment.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudDbSystemDiscoveries.go.html to see an example of how to use ListCloudDbSystemDiscoveries API.
+// A default retry strategy applies to this operation ListCloudDbSystemDiscoveries()
+func (client DbManagementClient) ListCloudDbSystemDiscoveries(ctx context.Context, request ListCloudDbSystemDiscoveriesRequest) (response ListCloudDbSystemDiscoveriesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudDbSystemDiscoveries, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudDbSystemDiscoveriesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudDbSystemDiscoveriesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudDbSystemDiscoveriesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudDbSystemDiscoveriesResponse")
+	}
+	return
+}
+
+// listCloudDbSystemDiscoveries implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudDbSystemDiscoveries(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbSystemDiscoveries", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudDbSystemDiscoveriesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemDiscovery/ListCloudDbSystemDiscoveries"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudDbSystemDiscoveries", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudDbSystems Lists the cloud DB systems in the specified compartment.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudDbSystems.go.html to see an example of how to use ListCloudDbSystems API.
+// A default retry strategy applies to this operation ListCloudDbSystems()
+func (client DbManagementClient) ListCloudDbSystems(ctx context.Context, request ListCloudDbSystemsRequest) (response ListCloudDbSystemsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudDbSystems, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudDbSystemsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudDbSystemsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudDbSystemsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudDbSystemsResponse")
+	}
+	return
+}
+
+// listCloudDbSystems implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudDbSystems(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbSystems", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudDbSystemsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/ListCloudDbSystems"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudDbSystems", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudListenerServices Lists the database services registered with the specified cloud listener
+// for the specified Managed Database.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudListenerServices.go.html to see an example of how to use ListCloudListenerServices API.
+// A default retry strategy applies to this operation ListCloudListenerServices()
+func (client DbManagementClient) ListCloudListenerServices(ctx context.Context, request ListCloudListenerServicesRequest) (response ListCloudListenerServicesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudListenerServices, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudListenerServicesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudListenerServicesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudListenerServicesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudListenerServicesResponse")
+	}
+	return
+}
+
+// listCloudListenerServices implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudListenerServices(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudListeners/{cloudListenerId}/services", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudListenerServicesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudListener/ListCloudListenerServices"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudListenerServices", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListCloudListeners Lists the listeners in the specified cloud DB system.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCloudListeners.go.html to see an example of how to use ListCloudListeners API.
+// A default retry strategy applies to this operation ListCloudListeners()
+func (client DbManagementClient) ListCloudListeners(ctx context.Context, request ListCloudListenersRequest) (response ListCloudListenersResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listCloudListeners, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListCloudListenersResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListCloudListenersResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListCloudListenersResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListCloudListenersResponse")
+	}
+	return
+}
+
+// listCloudListeners implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listCloudListeners(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudListeners", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListCloudListenersResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudListener/ListCloudListeners"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListCloudListeners", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // ListConsumerGroupPrivileges Gets the list of consumer group privileges granted to a specific user.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListConsumerGroupPrivileges.go.html to see an example of how to use ListConsumerGroupPrivileges API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListConsumerGroupPrivileges.go.html to see an example of how to use ListConsumerGroupPrivileges API.
 func (client DbManagementClient) ListConsumerGroupPrivileges(ctx context.Context, request ListConsumerGroupPrivilegesRequest) (response ListConsumerGroupPrivilegesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -7037,7 +9951,7 @@ func (client DbManagementClient) listConsumerGroupPrivileges(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCursorCacheStatements.go.html to see an example of how to use ListCursorCacheStatements API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListCursorCacheStatements.go.html to see an example of how to use ListCursorCacheStatements API.
 // A default retry strategy applies to this operation ListCursorCacheStatements()
 func (client DbManagementClient) ListCursorCacheStatements(ctx context.Context, request ListCursorCacheStatementsRequest) (response ListCursorCacheStatementsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7095,7 +10009,7 @@ func (client DbManagementClient) listCursorCacheStatements(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListDataAccessContainers.go.html to see an example of how to use ListDataAccessContainers API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListDataAccessContainers.go.html to see an example of how to use ListDataAccessContainers API.
 func (client DbManagementClient) ListDataAccessContainers(ctx context.Context, request ListDataAccessContainersRequest) (response ListDataAccessContainersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -7152,7 +10066,7 @@ func (client DbManagementClient) listDataAccessContainers(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListDatabaseParameters.go.html to see an example of how to use ListDatabaseParameters API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListDatabaseParameters.go.html to see an example of how to use ListDatabaseParameters API.
 func (client DbManagementClient) ListDatabaseParameters(ctx context.Context, request ListDatabaseParametersRequest) (response ListDatabaseParametersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -7209,7 +10123,7 @@ func (client DbManagementClient) listDatabaseParameters(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListDbManagementPrivateEndpoints.go.html to see an example of how to use ListDbManagementPrivateEndpoints API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListDbManagementPrivateEndpoints.go.html to see an example of how to use ListDbManagementPrivateEndpoints API.
 func (client DbManagementClient) ListDbManagementPrivateEndpoints(ctx context.Context, request ListDbManagementPrivateEndpointsRequest) (response ListDbManagementPrivateEndpointsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -7266,7 +10180,7 @@ func (client DbManagementClient) listDbManagementPrivateEndpoints(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsmDiskGroups.go.html to see an example of how to use ListExternalAsmDiskGroups API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsmDiskGroups.go.html to see an example of how to use ListExternalAsmDiskGroups API.
 // A default retry strategy applies to this operation ListExternalAsmDiskGroups()
 func (client DbManagementClient) ListExternalAsmDiskGroups(ctx context.Context, request ListExternalAsmDiskGroupsRequest) (response ListExternalAsmDiskGroupsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7324,7 +10238,7 @@ func (client DbManagementClient) listExternalAsmDiskGroups(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsmInstances.go.html to see an example of how to use ListExternalAsmInstances API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsmInstances.go.html to see an example of how to use ListExternalAsmInstances API.
 // A default retry strategy applies to this operation ListExternalAsmInstances()
 func (client DbManagementClient) ListExternalAsmInstances(ctx context.Context, request ListExternalAsmInstancesRequest) (response ListExternalAsmInstancesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7382,7 +10296,7 @@ func (client DbManagementClient) listExternalAsmInstances(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsmUsers.go.html to see an example of how to use ListExternalAsmUsers API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsmUsers.go.html to see an example of how to use ListExternalAsmUsers API.
 // A default retry strategy applies to this operation ListExternalAsmUsers()
 func (client DbManagementClient) ListExternalAsmUsers(ctx context.Context, request ListExternalAsmUsersRequest) (response ListExternalAsmUsersResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7440,7 +10354,7 @@ func (client DbManagementClient) listExternalAsmUsers(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsms.go.html to see an example of how to use ListExternalAsms API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalAsms.go.html to see an example of how to use ListExternalAsms API.
 // A default retry strategy applies to this operation ListExternalAsms()
 func (client DbManagementClient) ListExternalAsms(ctx context.Context, request ListExternalAsmsRequest) (response ListExternalAsmsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7498,7 +10412,7 @@ func (client DbManagementClient) listExternalAsms(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalClusterInstances.go.html to see an example of how to use ListExternalClusterInstances API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalClusterInstances.go.html to see an example of how to use ListExternalClusterInstances API.
 // A default retry strategy applies to this operation ListExternalClusterInstances()
 func (client DbManagementClient) ListExternalClusterInstances(ctx context.Context, request ListExternalClusterInstancesRequest) (response ListExternalClusterInstancesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7556,7 +10470,7 @@ func (client DbManagementClient) listExternalClusterInstances(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalClusters.go.html to see an example of how to use ListExternalClusters API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalClusters.go.html to see an example of how to use ListExternalClusters API.
 // A default retry strategy applies to this operation ListExternalClusters()
 func (client DbManagementClient) ListExternalClusters(ctx context.Context, request ListExternalClustersRequest) (response ListExternalClustersResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7614,7 +10528,7 @@ func (client DbManagementClient) listExternalClusters(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDatabases.go.html to see an example of how to use ListExternalDatabases API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDatabases.go.html to see an example of how to use ListExternalDatabases API.
 // A default retry strategy applies to this operation ListExternalDatabases()
 func (client DbManagementClient) ListExternalDatabases(ctx context.Context, request ListExternalDatabasesRequest) (response ListExternalDatabasesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7672,7 +10586,7 @@ func (client DbManagementClient) listExternalDatabases(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbHomes.go.html to see an example of how to use ListExternalDbHomes API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbHomes.go.html to see an example of how to use ListExternalDbHomes API.
 // A default retry strategy applies to this operation ListExternalDbHomes()
 func (client DbManagementClient) ListExternalDbHomes(ctx context.Context, request ListExternalDbHomesRequest) (response ListExternalDbHomesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7730,7 +10644,7 @@ func (client DbManagementClient) listExternalDbHomes(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbNodes.go.html to see an example of how to use ListExternalDbNodes API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbNodes.go.html to see an example of how to use ListExternalDbNodes API.
 // A default retry strategy applies to this operation ListExternalDbNodes()
 func (client DbManagementClient) ListExternalDbNodes(ctx context.Context, request ListExternalDbNodesRequest) (response ListExternalDbNodesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7788,7 +10702,7 @@ func (client DbManagementClient) listExternalDbNodes(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbSystemConnectors.go.html to see an example of how to use ListExternalDbSystemConnectors API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbSystemConnectors.go.html to see an example of how to use ListExternalDbSystemConnectors API.
 // A default retry strategy applies to this operation ListExternalDbSystemConnectors()
 func (client DbManagementClient) ListExternalDbSystemConnectors(ctx context.Context, request ListExternalDbSystemConnectorsRequest) (response ListExternalDbSystemConnectorsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7846,7 +10760,7 @@ func (client DbManagementClient) listExternalDbSystemConnectors(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbSystemDiscoveries.go.html to see an example of how to use ListExternalDbSystemDiscoveries API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbSystemDiscoveries.go.html to see an example of how to use ListExternalDbSystemDiscoveries API.
 // A default retry strategy applies to this operation ListExternalDbSystemDiscoveries()
 func (client DbManagementClient) ListExternalDbSystemDiscoveries(ctx context.Context, request ListExternalDbSystemDiscoveriesRequest) (response ListExternalDbSystemDiscoveriesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7904,7 +10818,7 @@ func (client DbManagementClient) listExternalDbSystemDiscoveries(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbSystems.go.html to see an example of how to use ListExternalDbSystems API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalDbSystems.go.html to see an example of how to use ListExternalDbSystems API.
 // A default retry strategy applies to this operation ListExternalDbSystems()
 func (client DbManagementClient) ListExternalDbSystems(ctx context.Context, request ListExternalDbSystemsRequest) (response ListExternalDbSystemsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -7962,7 +10876,7 @@ func (client DbManagementClient) listExternalDbSystems(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalExadataInfrastructures.go.html to see an example of how to use ListExternalExadataInfrastructures API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalExadataInfrastructures.go.html to see an example of how to use ListExternalExadataInfrastructures API.
 // A default retry strategy applies to this operation ListExternalExadataInfrastructures()
 func (client DbManagementClient) ListExternalExadataInfrastructures(ctx context.Context, request ListExternalExadataInfrastructuresRequest) (response ListExternalExadataInfrastructuresResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -8020,7 +10934,7 @@ func (client DbManagementClient) listExternalExadataInfrastructures(ctx context.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalExadataStorageConnectors.go.html to see an example of how to use ListExternalExadataStorageConnectors API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalExadataStorageConnectors.go.html to see an example of how to use ListExternalExadataStorageConnectors API.
 // A default retry strategy applies to this operation ListExternalExadataStorageConnectors()
 func (client DbManagementClient) ListExternalExadataStorageConnectors(ctx context.Context, request ListExternalExadataStorageConnectorsRequest) (response ListExternalExadataStorageConnectorsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -8078,7 +10992,7 @@ func (client DbManagementClient) listExternalExadataStorageConnectors(ctx contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalExadataStorageServers.go.html to see an example of how to use ListExternalExadataStorageServers API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalExadataStorageServers.go.html to see an example of how to use ListExternalExadataStorageServers API.
 // A default retry strategy applies to this operation ListExternalExadataStorageServers()
 func (client DbManagementClient) ListExternalExadataStorageServers(ctx context.Context, request ListExternalExadataStorageServersRequest) (response ListExternalExadataStorageServersResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -8137,7 +11051,7 @@ func (client DbManagementClient) listExternalExadataStorageServers(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalListenerServices.go.html to see an example of how to use ListExternalListenerServices API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalListenerServices.go.html to see an example of how to use ListExternalListenerServices API.
 // A default retry strategy applies to this operation ListExternalListenerServices()
 func (client DbManagementClient) ListExternalListenerServices(ctx context.Context, request ListExternalListenerServicesRequest) (response ListExternalListenerServicesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -8195,7 +11109,7 @@ func (client DbManagementClient) listExternalListenerServices(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalListeners.go.html to see an example of how to use ListExternalListeners API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalListeners.go.html to see an example of how to use ListExternalListeners API.
 // A default retry strategy applies to this operation ListExternalListeners()
 func (client DbManagementClient) ListExternalListeners(ctx context.Context, request ListExternalListenersRequest) (response ListExternalListenersResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -8249,6 +11163,63 @@ func (client DbManagementClient) listExternalListeners(ctx context.Context, requ
 	return response, err
 }
 
+// ListExternalMySqlDatabases Gets the list of External MySQL Databases.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListExternalMySqlDatabases.go.html to see an example of how to use ListExternalMySqlDatabases API.
+func (client DbManagementClient) ListExternalMySqlDatabases(ctx context.Context, request ListExternalMySqlDatabasesRequest) (response ListExternalMySqlDatabasesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listExternalMySqlDatabases, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListExternalMySqlDatabasesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListExternalMySqlDatabasesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListExternalMySqlDatabasesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListExternalMySqlDatabasesResponse")
+	}
+	return
+}
+
+// listExternalMySqlDatabases implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listExternalMySqlDatabases(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/externalMySqlDatabases", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListExternalMySqlDatabasesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabaseCollection/ListExternalMySqlDatabases"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListExternalMySqlDatabases", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // ListJobExecutions Gets the job execution for a specific ID or the list of job executions for a job, job run, Managed Database or Managed Database Group
 // in a specific compartment. Only one of the parameters, ID, jobId, jobRunId, managedDatabaseId or managedDatabaseGroupId should be provided.
 // If none of these parameters is provided, all the job executions in the compartment are listed. Job executions can also be filtered
@@ -8256,7 +11227,7 @@ func (client DbManagementClient) listExternalListeners(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListJobExecutions.go.html to see an example of how to use ListJobExecutions API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListJobExecutions.go.html to see an example of how to use ListJobExecutions API.
 func (client DbManagementClient) ListJobExecutions(ctx context.Context, request ListJobExecutionsRequest) (response ListJobExecutionsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8316,7 +11287,7 @@ func (client DbManagementClient) listJobExecutions(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListJobRuns.go.html to see an example of how to use ListJobRuns API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListJobRuns.go.html to see an example of how to use ListJobRuns API.
 func (client DbManagementClient) ListJobRuns(ctx context.Context, request ListJobRunsRequest) (response ListJobRunsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8376,7 +11347,7 @@ func (client DbManagementClient) listJobRuns(ctx context.Context, request common
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListJobs.go.html to see an example of how to use ListJobs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListJobs.go.html to see an example of how to use ListJobs API.
 func (client DbManagementClient) ListJobs(ctx context.Context, request ListJobsRequest) (response ListJobsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8436,7 +11407,7 @@ func (client DbManagementClient) listJobs(ctx context.Context, request common.OC
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListManagedDatabaseGroups.go.html to see an example of how to use ListManagedDatabaseGroups API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListManagedDatabaseGroups.go.html to see an example of how to use ListManagedDatabaseGroups API.
 func (client DbManagementClient) ListManagedDatabaseGroups(ctx context.Context, request ListManagedDatabaseGroupsRequest) (response ListManagedDatabaseGroupsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8498,7 +11469,7 @@ func (client DbManagementClient) listManagedDatabaseGroups(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListManagedDatabases.go.html to see an example of how to use ListManagedDatabases API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListManagedDatabases.go.html to see an example of how to use ListManagedDatabases API.
 func (client DbManagementClient) ListManagedDatabases(ctx context.Context, request ListManagedDatabasesRequest) (response ListManagedDatabasesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8551,14 +11522,72 @@ func (client DbManagementClient) listManagedDatabases(ctx context.Context, reque
 	return response, err
 }
 
+// ListMySqlDatabaseConnectors Gets the list of External MySQL Database connectors.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListMySqlDatabaseConnectors.go.html to see an example of how to use ListMySqlDatabaseConnectors API.
+func (client DbManagementClient) ListMySqlDatabaseConnectors(ctx context.Context, request ListMySqlDatabaseConnectorsRequest) (response ListMySqlDatabaseConnectorsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listMySqlDatabaseConnectors, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListMySqlDatabaseConnectorsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListMySqlDatabaseConnectorsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListMySqlDatabaseConnectorsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListMySqlDatabaseConnectorsResponse")
+	}
+	return
+}
+
+// listMySqlDatabaseConnectors implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) listMySqlDatabaseConnectors(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/externalMySqlDatabaseConnectors", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListMySqlDatabaseConnectorsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/MySqlConnectorCollection/ListMySqlDatabaseConnectors"
+		err = common.PostProcessServiceError(err, "DbManagement", "ListMySqlDatabaseConnectors", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // ListNamedCredentials Gets a single named credential specified by the name or all the named credentials in a specific compartment.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListNamedCredentials.go.html to see an example of how to use ListNamedCredentials API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListNamedCredentials.go.html to see an example of how to use ListNamedCredentials API.
+// A default retry strategy applies to this operation ListNamedCredentials()
 func (client DbManagementClient) ListNamedCredentials(ctx context.Context, request ListNamedCredentialsRequest) (response ListNamedCredentialsResponse, err error) {
 	var ociResponse common.OCIResponse
-	policy := common.NoRetryPolicy()
+	policy := common.DefaultRetryPolicy()
 	if client.RetryPolicy() != nil {
 		policy = *client.RetryPolicy()
 	}
@@ -8612,7 +11641,7 @@ func (client DbManagementClient) listNamedCredentials(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListObjectPrivileges.go.html to see an example of how to use ListObjectPrivileges API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListObjectPrivileges.go.html to see an example of how to use ListObjectPrivileges API.
 func (client DbManagementClient) ListObjectPrivileges(ctx context.Context, request ListObjectPrivilegesRequest) (response ListObjectPrivilegesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8671,7 +11700,7 @@ func (client DbManagementClient) listObjectPrivileges(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListOptimizerStatisticsAdvisorExecutions.go.html to see an example of how to use ListOptimizerStatisticsAdvisorExecutions API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListOptimizerStatisticsAdvisorExecutions.go.html to see an example of how to use ListOptimizerStatisticsAdvisorExecutions API.
 func (client DbManagementClient) ListOptimizerStatisticsAdvisorExecutions(ctx context.Context, request ListOptimizerStatisticsAdvisorExecutionsRequest) (response ListOptimizerStatisticsAdvisorExecutionsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8733,7 +11762,7 @@ func (client DbManagementClient) listOptimizerStatisticsAdvisorExecutions(ctx co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListOptimizerStatisticsCollectionAggregations.go.html to see an example of how to use ListOptimizerStatisticsCollectionAggregations API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListOptimizerStatisticsCollectionAggregations.go.html to see an example of how to use ListOptimizerStatisticsCollectionAggregations API.
 func (client DbManagementClient) ListOptimizerStatisticsCollectionAggregations(ctx context.Context, request ListOptimizerStatisticsCollectionAggregationsRequest) (response ListOptimizerStatisticsCollectionAggregationsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8796,7 +11825,7 @@ func (client DbManagementClient) listOptimizerStatisticsCollectionAggregations(c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListOptimizerStatisticsCollectionOperations.go.html to see an example of how to use ListOptimizerStatisticsCollectionOperations API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListOptimizerStatisticsCollectionOperations.go.html to see an example of how to use ListOptimizerStatisticsCollectionOperations API.
 func (client DbManagementClient) ListOptimizerStatisticsCollectionOperations(ctx context.Context, request ListOptimizerStatisticsCollectionOperationsRequest) (response ListOptimizerStatisticsCollectionOperationsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8853,7 +11882,7 @@ func (client DbManagementClient) listOptimizerStatisticsCollectionOperations(ctx
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListPreferredCredentials.go.html to see an example of how to use ListPreferredCredentials API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListPreferredCredentials.go.html to see an example of how to use ListPreferredCredentials API.
 func (client DbManagementClient) ListPreferredCredentials(ctx context.Context, request ListPreferredCredentialsRequest) (response ListPreferredCredentialsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8910,7 +11939,7 @@ func (client DbManagementClient) listPreferredCredentials(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListProxiedForUsers.go.html to see an example of how to use ListProxiedForUsers API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListProxiedForUsers.go.html to see an example of how to use ListProxiedForUsers API.
 func (client DbManagementClient) ListProxiedForUsers(ctx context.Context, request ListProxiedForUsersRequest) (response ListProxiedForUsersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -8967,7 +11996,7 @@ func (client DbManagementClient) listProxiedForUsers(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListProxyUsers.go.html to see an example of how to use ListProxyUsers API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListProxyUsers.go.html to see an example of how to use ListProxyUsers API.
 func (client DbManagementClient) ListProxyUsers(ctx context.Context, request ListProxyUsersRequest) (response ListProxyUsersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9024,7 +12053,7 @@ func (client DbManagementClient) listProxyUsers(ctx context.Context, request com
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListRoles.go.html to see an example of how to use ListRoles API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListRoles.go.html to see an example of how to use ListRoles API.
 func (client DbManagementClient) ListRoles(ctx context.Context, request ListRolesRequest) (response ListRolesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9081,7 +12110,7 @@ func (client DbManagementClient) listRoles(ctx context.Context, request common.O
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListSqlPlanBaselineJobs.go.html to see an example of how to use ListSqlPlanBaselineJobs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListSqlPlanBaselineJobs.go.html to see an example of how to use ListSqlPlanBaselineJobs API.
 // A default retry strategy applies to this operation ListSqlPlanBaselineJobs()
 func (client DbManagementClient) ListSqlPlanBaselineJobs(ctx context.Context, request ListSqlPlanBaselineJobsRequest) (response ListSqlPlanBaselineJobsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -9139,7 +12168,7 @@ func (client DbManagementClient) listSqlPlanBaselineJobs(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListSqlPlanBaselines.go.html to see an example of how to use ListSqlPlanBaselines API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListSqlPlanBaselines.go.html to see an example of how to use ListSqlPlanBaselines API.
 // A default retry strategy applies to this operation ListSqlPlanBaselines()
 func (client DbManagementClient) ListSqlPlanBaselines(ctx context.Context, request ListSqlPlanBaselinesRequest) (response ListSqlPlanBaselinesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -9197,7 +12226,7 @@ func (client DbManagementClient) listSqlPlanBaselines(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListSystemPrivileges.go.html to see an example of how to use ListSystemPrivileges API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListSystemPrivileges.go.html to see an example of how to use ListSystemPrivileges API.
 func (client DbManagementClient) ListSystemPrivileges(ctx context.Context, request ListSystemPrivilegesRequest) (response ListSystemPrivilegesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9255,7 +12284,7 @@ func (client DbManagementClient) listSystemPrivileges(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListTableStatistics.go.html to see an example of how to use ListTableStatistics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListTableStatistics.go.html to see an example of how to use ListTableStatistics API.
 func (client DbManagementClient) ListTableStatistics(ctx context.Context, request ListTableStatisticsRequest) (response ListTableStatisticsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9312,7 +12341,7 @@ func (client DbManagementClient) listTableStatistics(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListTablespaces.go.html to see an example of how to use ListTablespaces API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListTablespaces.go.html to see an example of how to use ListTablespaces API.
 func (client DbManagementClient) ListTablespaces(ctx context.Context, request ListTablespacesRequest) (response ListTablespacesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9369,7 +12398,7 @@ func (client DbManagementClient) listTablespaces(ctx context.Context, request co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListUsers.go.html to see an example of how to use ListUsers API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListUsers.go.html to see an example of how to use ListUsers API.
 func (client DbManagementClient) ListUsers(ctx context.Context, request ListUsersRequest) (response ListUsersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9426,7 +12455,7 @@ func (client DbManagementClient) listUsers(ctx context.Context, request common.O
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
 func (client DbManagementClient) ListWorkRequestErrors(ctx context.Context, request ListWorkRequestErrorsRequest) (response ListWorkRequestErrorsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9483,7 +12512,7 @@ func (client DbManagementClient) listWorkRequestErrors(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
 func (client DbManagementClient) ListWorkRequestLogs(ctx context.Context, request ListWorkRequestLogsRequest) (response ListWorkRequestLogsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9536,11 +12565,11 @@ func (client DbManagementClient) listWorkRequestLogs(ctx context.Context, reques
 	return response, err
 }
 
-// ListWorkRequests The list of work requests in a specific compartment was retrieved successfully.
+// ListWorkRequests Lists the work requests in a specific compartment.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
 func (client DbManagementClient) ListWorkRequests(ctx context.Context, request ListWorkRequestsRequest) (response ListWorkRequestsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9601,7 +12630,7 @@ func (client DbManagementClient) listWorkRequests(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/LoadSqlPlanBaselinesFromAwr.go.html to see an example of how to use LoadSqlPlanBaselinesFromAwr API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/LoadSqlPlanBaselinesFromAwr.go.html to see an example of how to use LoadSqlPlanBaselinesFromAwr API.
 func (client DbManagementClient) LoadSqlPlanBaselinesFromAwr(ctx context.Context, request LoadSqlPlanBaselinesFromAwrRequest) (response LoadSqlPlanBaselinesFromAwrResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9660,7 +12689,7 @@ func (client DbManagementClient) loadSqlPlanBaselinesFromAwr(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/LoadSqlPlanBaselinesFromCursorCache.go.html to see an example of how to use LoadSqlPlanBaselinesFromCursorCache API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/LoadSqlPlanBaselinesFromCursorCache.go.html to see an example of how to use LoadSqlPlanBaselinesFromCursorCache API.
 func (client DbManagementClient) LoadSqlPlanBaselinesFromCursorCache(ctx context.Context, request LoadSqlPlanBaselinesFromCursorCacheRequest) (response LoadSqlPlanBaselinesFromCursorCacheResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9717,7 +12746,7 @@ func (client DbManagementClient) loadSqlPlanBaselinesFromCursorCache(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ModifyAutonomousDatabaseManagementFeature.go.html to see an example of how to use ModifyAutonomousDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ModifyAutonomousDatabaseManagementFeature.go.html to see an example of how to use ModifyAutonomousDatabaseManagementFeature API.
 // A default retry strategy applies to this operation ModifyAutonomousDatabaseManagementFeature()
 func (client DbManagementClient) ModifyAutonomousDatabaseManagementFeature(ctx context.Context, request ModifyAutonomousDatabaseManagementFeatureRequest) (response ModifyAutonomousDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -9780,7 +12809,7 @@ func (client DbManagementClient) modifyAutonomousDatabaseManagementFeature(ctx c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ModifyDatabaseManagementFeature.go.html to see an example of how to use ModifyDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ModifyDatabaseManagementFeature.go.html to see an example of how to use ModifyDatabaseManagementFeature API.
 // A default retry strategy applies to this operation ModifyDatabaseManagementFeature()
 func (client DbManagementClient) ModifyDatabaseManagementFeature(ctx context.Context, request ModifyDatabaseManagementFeatureRequest) (response ModifyDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -9839,11 +12868,74 @@ func (client DbManagementClient) modifyDatabaseManagementFeature(ctx context.Con
 	return response, err
 }
 
+// ModifyExternalContainerDatabaseManagementFeature Modifies a Database Management feature for the specified external container database.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ModifyExternalContainerDatabaseManagementFeature.go.html to see an example of how to use ModifyExternalContainerDatabaseManagementFeature API.
+// A default retry strategy applies to this operation ModifyExternalContainerDatabaseManagementFeature()
+func (client DbManagementClient) ModifyExternalContainerDatabaseManagementFeature(ctx context.Context, request ModifyExternalContainerDatabaseManagementFeatureRequest) (response ModifyExternalContainerDatabaseManagementFeatureResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.modifyExternalContainerDatabaseManagementFeature, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ModifyExternalContainerDatabaseManagementFeatureResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ModifyExternalContainerDatabaseManagementFeatureResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ModifyExternalContainerDatabaseManagementFeatureResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ModifyExternalContainerDatabaseManagementFeatureResponse")
+	}
+	return
+}
+
+// modifyExternalContainerDatabaseManagementFeature implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) modifyExternalContainerDatabaseManagementFeature(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/externalcontainerdatabases/{externalContainerDatabaseId}/actions/modifyDatabaseManagement", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ModifyExternalContainerDatabaseManagementFeatureResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ManagedDatabase/ModifyExternalContainerDatabaseManagementFeature"
+		err = common.PostProcessServiceError(err, "DbManagement", "ModifyExternalContainerDatabaseManagementFeature", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // ModifyPluggableDatabaseManagementFeature Modifies the Database Management feature for the specified Oracle cloud pluggable database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ModifyPluggableDatabaseManagementFeature.go.html to see an example of how to use ModifyPluggableDatabaseManagementFeature API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ModifyPluggableDatabaseManagementFeature.go.html to see an example of how to use ModifyPluggableDatabaseManagementFeature API.
 // A default retry strategy applies to this operation ModifyPluggableDatabaseManagementFeature()
 func (client DbManagementClient) ModifyPluggableDatabaseManagementFeature(ctx context.Context, request ModifyPluggableDatabaseManagementFeatureRequest) (response ModifyPluggableDatabaseManagementFeatureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -9902,11 +12994,68 @@ func (client DbManagementClient) modifyPluggableDatabaseManagementFeature(ctx co
 	return response, err
 }
 
+// PatchCloudDbSystemDiscovery Patches the cloud DB system discovery specified by `cloudDbSystemDiscoveryId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/PatchCloudDbSystemDiscovery.go.html to see an example of how to use PatchCloudDbSystemDiscovery API.
+func (client DbManagementClient) PatchCloudDbSystemDiscovery(ctx context.Context, request PatchCloudDbSystemDiscoveryRequest) (response PatchCloudDbSystemDiscoveryResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.patchCloudDbSystemDiscovery, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = PatchCloudDbSystemDiscoveryResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = PatchCloudDbSystemDiscoveryResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(PatchCloudDbSystemDiscoveryResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into PatchCloudDbSystemDiscoveryResponse")
+	}
+	return
+}
+
+// patchCloudDbSystemDiscovery implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) patchCloudDbSystemDiscovery(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPatch, "/cloudDbSystemDiscoveries/{cloudDbSystemDiscoveryId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response PatchCloudDbSystemDiscoveryResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemDiscovery/PatchCloudDbSystemDiscovery"
+		err = common.PostProcessServiceError(err, "DbManagement", "PatchCloudDbSystemDiscovery", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // PatchExternalDbSystemDiscovery Patches the external DB system discovery specified by `externalDbSystemDiscoveryId`.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/PatchExternalDbSystemDiscovery.go.html to see an example of how to use PatchExternalDbSystemDiscovery API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/PatchExternalDbSystemDiscovery.go.html to see an example of how to use PatchExternalDbSystemDiscovery API.
 func (client DbManagementClient) PatchExternalDbSystemDiscovery(ctx context.Context, request PatchExternalDbSystemDiscoveryRequest) (response PatchExternalDbSystemDiscoveryResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -9963,7 +13112,7 @@ func (client DbManagementClient) patchExternalDbSystemDiscovery(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/RemoveDataFile.go.html to see an example of how to use RemoveDataFile API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/RemoveDataFile.go.html to see an example of how to use RemoveDataFile API.
 func (client DbManagementClient) RemoveDataFile(ctx context.Context, request RemoveDataFileRequest) (response RemoveDataFileResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10028,7 +13177,7 @@ func (client DbManagementClient) removeDataFile(ctx context.Context, request com
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/RemoveManagedDatabaseFromManagedDatabaseGroup.go.html to see an example of how to use RemoveManagedDatabaseFromManagedDatabaseGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/RemoveManagedDatabaseFromManagedDatabaseGroup.go.html to see an example of how to use RemoveManagedDatabaseFromManagedDatabaseGroup API.
 func (client DbManagementClient) RemoveManagedDatabaseFromManagedDatabaseGroup(ctx context.Context, request RemoveManagedDatabaseFromManagedDatabaseGroupRequest) (response RemoveManagedDatabaseFromManagedDatabaseGroupResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10090,7 +13239,7 @@ func (client DbManagementClient) removeManagedDatabaseFromManagedDatabaseGroup(c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ResetDatabaseParameters.go.html to see an example of how to use ResetDatabaseParameters API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ResetDatabaseParameters.go.html to see an example of how to use ResetDatabaseParameters API.
 func (client DbManagementClient) ResetDatabaseParameters(ctx context.Context, request ResetDatabaseParametersRequest) (response ResetDatabaseParametersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10152,7 +13301,7 @@ func (client DbManagementClient) resetDatabaseParameters(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ResizeDataFile.go.html to see an example of how to use ResizeDataFile API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/ResizeDataFile.go.html to see an example of how to use ResizeDataFile API.
 func (client DbManagementClient) ResizeDataFile(ctx context.Context, request ResizeDataFileRequest) (response ResizeDataFileResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10215,7 +13364,7 @@ func (client DbManagementClient) resizeDataFile(ctx context.Context, request com
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/RunHistoricAddm.go.html to see an example of how to use RunHistoricAddm API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/RunHistoricAddm.go.html to see an example of how to use RunHistoricAddm API.
 func (client DbManagementClient) RunHistoricAddm(ctx context.Context, request RunHistoricAddmRequest) (response RunHistoricAddmResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10277,7 +13426,7 @@ func (client DbManagementClient) runHistoricAddm(ctx context.Context, request co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbCpuUsages.go.html to see an example of how to use SummarizeAwrDbCpuUsages API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbCpuUsages.go.html to see an example of how to use SummarizeAwrDbCpuUsages API.
 func (client DbManagementClient) SummarizeAwrDbCpuUsages(ctx context.Context, request SummarizeAwrDbCpuUsagesRequest) (response SummarizeAwrDbCpuUsagesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10339,7 +13488,7 @@ func (client DbManagementClient) summarizeAwrDbCpuUsages(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbMetrics.go.html to see an example of how to use SummarizeAwrDbMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbMetrics.go.html to see an example of how to use SummarizeAwrDbMetrics API.
 func (client DbManagementClient) SummarizeAwrDbMetrics(ctx context.Context, request SummarizeAwrDbMetricsRequest) (response SummarizeAwrDbMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10405,7 +13554,7 @@ func (client DbManagementClient) summarizeAwrDbMetrics(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbParameterChanges.go.html to see an example of how to use SummarizeAwrDbParameterChanges API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbParameterChanges.go.html to see an example of how to use SummarizeAwrDbParameterChanges API.
 func (client DbManagementClient) SummarizeAwrDbParameterChanges(ctx context.Context, request SummarizeAwrDbParameterChangesRequest) (response SummarizeAwrDbParameterChangesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10475,7 +13624,7 @@ func (client DbManagementClient) summarizeAwrDbParameterChanges(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbParameters.go.html to see an example of how to use SummarizeAwrDbParameters API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbParameters.go.html to see an example of how to use SummarizeAwrDbParameters API.
 func (client DbManagementClient) SummarizeAwrDbParameters(ctx context.Context, request SummarizeAwrDbParametersRequest) (response SummarizeAwrDbParametersResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10537,7 +13686,7 @@ func (client DbManagementClient) summarizeAwrDbParameters(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbSnapshotRanges.go.html to see an example of how to use SummarizeAwrDbSnapshotRanges API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbSnapshotRanges.go.html to see an example of how to use SummarizeAwrDbSnapshotRanges API.
 func (client DbManagementClient) SummarizeAwrDbSnapshotRanges(ctx context.Context, request SummarizeAwrDbSnapshotRangesRequest) (response SummarizeAwrDbSnapshotRangesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10599,7 +13748,7 @@ func (client DbManagementClient) summarizeAwrDbSnapshotRanges(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbSysstats.go.html to see an example of how to use SummarizeAwrDbSysstats API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbSysstats.go.html to see an example of how to use SummarizeAwrDbSysstats API.
 func (client DbManagementClient) SummarizeAwrDbSysstats(ctx context.Context, request SummarizeAwrDbSysstatsRequest) (response SummarizeAwrDbSysstatsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10661,7 +13810,7 @@ func (client DbManagementClient) summarizeAwrDbSysstats(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbTopWaitEvents.go.html to see an example of how to use SummarizeAwrDbTopWaitEvents API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbTopWaitEvents.go.html to see an example of how to use SummarizeAwrDbTopWaitEvents API.
 func (client DbManagementClient) SummarizeAwrDbTopWaitEvents(ctx context.Context, request SummarizeAwrDbTopWaitEventsRequest) (response SummarizeAwrDbTopWaitEventsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10723,7 +13872,7 @@ func (client DbManagementClient) summarizeAwrDbTopWaitEvents(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbWaitEventBuckets.go.html to see an example of how to use SummarizeAwrDbWaitEventBuckets API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbWaitEventBuckets.go.html to see an example of how to use SummarizeAwrDbWaitEventBuckets API.
 func (client DbManagementClient) SummarizeAwrDbWaitEventBuckets(ctx context.Context, request SummarizeAwrDbWaitEventBucketsRequest) (response SummarizeAwrDbWaitEventBucketsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10785,7 +13934,7 @@ func (client DbManagementClient) summarizeAwrDbWaitEventBuckets(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbWaitEvents.go.html to see an example of how to use SummarizeAwrDbWaitEvents API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeAwrDbWaitEvents.go.html to see an example of how to use SummarizeAwrDbWaitEvents API.
 func (client DbManagementClient) SummarizeAwrDbWaitEvents(ctx context.Context, request SummarizeAwrDbWaitEventsRequest) (response SummarizeAwrDbWaitEventsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -10843,11 +13992,301 @@ func (client DbManagementClient) summarizeAwrDbWaitEvents(ctx context.Context, r
 	return response, err
 }
 
+// SummarizeCloudAsmMetrics Gets metrics for the cloud ASM specified by `cloudAsmId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeCloudAsmMetrics.go.html to see an example of how to use SummarizeCloudAsmMetrics API.
+// A default retry strategy applies to this operation SummarizeCloudAsmMetrics()
+func (client DbManagementClient) SummarizeCloudAsmMetrics(ctx context.Context, request SummarizeCloudAsmMetricsRequest) (response SummarizeCloudAsmMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.summarizeCloudAsmMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = SummarizeCloudAsmMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = SummarizeCloudAsmMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(SummarizeCloudAsmMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into SummarizeCloudAsmMetricsResponse")
+	}
+	return
+}
+
+// summarizeCloudAsmMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) summarizeCloudAsmMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudAsms/{cloudAsmId}/metrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response SummarizeCloudAsmMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsm/SummarizeCloudAsmMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "SummarizeCloudAsmMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// SummarizeCloudClusterMetrics Gets metrics for the cloud cluster specified by `cloudClusterId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeCloudClusterMetrics.go.html to see an example of how to use SummarizeCloudClusterMetrics API.
+// A default retry strategy applies to this operation SummarizeCloudClusterMetrics()
+func (client DbManagementClient) SummarizeCloudClusterMetrics(ctx context.Context, request SummarizeCloudClusterMetricsRequest) (response SummarizeCloudClusterMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.summarizeCloudClusterMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = SummarizeCloudClusterMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = SummarizeCloudClusterMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(SummarizeCloudClusterMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into SummarizeCloudClusterMetricsResponse")
+	}
+	return
+}
+
+// summarizeCloudClusterMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) summarizeCloudClusterMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudClusters/{cloudClusterId}/metrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response SummarizeCloudClusterMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudCluster/SummarizeCloudClusterMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "SummarizeCloudClusterMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// SummarizeCloudDbNodeMetrics Gets metrics for the cloud DB node specified by `cloudDbNodeId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeCloudDbNodeMetrics.go.html to see an example of how to use SummarizeCloudDbNodeMetrics API.
+// A default retry strategy applies to this operation SummarizeCloudDbNodeMetrics()
+func (client DbManagementClient) SummarizeCloudDbNodeMetrics(ctx context.Context, request SummarizeCloudDbNodeMetricsRequest) (response SummarizeCloudDbNodeMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.summarizeCloudDbNodeMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = SummarizeCloudDbNodeMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = SummarizeCloudDbNodeMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(SummarizeCloudDbNodeMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into SummarizeCloudDbNodeMetricsResponse")
+	}
+	return
+}
+
+// summarizeCloudDbNodeMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) summarizeCloudDbNodeMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbNodes/{cloudDbNodeId}/metrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response SummarizeCloudDbNodeMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbNode/SummarizeCloudDbNodeMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "SummarizeCloudDbNodeMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// SummarizeCloudDbSystemAvailabilityMetrics Gets availability metrics for the components present in the cloud DB system specified by `cloudDbSystemId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeCloudDbSystemAvailabilityMetrics.go.html to see an example of how to use SummarizeCloudDbSystemAvailabilityMetrics API.
+// A default retry strategy applies to this operation SummarizeCloudDbSystemAvailabilityMetrics()
+func (client DbManagementClient) SummarizeCloudDbSystemAvailabilityMetrics(ctx context.Context, request SummarizeCloudDbSystemAvailabilityMetricsRequest) (response SummarizeCloudDbSystemAvailabilityMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.summarizeCloudDbSystemAvailabilityMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = SummarizeCloudDbSystemAvailabilityMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = SummarizeCloudDbSystemAvailabilityMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(SummarizeCloudDbSystemAvailabilityMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into SummarizeCloudDbSystemAvailabilityMetricsResponse")
+	}
+	return
+}
+
+// summarizeCloudDbSystemAvailabilityMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) summarizeCloudDbSystemAvailabilityMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudDbSystems/{cloudDbSystemId}/availabilityMetrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response SummarizeCloudDbSystemAvailabilityMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/SummarizeCloudDbSystemAvailabilityMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "SummarizeCloudDbSystemAvailabilityMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// SummarizeCloudListenerMetrics Gets metrics for the cloud listener specified by `cloudListenerId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeCloudListenerMetrics.go.html to see an example of how to use SummarizeCloudListenerMetrics API.
+// A default retry strategy applies to this operation SummarizeCloudListenerMetrics()
+func (client DbManagementClient) SummarizeCloudListenerMetrics(ctx context.Context, request SummarizeCloudListenerMetricsRequest) (response SummarizeCloudListenerMetricsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.summarizeCloudListenerMetrics, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = SummarizeCloudListenerMetricsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = SummarizeCloudListenerMetricsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(SummarizeCloudListenerMetricsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into SummarizeCloudListenerMetricsResponse")
+	}
+	return
+}
+
+// summarizeCloudListenerMetrics implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) summarizeCloudListenerMetrics(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/cloudListeners/{cloudListenerId}/metrics", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response SummarizeCloudListenerMetricsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudListener/SummarizeCloudListenerMetrics"
+		err = common.PostProcessServiceError(err, "DbManagement", "SummarizeCloudListenerMetrics", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // SummarizeExternalAsmMetrics Gets metrics for the external ASM specified by `externalAsmId`.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalAsmMetrics.go.html to see an example of how to use SummarizeExternalAsmMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalAsmMetrics.go.html to see an example of how to use SummarizeExternalAsmMetrics API.
 // A default retry strategy applies to this operation SummarizeExternalAsmMetrics()
 func (client DbManagementClient) SummarizeExternalAsmMetrics(ctx context.Context, request SummarizeExternalAsmMetricsRequest) (response SummarizeExternalAsmMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -10905,7 +14344,7 @@ func (client DbManagementClient) summarizeExternalAsmMetrics(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalClusterMetrics.go.html to see an example of how to use SummarizeExternalClusterMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalClusterMetrics.go.html to see an example of how to use SummarizeExternalClusterMetrics API.
 // A default retry strategy applies to this operation SummarizeExternalClusterMetrics()
 func (client DbManagementClient) SummarizeExternalClusterMetrics(ctx context.Context, request SummarizeExternalClusterMetricsRequest) (response SummarizeExternalClusterMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -10963,7 +14402,7 @@ func (client DbManagementClient) summarizeExternalClusterMetrics(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalDbNodeMetrics.go.html to see an example of how to use SummarizeExternalDbNodeMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalDbNodeMetrics.go.html to see an example of how to use SummarizeExternalDbNodeMetrics API.
 // A default retry strategy applies to this operation SummarizeExternalDbNodeMetrics()
 func (client DbManagementClient) SummarizeExternalDbNodeMetrics(ctx context.Context, request SummarizeExternalDbNodeMetricsRequest) (response SummarizeExternalDbNodeMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -11021,7 +14460,7 @@ func (client DbManagementClient) summarizeExternalDbNodeMetrics(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalDbSystemAvailabilityMetrics.go.html to see an example of how to use SummarizeExternalDbSystemAvailabilityMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalDbSystemAvailabilityMetrics.go.html to see an example of how to use SummarizeExternalDbSystemAvailabilityMetrics API.
 // A default retry strategy applies to this operation SummarizeExternalDbSystemAvailabilityMetrics()
 func (client DbManagementClient) SummarizeExternalDbSystemAvailabilityMetrics(ctx context.Context, request SummarizeExternalDbSystemAvailabilityMetricsRequest) (response SummarizeExternalDbSystemAvailabilityMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -11079,7 +14518,7 @@ func (client DbManagementClient) summarizeExternalDbSystemAvailabilityMetrics(ct
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalListenerMetrics.go.html to see an example of how to use SummarizeExternalListenerMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeExternalListenerMetrics.go.html to see an example of how to use SummarizeExternalListenerMetrics API.
 // A default retry strategy applies to this operation SummarizeExternalListenerMetrics()
 func (client DbManagementClient) SummarizeExternalListenerMetrics(ctx context.Context, request SummarizeExternalListenerMetricsRequest) (response SummarizeExternalListenerMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -11137,7 +14576,7 @@ func (client DbManagementClient) summarizeExternalListenerMetrics(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeJobExecutionsStatuses.go.html to see an example of how to use SummarizeJobExecutionsStatuses API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeJobExecutionsStatuses.go.html to see an example of how to use SummarizeJobExecutionsStatuses API.
 func (client DbManagementClient) SummarizeJobExecutionsStatuses(ctx context.Context, request SummarizeJobExecutionsStatusesRequest) (response SummarizeJobExecutionsStatusesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11195,7 +14634,7 @@ func (client DbManagementClient) summarizeJobExecutionsStatuses(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeManagedDatabaseAvailabilityMetrics.go.html to see an example of how to use SummarizeManagedDatabaseAvailabilityMetrics API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeManagedDatabaseAvailabilityMetrics.go.html to see an example of how to use SummarizeManagedDatabaseAvailabilityMetrics API.
 // A default retry strategy applies to this operation SummarizeManagedDatabaseAvailabilityMetrics()
 func (client DbManagementClient) SummarizeManagedDatabaseAvailabilityMetrics(ctx context.Context, request SummarizeManagedDatabaseAvailabilityMetricsRequest) (response SummarizeManagedDatabaseAvailabilityMetricsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -11253,7 +14692,7 @@ func (client DbManagementClient) summarizeManagedDatabaseAvailabilityMetrics(ctx
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeSqlPlanBaselines.go.html to see an example of how to use SummarizeSqlPlanBaselines API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeSqlPlanBaselines.go.html to see an example of how to use SummarizeSqlPlanBaselines API.
 // A default retry strategy applies to this operation SummarizeSqlPlanBaselines()
 func (client DbManagementClient) SummarizeSqlPlanBaselines(ctx context.Context, request SummarizeSqlPlanBaselinesRequest) (response SummarizeSqlPlanBaselinesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -11311,7 +14750,7 @@ func (client DbManagementClient) summarizeSqlPlanBaselines(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeSqlPlanBaselinesByLastExecution.go.html to see an example of how to use SummarizeSqlPlanBaselinesByLastExecution API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/SummarizeSqlPlanBaselinesByLastExecution.go.html to see an example of how to use SummarizeSqlPlanBaselinesByLastExecution API.
 // A default retry strategy applies to this operation SummarizeSqlPlanBaselinesByLastExecution()
 func (client DbManagementClient) SummarizeSqlPlanBaselinesByLastExecution(ctx context.Context, request SummarizeSqlPlanBaselinesByLastExecutionRequest) (response SummarizeSqlPlanBaselinesByLastExecutionResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -11369,7 +14808,7 @@ func (client DbManagementClient) summarizeSqlPlanBaselinesByLastExecution(ctx co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/TestNamedCredential.go.html to see an example of how to use TestNamedCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/TestNamedCredential.go.html to see an example of how to use TestNamedCredential API.
 func (client DbManagementClient) TestNamedCredential(ctx context.Context, request TestNamedCredentialRequest) (response TestNamedCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11426,7 +14865,7 @@ func (client DbManagementClient) testNamedCredential(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/TestPreferredCredential.go.html to see an example of how to use TestPreferredCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/TestPreferredCredential.go.html to see an example of how to use TestPreferredCredential API.
 func (client DbManagementClient) TestPreferredCredential(ctx context.Context, request TestPreferredCredentialRequest) (response TestPreferredCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11479,11 +14918,581 @@ func (client DbManagementClient) testPreferredCredential(ctx context.Context, re
 	return response, err
 }
 
+// UpdateCloudAsm Updates the cloud ASM specified by `cloudAsmId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudAsm.go.html to see an example of how to use UpdateCloudAsm API.
+func (client DbManagementClient) UpdateCloudAsm(ctx context.Context, request UpdateCloudAsmRequest) (response UpdateCloudAsmResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudAsm, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudAsmResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudAsmResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudAsmResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudAsmResponse")
+	}
+	return
+}
+
+// updateCloudAsm implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudAsm(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudAsms/{cloudAsmId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudAsmResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsm/UpdateCloudAsm"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudAsm", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudAsmInstance Updates the cloud ASM instance specified by `cloudAsmInstanceId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudAsmInstance.go.html to see an example of how to use UpdateCloudAsmInstance API.
+func (client DbManagementClient) UpdateCloudAsmInstance(ctx context.Context, request UpdateCloudAsmInstanceRequest) (response UpdateCloudAsmInstanceResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudAsmInstance, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudAsmInstanceResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudAsmInstanceResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudAsmInstanceResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudAsmInstanceResponse")
+	}
+	return
+}
+
+// updateCloudAsmInstance implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudAsmInstance(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudAsmInstances/{cloudAsmInstanceId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudAsmInstanceResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudAsmInstance/UpdateCloudAsmInstance"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudAsmInstance", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudCluster Updates the cloud cluster specified by `cloudClusterId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudCluster.go.html to see an example of how to use UpdateCloudCluster API.
+func (client DbManagementClient) UpdateCloudCluster(ctx context.Context, request UpdateCloudClusterRequest) (response UpdateCloudClusterResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudCluster, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudClusterResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudClusterResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudClusterResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudClusterResponse")
+	}
+	return
+}
+
+// updateCloudCluster implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudCluster(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudClusters/{cloudClusterId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudClusterResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudCluster/UpdateCloudCluster"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudCluster", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudClusterInstance Updates the cloud cluster instance specified by `cloudClusterInstanceId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudClusterInstance.go.html to see an example of how to use UpdateCloudClusterInstance API.
+func (client DbManagementClient) UpdateCloudClusterInstance(ctx context.Context, request UpdateCloudClusterInstanceRequest) (response UpdateCloudClusterInstanceResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudClusterInstance, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudClusterInstanceResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudClusterInstanceResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudClusterInstanceResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudClusterInstanceResponse")
+	}
+	return
+}
+
+// updateCloudClusterInstance implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudClusterInstance(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudClusterInstances/{cloudClusterInstanceId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudClusterInstanceResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudClusterInstance/UpdateCloudClusterInstance"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudClusterInstance", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudDbHome Updates the cloud DB home specified by `cloudDbHomeId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudDbHome.go.html to see an example of how to use UpdateCloudDbHome API.
+func (client DbManagementClient) UpdateCloudDbHome(ctx context.Context, request UpdateCloudDbHomeRequest) (response UpdateCloudDbHomeResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudDbHome, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudDbHomeResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudDbHomeResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudDbHomeResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudDbHomeResponse")
+	}
+	return
+}
+
+// updateCloudDbHome implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudDbHome(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudDbHomes/{cloudDbHomeId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudDbHomeResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbHome/UpdateCloudDbHome"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudDbHome", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudDbNode Updates the cloud DB node specified by `cloudDbNodeId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudDbNode.go.html to see an example of how to use UpdateCloudDbNode API.
+func (client DbManagementClient) UpdateCloudDbNode(ctx context.Context, request UpdateCloudDbNodeRequest) (response UpdateCloudDbNodeResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudDbNode, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudDbNodeResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudDbNodeResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudDbNodeResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudDbNodeResponse")
+	}
+	return
+}
+
+// updateCloudDbNode implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudDbNode(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudDbNodes/{cloudDbNodeId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudDbNodeResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbNode/UpdateCloudDbNode"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudDbNode", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudDbSystem Updates the cloud DB system specified by `cloudDbSystemId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudDbSystem.go.html to see an example of how to use UpdateCloudDbSystem API.
+func (client DbManagementClient) UpdateCloudDbSystem(ctx context.Context, request UpdateCloudDbSystemRequest) (response UpdateCloudDbSystemResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudDbSystem, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudDbSystemResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudDbSystemResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudDbSystemResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudDbSystemResponse")
+	}
+	return
+}
+
+// updateCloudDbSystem implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudDbSystem(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudDbSystems/{cloudDbSystemId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudDbSystemResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystem/UpdateCloudDbSystem"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudDbSystem", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudDbSystemConnector Updates the cloud connector specified by `cloudDbSystemConnectorId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudDbSystemConnector.go.html to see an example of how to use UpdateCloudDbSystemConnector API.
+func (client DbManagementClient) UpdateCloudDbSystemConnector(ctx context.Context, request UpdateCloudDbSystemConnectorRequest) (response UpdateCloudDbSystemConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudDbSystemConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudDbSystemConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudDbSystemConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudDbSystemConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudDbSystemConnectorResponse")
+	}
+	return
+}
+
+// updateCloudDbSystemConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudDbSystemConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudDbSystemConnectors/{cloudDbSystemConnectorId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudDbSystemConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemConnector/UpdateCloudDbSystemConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudDbSystemConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudDbSystemDiscovery Updates the cloud DB system discovery specified by `cloudDbSystemDiscoveryId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudDbSystemDiscovery.go.html to see an example of how to use UpdateCloudDbSystemDiscovery API.
+func (client DbManagementClient) UpdateCloudDbSystemDiscovery(ctx context.Context, request UpdateCloudDbSystemDiscoveryRequest) (response UpdateCloudDbSystemDiscoveryResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudDbSystemDiscovery, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudDbSystemDiscoveryResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudDbSystemDiscoveryResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudDbSystemDiscoveryResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudDbSystemDiscoveryResponse")
+	}
+	return
+}
+
+// updateCloudDbSystemDiscovery implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudDbSystemDiscovery(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudDbSystemDiscoveries/{cloudDbSystemDiscoveryId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudDbSystemDiscoveryResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudDbSystemDiscovery/UpdateCloudDbSystemDiscovery"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudDbSystemDiscovery", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateCloudListener Updates the cloud listener specified by `cloudListenerId`.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateCloudListener.go.html to see an example of how to use UpdateCloudListener API.
+func (client DbManagementClient) UpdateCloudListener(ctx context.Context, request UpdateCloudListenerRequest) (response UpdateCloudListenerResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateCloudListener, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateCloudListenerResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateCloudListenerResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateCloudListenerResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateCloudListenerResponse")
+	}
+	return
+}
+
+// updateCloudListener implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateCloudListener(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/cloudListeners/{cloudListenerId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateCloudListenerResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudListener/UpdateCloudListener"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateCloudListener", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // UpdateDbManagementPrivateEndpoint Updates one or more attributes of a specific Database Management private endpoint.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateDbManagementPrivateEndpoint.go.html to see an example of how to use UpdateDbManagementPrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateDbManagementPrivateEndpoint.go.html to see an example of how to use UpdateDbManagementPrivateEndpoint API.
 func (client DbManagementClient) UpdateDbManagementPrivateEndpoint(ctx context.Context, request UpdateDbManagementPrivateEndpointRequest) (response UpdateDbManagementPrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11540,7 +15549,7 @@ func (client DbManagementClient) updateDbManagementPrivateEndpoint(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalAsm.go.html to see an example of how to use UpdateExternalAsm API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalAsm.go.html to see an example of how to use UpdateExternalAsm API.
 func (client DbManagementClient) UpdateExternalAsm(ctx context.Context, request UpdateExternalAsmRequest) (response UpdateExternalAsmResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11597,7 +15606,7 @@ func (client DbManagementClient) updateExternalAsm(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalAsmInstance.go.html to see an example of how to use UpdateExternalAsmInstance API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalAsmInstance.go.html to see an example of how to use UpdateExternalAsmInstance API.
 func (client DbManagementClient) UpdateExternalAsmInstance(ctx context.Context, request UpdateExternalAsmInstanceRequest) (response UpdateExternalAsmInstanceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11654,7 +15663,7 @@ func (client DbManagementClient) updateExternalAsmInstance(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalCluster.go.html to see an example of how to use UpdateExternalCluster API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalCluster.go.html to see an example of how to use UpdateExternalCluster API.
 func (client DbManagementClient) UpdateExternalCluster(ctx context.Context, request UpdateExternalClusterRequest) (response UpdateExternalClusterResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11711,7 +15720,7 @@ func (client DbManagementClient) updateExternalCluster(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalClusterInstance.go.html to see an example of how to use UpdateExternalClusterInstance API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalClusterInstance.go.html to see an example of how to use UpdateExternalClusterInstance API.
 func (client DbManagementClient) UpdateExternalClusterInstance(ctx context.Context, request UpdateExternalClusterInstanceRequest) (response UpdateExternalClusterInstanceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11768,7 +15777,7 @@ func (client DbManagementClient) updateExternalClusterInstance(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbHome.go.html to see an example of how to use UpdateExternalDbHome API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbHome.go.html to see an example of how to use UpdateExternalDbHome API.
 func (client DbManagementClient) UpdateExternalDbHome(ctx context.Context, request UpdateExternalDbHomeRequest) (response UpdateExternalDbHomeResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11825,7 +15834,7 @@ func (client DbManagementClient) updateExternalDbHome(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbNode.go.html to see an example of how to use UpdateExternalDbNode API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbNode.go.html to see an example of how to use UpdateExternalDbNode API.
 func (client DbManagementClient) UpdateExternalDbNode(ctx context.Context, request UpdateExternalDbNodeRequest) (response UpdateExternalDbNodeResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11882,7 +15891,7 @@ func (client DbManagementClient) updateExternalDbNode(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbSystem.go.html to see an example of how to use UpdateExternalDbSystem API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbSystem.go.html to see an example of how to use UpdateExternalDbSystem API.
 func (client DbManagementClient) UpdateExternalDbSystem(ctx context.Context, request UpdateExternalDbSystemRequest) (response UpdateExternalDbSystemResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11939,7 +15948,7 @@ func (client DbManagementClient) updateExternalDbSystem(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbSystemConnector.go.html to see an example of how to use UpdateExternalDbSystemConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbSystemConnector.go.html to see an example of how to use UpdateExternalDbSystemConnector API.
 func (client DbManagementClient) UpdateExternalDbSystemConnector(ctx context.Context, request UpdateExternalDbSystemConnectorRequest) (response UpdateExternalDbSystemConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -11996,7 +16005,7 @@ func (client DbManagementClient) updateExternalDbSystemConnector(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbSystemDiscovery.go.html to see an example of how to use UpdateExternalDbSystemDiscovery API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalDbSystemDiscovery.go.html to see an example of how to use UpdateExternalDbSystemDiscovery API.
 func (client DbManagementClient) UpdateExternalDbSystemDiscovery(ctx context.Context, request UpdateExternalDbSystemDiscoveryRequest) (response UpdateExternalDbSystemDiscoveryResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12053,7 +16062,7 @@ func (client DbManagementClient) updateExternalDbSystemDiscovery(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataInfrastructure.go.html to see an example of how to use UpdateExternalExadataInfrastructure API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataInfrastructure.go.html to see an example of how to use UpdateExternalExadataInfrastructure API.
 // A default retry strategy applies to this operation UpdateExternalExadataInfrastructure()
 func (client DbManagementClient) UpdateExternalExadataInfrastructure(ctx context.Context, request UpdateExternalExadataInfrastructureRequest) (response UpdateExternalExadataInfrastructureResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -12116,7 +16125,7 @@ func (client DbManagementClient) updateExternalExadataInfrastructure(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataStorageConnector.go.html to see an example of how to use UpdateExternalExadataStorageConnector API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataStorageConnector.go.html to see an example of how to use UpdateExternalExadataStorageConnector API.
 func (client DbManagementClient) UpdateExternalExadataStorageConnector(ctx context.Context, request UpdateExternalExadataStorageConnectorRequest) (response UpdateExternalExadataStorageConnectorResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12173,7 +16182,7 @@ func (client DbManagementClient) updateExternalExadataStorageConnector(ctx conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataStorageGrid.go.html to see an example of how to use UpdateExternalExadataStorageGrid API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataStorageGrid.go.html to see an example of how to use UpdateExternalExadataStorageGrid API.
 func (client DbManagementClient) UpdateExternalExadataStorageGrid(ctx context.Context, request UpdateExternalExadataStorageGridRequest) (response UpdateExternalExadataStorageGridResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12230,7 +16239,7 @@ func (client DbManagementClient) updateExternalExadataStorageGrid(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataStorageServer.go.html to see an example of how to use UpdateExternalExadataStorageServer API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalExadataStorageServer.go.html to see an example of how to use UpdateExternalExadataStorageServer API.
 func (client DbManagementClient) UpdateExternalExadataStorageServer(ctx context.Context, request UpdateExternalExadataStorageServerRequest) (response UpdateExternalExadataStorageServerResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12287,7 +16296,7 @@ func (client DbManagementClient) updateExternalExadataStorageServer(ctx context.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalListener.go.html to see an example of how to use UpdateExternalListener API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalListener.go.html to see an example of how to use UpdateExternalListener API.
 func (client DbManagementClient) UpdateExternalListener(ctx context.Context, request UpdateExternalListenerRequest) (response UpdateExternalListenerResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12340,11 +16349,125 @@ func (client DbManagementClient) updateExternalListener(ctx context.Context, req
 	return response, err
 }
 
-// UpdateJob Updates the details for the recurring scheduled job specified by jobId. Note that non-recurring (one time) jobs cannot be updated.
+// UpdateExternalMysqlDatabase Updates the External Mysql Database.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateJob.go.html to see an example of how to use UpdateJob API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalMysqlDatabase.go.html to see an example of how to use UpdateExternalMysqlDatabase API.
+func (client DbManagementClient) UpdateExternalMysqlDatabase(ctx context.Context, request UpdateExternalMysqlDatabaseRequest) (response UpdateExternalMysqlDatabaseResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateExternalMysqlDatabase, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateExternalMysqlDatabaseResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateExternalMysqlDatabaseResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateExternalMysqlDatabaseResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateExternalMysqlDatabaseResponse")
+	}
+	return
+}
+
+// updateExternalMysqlDatabase implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateExternalMysqlDatabase(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/externalMySqlDatabases/{externalMySqlDatabaseId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateExternalMysqlDatabaseResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabase/UpdateExternalMysqlDatabase"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateExternalMysqlDatabase", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateExternalMysqlDatabaseConnector Updates the External Mysql Database Connector.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateExternalMysqlDatabaseConnector.go.html to see an example of how to use UpdateExternalMysqlDatabaseConnector API.
+func (client DbManagementClient) UpdateExternalMysqlDatabaseConnector(ctx context.Context, request UpdateExternalMysqlDatabaseConnectorRequest) (response UpdateExternalMysqlDatabaseConnectorResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateExternalMysqlDatabaseConnector, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateExternalMysqlDatabaseConnectorResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateExternalMysqlDatabaseConnectorResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateExternalMysqlDatabaseConnectorResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateExternalMysqlDatabaseConnectorResponse")
+	}
+	return
+}
+
+// updateExternalMysqlDatabaseConnector implements the OCIOperation interface (enables retrying operations)
+func (client DbManagementClient) updateExternalMysqlDatabaseConnector(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/externalMySqlDatabaseConnectors/{externalMySqlDatabaseConnectorId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateExternalMysqlDatabaseConnectorResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExternalMySqlDatabaseConnector/UpdateExternalMysqlDatabaseConnector"
+		err = common.PostProcessServiceError(err, "DbManagement", "UpdateExternalMysqlDatabaseConnector", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateJob Updates the details of the recurring scheduled job specified by jobId. Note that non-recurring (one time) jobs cannot be updated.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateJob.go.html to see an example of how to use UpdateJob API.
 func (client DbManagementClient) UpdateJob(ctx context.Context, request UpdateJobRequest) (response UpdateJobResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12401,7 +16524,7 @@ func (client DbManagementClient) updateJob(ctx context.Context, request common.O
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateManagedDatabase.go.html to see an example of how to use UpdateManagedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateManagedDatabase.go.html to see an example of how to use UpdateManagedDatabase API.
 func (client DbManagementClient) UpdateManagedDatabase(ctx context.Context, request UpdateManagedDatabaseRequest) (response UpdateManagedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12458,7 +16581,7 @@ func (client DbManagementClient) updateManagedDatabase(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateManagedDatabaseGroup.go.html to see an example of how to use UpdateManagedDatabaseGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateManagedDatabaseGroup.go.html to see an example of how to use UpdateManagedDatabaseGroup API.
 func (client DbManagementClient) UpdateManagedDatabaseGroup(ctx context.Context, request UpdateManagedDatabaseGroupRequest) (response UpdateManagedDatabaseGroupResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12515,7 +16638,7 @@ func (client DbManagementClient) updateManagedDatabaseGroup(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateNamedCredential.go.html to see an example of how to use UpdateNamedCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateNamedCredential.go.html to see an example of how to use UpdateNamedCredential API.
 func (client DbManagementClient) UpdateNamedCredential(ctx context.Context, request UpdateNamedCredentialRequest) (response UpdateNamedCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12572,7 +16695,7 @@ func (client DbManagementClient) updateNamedCredential(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdatePreferredCredential.go.html to see an example of how to use UpdatePreferredCredential API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdatePreferredCredential.go.html to see an example of how to use UpdatePreferredCredential API.
 func (client DbManagementClient) UpdatePreferredCredential(ctx context.Context, request UpdatePreferredCredentialRequest) (response UpdatePreferredCredentialResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -12629,7 +16752,7 @@ func (client DbManagementClient) updatePreferredCredential(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateTablespace.go.html to see an example of how to use UpdateTablespace API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/databasemanagement/UpdateTablespace.go.html to see an example of how to use UpdateTablespace API.
 func (client DbManagementClient) UpdateTablespace(ctx context.Context, request UpdateTablespaceRequest) (response UpdateTablespaceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()

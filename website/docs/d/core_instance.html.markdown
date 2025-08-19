@@ -69,6 +69,7 @@ The following attributes are exported:
 * `boot_volume_id` - The OCID of the attached boot volume. If the `source_type` is `bootVolume`, this will be the same OCID as the `source_id`.
 * `capacity_reservation_id` - The OCID of the compute capacity reservation this instance is launched under. When this field contains an empty string or is null, the instance is not currently in a capacity reservation. For more information, see [Capacity Reservations](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm#default).
 * `compartment_id` - The OCID of the compartment that contains the instance.
+* `compute_host_group_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the Customer-unique host group 
 * `dedicated_vm_host_id` - The OCID of the dedicated virtual machine host that the instance is placed on. 
 * `defined_tags` - Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).  Example: `{"Operations.CostCenter": "42"}` 
 * `display_name` - A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information. 
@@ -132,8 +133,17 @@ The following attributes are exported:
 		* `IDE` - Emulated IDE disk.
 		* `VFIO` - Direct attached Virtual Function storage. This is the default option for local data volumes on platform images.
 		* `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block storage volumes on platform images. 
+* `licensing_configs` - List of licensing configurations associated with the instance.
+	* `license_type` - License Type for the OS license.
+		* `OCI_PROVIDED` - Oracle Cloud Infrastructure provided license (e.g. metered $/OCPU-hour).
+		* `BRING_YOUR_OWN_LICENSE` - Bring your own license. 
+	* `os_version` - The Operating System version of the license config.
+	* `type` - Operating System type of the Configuration.
 * `metadata` - Custom metadata that you provide.
-
+* `placement_constraint_details` - Generic placement details field which is overloaded with bare metal host id or host group id based on the resource we are targeting to launch. 
+	* `compute_bare_metal_host_id` - The OCID of the compute bare metal host.
+	* `compute_host_group_id` - The OCID of the compute host group.
+	* `type` - Determines the type of targeted launch.
 * `platform_config` - The platform configuration for the instance. 
 	* `are_virtual_instructions_enabled` - Whether virtualization instructions are available. For example, Secure Virtual Machine for AMD shapes or VT-x for Intel shapes. 
 	* `config_map` - Instance Platform Configuration Configuration Map for flexible setting input. 
@@ -178,8 +188,8 @@ The following attributes are exported:
 
 	For the us-phoenix-1 and us-ashburn-1 regions, `phx` and `iad` are returned, respectively. For all other regions, the full region name is returned.
 
-	Examples: `phx`, `eu-frankfurt-1` 
-* `security_attributes` - Security Attributes for this resource. This is unique to ZPR, and helps identify which resources are allowed to be accessed by what permission controls.  Example: `{"Oracle-DataSecurity-ZPR.MaxEgressCount.value": "42", "Oracle-DataSecurity-ZPR.MaxEgressCount.mode": "audit"}` 
+	Examples: `phx`, `eu-frankfurt-1`
+* `security_attributes` - Security Attributes for this resource. This is unique to ZPR, and helps identify which resources are allowed to be accessed by what permission controls.  Example: `{"Oracle-DataSecurity-ZPR.MaxEgressCount.value": "42", "Oracle-DataSecurity-ZPR.MaxEgressCount.mode": "audit"}`
 * `security_attributes_state` - The lifecycle state of the `securityAttributes`
 * `shape` - The shape of the instance. The shape determines the number of CPUs and the amount of memory allocated to the instance. You can enumerate all available shapes by calling [ListShapes](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Shape/ListShapes). 
 * `shape_config` - The shape configuration for an instance. The shape configuration determines the resources allocated to an instance. 

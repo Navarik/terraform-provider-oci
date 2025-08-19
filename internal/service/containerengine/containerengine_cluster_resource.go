@@ -16,7 +16,7 @@ import (
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/customdiff"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
@@ -184,7 +184,6 @@ func ContainerengineClusterResource() *schema.Resource {
 							Type:     schema.TypeList,
 							Optional: true,
 							Computed: true,
-							ForceNew: true,
 							MaxItems: 1,
 							MinItems: 1,
 							Elem: &schema.Resource{
@@ -196,13 +195,11 @@ func ContainerengineClusterResource() *schema.Resource {
 										Type:     schema.TypeBool,
 										Optional: true,
 										Computed: true,
-										ForceNew: true,
 									},
 									"is_tiller_enabled": {
 										Type:     schema.TypeBool,
 										Optional: true,
 										Computed: true,
-										ForceNew: true,
 									},
 
 									// Computed
@@ -228,6 +225,15 @@ func ContainerengineClusterResource() *schema.Resource {
 
 									// Computed
 								},
+							},
+						},
+						"ip_families": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+							Elem: &schema.Schema{
+								Type: schema.TypeString,
 							},
 						},
 						"kubernetes_network_config": {
@@ -275,34 +281,39 @@ func ContainerengineClusterResource() *schema.Resource {
 
 									// Optional
 									"ca_certificate": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 									},
 									"client_id": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
+									},
+									"configuration_file": {
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.ca_certificate", "options.0.open_id_connect_token_authentication_config.0.client_id", "options.0.open_id_connect_token_authentication_config.0.groups_claim", "options.0.open_id_connect_token_authentication_config.0.groups_prefix", "options.0.open_id_connect_token_authentication_config.0.issuer_url", "options.0.open_id_connect_token_authentication_config.0.required_claims", "options.0.open_id_connect_token_authentication_config.0.signing_algorithms", "options.0.open_id_connect_token_authentication_config.0.username_claim", "options.0.open_id_connect_token_authentication_config.0.username_prefix"},
 									},
 									"groups_claim": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 									},
 									"groups_prefix": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 									},
 									"issuer_url": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 									},
 									"required_claims": {
-										Type:     schema.TypeList,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeList,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												// Required
@@ -311,12 +322,10 @@ func ContainerengineClusterResource() *schema.Resource {
 												"key": {
 													Type:     schema.TypeString,
 													Optional: true,
-													Computed: true,
 												},
 												"value": {
 													Type:     schema.TypeString,
 													Optional: true,
-													Computed: true,
 												},
 
 												// Computed
@@ -324,22 +333,22 @@ func ContainerengineClusterResource() *schema.Resource {
 										},
 									},
 									"signing_algorithms": {
-										Type:     schema.TypeList,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeList,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 										Elem: &schema.Schema{
 											Type: schema.TypeString,
 										},
 									},
 									"username_claim": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 									},
 									"username_prefix": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Computed: true,
+										Type:          schema.TypeString,
+										Optional:      true,
+										ConflictsWith: []string{"options.0.open_id_connect_token_authentication_config.0.configuration_file"},
 									},
 
 									// Computed
@@ -463,6 +472,10 @@ func ContainerengineClusterResource() *schema.Resource {
 						// Optional
 
 						// Computed
+						"ipv6endpoint": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"kubernetes": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -543,6 +556,10 @@ func ContainerengineClusterResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"open_id_connect_discovery_key": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"state": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -557,8 +574,7 @@ func ContainerengineClusterResource() *schema.Resource {
 				}
 				return false
 			}),
-		),
-	}
+		)}
 }
 
 func createContainerengineCluster(d *schema.ResourceData, m interface{}) error {
@@ -737,6 +753,7 @@ func (s *ContainerengineClusterResourceCrud) Create() error {
 
 	requestGet := oci_containerengine.GetClusterRequest{}
 	requestGet.ClusterId = clusterIDForGet
+
 	requestGet.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "containerengine")
 	responseGet, getClusterErr := s.Client.GetCluster(context.Background(), requestGet)
 	if getClusterErr != nil {
@@ -861,7 +878,7 @@ func clusterWaitForWorkRequest(wId *string, entityType string, action oci_contai
 	retryPolicy.ShouldRetryOperation = clusterWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_containerengine.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_containerengine.WorkRequestStatusInProgress),
 			string(oci_containerengine.WorkRequestStatusAccepted),
@@ -886,6 +903,7 @@ func clusterWaitForWorkRequest(wId *string, entityType string, action oci_contai
 		},
 		Timeout: timeout,
 	}
+
 	// Set PollInterval to 1 for replay mode.
 	if httpreplay.ShouldRetryImmediately() {
 		stateConf.PollInterval = 1
@@ -944,6 +962,12 @@ func (s *ContainerengineClusterResourceCrud) Get() error {
 	tmp := s.D.Id()
 	request.ClusterId = &tmp
 
+	if getOIDCEnabledFromState(s.D) {
+		shouldInclude := true
+		request.ShouldIncludeOidcConfigFile = &shouldInclude
+		log.Printf("[DEBUG] Setting ShouldIncludeOidcConfigFile to true based on state.")
+	}
+
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "containerengine")
 
 	response, err := s.Client.GetCluster(context.Background(), request)
@@ -1000,7 +1024,7 @@ func (s *ContainerengineClusterResourceCrud) Update() error {
 		}
 	}
 
-	if kubernetesVersion, ok := s.D.GetOkExists("kubernetes_version"); ok {
+	if kubernetesVersion, ok := s.D.GetOkExists("kubernetes_version"); ok && s.D.HasChange("kubernetes_version") {
 		tmp := kubernetesVersion.(string)
 		request.KubernetesVersion = &tmp
 	}
@@ -1161,6 +1185,10 @@ func (s *ContainerengineClusterResourceCrud) SetData() error {
 		s.D.Set("open_id_connect_discovery_endpoint", *s.Res.OpenIdConnectDiscoveryEndpoint)
 	}
 
+	if s.Res.OpenIdConnectDiscoveryKey != nil {
+		s.D.Set("open_id_connect_discovery_key", *s.Res.OpenIdConnectDiscoveryKey)
+	}
+
 	if s.Res.Options != nil {
 		s.D.Set("options", []interface{}{ClusterCreateOptionsToMap(s.Res.Options)})
 	} else {
@@ -1192,6 +1220,15 @@ func (s *ContainerengineClusterResourceCrud) mapToAddOnOptions(fieldKeyFormat st
 	}
 
 	return result, nil
+}
+
+// Helper function to convert []string to []containerengine.ClusterCreateOptionsIpFamiliesEnum
+func convertToClusterCreateOptionsIpFamiliesEnum(input []string) []oci_containerengine.ClusterCreateOptionsIpFamiliesEnum {
+	output := make([]oci_containerengine.ClusterCreateOptionsIpFamiliesEnum, len(input))
+	for i, v := range input {
+		output[i] = oci_containerengine.ClusterCreateOptionsIpFamiliesEnum(v)
+	}
+	return output
 }
 
 func AddOnOptionsToMap(obj *oci_containerengine.AddOnOptions) map[string]interface{} {
@@ -1251,6 +1288,19 @@ func (s *ContainerengineClusterResourceCrud) mapToClusterCreateOptions(fieldKeyF
 				return result, fmt.Errorf("unable to convert admission_controller_options, encountered error: %v", err)
 			}
 			result.AdmissionControllerOptions = &tmp
+		}
+	}
+
+	if ipFamilies, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "ip_families")); ok {
+		interfaces := ipFamilies.([]interface{})
+		tmp := make([]string, len(interfaces))
+		for i := range interfaces {
+			if interfaces[i] != nil {
+				tmp[i] = interfaces[i].(string)
+			}
+		}
+		if len(tmp) != 0 || s.D.HasChange(fmt.Sprintf(fieldKeyFormat, "ip_families")) {
+			result.IpFamilies = convertToClusterCreateOptionsIpFamiliesEnum(tmp)
 		}
 	}
 
@@ -1397,6 +1447,8 @@ func ClusterCreateOptionsToMap(obj *oci_containerengine.ClusterCreateOptions) ma
 		result["admission_controller_options"] = []interface{}{AdmissionControllerOptionsToMap(obj.AdmissionControllerOptions)}
 	}
 
+	result["ip_families"] = obj.IpFamilies
+
 	if obj.KubernetesNetworkConfig != nil {
 		result["kubernetes_network_config"] = []interface{}{KubernetesNetworkConfigToMap(obj.KubernetesNetworkConfig)}
 	}
@@ -1424,6 +1476,10 @@ func ClusterCreateOptionsToMap(obj *oci_containerengine.ClusterCreateOptions) ma
 
 func ClusterEndpointsToMap(obj *oci_containerengine.ClusterEndpoints) map[string]interface{} {
 	result := map[string]interface{}{}
+
+	if obj.Ipv6Endpoint != nil {
+		result["ipv6endpoint"] = string(*obj.Ipv6Endpoint)
+	}
 
 	if obj.Kubernetes != nil {
 		result["kubernetes"] = string(*obj.Kubernetes)
@@ -1796,22 +1852,27 @@ func KubernetesNetworkConfigToMap(obj *oci_containerengine.KubernetesNetworkConf
 func (s *ContainerengineClusterResourceCrud) mapToOpenIdConnectTokenAuthenticationConfig(fieldKeyFormat string) (oci_containerengine.OpenIdConnectTokenAuthenticationConfig, error) {
 	result := oci_containerengine.OpenIdConnectTokenAuthenticationConfig{}
 
-	if caCertificate, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "ca_certificate")); ok {
+	if caCertificate, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "ca_certificate")); ok {
 		tmp := caCertificate.(string)
 		result.CaCertificate = &tmp
 	}
 
-	if clientId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "client_id")); ok {
+	if clientId, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "client_id")); ok {
 		tmp := clientId.(string)
 		result.ClientId = &tmp
 	}
 
-	if groupsClaim, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "groups_claim")); ok {
+	if configurationFile, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "configuration_file")); ok {
+		tmp := configurationFile.(string)
+		result.ConfigurationFile = &tmp
+	}
+
+	if groupsClaim, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "groups_claim")); ok {
 		tmp := groupsClaim.(string)
 		result.GroupsClaim = &tmp
 	}
 
-	if groupsPrefix, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "groups_prefix")); ok {
+	if groupsPrefix, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "groups_prefix")); ok {
 		tmp := groupsPrefix.(string)
 		result.GroupsPrefix = &tmp
 	}
@@ -1821,12 +1882,12 @@ func (s *ContainerengineClusterResourceCrud) mapToOpenIdConnectTokenAuthenticati
 		result.IsOpenIdConnectAuthEnabled = &tmp
 	}
 
-	if issuerUrl, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "issuer_url")); ok {
+	if issuerUrl, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "issuer_url")); ok {
 		tmp := issuerUrl.(string)
 		result.IssuerUrl = &tmp
 	}
 
-	if requiredClaims, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "required_claims")); ok {
+	if requiredClaims, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "required_claims")); ok {
 		interfaces := requiredClaims.([]interface{})
 		tmp := make([]oci_containerengine.KeyValue, len(interfaces))
 		for i := range interfaces {
@@ -1843,7 +1904,7 @@ func (s *ContainerengineClusterResourceCrud) mapToOpenIdConnectTokenAuthenticati
 		}
 	}
 
-	if signingAlgorithms, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "signing_algorithms")); ok {
+	if signingAlgorithms, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "signing_algorithms")); ok {
 		interfaces := signingAlgorithms.([]interface{})
 		tmp := make([]string, len(interfaces))
 		for i := range interfaces {
@@ -1856,12 +1917,12 @@ func (s *ContainerengineClusterResourceCrud) mapToOpenIdConnectTokenAuthenticati
 		}
 	}
 
-	if usernameClaim, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "username_claim")); ok {
+	if usernameClaim, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "username_claim")); ok {
 		tmp := usernameClaim.(string)
 		result.UsernameClaim = &tmp
 	}
 
-	if usernamePrefix, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "username_prefix")); ok {
+	if usernamePrefix, ok := s.D.GetOk(fmt.Sprintf(fieldKeyFormat, "username_prefix")); ok {
 		tmp := usernamePrefix.(string)
 		result.UsernamePrefix = &tmp
 	}
@@ -1878,6 +1939,10 @@ func OpenIdConnectTokenAuthenticationConfigToMap(obj *oci_containerengine.OpenId
 
 	if obj.ClientId != nil {
 		result["client_id"] = string(*obj.ClientId)
+	}
+
+	if obj.ConfigurationFile != nil {
+		result["configuration_file"] = string(*obj.ConfigurationFile)
 	}
 
 	if obj.GroupsClaim != nil {
@@ -1994,4 +2059,32 @@ func ServiceLbConfigDetailsToMap(obj *oci_containerengine.ServiceLbConfigDetails
 	result["freeform_tags"] = obj.FreeformTags
 
 	return result
+}
+
+func getOIDCEnabledFromState(d *schema.ResourceData) bool {
+	isEnabled := false
+
+	// Check if OIDC is enabled in state
+	// location "options.0.open_id_connect_token_authentication_config.0.is_open_id_connect_auth_enabled"
+	if options, ok := d.GetOkExists("options"); ok {
+		if optionsList := options.([]interface{}); len(optionsList) > 0 {
+			// Safe to use [0] since MaxItems: 1, but let's be explicit
+			optionsMap := optionsList[0].(map[string]interface{})
+
+			if oidcConfig, exists := optionsMap["open_id_connect_token_authentication_config"]; exists {
+				if oidcList := oidcConfig.([]interface{}); len(oidcList) > 0 {
+					// Again, safe to use [0] since MaxItems: 1
+					oidcMap := oidcList[0].(map[string]interface{})
+
+					if enabled, exists := oidcMap["is_open_id_connect_auth_enabled"]; exists {
+						if enabledBool, ok := enabled.(bool); ok && enabledBool {
+							isEnabled = true
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return isEnabled
 }

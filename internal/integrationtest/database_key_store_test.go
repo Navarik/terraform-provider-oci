@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_database "github.com/oracle/oci-go-sdk/v65/database"
 
@@ -47,7 +47,7 @@ var (
 		"compartment_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
 		"display_name":   acctest.Representation{RepType: acctest.Required, Create: `Key Store1`},
 		"type_details":   acctest.RepresentationGroup{RepType: acctest.Required, Group: DatabaseKeyStoreTypeDetailsRepresentation},
-		"defined_tags":   acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
+		"defined_tags":   acctest.Representation{RepType: acctest.Optional, Create: `${tomap({ "${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value" })}`, Update: `${tomap({ "${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "updatedValue" })}`},
 		"freeform_tags":  acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
 	}
 	DatabaseKeyStoreTypeDetailsRepresentation = map[string]interface{}{
@@ -99,6 +99,7 @@ func TestDatabaseKeyStoreResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "type_details.0.secret_id"),
 				resource.TestCheckResourceAttr(resourceName, "type_details.0.type", "ORACLE_KEY_VAULT"),
 				resource.TestCheckResourceAttrSet(resourceName, "type_details.0.vault_id"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -126,6 +127,7 @@ func TestDatabaseKeyStoreResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "type_details.0.secret_id"),
 				resource.TestCheckResourceAttr(resourceName, "type_details.0.type", "ORACLE_KEY_VAULT"),
 				resource.TestCheckResourceAttrSet(resourceName, "type_details.0.vault_id"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -215,6 +217,7 @@ func TestDatabaseKeyStoreResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(datasourceName, "key_stores.0.type_details.0.secret_id"),
 				resource.TestCheckResourceAttr(datasourceName, "key_stores.0.type_details.0.type", "ORACLE_KEY_VAULT"),
 				resource.TestCheckResourceAttrSet(datasourceName, "key_stores.0.type_details.0.vault_id"),
+				resource.TestCheckResourceAttr(datasourceName, "key_stores.0.type_details.0.system_tags.%", "0"),
 			),
 		},
 		// verify singular datasource
@@ -235,6 +238,7 @@ func TestDatabaseKeyStoreResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(singularDatasourceName, "type_details.#", "1"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "type_details.0.admin_username", "adminUsername2"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "type_details.0.type", "ORACLE_KEY_VAULT"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.%", "0"),
 			),
 		},
 		// verify resource import

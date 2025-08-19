@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -10,6 +10,7 @@
 package fleetappsmanagement
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	"strings"
@@ -27,10 +28,7 @@ type UpdateSchedulerDefinitionDetails struct {
 	// Avoid entering confidential information.
 	Description *string `mandatory:"false" json:"description"`
 
-	// Activity Initiation Cut Off
-	ActivityInitiationCutOff *int `mandatory:"false" json:"activityInitiationCutOff"`
-
-	Schedule *Schedule `mandatory:"false" json:"schedule"`
+	Schedule Schedule `mandatory:"false" json:"schedule"`
 
 	// Action Groups associated with the Schedule.
 	ActionGroups []ActionGroup `mandatory:"false" json:"actionGroups"`
@@ -61,4 +59,56 @@ func (m UpdateSchedulerDefinitionDetails) ValidateEnumValue() (bool, error) {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
 	return false, nil
+}
+
+// UnmarshalJSON unmarshals from json
+func (m *UpdateSchedulerDefinitionDetails) UnmarshalJSON(data []byte) (e error) {
+	model := struct {
+		DisplayName  *string                           `json:"displayName"`
+		Description  *string                           `json:"description"`
+		Schedule     schedule                          `json:"schedule"`
+		ActionGroups []actiongroup                     `json:"actionGroups"`
+		RunBooks     []OperationRunbook                `json:"runBooks"`
+		FreeformTags map[string]string                 `json:"freeformTags"`
+		DefinedTags  map[string]map[string]interface{} `json:"definedTags"`
+	}{}
+
+	e = json.Unmarshal(data, &model)
+	if e != nil {
+		return
+	}
+	var nn interface{}
+	m.DisplayName = model.DisplayName
+
+	m.Description = model.Description
+
+	nn, e = model.Schedule.UnmarshalPolymorphicJSON(model.Schedule.JsonData)
+	if e != nil {
+		return
+	}
+	if nn != nil {
+		m.Schedule = nn.(Schedule)
+	} else {
+		m.Schedule = nil
+	}
+
+	m.ActionGroups = make([]ActionGroup, len(model.ActionGroups))
+	for i, n := range model.ActionGroups {
+		nn, e = n.UnmarshalPolymorphicJSON(n.JsonData)
+		if e != nil {
+			return e
+		}
+		if nn != nil {
+			m.ActionGroups[i] = nn.(ActionGroup)
+		} else {
+			m.ActionGroups[i] = nil
+		}
+	}
+	m.RunBooks = make([]OperationRunbook, len(model.RunBooks))
+	copy(m.RunBooks, model.RunBooks)
+	m.FreeformTags = model.FreeformTags
+
+	m.DefinedTags = model.DefinedTags
+
+	return
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -25,6 +25,12 @@ type LogAnalyticsEntityTopologyLink struct {
 	// The log analytics entity OCID. This ID is a reference used by log analytics features and it represents
 	// a resource that is provisioned and managed by the customer on their premises or on the cloud.
 	DestinationEntityId *string `mandatory:"true" json:"destinationEntityId"`
+
+	// Array of log analytics entity relationship context.
+	Contexts []string `mandatory:"false" json:"contexts"`
+
+	// The date and time the resource was last discovered, in the format defined by RFC3339.
+	TimeLastDiscovered *common.SDKTime `mandatory:"false" json:"timeLastDiscovered"`
 }
 
 func (m LogAnalyticsEntityTopologyLink) String() string {

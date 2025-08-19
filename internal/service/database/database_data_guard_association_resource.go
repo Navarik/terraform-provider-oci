@@ -160,6 +160,11 @@ func DatabaseDataGuardAssociationResource() *schema.Resource {
 				ForceNew: true,
 				Elem:     schema.TypeString,
 			},
+			"db_system_security_attributes": {
+				Type:     schema.TypeMap,
+				Optional: true,
+				Elem:     schema.TypeString,
+			},
 			"display_name": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -242,6 +247,12 @@ func DatabaseDataGuardAssociationResource() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"private_ip_v6": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
+			},
 			"shape": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -264,6 +275,10 @@ func DatabaseDataGuardAssociationResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
+			},
+			"migrate_trigger": {
+				Type:     schema.TypeInt,
+				Optional: true,
 			},
 
 			// Computed
@@ -312,7 +327,18 @@ func createDatabaseDataGuardAssociation(d *schema.ResourceData, m interface{}) e
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).DatabaseClient()
 
-	return tfresource.CreateResource(d, sync)
+	if e := tfresource.CreateResource(d, sync); e != nil {
+		return e
+	}
+
+	if _, ok := sync.D.GetOkExists("migrate_trigger"); ok {
+		err := sync.MigrateDataGuardAssociationToMultiDataGuards()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+
 }
 
 func readDatabaseDataGuardAssociation(d *schema.ResourceData, m interface{}) error {
@@ -328,7 +354,28 @@ func updateDatabaseDataGuardAssociation(d *schema.ResourceData, m interface{}) e
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).DatabaseClient()
 
-	return tfresource.UpdateResource(d, sync)
+	if _, ok := sync.D.GetOkExists("migrate_trigger"); ok && sync.D.HasChange("migrate_trigger") {
+		oldRaw, newRaw := sync.D.GetChange("migrate_trigger")
+		oldValue := oldRaw.(int)
+		newValue := newRaw.(int)
+		if oldValue < newValue {
+			err := sync.MigrateDataGuardAssociationToMultiDataGuards()
+
+			if err != nil {
+				return err
+			}
+		} else {
+			sync.D.Set("migrate_trigger", oldRaw)
+			return fmt.Errorf("new value of trigger should be greater than the old value")
+		}
+		return nil
+	}
+
+	if err := tfresource.UpdateResource(d, sync); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func deleteDatabaseDataGuardAssociation(d *schema.ResourceData, m interface{}) error {
@@ -530,6 +577,34 @@ func (s *DatabaseDataGuardAssociationResourceCrud) SetData() error {
 	return nil
 }
 
+func (s *DatabaseDataGuardAssociationResourceCrud) MigrateDataGuardAssociationToMultiDataGuards() error {
+	request := oci_database.MigrateDataGuardAssociationToMultiDataGuardsRequest{}
+
+	idTmp := s.D.Id()
+	request.DataGuardAssociationId = &idTmp
+
+	if databaseId, ok := s.D.GetOkExists("database_id"); ok {
+		tmp := databaseId.(string)
+		request.DatabaseId = &tmp
+	}
+
+	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "database")
+
+	_, err := s.Client.MigrateDataGuardAssociationToMultiDataGuards(context.Background(), request)
+	if err != nil {
+		return err
+	}
+
+	if waitErr := tfresource.WaitForUpdatedState(s.D, s); waitErr != nil {
+		return waitErr
+	}
+
+	val := s.D.Get("migrate_trigger")
+	s.D.Set("migrate_trigger", val)
+
+	return nil
+}
+
 func (s *DatabaseDataGuardAssociationResourceCrud) mapToDataCollectionOptions(fieldKeyFormat string) (oci_database.DataCollectionOptions, error) {
 	result := oci_database.DataCollectionOptions{}
 
@@ -690,6 +765,9 @@ func (s *DatabaseDataGuardAssociationResourceCrud) populateTopLevelPolymorphicCr
 		if dbSystemFreeformTags, ok := s.D.GetOkExists("db_system_freeform_tags"); ok {
 			details.DbSystemFreeformTags = tfresource.ObjectMapToStringMap(dbSystemFreeformTags.(map[string]interface{}))
 		}
+		if dbSystemSecurityAttributes, ok := s.D.GetOkExists("db_system_security_attributes"); ok {
+			details.DbSystemSecurityAttributes = tfresource.MapToSecurityAttributes(dbSystemSecurityAttributes.(map[string]interface{}))
+		}
 		if dataCollectionOptions, ok := s.D.GetOkExists("data_collection_options"); ok {
 			if tmpList := dataCollectionOptions.([]interface{}); len(tmpList) > 0 {
 				fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "data_collection_options", 0)
@@ -751,6 +829,10 @@ func (s *DatabaseDataGuardAssociationResourceCrud) populateTopLevelPolymorphicCr
 		if privateIp, ok := s.D.GetOkExists("private_ip"); ok {
 			tmp := privateIp.(string)
 			details.PrivateIp = &tmp
+		}
+		if privateIpV6, ok := s.D.GetOkExists("private_ip_v6"); ok {
+			tmp := privateIpV6.(string)
+			details.PrivateIpV6 = &tmp
 		}
 		if shape, ok := s.D.GetOkExists("shape"); ok {
 			tmp := shape.(string)

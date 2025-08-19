@@ -21,6 +21,7 @@ data "oci_database_database_software_images" "test_database_software_images" {
 	compartment_id = var.compartment_id
 
 	#Optional
+	db_system_id = oci_database_db_system.test_db_system.id
 	display_name = var.database_software_image_display_name
 	image_shape_family = var.database_software_image_image_shape_family
 	image_type = var.database_software_image_image_type
@@ -34,6 +35,7 @@ data "oci_database_database_software_images" "test_database_software_images" {
 The following arguments are supported:
 
 * `compartment_id` - (Required) The compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+* `db_system_id` - (Optional) The DB system [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). If provided, filters the results to the set of database versions which are supported for the DB system.
 * `display_name` - (Optional) A filter to return only resources that match the entire display name given. The match is not case sensitive.
 * `image_shape_family` - (Optional) A filter to return only resources that match the given image shape family exactly.
 * `image_type` - (Optional) A filter to return only resources that match the given image type exactly.
@@ -67,5 +69,6 @@ The following attributes are exported:
 * `ls_inventory` - The output from the OPatch lsInventory command, which is passed as a string.
 * `patch_set` - The PSU or PBP or Release Updates. To get a list of supported versions, use the [ListDbVersions](https://docs.cloud.oracle.com/iaas/api/#/en/database/latest/DbVersionSummary/ListDbVersions) operation.
 * `state` - The current state of the database software image.
+* `system_tags` - System tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm). 
 * `time_created` - The date and time the database software image was created.
 

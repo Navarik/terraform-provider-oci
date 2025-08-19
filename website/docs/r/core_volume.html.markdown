@@ -56,6 +56,7 @@ resource "oci_core_volume" "test_volume" {
 	display_name = var.volume_display_name
 	freeform_tags = {"Department"= "Finance"}
 	is_auto_tune_enabled = var.volume_is_auto_tune_enabled
+	is_reservations_enabled = var.volume_is_reservations_enabled
 	kms_key_id = oci_kms_key.test_key.id
 	size_in_gbs = var.volume_size_in_gbs
 	size_in_mbs = var.volume_size_in_mbs
@@ -95,15 +96,16 @@ The following arguments are supported:
 * `display_name` - (Optional) (Updatable) A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information. 
 * `freeform_tags` - (Optional) (Updatable) Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).  Example: `{"Department": "Finance"}` 
 * `is_auto_tune_enabled` - (Optional) (Updatable) Specifies whether the auto-tune performance is enabled for this volume. This field is deprecated. Use the `DetachedVolumeAutotunePolicy` instead to enable the volume for detached autotune. 
+* `is_reservations_enabled` - (Optional) (Updatable) Reservations-enabled is a boolean field that allows to enable PR (Persistent Reservation) on a volume. 
 * `kms_key_id` - (Optional) (Updatable) The OCID of the Vault service key to assign as the master encryption key for the volume. 
 * `size_in_gbs` - (Optional) (Updatable) The size of the volume in GBs.
 * `size_in_mbs` - (Optional) The size of the volume in MBs. The value must be a multiple of 1024. This field is deprecated. Use sizeInGBs instead. 
 * `source_details` - (Optional) Specifies the volume source details for a new Block volume. The volume source is either another Block volume in the same Availability Domain or a Block volume backup. This is an optional field. If not specified or set to null, the new Block volume will be empty. When specified, the new Block volume will contain data from the source volume or backup. 
-	* `change_block_size_in_bytes` - (Applicable when type=volumeBackupDelta) Block size in bytes to be considered while performing volume restore. The value must be a power of 2; ranging from 4KB (4096 bytes) to 1MB (1048576 bytes). If omitted, defaults to 4,096 bytes (4 KiB). 
-	* `first_backup_id` - (Required when type=volumeBackupDelta) The OCID of the first volume backup.
 	* `id` - (Required when type=blockVolumeReplica | volume | volumeBackup) The OCID of the block volume replica.
-	* `second_backup_id` - (Required when type=volumeBackupDelta) The OCID of the second volume backup.
 	* `type` - (Required) The type can be one of these values: `blockVolumeReplica`, `volume`, `volumeBackup`, `volumeBackupDelta`
+	* `change_block_size_in_bytes` - (Applicable when type=volumeBackupDelta) Block size in bytes to be considered while performing volume restore. The value must be a power of 2; ranging from 4KB (4096 bytes) to 1MB (1048576 bytes). If omitted, defaults to 4,096 bytes (4 KiB).
+	* `first_backup_id` - (Required when type=volumeBackupDelta) The OCID of the first volume backup.
+	* `second_backup_id` - (Required when type=volumeBackupDelta) The OCID of the second volume backup.
 * `volume_backup_id` - (Optional) The OCID of the volume backup from which the data should be restored on the newly created volume. This field is deprecated. Use the sourceDetails field instead to specify the backup for the volume. 
 * `vpus_per_gb` - (Optional) (Updatable) The number of volume performance units (VPUs) that will be applied to this volume per GB, representing the Block Volume service's elastic performance options. See [Block Volume Performance Levels](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeperformance.htm#perf_levels) for more information.
 
@@ -142,15 +144,16 @@ The following attributes are exported:
 * `id` - The OCID of the volume.
 * `is_auto_tune_enabled` - Specifies whether the auto-tune performance is enabled for this volume. This field is deprecated. Use the `DetachedVolumeAutotunePolicy` instead to enable the volume for detached autotune. 
 * `is_hydrated` - Specifies whether the cloned volume's data has finished copying from the source volume or backup. 
+* `is_reservations_enabled` - Reservations-enabled is a boolean field that allows to enable PR (Persistent Reservation) on a volume. 
 * `kms_key_id` - The OCID of the Vault service key which is the master encryption key for the volume. 
 * `size_in_gbs` - The size of the volume in GBs.
 * `size_in_mbs` - The size of the volume in MBs. This field is deprecated. Use sizeInGBs instead. 
 * `source_details` -
-	* `change_block_size_in_bytes` - Block size in bytes to be considered while performing volume restore. The value must be a power of 2; ranging from 4KB (4096 bytes) to 1MB (1048576 bytes). If omitted, defaults to 4,096 bytes (4 KiB). 
-	* `first_backup_id` - The OCID of the first volume backup.
-    * `id` - The OCID of the block volume replica or volume backup.
-	* `second_backup_id` - The OCID of the second volume backup.
-	* `type` - The type can be one of these values: `blockVolumeReplica`, `volume`, `volumeBackup`, `volumeBackupDelta`
+	* `id` - (Required when type=blockVolumeReplica | volume | volumeBackup) The OCID of the block volume replica.
+	* `type` - (Required) The type can be one of these values: `blockVolumeReplica`, `volume`, `volumeBackup`, `volumeBackupDelta`
+	* `change_block_size_in_bytes` - (Applicable when type=volumeBackupDelta) Block size in bytes to be considered while performing volume restore. The value must be a power of 2; ranging from 4KB (4096 bytes) to 1MB (1048576 bytes). If omitted, defaults to 4,096 bytes (4 KiB).
+	* `first_backup_id` - (Required when type=volumeBackupDelta) The OCID of the first volume backup.
+	* `second_backup_id` - (Required when type=volumeBackupDelta) The OCID of the second volume backup.
 * `state` - The current state of a volume.
 * `system_tags` - System tags for this resource. Each key is predefined and scoped to a namespace. Example: `{"foo-namespace.bar-key": "value"}` 
 * `time_created` - The date and time the volume was created. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).

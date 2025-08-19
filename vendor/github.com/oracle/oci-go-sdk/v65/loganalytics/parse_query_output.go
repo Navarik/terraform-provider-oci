@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -35,6 +35,12 @@ type ParseQueryOutput struct {
 
 	// List of querylanguage command descriptors, describing the specfied query string.
 	Commands []AbstractCommandDescriptor `mandatory:"false" json:"commands"`
+
+	// Optional list of variables for the query.
+	Variables []VariableDefinition `mandatory:"false" json:"variables"`
+
+	// Optional list of properties for the query.
+	Properties []PropertyDefinition `mandatory:"false" json:"properties"`
 }
 
 func (m ParseQueryOutput) String() string {
@@ -60,6 +66,8 @@ func (m *ParseQueryOutput) UnmarshalJSON(data []byte) (e error) {
 		ResponseTimeInMs    *int64                      `json:"responseTimeInMs"`
 		TimeFilter          *TimeRange                  `json:"timeFilter"`
 		Commands            []abstractcommanddescriptor `json:"commands"`
+		Variables           []VariableDefinition        `json:"variables"`
+		Properties          []PropertyDefinition        `json:"properties"`
 		DisplayQueryString  *string                     `json:"displayQueryString"`
 		InternalQueryString *string                     `json:"internalQueryString"`
 	}{}
@@ -97,6 +105,10 @@ func (m *ParseQueryOutput) UnmarshalJSON(data []byte) (e error) {
 			m.Commands[i] = nil
 		}
 	}
+	m.Variables = make([]VariableDefinition, len(model.Variables))
+	copy(m.Variables, model.Variables)
+	m.Properties = make([]PropertyDefinition, len(model.Properties))
+	copy(m.Properties, model.Properties)
 	m.DisplayQueryString = model.DisplayQueryString
 
 	m.InternalQueryString = model.InternalQueryString

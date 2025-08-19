@@ -91,6 +91,7 @@ resource "oci_core_instance" "test_instance" {
 	}
 	cluster_placement_group_id = oci_identity_group.test_group.id
 	compute_cluster_id = oci_core_compute_cluster.test_compute_cluster.id
+	compute_host_group_id = oci_core_compute_host_group.test_compute_host_group.id
 	create_vnic_details {
 
 		#Optional
@@ -163,7 +164,22 @@ resource "oci_core_instance" "test_instance" {
 		use_chap = var.instance_launch_volume_attachments_use_chap
 		volume_id = oci_core_volume.test_volume.id
 	}
+	licensing_configs {
+		#Required
+		type = var.instance_licensing_configs_type
+
+		#Optional
+		license_type = var.instance_licensing_configs_license_type
+	}
 	metadata = var.instance_metadata
+	placement_constraint_details {
+		#Required
+		type = var.instance_placement_constraint_details_type
+
+		#Optional
+		compute_bare_metal_host_id = oci_core_compute_bare_metal_host.test_compute_bare_metal_host.id
+		compute_host_group_id = oci_identity_group.test_group.id
+	}
 	platform_config {
 		#Required
 		type = var.instance_platform_config_type
@@ -268,6 +284,7 @@ The following arguments are supported:
 * `cluster_placement_group_id` - (Optional) The OCID of the cluster placement group of the instance.
 * `compartment_id` - (Required) (Updatable) The OCID of the compartment.
 * `compute_cluster_id` - (Optional) The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the [compute cluster](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/compute-clusters.htm) that the instance will be created in. 
+* `compute_host_group_id` - (Optional) The OCID of the compute host group attached to the host where the bare metal instance will be launched.
 * `create_vnic_details` - (Optional) (Updatable) Contains properties for a VNIC. You use this object when creating the primary VNIC during instance launch or when creating a secondary VNIC. For more information about VNICs, see [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm). 
 	* `assign_ipv6ip` - (Optional) Whether to allocate an IPv6 address at instance and VNIC creation from an IPv6 enabled subnet. Default: False. When provided you may optionally provide an IPv6 prefix (`ipv6SubnetCidr`) of your choice to assign the IPv6 address from. If `ipv6SubnetCidr` is not provided then an IPv6 prefix is chosen for you. 
 	* `assign_private_dns_record` - (Optional) Whether the VNIC should be assigned a DNS record. If set to false, there will be no DNS record registration for the VNIC. If set to true, the DNS record will be registered. The default value is true.
@@ -284,11 +301,11 @@ The following arguments are supported:
 	* `defined_tags` - (Optional) (Updatable) Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).  Example: `{"Operations.CostCenter": "42"}` 
 	* `display_name` - (Optional) (Updatable) A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information. 
 	* `freeform_tags` - (Optional) (Updatable) Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).  Example: `{"Department": "Finance"}` 
-	* `hostname_label` - (Optional) (Updatable) The hostname for the VNIC's primary private IP. Used for DNS. The value is the hostname portion of the primary private IP's fully qualified domain name (FQDN) (for example, `bminstance1` in FQDN `bminstance1.subnet123.vcn1.oraclevcn.com`). Must be unique across all VNICs in the subnet and comply with [RFC 952](https://tools.ietf.org/html/rfc952) and [RFC 1123](https://tools.ietf.org/html/rfc1123). The value appears in the `[Vnic](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Vnic/)` object and also the `[PrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/)` object returned by `[ListPrivateIps](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/ListPrivateIps)` and `[GetPrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/GetPrivateIp)`.
+	* `hostname_label` - (Optional) (Updatable) The hostname for the VNIC's primary private IP. Used for DNS. The value is the hostname portion of the primary private IP's fully qualified domain name (FQDN) (for example, `bminstance1` in FQDN `bminstance1.subnet123.vcn1.oraclevcn.com`). Must be unique across all VNICs in the subnet and comply with [RFC 952](https://tools.ietf.org/html/rfc952) and [RFC 1123](https://tools.ietf.org/html/rfc1123). The value appears in the [Vnic](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Vnic/) object and also the [PrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/) object returned by [ListPrivateIps](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/ListPrivateIps) and [GetPrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/GetPrivateIp).
 
 		For more information, see [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
 
-		When launching an instance, use this `hostnameLabel` instead of the deprecated `hostnameLabel` in `[LaunchInstanceDetails](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/requests/LaunchInstanceDetails)`. If you provide both, the values must match.
+		When launching an instance, use this `hostnameLabel` instead of the deprecated `hostnameLabel` in [LaunchInstanceDetails](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/requests/LaunchInstanceDetails). If you provide both, the values must match.
 
 		Example: `bminstance1`
 
@@ -297,12 +314,14 @@ The following arguments are supported:
 	* `nsg_ids` - (Optional) (Updatable) A list of the OCIDs of the network security groups (NSGs) to add the VNIC to. For more information about NSGs, see [NetworkSecurityGroup](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/NetworkSecurityGroup/).
 
 		If a `vlanId` is specified, the `nsgIds` cannot be specified. The `vlanId` indicates that the VNIC will belong to a VLAN instead of a subnet. With VLANs, all VNICs in the VLAN belong to the NSGs that are associated with the VLAN. See [Vlan](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Vlan). 
-	* `private_ip` - (Optional) A private IP address of your choice to assign to the VNIC. Must be an available IP address within the subnet's CIDR. If you don't specify a value, Oracle automatically assigns a private IP address from the subnet. This is the VNIC's *primary* private IP address. The value appears in the `[Vnic](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Vnic/)` object and also the `[PrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/)` object returned by `[ListPrivateIps](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/ListPrivateIps)` and `[GetPrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/GetPrivateIp)`.
+	* `private_ip` - (Optional) A private IP address of your choice to assign to the VNIC. Must be an available IP address within the subnet's CIDR. If you don't specify a value, Oracle automatically assigns a private IP address from the subnet. This is the VNIC's *primary* private IP address. The value appears in the [Vnic](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Vnic/) object and also the [PrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/) object returned by [ListPrivateIps](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/ListPrivateIps) and [GetPrivateIp](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/PrivateIp/GetPrivateIp).
 
 		 If you specify a `vlanId`, the `privateIp` cannot be specified. See [Vlan](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Vlan).
 
 		Example: `10.0.3.3` 
-	* `security_attributes` - (Optional) Security Attributes for this resource. This is unique to ZPR, and helps identify which resources are allowed to be accessed by what permission controls.  Example: `{"Oracle-DataSecurity-ZPR": {"MaxEgressCount": {"value":"42","mode":"audit"}}}` 
+
+	* `security_attributes` - (Optional) Security Attributes for this resource. This is unique to ZPR, and helps identify which resources are allowed to be accessed by what permission controls.  Example: `{"Oracle-DataSecurity-ZPR.MaxEgressCount.value": "42", "Oracle-DataSecurity-ZPR.MaxEgressCount.mode": "audit"}` 
+
 	* `skip_source_dest_check` - (Optional) (Updatable) Whether the source/destination check is disabled on the VNIC. Defaults to `false`, which means the check is performed. For information about why you would skip the source/destination check, see [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingroutetables.htm#privateip).
 
 		 If you specify a `vlanId`, the `skipSourceDestCheck` cannot be specified because the source/destination check is always disabled for VNICs in a VLAN. See [Vlan](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Vlan).
@@ -397,9 +416,14 @@ The following arguments are supported:
 			* `10`: Represents Balanced option.
 			* `20`: Represents Higher Performance option.
 			* `30`-`120`: Represents the Ultra High Performance option. 
-	* `type` - (Required) The type of volume. Currently, the only supported value is "iscsi".
+	* `type` - (Required) The type of volume attachment. Currently, the only supported values are "iscsi" and "paravirtualized".
 	* `use_chap` - (Applicable when type=iscsi) Whether to use CHAP authentication for the volume attachment. Defaults to false. 
 	* `volume_id` - (Optional) The OCID of the volume. If CreateVolumeDetails is specified, this field must be omitted from the request. 
+* `licensing_configs` - (Optional) (Updatable) List of licensing configurations associated with target launch values.
+	* `license_type` - (Optional) (Updatable) License Type for the OS license.
+		* `OCI_PROVIDED` - Oracle Cloud Infrastructure provided license (e.g. metered $/OCPU-hour).
+		* `BRING_YOUR_OWN_LICENSE` - Bring your own license. 
+	* `type` - (Required) (Updatable) Operating System type of the Configuration.
 * `metadata` - (Optional) (Updatable) Custom metadata key/value pairs that you provide, such as the SSH public key required to connect to the instance.
 
 	A metadata service runs on every launched instance. The service is an HTTP endpoint listening on 169.254.169.254. You can use the service to:
@@ -432,10 +456,13 @@ The following arguments are supported:
 
 	You'll get back a response that includes all the instance information; only the metadata information; or the metadata information for the specified key name, respectively.
 
-	The combined size of the `metadata` and `extendedMetadata` objects can be a maximum of 32,000 bytes.
-	
-	**Note:** Both the 'user_data' and 'ssh_authorized_keys' fields cannot be changed after an instance has launched. Any request which updates, removes, or adds either of these fields will be rejected. You must provide the same values for 'user_data' and 'ssh_authorized_keys' that already exist on the instance.
-* `platform_config` - (Optional) (Updatable only for VM's) The platform configuration requested for the instance.
+	The combined size of the `metadata` and `extendedMetadata` objects can be a maximum of 32,000 bytes. 
+* `placement_constraint_details` - (Optional) Generic placement details field which is overloaded with bare metal host id or host group id based on the resource we are targeting to launch. 
+	* `compute_bare_metal_host_id` - (Required when type=COMPUTE_BARE_METAL_HOST) The OCID of the compute bare metal host.
+	* `compute_host_group_id` - (Required when type=HOST_GROUP) The OCID of the compute host group.
+	* `type` - (Required) Determines the type of targeted launch.
+* `platform_config` - (Optional) (Updatable) The platform configuration requested for the instance.
+
 
 	If you provide the parameter, the instance is created with the platform configuration that you specify. For any values that you omit, the instance uses the default configuration values for the `shape` that you specify. If you don't provide the parameter, the default values for the `shape` are used.
 
@@ -464,8 +491,8 @@ The following arguments are supported:
 	* `preemption_action` - (Required) The action to run when the preemptible instance is interrupted for eviction. 
 		* `preserve_boot_volume` - (Optional) Whether to preserve the boot volume that was used to launch the preemptible instance when the instance is terminated. Defaults to false if not specified. 
 		* `type` - (Required) The type of action to run when the instance is interrupted for eviction.
-* `security_attributes` - (Optional) (Updatable) Security Attributes for this resource. This is unique to ZPR, and helps identify which resources are allowed to be accessed by what permission controls.  Example: `{"Oracle-DataSecurity-ZPR.MaxEgressCount.value": "42", "Oracle-DataSecurity-ZPR.MaxEgressCount.mode": "audit"}`
-* `shape` - (Required) (Updatable) The shape of an instance. The shape determines the number of CPUs, amount of memory, and other resources allocated to the instance.
+* `security_attributes` - (Optional) (Updatable) [Security attributes](https://docs.cloud.oracle.com/iaas/Content/zero-trust-packet-routing/zpr-artifacts.htm#security-attributes) are labels for a resource that can be referenced in a [Zero Trust Packet Routing](https://docs.cloud.oracle.com/iaas/Content/zero-trust-packet-routing/overview.htm) (ZPR) policy to control access to ZPR-supported resources.  Example: `{"Oracle-DataSecurity-ZPR.MaxEgressCount.value": "42", "Oracle-DataSecurity-ZPR.MaxEgressCount.mode": "audit"}` 
+* `shape` - (Optional) (Updatable) The shape of an instance. The shape determines the number of CPUs, amount of memory, and other resources allocated to the instance.
 
 	You can enumerate all available shapes by calling [ListShapes](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Shape/ListShapes). 
 * `shape_config` - (Optional) (Updatable) The shape configuration requested for the instance.
@@ -545,6 +572,7 @@ The following attributes are exported:
 * `boot_volume_id` - The OCID of the attached boot volume. If the `source_type` is `bootVolume`, this will be the same OCID as the `source_id`.
 * `capacity_reservation_id` - The OCID of the compute capacity reservation this instance is launched under. When this field contains an empty string or is null, the instance is not currently in a capacity reservation. For more information, see [Capacity Reservations](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm#default).
 * `compartment_id` - The OCID of the compartment that contains the instance.
+* `compute_host_group_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the Customer-unique host group 
 * `dedicated_vm_host_id` - The OCID of the dedicated virtual machine host that the instance is placed on. 
 * `defined_tags` - Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).  Example: `{"Operations.CostCenter": "42"}` 
 * `display_name` - A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information. 
@@ -605,8 +633,17 @@ The following attributes are exported:
 		* `IDE` - Emulated IDE disk.
 		* `VFIO` - Direct attached Virtual Function storage. This is the default option for local data volumes on platform images.
 		* `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block storage volumes on platform images. 
+* `licensing_configs` - List of licensing configurations associated with the instance.
+	* `license_type` - License Type for the OS license.
+		* `OCI_PROVIDED` - Oracle Cloud Infrastructure provided license (e.g. metered $/OCPU-hour).
+		* `BRING_YOUR_OWN_LICENSE` - Bring your own license. 
+	* `os_version` - The Operating System version of the license config.
+	* `type` - Operating System type of the Configuration.
 * `metadata` - Custom metadata that you provide.
-
+* `placement_constraint_details` - Generic placement details field which is overloaded with bare metal host id or host group id based on the resource we are targeting to launch. 
+	* `compute_bare_metal_host_id` - The OCID of the compute bare metal host.
+	* `compute_host_group_id` - The OCID of the compute host group.
+	* `type` - Determines the type of targeted launch.
 * `platform_config` - The platform configuration for the instance. 
 	* `are_virtual_instructions_enabled` - Whether virtualization instructions are available. For example, Secure Virtual Machine for AMD shapes or VT-x for Intel shapes. 
 	* `config_map` - Instance Platform Configuration Configuration Map for flexible setting input. 
@@ -641,8 +678,8 @@ The following attributes are exported:
 
 	For the us-phoenix-1 and us-ashburn-1 regions, `phx` and `iad` are returned, respectively. For all other regions, the full region name is returned.
 
-	Examples: `phx`, `eu-frankfurt-1` 
-* `security_attributes` - Security Attributes for this resource. This is unique to ZPR, and helps identify which resources are allowed to be accessed by what permission controls.  Example: `{"Oracle-DataSecurity-ZPR": {"MaxEgressCount": {"value":"42","mode":"audit"}}}` 
+	Examples: `phx`, `eu-frankfurt-1`
+* `security_attributes` - [Security attributes](https://docs.cloud.oracle.com/iaas/Content/zero-trust-packet-routing/zpr-artifacts.htm#security-attributes) are labels for a resource that can be referenced in a [Zero Trust Packet Routing](https://docs.cloud.oracle.com/iaas/Content/zero-trust-packet-routing/overview.htm) (ZPR) policy to control access to ZPR-supported resources.  Example: `{"Oracle-DataSecurity-ZPR.MaxEgressCount.value": "42", "Oracle-DataSecurity-ZPR.MaxEgressCount.mode": "audit"}`
 * `security_attributes_state` - The lifecycle state of the `securityAttributes`
 * `shape` - The shape of the instance. The shape determines the number of CPUs and the amount of memory allocated to the instance. You can enumerate all available shapes by calling [ListShapes](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/latest/Shape/ListShapes). 
 * `shape_config` - The shape configuration for an instance. The shape configuration determines the resources allocated to an instance. 

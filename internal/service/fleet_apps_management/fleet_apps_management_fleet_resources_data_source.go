@@ -38,10 +38,6 @@ func FleetAppsManagementFleetResourcesDataSource() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"tenancy_id": {
-				Type:     schema.TypeString,
-				Optional: true,
-			},
 			"fleet_resource_collection": {
 				Type:     schema.TypeList,
 				Computed: true,
@@ -103,11 +99,6 @@ func (s *FleetAppsManagementFleetResourcesDataSourceCrud) Get() error {
 
 	if state, ok := s.D.GetOkExists("state"); ok {
 		request.LifecycleState = oci_fleet_apps_management.FleetResourceLifecycleStateEnum(state.(string))
-	}
-
-	if tenancyId, ok := s.D.GetOkExists("tenancy_id"); ok {
-		tmp := tenancyId.(string)
-		request.TenancyId = &tmp
 	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(false, "fleet_apps_management")

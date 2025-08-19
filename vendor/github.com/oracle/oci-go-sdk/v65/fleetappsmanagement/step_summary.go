@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,16 +18,16 @@ import (
 // StepSummary Task associated with the Job.
 type StepSummary struct {
 
-	// Name of the Step
+	// Name of the Step.
 	StepName *string `mandatory:"true" json:"stepName"`
 
-	// Status of the Task
+	// Status of the Task.
 	Status JobStatusEnum `mandatory:"true" json:"status"`
 
-	// The OCID of taskRecord assocaited with the step
+	// The OCID of taskRecord assocaited with the step.
 	TaskRecordId *string `mandatory:"false" json:"taskRecordId"`
 
-	// The sequence of the step
+	// The sequence of the step.
 	Sequence *string `mandatory:"false" json:"sequence"`
 
 	// The time the task started. An RFC3339 formatted datetime string
@@ -39,7 +39,7 @@ type StepSummary struct {
 	// Is this a rollback task?
 	IsRollbackTask *bool `mandatory:"false" json:"isRollbackTask"`
 
-	// Description of the step Execution
+	// Description of the step Execution.
 	Description *string `mandatory:"false" json:"description"`
 
 	// System tags for this resource. Each key is predefined and scoped to a namespace.

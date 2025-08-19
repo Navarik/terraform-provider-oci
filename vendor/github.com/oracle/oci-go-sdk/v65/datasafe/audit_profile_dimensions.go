@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -22,6 +22,18 @@ type AuditProfileDimensions struct {
 	// potentially incurring additional charges. The default value is inherited from the global settings.
 	// You can change at the global level or at the target level.
 	IsPaidUsageEnabled *bool `mandatory:"false" json:"isPaidUsageEnabled"`
+
+	// The resource type that is represented by the audit profile.
+	TargetType *string `mandatory:"false" json:"targetType"`
+
+	// The name or the OCID of the resource from which the online month retention setting is sourced. For example a target database group OCID or global.
+	OnlineMonthsSource *string `mandatory:"false" json:"onlineMonthsSource"`
+
+	// The name or the OCID of the resource from which the offline month retention setting is sourced. For example a target database group OCID or global.
+	OfflineMonthsSource *string `mandatory:"false" json:"offlineMonthsSource"`
+
+	// The name or the OCID of the resource from which the paid usage setting is sourced. For example a target database group OCID or global.
+	PaidUsageSource *string `mandatory:"false" json:"paidUsageSource"`
 }
 
 func (m AuditProfileDimensions) String() string {

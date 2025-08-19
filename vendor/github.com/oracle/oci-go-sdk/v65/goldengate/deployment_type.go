@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -25,6 +25,7 @@ const (
 	DeploymentTypeDatabaseMysql              DeploymentTypeEnum = "DATABASE_MYSQL"
 	DeploymentTypeDatabasePostgresql         DeploymentTypeEnum = "DATABASE_POSTGRESQL"
 	DeploymentTypeDatabaseDb2Zos             DeploymentTypeEnum = "DATABASE_DB2ZOS"
+	DeploymentTypeDatabaseDb2I               DeploymentTypeEnum = "DATABASE_DB2I"
 	DeploymentTypeGgsa                       DeploymentTypeEnum = "GGSA"
 	DeploymentTypeDataTransforms             DeploymentTypeEnum = "DATA_TRANSFORMS"
 )
@@ -37,6 +38,7 @@ var mappingDeploymentTypeEnum = map[string]DeploymentTypeEnum{
 	"DATABASE_MYSQL":               DeploymentTypeDatabaseMysql,
 	"DATABASE_POSTGRESQL":          DeploymentTypeDatabasePostgresql,
 	"DATABASE_DB2ZOS":              DeploymentTypeDatabaseDb2Zos,
+	"DATABASE_DB2I":                DeploymentTypeDatabaseDb2I,
 	"GGSA":                         DeploymentTypeGgsa,
 	"DATA_TRANSFORMS":              DeploymentTypeDataTransforms,
 }
@@ -49,6 +51,7 @@ var mappingDeploymentTypeEnumLowerCase = map[string]DeploymentTypeEnum{
 	"database_mysql":               DeploymentTypeDatabaseMysql,
 	"database_postgresql":          DeploymentTypeDatabasePostgresql,
 	"database_db2zos":              DeploymentTypeDatabaseDb2Zos,
+	"database_db2i":                DeploymentTypeDatabaseDb2I,
 	"ggsa":                         DeploymentTypeGgsa,
 	"data_transforms":              DeploymentTypeDataTransforms,
 }
@@ -72,6 +75,7 @@ func GetDeploymentTypeEnumStringValues() []string {
 		"DATABASE_MYSQL",
 		"DATABASE_POSTGRESQL",
 		"DATABASE_DB2ZOS",
+		"DATABASE_DB2I",
 		"GGSA",
 		"DATA_TRANSFORMS",
 	}

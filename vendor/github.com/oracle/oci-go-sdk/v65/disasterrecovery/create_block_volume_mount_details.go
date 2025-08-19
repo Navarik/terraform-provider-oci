@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,10 +18,11 @@ import (
 	"strings"
 )
 
-// CreateBlockVolumeMountDetails The details for creating a mount for a file system on a block volume.
+// CreateBlockVolumeMountDetails Deprecated. Use the 'CreateComputeInstanceNonMovableBlockVolumeMountOperationDetails' definition instead of this.
+// The details for creating a mount for a file system on a block volume.
 type CreateBlockVolumeMountDetails struct {
 
-	// The physical mount point used for mounting the file system on the block volume.
+	// The physical mount point where the file system is mounted on the block volume.
 	// Example: `/mnt/yourmountpoint`
 	MountPoint *string `mandatory:"false" json:"mountPoint"`
 }

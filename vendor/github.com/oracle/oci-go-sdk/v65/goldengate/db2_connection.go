@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -19,14 +19,14 @@ import (
 // Db2Connection Represents the metadata of a DB2 Connection.
 type Db2Connection struct {
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the connection being
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the connection being
 	// referenced.
 	Id *string `mandatory:"true" json:"id"`
 
 	// An object's Display Name.
 	DisplayName *string `mandatory:"true" json:"displayName"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment being referenced.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment being referenced.
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// The time the resource was created. The format is defined by
@@ -64,7 +64,7 @@ type Db2Connection struct {
 
 	// The system tags associated with this resource, if any. The system tags are set by Oracle
 	// Cloud Infrastructure services. Each key is predefined and scoped to namespaces.  For more
-	// information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+	// information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
 	// Example: `{orcl-cloud: {free-tier-retain: true}}`
 	SystemTags map[string]map[string]interface{} `mandatory:"false" json:"systemTags"`
 
@@ -91,12 +91,36 @@ type Db2Connection struct {
 	// An array of Network Security Group OCIDs used to define network access for either Deployments or Connections.
 	NsgIds []string `mandatory:"false" json:"nsgIds"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the target subnet of the dedicated connection.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the target subnet of the dedicated connection.
 	SubnetId *string `mandatory:"false" json:"subnetId"`
+
+	// Indicates that sensitive attributes are provided via Secrets.
+	DoesUseSecretIds *bool `mandatory:"false" json:"doesUseSecretIds"`
 
 	// An array of name-value pair attribute entries.
 	// Used as additional parameters in connection string.
 	AdditionalAttributes []NameValuePair `mandatory:"false" json:"additionalAttributes"`
+
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Secret where the password is stored,
+	// that Oracle GoldenGate uses to connect the associated DB2 database.
+	// Note: When provided, 'password' field must not be provided.
+	PasswordSecretId *string `mandatory:"false" json:"passwordSecretId"`
+
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Secret where the keystore file stored,
+	// which created at the client containing the server certificate / CA root certificate.
+	// This property is not supported for IBM Db2 for i, as client TLS mode is not available.
+	// Note: When provided, 'sslClientKeystoredb' field must not be provided.
+	SslClientKeystoredbSecretId *string `mandatory:"false" json:"sslClientKeystoredbSecretId"`
+
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Secret where the keystash file is stored,
+	// which contains the encrypted password to the key database file.
+	// This property is not supported for IBM Db2 for i, as client TLS mode is not available.
+	// Note: When provided, 'sslClientKeystash' field must not be provided.
+	SslClientKeystashSecretId *string `mandatory:"false" json:"sslClientKeystashSecretId"`
+
+	// The base64 encoded file which contains the self-signed server certificate / Certificate Authority (CA) certificate.
+	// It is not included in GET responses if the `view=COMPACT` query parameter is specified.
+	SslServerCertificate *string `mandatory:"false" json:"sslServerCertificate"`
 
 	// The DB2 technology type.
 	TechnologyType Db2ConnectionTechnologyTypeEnum `mandatory:"true" json:"technologyType"`
@@ -204,6 +228,11 @@ func (m Db2Connection) GetRoutingMethod() RoutingMethodEnum {
 	return m.RoutingMethod
 }
 
+// GetDoesUseSecretIds returns DoesUseSecretIds
+func (m Db2Connection) GetDoesUseSecretIds() *bool {
+	return m.DoesUseSecretIds
+}
+
 func (m Db2Connection) String() string {
 	return common.PointerString(m)
 }
@@ -251,15 +280,18 @@ type Db2ConnectionTechnologyTypeEnum string
 
 // Set of constants representing the allowable values for Db2ConnectionTechnologyTypeEnum
 const (
-	Db2ConnectionTechnologyTypeDb2Zos Db2ConnectionTechnologyTypeEnum = "DB2_ZOS"
+	Db2ConnectionTechnologyTypeI   Db2ConnectionTechnologyTypeEnum = "DB2_I"
+	Db2ConnectionTechnologyTypeZos Db2ConnectionTechnologyTypeEnum = "DB2_ZOS"
 )
 
 var mappingDb2ConnectionTechnologyTypeEnum = map[string]Db2ConnectionTechnologyTypeEnum{
-	"DB2_ZOS": Db2ConnectionTechnologyTypeDb2Zos,
+	"DB2_I":   Db2ConnectionTechnologyTypeI,
+	"DB2_ZOS": Db2ConnectionTechnologyTypeZos,
 }
 
 var mappingDb2ConnectionTechnologyTypeEnumLowerCase = map[string]Db2ConnectionTechnologyTypeEnum{
-	"db2_zos": Db2ConnectionTechnologyTypeDb2Zos,
+	"db2_i":   Db2ConnectionTechnologyTypeI,
+	"db2_zos": Db2ConnectionTechnologyTypeZos,
 }
 
 // GetDb2ConnectionTechnologyTypeEnumValues Enumerates the set of values for Db2ConnectionTechnologyTypeEnum
@@ -274,6 +306,7 @@ func GetDb2ConnectionTechnologyTypeEnumValues() []Db2ConnectionTechnologyTypeEnu
 // GetDb2ConnectionTechnologyTypeEnumStringValues Enumerates the set of values in String for Db2ConnectionTechnologyTypeEnum
 func GetDb2ConnectionTechnologyTypeEnumStringValues() []string {
 	return []string{
+		"DB2_I",
 		"DB2_ZOS",
 	}
 }

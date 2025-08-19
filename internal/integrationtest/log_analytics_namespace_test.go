@@ -10,8 +10,8 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 )
@@ -91,7 +91,10 @@ func TestLogAnalyticsNamespaceResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "namespace"),
 
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "compartment_id"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "is_archiving_enabled"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "is_onboarded"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "is_logset_enabled"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "is_data_ever_ingested"),
 			),
 		},
 		// verify offboard

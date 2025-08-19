@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -36,6 +36,18 @@ type ModuleCommandDescriptor struct {
 
 	// Field denoting if this is a hidden command that is not shown in the query string.
 	IsHidden *bool `mandatory:"false" json:"isHidden"`
+
+	// Description of the macro.
+	Description *string `mandatory:"false" json:"description"`
+
+	// Description of the macro.
+	Example *string `mandatory:"false" json:"example"`
+
+	// Optional list of properties for the macro.
+	Properties []PropertyDefinition `mandatory:"false" json:"properties"`
+
+	// Optional list of arguments used in the macro.
+	Arguments []VariableDefinition `mandatory:"false" json:"arguments"`
 }
 
 // GetDisplayQueryString returns DisplayQueryString
@@ -101,12 +113,16 @@ func (m ModuleCommandDescriptor) MarshalJSON() (buff []byte, e error) {
 // UnmarshalJSON unmarshals from json
 func (m *ModuleCommandDescriptor) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		Category            *string         `json:"category"`
-		ReferencedFields    []abstractfield `json:"referencedFields"`
-		DeclaredFields      []abstractfield `json:"declaredFields"`
-		IsHidden            *bool           `json:"isHidden"`
-		DisplayQueryString  *string         `json:"displayQueryString"`
-		InternalQueryString *string         `json:"internalQueryString"`
+		Category            *string              `json:"category"`
+		ReferencedFields    []abstractfield      `json:"referencedFields"`
+		DeclaredFields      []abstractfield      `json:"declaredFields"`
+		IsHidden            *bool                `json:"isHidden"`
+		Description         *string              `json:"description"`
+		Example             *string              `json:"example"`
+		Properties          []PropertyDefinition `json:"properties"`
+		Arguments           []VariableDefinition `json:"arguments"`
+		DisplayQueryString  *string              `json:"displayQueryString"`
+		InternalQueryString *string              `json:"internalQueryString"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -142,6 +158,14 @@ func (m *ModuleCommandDescriptor) UnmarshalJSON(data []byte) (e error) {
 	}
 	m.IsHidden = model.IsHidden
 
+	m.Description = model.Description
+
+	m.Example = model.Example
+
+	m.Properties = make([]PropertyDefinition, len(model.Properties))
+	copy(m.Properties, model.Properties)
+	m.Arguments = make([]VariableDefinition, len(model.Arguments))
+	copy(m.Arguments, model.Arguments)
 	m.DisplayQueryString = model.DisplayQueryString
 
 	m.InternalQueryString = model.InternalQueryString

@@ -1,10 +1,10 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
-// Application Performance Monitoring Synthetic Monitoring API
+// APM Availability Monitoring API
 //
-// Use the Application Performance Monitoring Synthetic Monitoring API to query synthetic scripts and monitors. For more information, see Application Performance Monitoring (https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
+// Use the APM Availability Monitoring API to query Scripts, Monitors, Dedicated Vantage Points and On-Premise Vantage Points resources. For more information, see Application Performance Monitoring (https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
 //
 
 package apmsynthetics
@@ -19,7 +19,7 @@ import (
 // Monitor The information about a monitor.
 type Monitor struct {
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the monitor.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the monitor.
 	Id *string `mandatory:"true" json:"id"`
 
 	// Unique name that can be edited. The name should not contain any confidential information.
@@ -34,7 +34,7 @@ type Monitor struct {
 	// Number of vantage points where monitor is running.
 	VantagePointCount *int `mandatory:"true" json:"vantagePointCount"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the script.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the script.
 	// scriptId is mandatory for creation of SCRIPTED_BROWSER and SCRIPTED_REST monitor types. For other monitor types, it should be set to null.
 	ScriptId *string `mandatory:"true" json:"scriptId"`
 
@@ -65,6 +65,9 @@ type Monitor struct {
 
 	// Time interval between two runs in round robin batch mode (SchedulingPolicy - BATCHED_ROUND_ROBIN).
 	BatchIntervalInSeconds *int `mandatory:"true" json:"batchIntervalInSeconds"`
+
+	// Content type of the script.
+	ContentType ContentTypesEnum `mandatory:"false" json:"contentType,omitempty"`
 
 	// Specify the endpoint on which to run the monitor.
 	// For BROWSER, REST, NETWORK, DNS and FTP monitor types, target is mandatory.
@@ -129,6 +132,9 @@ func (m Monitor) ValidateEnumValue() (bool, error) {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for SchedulingPolicy: %s. Supported values are: %s.", m.SchedulingPolicy, strings.Join(GetSchedulingPolicyEnumStringValues(), ",")))
 	}
 
+	if _, ok := GetMappingContentTypesEnum(string(m.ContentType)); !ok && m.ContentType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for ContentType: %s. Supported values are: %s.", m.ContentType, strings.Join(GetContentTypesEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
@@ -138,6 +144,7 @@ func (m Monitor) ValidateEnumValue() (bool, error) {
 // UnmarshalJSON unmarshals from json
 func (m *Monitor) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
+		ContentType               ContentTypesEnum                  `json:"contentType"`
 		Target                    *string                           `json:"target"`
 		ScriptParameters          []MonitorScriptParameterInfo      `json:"scriptParameters"`
 		Configuration             monitorconfiguration              `json:"configuration"`
@@ -171,6 +178,8 @@ func (m *Monitor) UnmarshalJSON(data []byte) (e error) {
 		return
 	}
 	var nn interface{}
+	m.ContentType = model.ContentType
+
 	m.Target = model.Target
 
 	m.ScriptParameters = make([]MonitorScriptParameterInfo, len(model.ScriptParameters))

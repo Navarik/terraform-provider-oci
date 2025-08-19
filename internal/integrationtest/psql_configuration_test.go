@@ -12,9 +12,10 @@ import (
 
 	"github.com/oracle/terraform-provider-oci/internal/resourcediscovery"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_psql "github.com/oracle/oci-go-sdk/v65/psql"
 
@@ -38,6 +39,7 @@ var (
 
 	PsqlConfigurationDataSourceRepresentation = map[string]interface{}{
 		"compartment_id": acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
+		"config_type":    acctest.Representation{RepType: acctest.Optional, Create: `CUSTOM`},
 		"db_version":     acctest.Representation{RepType: acctest.Optional, Create: `14`},
 		"shape":          acctest.Representation{RepType: acctest.Optional, Create: `VM.Standard.E4.Flex`},
 		"state":          acctest.Representation{RepType: acctest.Optional, Create: `ACTIVE`},
@@ -191,6 +193,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_psql_configuration", "test_configuration", acctest.Optional, acctest.Create, PsqlConfigurationRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "compatible_shapes.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "configuration_details.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_configuration_overrides.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_configuration_overrides.0.items.#", "1"),
@@ -230,6 +233,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 					})),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentIdU),
+				resource.TestCheckResourceAttr(resourceName, "compatible_shapes.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "configuration_details.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_configuration_overrides.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_configuration_overrides.0.items.#", "1"),
@@ -238,7 +242,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "db_version", "14"),
 				resource.TestCheckResourceAttr(resourceName, "description", "description1"),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "terraform-test-config"),
-				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "0"),
+				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
 				resource.TestCheckResourceAttr(resourceName, "instance_memory_size_in_gbs", "64"),
 				resource.TestCheckResourceAttr(resourceName, "instance_ocpu_count", "4"),
@@ -264,6 +268,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_psql_configuration", "test_configuration", acctest.Optional, acctest.Update, PsqlConfigurationRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "compatible_shapes.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "configuration_details.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_configuration_overrides.#", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_configuration_overrides.0.items.#", "1"),
@@ -299,6 +304,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_psql_configuration", "test_configuration", acctest.Optional, acctest.Update, PsqlConfigurationRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(datasourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(datasourceName, "config_type", "CUSTOM"),
 				resource.TestCheckResourceAttr(datasourceName, "db_version", "14"),
 				resource.TestCheckResourceAttr(datasourceName, "shape", "VM.Standard.E4.Flex"),
 				resource.TestCheckResourceAttr(datasourceName, "state", "ACTIVE"),
@@ -312,6 +318,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "configuration_collection.0.items.#", "1"),
 			),
 		},
+
 		// verify datasource with display name
 		{
 			Config: config +
@@ -331,6 +338,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "configuration_collection.0.items.#", "1"),
 			),
 		},
+
 		// verify datasource with configuration id
 		{
 			Config: config +
@@ -349,6 +357,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 			),
 		},
 		// verify singular datasource
+
 		{
 			Config: config +
 				acctest.GenerateDataSourceFromRepresentationMap("oci_psql_configuration", "test_configuration", acctest.Required, acctest.Create, PsqlConfigurationSingularDataSourceRepresentation) +
@@ -356,6 +365,7 @@ func TestPsqlConfigurationResource_basic(t *testing.T) {
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "configuration_id"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(singularDatasourceName, "compatible_shapes.#", "1"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "config_type"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "configuration_details.#", "1"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "db_version", "14"),
@@ -485,6 +495,8 @@ func getPsqlConfigurationIds(compartment string) ([]string, error) {
 		id := *configuration.Id
 		resourceIds = append(resourceIds, id)
 		acctest.AddResourceIdToSweeperResourceIdMap(compartmentId, "ConfigurationId", id)
+		acctest.SweeperDefaultResourceId[*configuration.DefaultConfigId] = true
+
 	}
 	return resourceIds, nil
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -35,6 +35,10 @@ type DrPlanStepExecution struct {
 	// The display name of the step execution.
 	// Example: `DATABASE_SWITCHOVER`
 	DisplayName *string `mandatory:"true" json:"displayName"`
+
+	// The display name of the DR Plan step type.
+	// Example: `Database Switchover`
+	TypeDisplayName *string `mandatory:"true" json:"typeDisplayName"`
 
 	LogLocation *ObjectStorageLogLocation `mandatory:"true" json:"logLocation"`
 

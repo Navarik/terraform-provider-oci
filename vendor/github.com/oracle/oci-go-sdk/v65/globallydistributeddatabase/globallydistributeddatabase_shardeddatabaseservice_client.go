@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -95,7 +95,7 @@ func (client *ShardedDatabaseServiceClient) ConfigurationProvider() *common.Conf
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ChangePrivateEndpointCompartment.go.html to see an example of how to use ChangePrivateEndpointCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ChangePrivateEndpointCompartment.go.html to see an example of how to use ChangePrivateEndpointCompartment API.
 // A default retry strategy applies to this operation ChangePrivateEndpointCompartment()
 func (client ShardedDatabaseServiceClient) ChangePrivateEndpointCompartment(ctx context.Context, request ChangePrivateEndpointCompartmentRequest) (response ChangePrivateEndpointCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -145,7 +145,7 @@ func (client ShardedDatabaseServiceClient) changePrivateEndpointCompartment(ctx 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/PrivateEndpoint/ChangePrivateEndpointCompartment"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/PrivateEndpoint/ChangePrivateEndpointCompartment"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ChangePrivateEndpointCompartment", apiReferenceLink)
 		return response, err
 	}
@@ -158,7 +158,7 @@ func (client ShardedDatabaseServiceClient) changePrivateEndpointCompartment(ctx 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ChangeShardedDatabaseCompartment.go.html to see an example of how to use ChangeShardedDatabaseCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ChangeShardedDatabaseCompartment.go.html to see an example of how to use ChangeShardedDatabaseCompartment API.
 // A default retry strategy applies to this operation ChangeShardedDatabaseCompartment()
 func (client ShardedDatabaseServiceClient) ChangeShardedDatabaseCompartment(ctx context.Context, request ChangeShardedDatabaseCompartmentRequest) (response ChangeShardedDatabaseCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -208,7 +208,7 @@ func (client ShardedDatabaseServiceClient) changeShardedDatabaseCompartment(ctx 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/ChangeShardedDatabaseCompartment"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/ChangeShardedDatabaseCompartment"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ChangeShardedDatabaseCompartment", apiReferenceLink)
 		return response, err
 	}
@@ -224,7 +224,7 @@ func (client ShardedDatabaseServiceClient) changeShardedDatabaseCompartment(ctx 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ConfigureShardedDatabaseGsms.go.html to see an example of how to use ConfigureShardedDatabaseGsms API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ConfigureShardedDatabaseGsms.go.html to see an example of how to use ConfigureShardedDatabaseGsms API.
 // A default retry strategy applies to this operation ConfigureShardedDatabaseGsms()
 func (client ShardedDatabaseServiceClient) ConfigureShardedDatabaseGsms(ctx context.Context, request ConfigureShardedDatabaseGsmsRequest) (response ConfigureShardedDatabaseGsmsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -274,7 +274,7 @@ func (client ShardedDatabaseServiceClient) configureShardedDatabaseGsms(ctx cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/ConfigureShardedDatabaseGsms"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/ConfigureShardedDatabaseGsms"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ConfigureShardedDatabaseGsms", apiReferenceLink)
 		return response, err
 	}
@@ -291,7 +291,7 @@ func (client ShardedDatabaseServiceClient) configureShardedDatabaseGsms(ctx cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ConfigureSharding.go.html to see an example of how to use ConfigureSharding API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ConfigureSharding.go.html to see an example of how to use ConfigureSharding API.
 // A default retry strategy applies to this operation ConfigureSharding()
 func (client ShardedDatabaseServiceClient) ConfigureSharding(ctx context.Context, request ConfigureShardingRequest) (response ConfigureShardingResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -341,7 +341,7 @@ func (client ShardedDatabaseServiceClient) configureSharding(ctx context.Context
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/ConfigureSharding"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/ConfigureSharding"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ConfigureSharding", apiReferenceLink)
 		return response, err
 	}
@@ -354,7 +354,7 @@ func (client ShardedDatabaseServiceClient) configureSharding(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/CreatePrivateEndpoint.go.html to see an example of how to use CreatePrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/CreatePrivateEndpoint.go.html to see an example of how to use CreatePrivateEndpoint API.
 // A default retry strategy applies to this operation CreatePrivateEndpoint()
 func (client ShardedDatabaseServiceClient) CreatePrivateEndpoint(ctx context.Context, request CreatePrivateEndpointRequest) (response CreatePrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -417,7 +417,7 @@ func (client ShardedDatabaseServiceClient) createPrivateEndpoint(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/CreateShardedDatabase.go.html to see an example of how to use CreateShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/CreateShardedDatabase.go.html to see an example of how to use CreateShardedDatabase API.
 // A default retry strategy applies to this operation CreateShardedDatabase()
 func (client ShardedDatabaseServiceClient) CreateShardedDatabase(ctx context.Context, request CreateShardedDatabaseRequest) (response CreateShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -480,7 +480,7 @@ func (client ShardedDatabaseServiceClient) createShardedDatabase(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/DeletePrivateEndpoint.go.html to see an example of how to use DeletePrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/DeletePrivateEndpoint.go.html to see an example of how to use DeletePrivateEndpoint API.
 // A default retry strategy applies to this operation DeletePrivateEndpoint()
 func (client ShardedDatabaseServiceClient) DeletePrivateEndpoint(ctx context.Context, request DeletePrivateEndpointRequest) (response DeletePrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -530,7 +530,7 @@ func (client ShardedDatabaseServiceClient) deletePrivateEndpoint(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/PrivateEndpoint/DeletePrivateEndpoint"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/PrivateEndpoint/DeletePrivateEndpoint"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "DeletePrivateEndpoint", apiReferenceLink)
 		return response, err
 	}
@@ -543,7 +543,7 @@ func (client ShardedDatabaseServiceClient) deletePrivateEndpoint(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/DeleteShardedDatabase.go.html to see an example of how to use DeleteShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/DeleteShardedDatabase.go.html to see an example of how to use DeleteShardedDatabase API.
 // A default retry strategy applies to this operation DeleteShardedDatabase()
 func (client ShardedDatabaseServiceClient) DeleteShardedDatabase(ctx context.Context, request DeleteShardedDatabaseRequest) (response DeleteShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -593,7 +593,7 @@ func (client ShardedDatabaseServiceClient) deleteShardedDatabase(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/DeleteShardedDatabase"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/DeleteShardedDatabase"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "DeleteShardedDatabase", apiReferenceLink)
 		return response, err
 	}
@@ -609,7 +609,7 @@ func (client ShardedDatabaseServiceClient) deleteShardedDatabase(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/DownloadGsmCertificateSigningRequest.go.html to see an example of how to use DownloadGsmCertificateSigningRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/DownloadGsmCertificateSigningRequest.go.html to see an example of how to use DownloadGsmCertificateSigningRequest API.
 // A default retry strategy applies to this operation DownloadGsmCertificateSigningRequest()
 func (client ShardedDatabaseServiceClient) DownloadGsmCertificateSigningRequest(ctx context.Context, request DownloadGsmCertificateSigningRequestRequest) (response DownloadGsmCertificateSigningRequestResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -658,7 +658,7 @@ func (client ShardedDatabaseServiceClient) downloadGsmCertificateSigningRequest(
 	httpResponse, err = client.Call(ctx, &httpRequest)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/DownloadGsmCertificateSigningRequest"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/DownloadGsmCertificateSigningRequest"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "DownloadGsmCertificateSigningRequest", apiReferenceLink)
 		return response, err
 	}
@@ -671,7 +671,7 @@ func (client ShardedDatabaseServiceClient) downloadGsmCertificateSigningRequest(
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/FetchConnectionString.go.html to see an example of how to use FetchConnectionString API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/FetchConnectionString.go.html to see an example of how to use FetchConnectionString API.
 // A default retry strategy applies to this operation FetchConnectionString()
 func (client ShardedDatabaseServiceClient) FetchConnectionString(ctx context.Context, request FetchConnectionStringRequest) (response FetchConnectionStringResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -721,7 +721,7 @@ func (client ShardedDatabaseServiceClient) fetchConnectionString(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/FetchConnectionString"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/FetchConnectionString"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "FetchConnectionString", apiReferenceLink)
 		return response, err
 	}
@@ -734,7 +734,7 @@ func (client ShardedDatabaseServiceClient) fetchConnectionString(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/FetchShardableCloudAutonomousVmClusters.go.html to see an example of how to use FetchShardableCloudAutonomousVmClusters API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/FetchShardableCloudAutonomousVmClusters.go.html to see an example of how to use FetchShardableCloudAutonomousVmClusters API.
 // A default retry strategy applies to this operation FetchShardableCloudAutonomousVmClusters()
 func (client ShardedDatabaseServiceClient) FetchShardableCloudAutonomousVmClusters(ctx context.Context, request FetchShardableCloudAutonomousVmClustersRequest) (response FetchShardableCloudAutonomousVmClustersResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -784,7 +784,7 @@ func (client ShardedDatabaseServiceClient) fetchShardableCloudAutonomousVmCluste
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/FetchShardableCloudAutonomousVmClusters"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/FetchShardableCloudAutonomousVmClusters"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "FetchShardableCloudAutonomousVmClusters", apiReferenceLink)
 		return response, err
 	}
@@ -799,7 +799,7 @@ func (client ShardedDatabaseServiceClient) fetchShardableCloudAutonomousVmCluste
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GenerateGsmCertificateSigningRequest.go.html to see an example of how to use GenerateGsmCertificateSigningRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GenerateGsmCertificateSigningRequest.go.html to see an example of how to use GenerateGsmCertificateSigningRequest API.
 // A default retry strategy applies to this operation GenerateGsmCertificateSigningRequest()
 func (client ShardedDatabaseServiceClient) GenerateGsmCertificateSigningRequest(ctx context.Context, request GenerateGsmCertificateSigningRequestRequest) (response GenerateGsmCertificateSigningRequestResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -849,7 +849,7 @@ func (client ShardedDatabaseServiceClient) generateGsmCertificateSigningRequest(
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/GenerateGsmCertificateSigningRequest"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/GenerateGsmCertificateSigningRequest"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "GenerateGsmCertificateSigningRequest", apiReferenceLink)
 		return response, err
 	}
@@ -862,7 +862,7 @@ func (client ShardedDatabaseServiceClient) generateGsmCertificateSigningRequest(
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GenerateWallet.go.html to see an example of how to use GenerateWallet API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GenerateWallet.go.html to see an example of how to use GenerateWallet API.
 // A default retry strategy applies to this operation GenerateWallet()
 func (client ShardedDatabaseServiceClient) GenerateWallet(ctx context.Context, request GenerateWalletRequest) (response GenerateWalletResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -911,7 +911,7 @@ func (client ShardedDatabaseServiceClient) generateWallet(ctx context.Context, r
 	httpResponse, err = client.Call(ctx, &httpRequest)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/GenerateWallet"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/GenerateWallet"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "GenerateWallet", apiReferenceLink)
 		return response, err
 	}
@@ -924,7 +924,7 @@ func (client ShardedDatabaseServiceClient) generateWallet(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GetPrivateEndpoint.go.html to see an example of how to use GetPrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GetPrivateEndpoint.go.html to see an example of how to use GetPrivateEndpoint API.
 // A default retry strategy applies to this operation GetPrivateEndpoint()
 func (client ShardedDatabaseServiceClient) GetPrivateEndpoint(ctx context.Context, request GetPrivateEndpointRequest) (response GetPrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -969,7 +969,7 @@ func (client ShardedDatabaseServiceClient) getPrivateEndpoint(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/PrivateEndpoint/GetPrivateEndpoint"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/PrivateEndpoint/GetPrivateEndpoint"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "GetPrivateEndpoint", apiReferenceLink)
 		return response, err
 	}
@@ -982,7 +982,7 @@ func (client ShardedDatabaseServiceClient) getPrivateEndpoint(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GetShardedDatabase.go.html to see an example of how to use GetShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GetShardedDatabase.go.html to see an example of how to use GetShardedDatabase API.
 // A default retry strategy applies to this operation GetShardedDatabase()
 func (client ShardedDatabaseServiceClient) GetShardedDatabase(ctx context.Context, request GetShardedDatabaseRequest) (response GetShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1027,7 +1027,7 @@ func (client ShardedDatabaseServiceClient) getShardedDatabase(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/GetShardedDatabase"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/GetShardedDatabase"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "GetShardedDatabase", apiReferenceLink)
 		return response, err
 	}
@@ -1040,7 +1040,7 @@ func (client ShardedDatabaseServiceClient) getShardedDatabase(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
 // A default retry strategy applies to this operation GetWorkRequest()
 func (client ShardedDatabaseServiceClient) GetWorkRequest(ctx context.Context, request GetWorkRequestRequest) (response GetWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1085,7 +1085,7 @@ func (client ShardedDatabaseServiceClient) getWorkRequest(ctx context.Context, r
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/WorkRequest/GetWorkRequest"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/WorkRequest/GetWorkRequest"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "GetWorkRequest", apiReferenceLink)
 		return response, err
 	}
@@ -1098,7 +1098,7 @@ func (client ShardedDatabaseServiceClient) getWorkRequest(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListPrivateEndpoints.go.html to see an example of how to use ListPrivateEndpoints API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListPrivateEndpoints.go.html to see an example of how to use ListPrivateEndpoints API.
 // A default retry strategy applies to this operation ListPrivateEndpoints()
 func (client ShardedDatabaseServiceClient) ListPrivateEndpoints(ctx context.Context, request ListPrivateEndpointsRequest) (response ListPrivateEndpointsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1143,7 +1143,7 @@ func (client ShardedDatabaseServiceClient) listPrivateEndpoints(ctx context.Cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/PrivateEndpointCollection/ListPrivateEndpoints"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/PrivateEndpointCollection/ListPrivateEndpoints"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ListPrivateEndpoints", apiReferenceLink)
 		return response, err
 	}
@@ -1156,7 +1156,7 @@ func (client ShardedDatabaseServiceClient) listPrivateEndpoints(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListShardedDatabases.go.html to see an example of how to use ListShardedDatabases API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListShardedDatabases.go.html to see an example of how to use ListShardedDatabases API.
 // A default retry strategy applies to this operation ListShardedDatabases()
 func (client ShardedDatabaseServiceClient) ListShardedDatabases(ctx context.Context, request ListShardedDatabasesRequest) (response ListShardedDatabasesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1201,7 +1201,7 @@ func (client ShardedDatabaseServiceClient) listShardedDatabases(ctx context.Cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabaseCollection/ListShardedDatabases"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabaseCollection/ListShardedDatabases"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ListShardedDatabases", apiReferenceLink)
 		return response, err
 	}
@@ -1214,7 +1214,7 @@ func (client ShardedDatabaseServiceClient) listShardedDatabases(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
 // A default retry strategy applies to this operation ListWorkRequestErrors()
 func (client ShardedDatabaseServiceClient) ListWorkRequestErrors(ctx context.Context, request ListWorkRequestErrorsRequest) (response ListWorkRequestErrorsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1259,7 +1259,7 @@ func (client ShardedDatabaseServiceClient) listWorkRequestErrors(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/WorkRequestError/ListWorkRequestErrors"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/WorkRequestError/ListWorkRequestErrors"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ListWorkRequestErrors", apiReferenceLink)
 		return response, err
 	}
@@ -1272,7 +1272,7 @@ func (client ShardedDatabaseServiceClient) listWorkRequestErrors(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
 // A default retry strategy applies to this operation ListWorkRequestLogs()
 func (client ShardedDatabaseServiceClient) ListWorkRequestLogs(ctx context.Context, request ListWorkRequestLogsRequest) (response ListWorkRequestLogsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1317,7 +1317,7 @@ func (client ShardedDatabaseServiceClient) listWorkRequestLogs(ctx context.Conte
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/WorkRequestLogEntry/ListWorkRequestLogs"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/WorkRequestLogEntry/ListWorkRequestLogs"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ListWorkRequestLogs", apiReferenceLink)
 		return response, err
 	}
@@ -1330,7 +1330,7 @@ func (client ShardedDatabaseServiceClient) listWorkRequestLogs(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
 // A default retry strategy applies to this operation ListWorkRequests()
 func (client ShardedDatabaseServiceClient) ListWorkRequests(ctx context.Context, request ListWorkRequestsRequest) (response ListWorkRequestsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1375,7 +1375,7 @@ func (client ShardedDatabaseServiceClient) listWorkRequests(ctx context.Context,
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/WorkRequest/ListWorkRequests"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/WorkRequest/ListWorkRequests"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ListWorkRequests", apiReferenceLink)
 		return response, err
 	}
@@ -1390,7 +1390,7 @@ func (client ShardedDatabaseServiceClient) listWorkRequests(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/PatchShardedDatabase.go.html to see an example of how to use PatchShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/PatchShardedDatabase.go.html to see an example of how to use PatchShardedDatabase API.
 // A default retry strategy applies to this operation PatchShardedDatabase()
 func (client ShardedDatabaseServiceClient) PatchShardedDatabase(ctx context.Context, request PatchShardedDatabaseRequest) (response PatchShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1435,7 +1435,7 @@ func (client ShardedDatabaseServiceClient) patchShardedDatabase(ctx context.Cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/PatchShardedDatabase"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/PatchShardedDatabase"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "PatchShardedDatabase", apiReferenceLink)
 		return response, err
 	}
@@ -1448,7 +1448,7 @@ func (client ShardedDatabaseServiceClient) patchShardedDatabase(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/PrevalidateShardedDatabase.go.html to see an example of how to use PrevalidateShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/PrevalidateShardedDatabase.go.html to see an example of how to use PrevalidateShardedDatabase API.
 // A default retry strategy applies to this operation PrevalidateShardedDatabase()
 func (client ShardedDatabaseServiceClient) PrevalidateShardedDatabase(ctx context.Context, request PrevalidateShardedDatabaseRequest) (response PrevalidateShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1498,7 +1498,7 @@ func (client ShardedDatabaseServiceClient) prevalidateShardedDatabase(ctx contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/PrevalidateShardedDatabase"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/PrevalidateShardedDatabase"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "PrevalidateShardedDatabase", apiReferenceLink)
 		return response, err
 	}
@@ -1511,7 +1511,7 @@ func (client ShardedDatabaseServiceClient) prevalidateShardedDatabase(ctx contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ReinstateProxyInstance.go.html to see an example of how to use ReinstateProxyInstance API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ReinstateProxyInstance.go.html to see an example of how to use ReinstateProxyInstance API.
 // A default retry strategy applies to this operation ReinstateProxyInstance()
 func (client ShardedDatabaseServiceClient) ReinstateProxyInstance(ctx context.Context, request ReinstateProxyInstanceRequest) (response ReinstateProxyInstanceResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1561,7 +1561,7 @@ func (client ShardedDatabaseServiceClient) reinstateProxyInstance(ctx context.Co
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/PrivateEndpoint/ReinstateProxyInstance"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/PrivateEndpoint/ReinstateProxyInstance"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ReinstateProxyInstance", apiReferenceLink)
 		return response, err
 	}
@@ -1574,7 +1574,7 @@ func (client ShardedDatabaseServiceClient) reinstateProxyInstance(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/StartShardedDatabase.go.html to see an example of how to use StartShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/StartShardedDatabase.go.html to see an example of how to use StartShardedDatabase API.
 // A default retry strategy applies to this operation StartShardedDatabase()
 func (client ShardedDatabaseServiceClient) StartShardedDatabase(ctx context.Context, request StartShardedDatabaseRequest) (response StartShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1624,7 +1624,7 @@ func (client ShardedDatabaseServiceClient) startShardedDatabase(ctx context.Cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/StartShardedDatabase"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/StartShardedDatabase"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "StartShardedDatabase", apiReferenceLink)
 		return response, err
 	}
@@ -1637,7 +1637,7 @@ func (client ShardedDatabaseServiceClient) startShardedDatabase(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/StopShardedDatabase.go.html to see an example of how to use StopShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/StopShardedDatabase.go.html to see an example of how to use StopShardedDatabase API.
 // A default retry strategy applies to this operation StopShardedDatabase()
 func (client ShardedDatabaseServiceClient) StopShardedDatabase(ctx context.Context, request StopShardedDatabaseRequest) (response StopShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1687,7 +1687,7 @@ func (client ShardedDatabaseServiceClient) stopShardedDatabase(ctx context.Conte
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/StopShardedDatabase"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/StopShardedDatabase"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "StopShardedDatabase", apiReferenceLink)
 		return response, err
 	}
@@ -1700,7 +1700,7 @@ func (client ShardedDatabaseServiceClient) stopShardedDatabase(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/UpdatePrivateEndpoint.go.html to see an example of how to use UpdatePrivateEndpoint API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/UpdatePrivateEndpoint.go.html to see an example of how to use UpdatePrivateEndpoint API.
 // A default retry strategy applies to this operation UpdatePrivateEndpoint()
 func (client ShardedDatabaseServiceClient) UpdatePrivateEndpoint(ctx context.Context, request UpdatePrivateEndpointRequest) (response UpdatePrivateEndpointResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1750,7 +1750,7 @@ func (client ShardedDatabaseServiceClient) updatePrivateEndpoint(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/PrivateEndpoint/UpdatePrivateEndpoint"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/PrivateEndpoint/UpdatePrivateEndpoint"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "UpdatePrivateEndpoint", apiReferenceLink)
 		return response, err
 	}
@@ -1763,7 +1763,7 @@ func (client ShardedDatabaseServiceClient) updatePrivateEndpoint(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/UpdateShardedDatabase.go.html to see an example of how to use UpdateShardedDatabase API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/UpdateShardedDatabase.go.html to see an example of how to use UpdateShardedDatabase API.
 // A default retry strategy applies to this operation UpdateShardedDatabase()
 func (client ShardedDatabaseServiceClient) UpdateShardedDatabase(ctx context.Context, request UpdateShardedDatabaseRequest) (response UpdateShardedDatabaseResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1808,7 +1808,7 @@ func (client ShardedDatabaseServiceClient) updateShardedDatabase(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/UpdateShardedDatabase"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/UpdateShardedDatabase"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "UpdateShardedDatabase", apiReferenceLink)
 		return response, err
 	}
@@ -1823,7 +1823,7 @@ func (client ShardedDatabaseServiceClient) updateShardedDatabase(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/UploadSignedCertificateAndGenerateWallet.go.html to see an example of how to use UploadSignedCertificateAndGenerateWallet API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/UploadSignedCertificateAndGenerateWallet.go.html to see an example of how to use UploadSignedCertificateAndGenerateWallet API.
 // A default retry strategy applies to this operation UploadSignedCertificateAndGenerateWallet()
 func (client ShardedDatabaseServiceClient) UploadSignedCertificateAndGenerateWallet(ctx context.Context, request UploadSignedCertificateAndGenerateWalletRequest) (response UploadSignedCertificateAndGenerateWalletResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1873,7 +1873,7 @@ func (client ShardedDatabaseServiceClient) uploadSignedCertificateAndGenerateWal
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/UploadSignedCertificateAndGenerateWallet"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/UploadSignedCertificateAndGenerateWallet"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "UploadSignedCertificateAndGenerateWallet", apiReferenceLink)
 		return response, err
 	}
@@ -1886,7 +1886,7 @@ func (client ShardedDatabaseServiceClient) uploadSignedCertificateAndGenerateWal
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ValidateNetwork.go.html to see an example of how to use ValidateNetwork API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/globallydistributeddatabase/ValidateNetwork.go.html to see an example of how to use ValidateNetwork API.
 // A default retry strategy applies to this operation ValidateNetwork()
 func (client ShardedDatabaseServiceClient) ValidateNetwork(ctx context.Context, request ValidateNetworkRequest) (response ValidateNetworkResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1936,7 +1936,7 @@ func (client ShardedDatabaseServiceClient) validateNetwork(ctx context.Context, 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-autonomous-database/20230301/ShardedDatabase/ValidateNetwork"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20230301/ShardedDatabase/ValidateNetwork"
 		err = common.PostProcessServiceError(err, "ShardedDatabaseService", "ValidateNetwork", apiReferenceLink)
 		return response, err
 	}

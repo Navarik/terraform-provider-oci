@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -37,6 +37,10 @@ type DrPlanStep struct {
 	// Example: `DATABASE_SWITCHOVER`
 	DisplayName *string `mandatory:"true" json:"displayName"`
 
+	// The display name of the DR Plan step type.
+	// Example: `Database Switchover`
+	TypeDisplayName *string `mandatory:"true" json:"typeDisplayName"`
+
 	// The error mode for this step.
 	ErrorMode DrPlanStepErrorModeEnum `mandatory:"true" json:"errorMode"`
 
@@ -51,6 +55,10 @@ type DrPlanStep struct {
 	// The OCID of the member associated with this step.
 	// Example: `ocid1.database.oc1..uniqueID`
 	MemberId *string `mandatory:"false" json:"memberId"`
+
+	// The DR plan step refresh status.
+	// Example: `STEP_ADDED`
+	RefreshStatus DrPlanStepRefreshStatusEnum `mandatory:"false" json:"refreshStatus,omitempty"`
 
 	UserDefinedStep DrPlanUserDefinedStep `mandatory:"false" json:"userDefinedStep"`
 }
@@ -71,6 +79,9 @@ func (m DrPlanStep) ValidateEnumValue() (bool, error) {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for ErrorMode: %s. Supported values are: %s.", m.ErrorMode, strings.Join(GetDrPlanStepErrorModeEnumStringValues(), ",")))
 	}
 
+	if _, ok := GetMappingDrPlanStepRefreshStatusEnum(string(m.RefreshStatus)); !ok && m.RefreshStatus != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for RefreshStatus: %s. Supported values are: %s.", m.RefreshStatus, strings.Join(GetDrPlanStepRefreshStatusEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
@@ -80,15 +91,17 @@ func (m DrPlanStep) ValidateEnumValue() (bool, error) {
 // UnmarshalJSON unmarshals from json
 func (m *DrPlanStep) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		MemberId        *string                 `json:"memberId"`
-		UserDefinedStep drplanuserdefinedstep   `json:"userDefinedStep"`
-		Id              *string                 `json:"id"`
-		GroupId         *string                 `json:"groupId"`
-		Type            DrPlanStepTypeEnum      `json:"type"`
-		DisplayName     *string                 `json:"displayName"`
-		ErrorMode       DrPlanStepErrorModeEnum `json:"errorMode"`
-		Timeout         *int                    `json:"timeout"`
-		IsEnabled       *bool                   `json:"isEnabled"`
+		MemberId        *string                     `json:"memberId"`
+		RefreshStatus   DrPlanStepRefreshStatusEnum `json:"refreshStatus"`
+		UserDefinedStep drplanuserdefinedstep       `json:"userDefinedStep"`
+		Id              *string                     `json:"id"`
+		GroupId         *string                     `json:"groupId"`
+		Type            DrPlanStepTypeEnum          `json:"type"`
+		DisplayName     *string                     `json:"displayName"`
+		TypeDisplayName *string                     `json:"typeDisplayName"`
+		ErrorMode       DrPlanStepErrorModeEnum     `json:"errorMode"`
+		Timeout         *int                        `json:"timeout"`
+		IsEnabled       *bool                       `json:"isEnabled"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -97,6 +110,8 @@ func (m *DrPlanStep) UnmarshalJSON(data []byte) (e error) {
 	}
 	var nn interface{}
 	m.MemberId = model.MemberId
+
+	m.RefreshStatus = model.RefreshStatus
 
 	nn, e = model.UserDefinedStep.UnmarshalPolymorphicJSON(model.UserDefinedStep.JsonData)
 	if e != nil {
@@ -115,6 +130,8 @@ func (m *DrPlanStep) UnmarshalJSON(data []byte) (e error) {
 	m.Type = model.Type
 
 	m.DisplayName = model.DisplayName
+
+	m.TypeDisplayName = model.TypeDisplayName
 
 	m.ErrorMode = model.ErrorMode
 

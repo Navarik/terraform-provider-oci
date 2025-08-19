@@ -73,6 +73,7 @@ The following attributes are exported:
 
             Example: "ocid1.publicip.oc1.phx.unique_ID" 
 * `ip_addresses` - An array of IP addresses. Deprecated: use ip_address_details instead.
+
 * `is_delete_protection_enabled` - Whether or not the load balancer has delete protection enabled.
 
 	If "true", the loadbalancer will be protected against deletion if configured to accept traffic.
@@ -121,6 +122,7 @@ The following attributes are exported:
 			* `name` - The name can be one of these values: `FORWARD_TO_BACKENDSET`
 		* `condition` - A routing rule to evaluate defined conditions against the incoming HTTP request and perform an action. 
 		* `name` - A unique name for the routing policy rule. Avoid entering confidential information. 
+* `security_attributes` - Extended Defined tags for ZPR for this resource. Each key is predefined and scoped to a namespace.  Example: `{"Oracle-ZPR": {"MaxEgressCount": {"value":"42","mode":"audit", "usagetype" : "zpr"}}}` 
 * `shape` - A template that determines the total pre-provisioned bandwidth (ingress plus egress). To get a list of available shapes, use the [ListShapes](https://docs.cloud.oracle.com/iaas/api/#/en/loadbalancer/20170115/LoadBalancerShape/ListShapes) operation.  Example: `100Mbps` 
 * `shape_details` - The configuration details to update load balancer to a different shape. 
 	* `maximum_bandwidth_in_mbps` - Bandwidth in Mbps that determines the maximum bandwidth (ingress plus egress) that the load balancer can achieve. This bandwidth cannot be always guaranteed. For a guaranteed bandwidth use the minimumBandwidthInMbps parameter.

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListAuditProfileAnalytics.go.html to see an example of how to use ListAuditProfileAnalyticsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListAuditProfileAnalytics.go.html to see an example of how to use ListAuditProfileAnalyticsRequest.
 type ListAuditProfileAnalyticsRequest struct {
 
 	// A filter to return only resources that match the specified compartment OCID.
@@ -31,14 +31,17 @@ type ListAuditProfileAnalyticsRequest struct {
 	// resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
 	AccessLevel ListAuditProfileAnalyticsAccessLevelEnum `mandatory:"false" contributesTo:"query" name:"accessLevel" omitEmpty:"true"`
 
-	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
 
-	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
 	// The group by parameter for summarize operation on audit.
 	GroupBy []ListAuditProfileAnalyticsGroupByEnum `contributesTo:"query" name:"groupBy" omitEmpty:"true" collectionFormat:"multi"`
+
+	// A optional filter to return only resources that belong to the specified audit profile type.
+	TargetType ListAuditProfileAnalyticsTargetTypeEnum `mandatory:"false" contributesTo:"query" name:"targetType" omitEmpty:"true"`
 
 	// Unique identifier for the request.
 	OpcRequestId *string `mandatory:"false" contributesTo:"header" name:"opc-request-id"`
@@ -88,6 +91,9 @@ func (request ListAuditProfileAnalyticsRequest) ValidateEnumValue() (bool, error
 		}
 	}
 
+	if _, ok := GetMappingListAuditProfileAnalyticsTargetTypeEnum(string(request.TargetType)); !ok && request.TargetType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TargetType: %s. Supported values are: %s.", request.TargetType, strings.Join(GetListAuditProfileAnalyticsTargetTypeEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
@@ -106,7 +112,7 @@ type ListAuditProfileAnalyticsResponse struct {
 	// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
 	OpcRequestId *string `presentIn:"header" name:"opc-request-id"`
 
-	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 
 	// For pagination of a list of items. When paging through a list, if this header appears in the response,
@@ -171,15 +177,27 @@ type ListAuditProfileAnalyticsGroupByEnum string
 
 // Set of constants representing the allowable values for ListAuditProfileAnalyticsGroupByEnum
 const (
-	ListAuditProfileAnalyticsGroupByIspaidusageenabled ListAuditProfileAnalyticsGroupByEnum = "isPaidUsageEnabled"
+	ListAuditProfileAnalyticsGroupByIspaidusageenabled  ListAuditProfileAnalyticsGroupByEnum = "isPaidUsageEnabled"
+	ListAuditProfileAnalyticsGroupByTargettype          ListAuditProfileAnalyticsGroupByEnum = "targetType"
+	ListAuditProfileAnalyticsGroupByPaidusagesource     ListAuditProfileAnalyticsGroupByEnum = "paidUsageSource"
+	ListAuditProfileAnalyticsGroupByOnlinemonthssource  ListAuditProfileAnalyticsGroupByEnum = "onlineMonthsSource"
+	ListAuditProfileAnalyticsGroupByOfflinemonthssource ListAuditProfileAnalyticsGroupByEnum = "offlineMonthsSource"
 )
 
 var mappingListAuditProfileAnalyticsGroupByEnum = map[string]ListAuditProfileAnalyticsGroupByEnum{
-	"isPaidUsageEnabled": ListAuditProfileAnalyticsGroupByIspaidusageenabled,
+	"isPaidUsageEnabled":  ListAuditProfileAnalyticsGroupByIspaidusageenabled,
+	"targetType":          ListAuditProfileAnalyticsGroupByTargettype,
+	"paidUsageSource":     ListAuditProfileAnalyticsGroupByPaidusagesource,
+	"onlineMonthsSource":  ListAuditProfileAnalyticsGroupByOnlinemonthssource,
+	"offlineMonthsSource": ListAuditProfileAnalyticsGroupByOfflinemonthssource,
 }
 
 var mappingListAuditProfileAnalyticsGroupByEnumLowerCase = map[string]ListAuditProfileAnalyticsGroupByEnum{
-	"ispaidusageenabled": ListAuditProfileAnalyticsGroupByIspaidusageenabled,
+	"ispaidusageenabled":  ListAuditProfileAnalyticsGroupByIspaidusageenabled,
+	"targettype":          ListAuditProfileAnalyticsGroupByTargettype,
+	"paidusagesource":     ListAuditProfileAnalyticsGroupByPaidusagesource,
+	"onlinemonthssource":  ListAuditProfileAnalyticsGroupByOnlinemonthssource,
+	"offlinemonthssource": ListAuditProfileAnalyticsGroupByOfflinemonthssource,
 }
 
 // GetListAuditProfileAnalyticsGroupByEnumValues Enumerates the set of values for ListAuditProfileAnalyticsGroupByEnum
@@ -195,11 +213,57 @@ func GetListAuditProfileAnalyticsGroupByEnumValues() []ListAuditProfileAnalytics
 func GetListAuditProfileAnalyticsGroupByEnumStringValues() []string {
 	return []string{
 		"isPaidUsageEnabled",
+		"targetType",
+		"paidUsageSource",
+		"onlineMonthsSource",
+		"offlineMonthsSource",
 	}
 }
 
 // GetMappingListAuditProfileAnalyticsGroupByEnum performs case Insensitive comparison on enum value and return the desired enum
 func GetMappingListAuditProfileAnalyticsGroupByEnum(val string) (ListAuditProfileAnalyticsGroupByEnum, bool) {
 	enum, ok := mappingListAuditProfileAnalyticsGroupByEnumLowerCase[strings.ToLower(val)]
+	return enum, ok
+}
+
+// ListAuditProfileAnalyticsTargetTypeEnum Enum with underlying type: string
+type ListAuditProfileAnalyticsTargetTypeEnum string
+
+// Set of constants representing the allowable values for ListAuditProfileAnalyticsTargetTypeEnum
+const (
+	ListAuditProfileAnalyticsTargetTypeDatabase      ListAuditProfileAnalyticsTargetTypeEnum = "TARGET_DATABASE"
+	ListAuditProfileAnalyticsTargetTypeDatabaseGroup ListAuditProfileAnalyticsTargetTypeEnum = "TARGET_DATABASE_GROUP"
+)
+
+var mappingListAuditProfileAnalyticsTargetTypeEnum = map[string]ListAuditProfileAnalyticsTargetTypeEnum{
+	"TARGET_DATABASE":       ListAuditProfileAnalyticsTargetTypeDatabase,
+	"TARGET_DATABASE_GROUP": ListAuditProfileAnalyticsTargetTypeDatabaseGroup,
+}
+
+var mappingListAuditProfileAnalyticsTargetTypeEnumLowerCase = map[string]ListAuditProfileAnalyticsTargetTypeEnum{
+	"target_database":       ListAuditProfileAnalyticsTargetTypeDatabase,
+	"target_database_group": ListAuditProfileAnalyticsTargetTypeDatabaseGroup,
+}
+
+// GetListAuditProfileAnalyticsTargetTypeEnumValues Enumerates the set of values for ListAuditProfileAnalyticsTargetTypeEnum
+func GetListAuditProfileAnalyticsTargetTypeEnumValues() []ListAuditProfileAnalyticsTargetTypeEnum {
+	values := make([]ListAuditProfileAnalyticsTargetTypeEnum, 0)
+	for _, v := range mappingListAuditProfileAnalyticsTargetTypeEnum {
+		values = append(values, v)
+	}
+	return values
+}
+
+// GetListAuditProfileAnalyticsTargetTypeEnumStringValues Enumerates the set of values in String for ListAuditProfileAnalyticsTargetTypeEnum
+func GetListAuditProfileAnalyticsTargetTypeEnumStringValues() []string {
+	return []string{
+		"TARGET_DATABASE",
+		"TARGET_DATABASE_GROUP",
+	}
+}
+
+// GetMappingListAuditProfileAnalyticsTargetTypeEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingListAuditProfileAnalyticsTargetTypeEnum(val string) (ListAuditProfileAnalyticsTargetTypeEnum, bool) {
+	enum, ok := mappingListAuditProfileAnalyticsTargetTypeEnumLowerCase[strings.ToLower(val)]
 	return enum, ok
 }

@@ -4,11 +4,11 @@ layout: "oci"
 page_title: "Oracle Cloud Infrastructure: oci_apm_synthetics_scripts"
 sidebar_current: "docs-oci-datasource-apm_synthetics-scripts"
 description: |-
-  Provides the list of Scripts in Oracle Cloud Infrastructure Apm Synthetics service
+  Provides the list of Scripts in Oracle Cloud Infrastructure APM Availability Monitoring service (aka APM Synthetics Service)
 ---
 
 # Data Source: oci_apm_synthetics_scripts
-This data source provides the list of Scripts in Oracle Cloud Infrastructure Apm Synthetics service.
+This data source provides the list of Scripts in Oracle Cloud Infrastructure APM Availability Monitoring service (aka APM Synthetics Service).
 
 Returns a list of scripts.
 
@@ -45,7 +45,7 @@ The following attributes are exported:
 
 The following attributes are exported:
 
-* `content` - The content of the script. It may contain custom-defined tags that can be used for setting dynamic parameters. The format to set dynamic parameters is: `<ORAP><ON>param name</ON><OV>param value</OV><OS>isParamValueSecret(true/false)</OS></ORAP>`. Param value and isParamValueSecret are optional, the default value for isParamValueSecret is false. Examples: With mandatory param name : `<ORAP><ON>param name</ON></ORAP>` With parameter name and value : `<ORAP><ON>param name</ON><OV>param value</OV></ORAP>` Note that the content is valid if it matches the given content type. For example, if the content type is SIDE, then the content should be in Side script format. If the content type is JS, then the content should be in JavaScript format. 
+* `content` - The content of the script. It may contain custom-defined tags that can be used for setting dynamic parameters. The format to set dynamic parameters is: `<ORAP><ON>param name</ON><OV>param value</OV><OS>isParamValueSecret(true/false)</OS></ORAP>`. Param value and isParamValueSecret are optional, the default value for isParamValueSecret is false. Examples: With mandatory param name : `<ORAP><ON>param name</ON></ORAP>` With parameter name and value : `<ORAP><ON>param name</ON><OV>param value</OV></ORAP>` Note that the content is valid if it matches the given content type. For example, if the content type is SIDE, then the content should be in Side script format. If the content type is JS, then the content should be in JavaScript format. If the content type is PLAYWRIGHT_TS, then the content should be in TypeScript format. 
 * `content_file_name` - File name of the uploaded script content.
 * `content_size_in_bytes` - Size of the script content.
 * `content_type` - Content type of the script.

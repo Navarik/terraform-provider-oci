@@ -8,10 +8,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/terraform-provider-oci/internal/resourcediscovery"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
@@ -63,6 +63,7 @@ func TestFleetAppsManagementOnboardingResource_basic(t *testing.T) {
 			Config: config + compartmentIdVariableStr + FleetAppsManagementOnboardingResourceDependencies +
 				acctest.GenerateResourceFromRepresentationMap("oci_fleet_apps_management_onboarding", "test_onboarding", acctest.Required, acctest.Create, FleetAppsManagementOnboardingRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
 			),
 		},
@@ -105,6 +106,29 @@ func TestFleetAppsManagementOnboardingResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "onboarding_collection.0.items.#", "1"),
 				resource.TestCheckResourceAttr(datasourceName, "onboarding_collection.0.items.#", "1"),
 			),
+		},
+		// verify resource import
+		{
+			Config:            config + FleetAppsManagementOnboardingRequiredOnlyResource,
+			ImportState:       true,
+			ImportStateVerify: true,
+			ImportStateVerifyIgnore: []string{
+				"applied_policies",
+				"compartment_id",
+				"defined_tags",
+				"discovery_frequency",
+				"freeform_tags",
+				"id",
+				"is_cost_tracking_tag_enabled",
+				"is_fams_tag_enabled",
+				"resource_region",
+				"state",
+				"system_tags",
+				"time_created",
+				"time_updated",
+				"version",
+			},
+			ResourceName: resourceName,
 		},
 	})
 }

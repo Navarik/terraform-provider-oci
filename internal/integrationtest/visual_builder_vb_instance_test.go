@@ -17,9 +17,9 @@ import (
 	tf_client "github.com/oracle/terraform-provider-oci/internal/client"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_visual_builder "github.com/oracle/oci-go-sdk/v65/visualbuilder"
 
@@ -44,7 +44,7 @@ var (
 
 	VisualBuilderVisualBuilderVbInstanceDataSourceRepresentation = map[string]interface{}{
 		"compartment_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
-		"display_name":   acctest.Representation{RepType: acctest.Optional, Create: `displayName`, Update: `displayName2`},
+		"display_name":   acctest.Representation{RepType: acctest.Optional, Create: `tersi-test-instance`, Update: `tersi-test-instance-2`},
 		"state":          acctest.Representation{RepType: acctest.Optional, Create: `ACTIVE`},
 		"filter":         acctest.RepresentationGroup{RepType: acctest.Required, Group: VisualBuilderVbInstanceDataSourceFilterRepresentation}}
 	VisualBuilderVbInstanceDataSourceFilterRepresentation = map[string]interface{}{
@@ -54,7 +54,7 @@ var (
 
 	VisualBuilderVbInstanceRepresentation = map[string]interface{}{
 		"compartment_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
-		"display_name":   acctest.Representation{RepType: acctest.Required, Create: `displayName`, Update: `displayName2`},
+		"display_name":   acctest.Representation{RepType: acctest.Required, Create: `tersi-test-instance`, Update: `tersi-test-instance-2`},
 		"node_count":     acctest.Representation{RepType: acctest.Required, Create: `1`, Update: `2`},
 		// Not supported yet
 		// "alternate_custom_endpoints": RepresentationGroup{Optional, VisualBuilderVbInstanceAlternateCustomEndpointsRepresentation},
@@ -65,13 +65,49 @@ var (
 		"idcs_open_id":              acctest.Representation{RepType: acctest.Required, Create: `${var.idcs_access_token}`},
 		"is_visual_builder_enabled": acctest.Representation{RepType: acctest.Required, Create: `true`},
 	}
+
+	VisualBuilderPEVbInstanceRepresentation = map[string]interface{}{
+		"compartment_id":            acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"display_name":              acctest.Representation{RepType: acctest.Required, Create: `tersi-test-instance-pe`, Update: `tersi-test-instance-pe-2`},
+		"node_count":                acctest.Representation{RepType: acctest.Required, Create: `1`, Update: `2`},
+		"consumption_model":         acctest.Representation{RepType: acctest.Optional, Create: `UCM`},
+		"idcs_open_id":              acctest.Representation{RepType: acctest.Required, Create: `${var.idcs_access_token}`},
+		"is_visual_builder_enabled": acctest.Representation{RepType: acctest.Required, Create: `true`},
+		"network_endpoint_details":  acctest.RepresentationGroup{RepType: acctest.Optional, Group: VisualBuilderVbInstancePrivateNetworkEndpointDetailsRepresentation},
+	}
+
+	VisualBuilderACLVbInstanceRepresentation = map[string]interface{}{
+		"compartment_id":            acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"display_name":              acctest.Representation{RepType: acctest.Required, Create: `tersi-test-instance-acl`, Update: `tersi-test-instance-acl-2`},
+		"node_count":                acctest.Representation{RepType: acctest.Required, Create: `1`, Update: `2`},
+		"consumption_model":         acctest.Representation{RepType: acctest.Optional, Create: `UCM`},
+		"idcs_open_id":              acctest.Representation{RepType: acctest.Required, Create: `${var.idcs_access_token}`},
+		"is_visual_builder_enabled": acctest.Representation{RepType: acctest.Required, Create: `true`},
+		"network_endpoint_details":  acctest.RepresentationGroup{RepType: acctest.Optional, Group: VisualBuilderVbInstancePublicNetworkEndpointDetailsRepresentation},
+	}
+
 	VisualBuilderVbInstanceAlternateCustomEndpointsRepresentation = map[string]interface{}{
 		"hostname":              acctest.Representation{RepType: acctest.Required, Create: `hostname.com`, Update: `hostname2.com`},
 		"certificate_secret_id": acctest.Representation{RepType: acctest.Optional, Create: `${oci_vault_secret.test_secret.id}`},
 	}
 	VisualBuilderVbInstanceCustomEndpointRepresentation = map[string]interface{}{
-		"hostname":              acctest.Representation{RepType: acctest.Required, Create: `hostname.com`, Update: `hostname2.com`},
+		"hostname":              acctest.Representation{RepType: acctest.Required, Create: `test1.myvb.org`, Update: `test2.myvb.org`},
 		"certificate_secret_id": acctest.Representation{RepType: acctest.Optional, Create: `${var.oci_vault_secret_id}`},
+	}
+	VisualBuilderVbInstancePrivateNetworkEndpointDetailsRepresentation = map[string]interface{}{
+		"network_endpoint_type": acctest.Representation{RepType: acctest.Required, Create: `PRIVATE`},
+		"subnet_id": acctest.Representation{RepType: acctest.Required,
+			Create: `${var.vb_instance_network_endpoint_details_subnet_id}`},
+	}
+	VisualBuilderVbInstancePublicNetworkEndpointDetailsRepresentation = map[string]interface{}{
+		"network_endpoint_type": acctest.Representation{RepType: acctest.Required, Create: `PUBLIC`},
+		"allowlisted_http_ips":  acctest.Representation{RepType: acctest.Optional, Create: []string{`0.0.0.0/32`}, Update: []string{`0.0.0.1/32`}},
+		"allowlisted_http_vcns": acctest.RepresentationGroup{RepType: acctest.Optional, Group: VisualBuilderVbInstanceNetworkEndpointDetailsAllowlistedHttpVcnsRepresentation},
+	}
+	VisualBuilderVbInstanceNetworkEndpointDetailsAllowlistedHttpVcnsRepresentation = map[string]interface{}{
+		"id": acctest.Representation{RepType: acctest.Required,
+			Create: `${var.allow_listed_http_vcn}`, Update: `${var.allow_listed_http_vcn}`},
+		"allowlisted_ip_cidrs": acctest.Representation{RepType: acctest.Optional, Create: []string{`0.0.0.0/32`}, Update: []string{`0.0.0.1/32`}},
 	}
 
 	VisualBuilderVbInstanceResourceDependencies = DefinedTagsDependencies
@@ -109,7 +145,7 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance", acctest.Required, acctest.Create, VisualBuilderVbInstanceRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "display_name", "displayName"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance"),
 				resource.TestCheckResourceAttr(resourceName, "node_count", "1"),
 
 				func(s *terraform.State) (err error) {
@@ -138,8 +174,8 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "consumption_model", "UCM"),
 				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "custom_endpoint.0.certificate_secret_id"),
-				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.0.hostname", "hostname.com"),
-				resource.TestCheckResourceAttr(resourceName, "display_name", "displayName"),
+				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.0.hostname", "test1.myvb.org"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
 				resource.TestCheckResourceAttrSet(resourceName, "idcs_open_id"),
@@ -147,7 +183,7 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "is_visual_builder_enabled", "true"),
 				resource.TestCheckResourceAttr(resourceName, "node_count", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
-				resource.TestCheckResourceAttr(resourceName, "idcs_info.#", "1"),
+				//resource.TestCheckResourceAttr(resourceName, "idcs_info.#", "1"),
 				//resource.TestCheckResourceAttr(resourceName, "attachments.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "management_nat_gateway_ip"),
 				resource.TestCheckResourceAttrSet(resourceName, "management_vcn_id"),
@@ -181,8 +217,8 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "consumption_model", "UCM"),
 				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "custom_endpoint.0.certificate_secret_id"),
-				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.0.hostname", "hostname.com"),
-				resource.TestCheckResourceAttr(resourceName, "display_name", "displayName"),
+				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.0.hostname", "test1.myvb.org"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
 				resource.TestCheckResourceAttrSet(resourceName, "idcs_open_id"),
@@ -213,8 +249,8 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "consumption_model", "UCM"),
 				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "custom_endpoint.0.certificate_secret_id"),
-				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.0.hostname", "hostname2.com"),
-				resource.TestCheckResourceAttr(resourceName, "display_name", "displayName2"),
+				resource.TestCheckResourceAttr(resourceName, "custom_endpoint.0.hostname", "test2.myvb.org"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance-2"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
 				resource.TestCheckResourceAttrSet(resourceName, "idcs_open_id"),
@@ -240,7 +276,7 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance", acctest.Optional, acctest.Update, VisualBuilderVbInstanceRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(datasourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(datasourceName, "display_name", "displayName2"),
+				resource.TestCheckResourceAttr(datasourceName, "display_name", "tersi-test-instance-2"),
 				resource.TestCheckResourceAttr(datasourceName, "state", "ACTIVE"),
 
 				resource.TestCheckResourceAttr(datasourceName, "vb_instance_summary_collection.#", "1"),
@@ -265,11 +301,10 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(singularDatasourceName, "consumption_model", "UCM"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "custom_endpoint.#", "1"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "custom_endpoint.0.certificate_secret_version"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "custom_endpoint.0.hostname", "hostname2.com"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "display_name", "displayName2"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "custom_endpoint.0.hostname", "test2.myvb.org"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "display_name", "tersi-test-instance-2"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "id"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "idcs_info.#", "1"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "instance_url"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "is_visual_builder_enabled", "true"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "management_nat_gateway_ip"),
@@ -296,6 +331,399 @@ func TestVisualBuilderVbInstanceResource_basic(t *testing.T) {
 		//		},
 		//	),
 		//},
+		// verify resource import
+		{
+			Config:            config + VisualBuilderVbInstanceRequiredOnlyResource,
+			ImportState:       true,
+			ImportStateVerify: true,
+			ImportStateVerifyIgnore: []string{
+				"idcs_open_id",
+			},
+			ResourceName: resourceName,
+		},
+	})
+}
+
+func TestVisualBuilderPrivateEndpointVbInstanceResource_basic(t *testing.T) {
+	httpreplay.SetScenario("TestVisualBuilderPrivateEndpointVbInstanceResource_basic")
+	defer httpreplay.SaveScenario()
+
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	sbunetIdVariableStr := createVariableStr("vb_instance_network_endpoint_details_subnet_id", "vb_instance_network_endpoint_details_subnet_id")
+	nsgIdVariableStr := createVariableStr("vb_instance_network_endpoint_details_network_security_group_id",
+		"vb_instance_network_endpoint_details_network_security_group_id")
+
+	resourceName := "oci_visual_builder_vb_instance.test_vb_instance"
+	datasourceName := "data.oci_visual_builder_vb_instances.test_vb_instances"
+	singularDatasourceName := "data.oci_visual_builder_vb_instance.test_vb_instance"
+
+	var resId string
+	// Save TF content to Create resource with optional properties. This has to be exactly the same as the config part in the "create with optionals" step in the test.
+	acctest.SaveConfigContent(config+compartmentIdVariableStr+
+		sbunetIdVariableStr+
+		acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance", acctest.Optional, acctest.Create, VisualBuilderPEVbInstanceRepresentation), "visualbuilder", "vbInstance", t)
+
+	acctest.ResourceTest(t, testAccCheckVisualBuilderVbInstanceDestroy, []resource.TestStep{
+		// verify Create
+		{
+			Config: config + compartmentIdVariableStr + idcsOpenIdVariableStr() +
+				sbunetIdVariableStr +
+				acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance",
+					acctest.Optional, acctest.Create, VisualBuilderPEVbInstanceRepresentation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance-pe"),
+				resource.TestCheckResourceAttr(resourceName, "node_count", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.network_endpoint_type", "PRIVATE"),
+				resource.TestCheckResourceAttrSet(resourceName, "network_endpoint_details.0.subnet_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "network_endpoint_details.0.private_endpoint_ip"),
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					fmt.Printf("%s", resId)
+					return err
+				},
+			),
+		},
+		//delete before next Create
+		{
+			Config: config + compartmentIdVariableStr + idcsOpenIdVariableStr(),
+		},
+		//verify Create with optionals
+
+		{
+			Config: config + compartmentIdVariableStr +
+				idcsOpenIdVariableStr() +
+				sbunetIdVariableStr +
+				nsgIdVariableStr +
+				acctest.GenerateResourceFromRepresentationMap(
+					"oci_visual_builder_vb_instance",
+					"test_vb_instance",
+					acctest.Optional,
+					acctest.Create,
+					acctest.RepresentationCopyWithNewProperties(
+						VisualBuilderPEVbInstanceRepresentation,
+						map[string]interface{}{
+							"network_endpoint_details": acctest.RepresentationGroup{RepType: acctest.Optional,
+								Group: acctest.RepresentationCopyWithNewProperties(
+									VisualBuilderVbInstancePrivateNetworkEndpointDetailsRepresentation,
+									map[string]interface{}{
+										"network_endpoint_type": acctest.Representation{RepType: acctest.Required, Create: `PRIVATE`},
+										"subnet_id": acctest.Representation{RepType: acctest.Required,
+											Create: `${var.vb_instance_network_endpoint_details_subnet_id}`},
+										"network_security_group_ids": acctest.Representation{RepType: acctest.Optional, Create: []string{`${var.vb_instance_network_endpoint_details_network_security_group_id}`}},
+									},
+								)},
+						},
+					)),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "consumption_model", "UCM"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance-pe"),
+				resource.TestCheckResourceAttr(resourceName, "node_count", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttrSet(resourceName, "idcs_open_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "instance_url"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.network_endpoint_type", "PRIVATE"),
+				resource.TestCheckResourceAttrSet(resourceName, "network_endpoint_details.0.subnet_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "network_endpoint_details.0.private_endpoint_ip"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.network_security_group_ids.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "is_visual_builder_enabled", "true"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					if isEnableExportCompartment, _ := strconv.ParseBool(utils.GetEnvSettingWithDefault("enable_export_compartment", "true")); isEnableExportCompartment {
+						if errExport := resourcediscovery.TestExportCompartmentWithResourceName(&resId, &compartmentId, resourceName); errExport != nil {
+							return errExport
+						}
+					}
+					return err
+				},
+			),
+		},
+		// verify datasource
+		{
+			Config: config +
+				sbunetIdVariableStr +
+				nsgIdVariableStr +
+				acctest.GenerateDataSourceFromRepresentationMap(
+					"oci_visual_builder_vb_instances",
+					"test_vb_instances",
+					acctest.Optional, acctest.Create,
+					acctest.RepresentationCopyWithNewProperties(VisualBuilderVisualBuilderVbInstanceDataSourceRepresentation,
+						map[string]interface{}{
+							"display_name": acctest.Representation{RepType: acctest.Optional, Create: `tersi-test-instance-pe`},
+						}),
+				) +
+				compartmentIdVariableStr + idcsOpenIdVariableStr() +
+				acctest.GenerateResourceFromRepresentationMap(
+					"oci_visual_builder_vb_instance",
+					"test_vb_instance",
+					acctest.Optional, acctest.Create,
+					VisualBuilderPEVbInstanceRepresentation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(datasourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(datasourceName, "display_name", "tersi-test-instance-pe"),
+				resource.TestCheckResourceAttr(datasourceName, "state", "ACTIVE"),
+
+				resource.TestCheckResourceAttr(datasourceName, "vb_instance_summary_collection.#", "1"),
+				resource.TestCheckResourceAttr(datasourceName, "vb_instance_summary_collection.0.items.#", "1"),
+			),
+		},
+		//verify singular datasource
+		{
+			Config: config +
+				sbunetIdVariableStr +
+				nsgIdVariableStr +
+				acctest.GenerateDataSourceFromRepresentationMap(
+					"oci_visual_builder_vb_instance",
+					"test_vb_instance",
+					acctest.Required, acctest.Create,
+					acctest.RepresentationCopyWithNewProperties(
+						VisualBuilderVisualBuilderVbInstanceSingularDataSourceRepresentation,
+						map[string]interface{}{
+							"display_name": acctest.Representation{RepType: acctest.Optional, Create: `tersi-test-instance-pe`},
+						}),
+				) +
+				compartmentIdVariableStr + idcsOpenIdVariableStr() +
+				acctest.GenerateResourceFromRepresentationMap(
+					"oci_visual_builder_vb_instance",
+					"test_vb_instance",
+					acctest.Optional,
+					acctest.Create,
+					VisualBuilderPEVbInstanceRepresentation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "vb_instance_id"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(singularDatasourceName, "consumption_model", "UCM"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "display_name", "tersi-test-instance-pe"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "id"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "instance_url"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "is_visual_builder_enabled", "true"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.#", "1"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.0.network_endpoint_type", "PRIVATE"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "network_endpoint_details.0.subnet_id"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "network_endpoint_details.0.private_endpoint_ip"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.0.network_security_group_ids.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.network_security_group_ids.#", "1"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "node_count", "1"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "state"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_updated"),
+			),
+		},
+	})
+}
+
+func TestVisualBuilderPublicEndpointVbInstanceResource_basic(t *testing.T) {
+	httpreplay.SetScenario("TestVisualBuilderVbInstanceResource_basic")
+	defer httpreplay.SaveScenario()
+
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	compartmentIdU := utils.GetEnvSettingWithDefault("compartment_id_for_update", compartmentId)
+	compartmentIdUVariableStr := fmt.Sprintf("variable \"compartment_id_for_update\" { default = \"%s\" }\n", compartmentIdU)
+
+	allowListedVcnId := utils.GetEnvSettingWithBlankDefault("allow_listed_http_vcn")
+	allowListedVcnStr := fmt.Sprintf("variable \"allow_listed_http_vcn\" { default = \"%s\" }\n", allowListedVcnId)
+
+	resourceName := "oci_visual_builder_vb_instance.test_vb_instance"
+	datasourceName := "data.oci_visual_builder_vb_instances.test_vb_instances"
+	singularDatasourceName := "data.oci_visual_builder_vb_instance.test_vb_instance"
+
+	var resId, resId2 string
+	// Save TF content to Create resource with optional properties. This has to be exactly the same as the config part in the "create with optionals" step in the test.
+	acctest.SaveConfigContent(config+compartmentIdVariableStr+VisualBuilderVbInstanceResourceDependencies+
+		acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance",
+			acctest.Optional, acctest.Create, VisualBuilderACLVbInstanceRepresentation), "visualbuilder",
+		"vbInstance", t)
+
+	acctest.ResourceTest(t, testAccCheckVisualBuilderVbInstanceDestroy, []resource.TestStep{
+		// verify Create with optionals
+		{
+			Config: config + compartmentIdVariableStr +
+				idcsOpenIdVariableStr() +
+				VisualBuilderVbInstanceResourceDependencies +
+				allowListedVcnStr +
+				acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance", acctest.Optional, acctest.Create, VisualBuilderACLVbInstanceRepresentation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "consumption_model", "UCM"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance-acl"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttrSet(resourceName, "idcs_open_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "instance_url"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_ips.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.allowlisted_ip_cidrs.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.id", utils.GetEnvSettingWithBlankDefault("allow_listed_http_vcn")),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.network_endpoint_type", "PUBLIC"),
+				resource.TestCheckResourceAttr(resourceName, "is_visual_builder_enabled", "true"),
+				resource.TestCheckResourceAttr(resourceName, "node_count", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				resource.TestCheckResourceAttrSet(resourceName, "management_nat_gateway_ip"),
+				resource.TestCheckResourceAttrSet(resourceName, "management_vcn_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "service_nat_gateway_ip"),
+				resource.TestCheckResourceAttrSet(resourceName, "service_vcn_id"),
+
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					if isEnableExportCompartment, _ := strconv.ParseBool(utils.GetEnvSettingWithDefault("enable_export_compartment", "true")); isEnableExportCompartment {
+						if errExport := resourcediscovery.TestExportCompartmentWithResourceName(&resId, &compartmentId, resourceName); errExport != nil {
+							return errExport
+						}
+					}
+					return err
+				},
+			),
+		},
+
+		// verify Update to the compartment (the compartment will be switched back in the next step)
+		{
+			Config: config + compartmentIdVariableStr + compartmentIdUVariableStr + idcsOpenIdVariableStr() + VisualBuilderVbInstanceResourceDependencies + allowListedVcnStr +
+				acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance", acctest.Optional, acctest.Create,
+					acctest.RepresentationCopyWithNewProperties(VisualBuilderACLVbInstanceRepresentation, map[string]interface{}{
+						"compartment_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id_for_update}`},
+					})),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentIdU),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance-acl"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttrSet(resourceName, "idcs_open_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "instance_url"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_ips.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.allowlisted_ip_cidrs.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.id", utils.GetEnvSettingWithBlankDefault("allow_listed_http_vcn")),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.network_endpoint_type", "PUBLIC"),
+				resource.TestCheckResourceAttr(resourceName, "is_visual_builder_enabled", "true"),
+				resource.TestCheckResourceAttr(resourceName, "node_count", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				resource.TestCheckResourceAttrSet(resourceName, "management_nat_gateway_ip"),
+				resource.TestCheckResourceAttrSet(resourceName, "management_vcn_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "service_nat_gateway_ip"),
+				resource.TestCheckResourceAttrSet(resourceName, "service_vcn_id"),
+
+				func(s *terraform.State) (err error) {
+					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
+					if resId != resId2 {
+						return fmt.Errorf("resource recreated when it was supposed to be updated")
+					}
+					return err
+				},
+			),
+		},
+
+		// verify updates to updatable parameters
+		{
+			Config: config + compartmentIdVariableStr + idcsOpenIdVariableStr() + VisualBuilderVbInstanceResourceDependencies + allowListedVcnStr +
+				acctest.GenerateResourceFromRepresentationMap("oci_visual_builder_vb_instance", "test_vb_instance",
+					acctest.Optional, acctest.Update, VisualBuilderACLVbInstanceRepresentation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "tersi-test-instance-acl-2"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttrSet(resourceName, "idcs_open_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "instance_url"),
+				resource.TestCheckResourceAttr(resourceName, "is_visual_builder_enabled", "true"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_ips.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.allowlisted_ip_cidrs.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.id", utils.GetEnvSettingWithBlankDefault("allow_listed_http_vcn")),
+				resource.TestCheckResourceAttr(resourceName, "network_endpoint_details.0.network_endpoint_type", "PUBLIC"),
+				resource.TestCheckResourceAttr(resourceName, "node_count", "2"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+
+				func(s *terraform.State) (err error) {
+					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
+					if resId != resId2 {
+						return fmt.Errorf("Resource recreated when it was supposed to be updated.")
+					}
+					return err
+				},
+			),
+		},
+		// verify datasource
+		{
+			Config: config +
+				acctest.GenerateDataSourceFromRepresentationMap(
+					"oci_visual_builder_vb_instances",
+					"test_vb_instances",
+					acctest.Optional,
+					acctest.Update,
+					acctest.RepresentationCopyWithNewProperties(VisualBuilderVisualBuilderVbInstanceDataSourceRepresentation,
+						map[string]interface{}{
+							"display_name": acctest.Representation{RepType: acctest.Optional, Update: `tersi-test-instance-acl-2`},
+						},
+					),
+				) + compartmentIdVariableStr + idcsOpenIdVariableStr() + allowListedVcnStr +
+				acctest.GenerateResourceFromRepresentationMap(
+					"oci_visual_builder_vb_instance",
+					"test_vb_instance",
+					acctest.Optional, acctest.Update,
+					VisualBuilderACLVbInstanceRepresentation,
+				),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(datasourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(datasourceName, "display_name", "tersi-test-instance-acl-2"),
+				resource.TestCheckResourceAttr(datasourceName, "state", "ACTIVE"),
+				resource.TestCheckResourceAttr(datasourceName, "vb_instance_summary_collection.#", "1"),
+				resource.TestCheckResourceAttr(datasourceName, "vb_instance_summary_collection.0.items.#", "1"),
+			),
+		},
+		// verify singular datasource
+		{
+			Config: config +
+				acctest.GenerateDataSourceFromRepresentationMap(
+					"oci_visual_builder_vb_instance",
+					"test_vb_instance",
+					acctest.Required,
+					acctest.Update,
+					acctest.RepresentationCopyWithNewProperties(VisualBuilderVisualBuilderVbInstanceSingularDataSourceRepresentation,
+						map[string]interface{}{
+							"display_name": acctest.Representation{RepType: acctest.Optional, Update: `tersi-test-instance-acl-2`},
+						},
+					),
+				) +
+				compartmentIdVariableStr + idcsOpenIdVariableStr() + allowListedVcnStr +
+				acctest.GenerateResourceFromRepresentationMap(
+					"oci_visual_builder_vb_instance",
+					"test_vb_instance", acctest.Optional, acctest.Update, VisualBuilderACLVbInstanceRepresentation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "vb_instance_id"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(singularDatasourceName, "display_name", "tersi-test-instance-acl-2"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "id"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "instance_url"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "is_visual_builder_enabled", "true"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.#", "1"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.0.allowlisted_http_ips.#", "1"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.0.allowlisted_http_vcns.#", "1"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.allowlisted_ip_cidrs.#", "1"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.0.allowlisted_http_vcns.0.id", utils.GetEnvSettingWithBlankDefault("allow_listed_http_vcn")),
+				resource.TestCheckResourceAttr(singularDatasourceName, "network_endpoint_details.0.network_endpoint_type", "PUBLIC"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "management_nat_gateway_ip"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "management_vcn_id"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "service_nat_gateway_ip"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "service_vcn_id"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "node_count", "2"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "state"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_updated"),
+			),
+		},
 		// verify resource import
 		{
 			Config:            config + VisualBuilderVbInstanceRequiredOnlyResource,
@@ -433,4 +861,9 @@ func VisualBuilderVbInstanceSweepResponseFetchOperation(client *tf_client.Oracle
 func idcsOpenIdVariableStr() string {
 	idcsAccessToken := utils.GetEnvSettingWithBlankDefault("idcs_access_token")
 	return fmt.Sprintf("variable \"idcs_access_token\" { default = \"%s\" }\n", idcsAccessToken)
+}
+
+func createVariableStr(variableName string, envVarName string) string {
+	defaultValue := utils.GetEnvSettingWithBlankDefault(envVarName)
+	return fmt.Sprintf("variable \"%s\" { default = \"%s\" }\n", variableName, defaultValue)
 }

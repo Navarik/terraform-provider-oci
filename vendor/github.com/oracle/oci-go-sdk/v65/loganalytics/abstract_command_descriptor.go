@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -102,6 +102,10 @@ func (m *abstractcommanddescriptor) UnmarshalPolymorphicJSON(data []byte) (inter
 		return mm, err
 	case "OUTLIER":
 		mm := OutlierCommandDescriptor{}
+		err = json.Unmarshal(data, &mm)
+		return mm, err
+	case "UPDATETABLE":
+		mm := UpdateTableCommandDescriptor{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
 	case "DEMO_MODE":
@@ -301,7 +305,7 @@ func (m *abstractcommanddescriptor) UnmarshalPolymorphicJSON(data []byte) (inter
 		err = json.Unmarshal(data, &mm)
 		return mm, err
 	default:
-		common.Logf("Recieved unsupported enum value for AbstractCommandDescriptor: %s.", m.Name)
+		common.Logf("Received unsupported enum value for AbstractCommandDescriptor: %s.", m.Name)
 		return *m, nil
 	}
 }
@@ -390,6 +394,7 @@ const (
 	AbstractCommandDescriptorNameDelete          AbstractCommandDescriptorNameEnum = "DELETE"
 	AbstractCommandDescriptorNameCreatetable     AbstractCommandDescriptorNameEnum = "CREATETABLE"
 	AbstractCommandDescriptorNameSequence        AbstractCommandDescriptorNameEnum = "SEQUENCE"
+	AbstractCommandDescriptorNameUpdatetable     AbstractCommandDescriptorNameEnum = "UPDATETABLE"
 	AbstractCommandDescriptorNameDelta           AbstractCommandDescriptorNameEnum = "DELTA"
 	AbstractCommandDescriptorNameDistinct        AbstractCommandDescriptorNameEnum = "DISTINCT"
 	AbstractCommandDescriptorNameSearchLookup    AbstractCommandDescriptorNameEnum = "SEARCH_LOOKUP"
@@ -448,6 +453,7 @@ var mappingAbstractCommandDescriptorNameEnum = map[string]AbstractCommandDescrip
 	"DELETE":           AbstractCommandDescriptorNameDelete,
 	"CREATETABLE":      AbstractCommandDescriptorNameCreatetable,
 	"SEQUENCE":         AbstractCommandDescriptorNameSequence,
+	"UPDATETABLE":      AbstractCommandDescriptorNameUpdatetable,
 	"DELTA":            AbstractCommandDescriptorNameDelta,
 	"DISTINCT":         AbstractCommandDescriptorNameDistinct,
 	"SEARCH_LOOKUP":    AbstractCommandDescriptorNameSearchLookup,
@@ -506,6 +512,7 @@ var mappingAbstractCommandDescriptorNameEnumLowerCase = map[string]AbstractComma
 	"delete":           AbstractCommandDescriptorNameDelete,
 	"createtable":      AbstractCommandDescriptorNameCreatetable,
 	"sequence":         AbstractCommandDescriptorNameSequence,
+	"updatetable":      AbstractCommandDescriptorNameUpdatetable,
 	"delta":            AbstractCommandDescriptorNameDelta,
 	"distinct":         AbstractCommandDescriptorNameDistinct,
 	"search_lookup":    AbstractCommandDescriptorNameSearchLookup,
@@ -575,6 +582,7 @@ func GetAbstractCommandDescriptorNameEnumStringValues() []string {
 		"DELETE",
 		"CREATETABLE",
 		"SEQUENCE",
+		"UPDATETABLE",
 		"DELTA",
 		"DISTINCT",
 		"SEARCH_LOOKUP",

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -42,17 +42,26 @@ type Report struct {
 	// Specifies the format of report to be .xls or .pdf or .json
 	MimeType ReportMimeTypeEnum `mandatory:"false" json:"mimeType,omitempty"`
 
+	// Specifies the time at which the report was created.
+	TimeCreated *common.SDKTime `mandatory:"false" json:"timeCreated"`
+
+	// The date and time of the report update in Data Safe.
+	TimeUpdated *common.SDKTime `mandatory:"false" json:"timeUpdated"`
+
 	// The type of the audit report.
 	Type ReportTypeEnum `mandatory:"false" json:"type,omitempty"`
+
+	// Specifies the name of a resource that provides data for the report. For example alerts, events.
+	DataSource ReportDefinitionDataSourceEnum `mandatory:"false" json:"dataSource,omitempty"`
 
 	// Details about the current state of the report in Data Safe.
 	LifecycleDetails *string `mandatory:"false" json:"lifecycleDetails"`
 
-	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Department": "Finance"}`
 	FreeformTags map[string]string `mandatory:"false" json:"freeformTags"`
 
-	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Operations": {"CostCenter": "42"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
 
@@ -79,6 +88,9 @@ func (m Report) ValidateEnumValue() (bool, error) {
 	}
 	if _, ok := GetMappingReportTypeEnum(string(m.Type)); !ok && m.Type != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for Type: %s. Supported values are: %s.", m.Type, strings.Join(GetReportTypeEnumStringValues(), ",")))
+	}
+	if _, ok := GetMappingReportDefinitionDataSourceEnum(string(m.DataSource)); !ok && m.DataSource != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for DataSource: %s. Supported values are: %s.", m.DataSource, strings.Join(GetReportDefinitionDataSourceEnumStringValues(), ",")))
 	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))

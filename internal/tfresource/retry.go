@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"net"
 	"strconv"
 	"strings"
 	"time"
@@ -64,7 +65,35 @@ func init() {
 }
 
 func GetRetryBackoffDuration(response oci_common.OCIOperationResponse, disableNotFoundRetries bool, service string, startTime time.Time, optionals ...interface{}) time.Duration {
-	return getRetryBackoffDurationWithExpectedRetryDurationFn(response, disableNotFoundRetries, service, startTime, getExpectedRetryDuration, optionals...)
+	backoffDuration := getRetryBackoffDurationWithExpectedRetryDurationFn(response, disableNotFoundRetries, service, startTime, getExpectedRetryDuration, optionals...)
+	// Do nothing if service specific retry duration exists
+	if _, ok := serviceExpectedRetryDurationMap[service]; ok {
+		return backoffDuration
+	}
+	if response.Response != nil && response.Response.HTTPResponse() != nil {
+		statusCode := response.Response.HTTPResponse().StatusCode
+		switch statusCode {
+		case 429, 503:
+			utils.Logf("[DEGUG] Handling Retry Timeout for API Response Error Code %d", statusCode)
+			rawResponse := response.Response.HTTPResponse()
+			retryAfterVal := rawResponse.Header.Get("Retry-After")
+			if retryAfterVal == "" {
+				retryAfterVal = rawResponse.Header.Get("retry-after")
+			}
+			if retryAfterVal != "" {
+				if waitTime, err := strconv.Atoi(retryAfterVal); err == nil {
+					backoffDuration = time.Duration(waitTime) * time.Second
+					utils.Logf("[DEGUG] Retry Timeout obtained from response header is %s", backoffDuration)
+
+				} else {
+					utils.Logf("[DEGUG] Error while reading retry-after from response header. Obtained retry-after value is %s. Proceeding with default retry time %s", retryAfterVal, backoffDuration)
+				}
+			} else {
+				utils.Logf("[DEGUG] retry-after value not found in header to handle API Response Error Code %d. Proceeding with default retry time %s", statusCode, backoffDuration)
+			}
+		}
+	}
+	return backoffDuration
 }
 
 func getRetryBackoffDurationWithExpectedRetryDurationFn(response oci_common.OCIOperationResponse, disableNotFoundRetries bool, service string, startTime time.Time, expectedRetryDurationFn expectedRetryDurationFn, optionals ...interface{}) time.Duration {
@@ -122,7 +151,7 @@ func getExpectedRetryDuration(response oci_common.OCIOperationResponse, disableN
 func GetDefaultExpectedRetryDuration(response oci_common.OCIOperationResponse, disableNotFoundRetries bool) time.Duration {
 	defaultRetryTime := ShortRetryTime
 
-	if oci_common.IsNetworkError(response.Error) {
+	if IsNetworkError(response.Error) {
 		log.Printf("[DEBUG] Retrying for network error...")
 		return defaultRetryTime
 	}
@@ -215,7 +244,7 @@ func getRemainingEventualConsistencyDuration(r oci_common.OCIOperationResponse) 
 
 func getIdentityExpectedRetryDuration(response oci_common.OCIOperationResponse, disableNotFoundRetries bool, optionals ...interface{}) time.Duration {
 	defaultRetryTime := GetDefaultExpectedRetryDuration(response, disableNotFoundRetries)
-	if oci_common.IsNetworkError(response.Error) {
+	if IsNetworkError(response.Error) {
 		return defaultRetryTime
 	}
 
@@ -251,7 +280,7 @@ func getIdentityExpectedRetryDuration(response oci_common.OCIOperationResponse, 
 
 func getDatabaseExpectedRetryDuration(response oci_common.OCIOperationResponse, disableNotFoundRetries bool, optionals ...interface{}) time.Duration {
 	defaultRetryTime := GetDefaultExpectedRetryDuration(response, disableNotFoundRetries)
-	if oci_common.IsNetworkError(response.Error) {
+	if IsNetworkError(response.Error) {
 		return defaultRetryTime
 	}
 
@@ -283,7 +312,7 @@ func getDatabaseExpectedRetryDuration(response oci_common.OCIOperationResponse, 
 
 func getObjectstorageServiceExpectedRetryDuration(response oci_common.OCIOperationResponse, disableNotFoundRetries bool, optionals ...interface{}) time.Duration {
 	defaultRetryTime := GetDefaultExpectedRetryDuration(response, disableNotFoundRetries)
-	if oci_common.IsNetworkError(response.Error) {
+	if IsNetworkError(response.Error) {
 		return defaultRetryTime
 	}
 
@@ -352,7 +381,7 @@ func GetRetryPolicy(disableNotFoundRetries bool, service string, optionals ...in
 func getDefaultRetryPolicy(disableNotFoundRetries bool, service string, optionals ...interface{}) *oci_common.RetryPolicy {
 	startTime := time.Now()
 	retryPolicy := &oci_common.RetryPolicy{
-		MaximumNumberAttempts: 0,
+		MaximumNumberAttempts: 10,
 		ShouldRetryOperation: func(response oci_common.OCIOperationResponse) bool {
 			return ShouldRetry(response, disableNotFoundRetries, service, startTime, optionals...)
 		},
@@ -509,4 +538,14 @@ func GetDbHomeRetryDurationFunction(retryTimeout time.Duration) expectedRetryDur
 		}
 		return defaultRetryTime
 	}
+}
+
+// IsNetworkError checks if the given error is a network-related timeout error.
+// It returns true if the error is of type *net.OpError and indicates a timeout, or if the error message contains "i/o timeout".
+func IsNetworkError(err error) bool {
+	if opErr, ok := err.(*net.OpError); ok && (opErr.Timeout() || strings.Contains(err.Error(), "i/o timeout")) {
+		return true
+	}
+	// // IsNetworkError validates if an error is a net.Error and check if it's temporary or timeout
+	return oci_common.IsNetworkError(err)
 }

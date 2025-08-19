@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListSecurityPolicyDeployments.go.html to see an example of how to use ListSecurityPolicyDeploymentsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListSecurityPolicyDeployments.go.html to see an example of how to use ListSecurityPolicyDeploymentsRequest.
 type ListSecurityPolicyDeploymentsRequest struct {
 
 	// A filter to return only resources that match the specified compartment OCID.
@@ -34,10 +34,10 @@ type ListSecurityPolicyDeploymentsRequest struct {
 	// A filter to return only resources that match the specified display name.
 	DisplayName *string `mandatory:"false" contributesTo:"query" name:"displayName"`
 
-	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
 
-	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
 	// The current state of the security policy deployment.
@@ -48,6 +48,9 @@ type ListSecurityPolicyDeploymentsRequest struct {
 
 	// A filter to return only items related to a specific target OCID.
 	TargetId *string `mandatory:"false" contributesTo:"query" name:"targetId"`
+
+	// A optional filter to return only resources that belong to the specified target type.
+	TargetType SecurityPolicyDeploymentTargetTypeEnum `mandatory:"false" contributesTo:"query" name:"targetType" omitEmpty:"true"`
 
 	// An optional filter to return only resources that match the specified OCID of the security policy resource.
 	SecurityPolicyId *string `mandatory:"false" contributesTo:"query" name:"securityPolicyId"`
@@ -105,6 +108,9 @@ func (request ListSecurityPolicyDeploymentsRequest) ValidateEnumValue() (bool, e
 	if _, ok := GetMappingListSecurityPolicyDeploymentsLifecycleStateEnum(string(request.LifecycleState)); !ok && request.LifecycleState != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LifecycleState: %s. Supported values are: %s.", request.LifecycleState, strings.Join(GetListSecurityPolicyDeploymentsLifecycleStateEnumStringValues(), ",")))
 	}
+	if _, ok := GetMappingSecurityPolicyDeploymentTargetTypeEnum(string(request.TargetType)); !ok && request.TargetType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TargetType: %s. Supported values are: %s.", request.TargetType, strings.Join(GetSecurityPolicyDeploymentTargetTypeEnumStringValues(), ",")))
+	}
 	if _, ok := GetMappingListSecurityPolicyDeploymentsSortOrderEnum(string(request.SortOrder)); !ok && request.SortOrder != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for SortOrder: %s. Supported values are: %s.", request.SortOrder, strings.Join(GetListSecurityPolicyDeploymentsSortOrderEnumStringValues(), ",")))
 	}
@@ -129,7 +135,7 @@ type ListSecurityPolicyDeploymentsResponse struct {
 	// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
 	OpcRequestId *string `presentIn:"header" name:"opc-request-id"`
 
-	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 
 	// For pagination of a list of items. When paging through a list, if this header appears in the response,
@@ -194,33 +200,36 @@ type ListSecurityPolicyDeploymentsLifecycleStateEnum string
 
 // Set of constants representing the allowable values for ListSecurityPolicyDeploymentsLifecycleStateEnum
 const (
-	ListSecurityPolicyDeploymentsLifecycleStateCreating       ListSecurityPolicyDeploymentsLifecycleStateEnum = "CREATING"
-	ListSecurityPolicyDeploymentsLifecycleStateUpdating       ListSecurityPolicyDeploymentsLifecycleStateEnum = "UPDATING"
-	ListSecurityPolicyDeploymentsLifecycleStateDeployed       ListSecurityPolicyDeploymentsLifecycleStateEnum = "DEPLOYED"
-	ListSecurityPolicyDeploymentsLifecycleStateNeedsAttention ListSecurityPolicyDeploymentsLifecycleStateEnum = "NEEDS_ATTENTION"
-	ListSecurityPolicyDeploymentsLifecycleStateFailed         ListSecurityPolicyDeploymentsLifecycleStateEnum = "FAILED"
-	ListSecurityPolicyDeploymentsLifecycleStateDeleting       ListSecurityPolicyDeploymentsLifecycleStateEnum = "DELETING"
-	ListSecurityPolicyDeploymentsLifecycleStateDeleted        ListSecurityPolicyDeploymentsLifecycleStateEnum = "DELETED"
+	ListSecurityPolicyDeploymentsLifecycleStateCreating          ListSecurityPolicyDeploymentsLifecycleStateEnum = "CREATING"
+	ListSecurityPolicyDeploymentsLifecycleStateUpdating          ListSecurityPolicyDeploymentsLifecycleStateEnum = "UPDATING"
+	ListSecurityPolicyDeploymentsLifecycleStateDeployed          ListSecurityPolicyDeploymentsLifecycleStateEnum = "DEPLOYED"
+	ListSecurityPolicyDeploymentsLifecycleStatePendingDeployment ListSecurityPolicyDeploymentsLifecycleStateEnum = "PENDING_DEPLOYMENT"
+	ListSecurityPolicyDeploymentsLifecycleStateNeedsAttention    ListSecurityPolicyDeploymentsLifecycleStateEnum = "NEEDS_ATTENTION"
+	ListSecurityPolicyDeploymentsLifecycleStateFailed            ListSecurityPolicyDeploymentsLifecycleStateEnum = "FAILED"
+	ListSecurityPolicyDeploymentsLifecycleStateDeleting          ListSecurityPolicyDeploymentsLifecycleStateEnum = "DELETING"
+	ListSecurityPolicyDeploymentsLifecycleStateDeleted           ListSecurityPolicyDeploymentsLifecycleStateEnum = "DELETED"
 )
 
 var mappingListSecurityPolicyDeploymentsLifecycleStateEnum = map[string]ListSecurityPolicyDeploymentsLifecycleStateEnum{
-	"CREATING":        ListSecurityPolicyDeploymentsLifecycleStateCreating,
-	"UPDATING":        ListSecurityPolicyDeploymentsLifecycleStateUpdating,
-	"DEPLOYED":        ListSecurityPolicyDeploymentsLifecycleStateDeployed,
-	"NEEDS_ATTENTION": ListSecurityPolicyDeploymentsLifecycleStateNeedsAttention,
-	"FAILED":          ListSecurityPolicyDeploymentsLifecycleStateFailed,
-	"DELETING":        ListSecurityPolicyDeploymentsLifecycleStateDeleting,
-	"DELETED":         ListSecurityPolicyDeploymentsLifecycleStateDeleted,
+	"CREATING":           ListSecurityPolicyDeploymentsLifecycleStateCreating,
+	"UPDATING":           ListSecurityPolicyDeploymentsLifecycleStateUpdating,
+	"DEPLOYED":           ListSecurityPolicyDeploymentsLifecycleStateDeployed,
+	"PENDING_DEPLOYMENT": ListSecurityPolicyDeploymentsLifecycleStatePendingDeployment,
+	"NEEDS_ATTENTION":    ListSecurityPolicyDeploymentsLifecycleStateNeedsAttention,
+	"FAILED":             ListSecurityPolicyDeploymentsLifecycleStateFailed,
+	"DELETING":           ListSecurityPolicyDeploymentsLifecycleStateDeleting,
+	"DELETED":            ListSecurityPolicyDeploymentsLifecycleStateDeleted,
 }
 
 var mappingListSecurityPolicyDeploymentsLifecycleStateEnumLowerCase = map[string]ListSecurityPolicyDeploymentsLifecycleStateEnum{
-	"creating":        ListSecurityPolicyDeploymentsLifecycleStateCreating,
-	"updating":        ListSecurityPolicyDeploymentsLifecycleStateUpdating,
-	"deployed":        ListSecurityPolicyDeploymentsLifecycleStateDeployed,
-	"needs_attention": ListSecurityPolicyDeploymentsLifecycleStateNeedsAttention,
-	"failed":          ListSecurityPolicyDeploymentsLifecycleStateFailed,
-	"deleting":        ListSecurityPolicyDeploymentsLifecycleStateDeleting,
-	"deleted":         ListSecurityPolicyDeploymentsLifecycleStateDeleted,
+	"creating":           ListSecurityPolicyDeploymentsLifecycleStateCreating,
+	"updating":           ListSecurityPolicyDeploymentsLifecycleStateUpdating,
+	"deployed":           ListSecurityPolicyDeploymentsLifecycleStateDeployed,
+	"pending_deployment": ListSecurityPolicyDeploymentsLifecycleStatePendingDeployment,
+	"needs_attention":    ListSecurityPolicyDeploymentsLifecycleStateNeedsAttention,
+	"failed":             ListSecurityPolicyDeploymentsLifecycleStateFailed,
+	"deleting":           ListSecurityPolicyDeploymentsLifecycleStateDeleting,
+	"deleted":            ListSecurityPolicyDeploymentsLifecycleStateDeleted,
 }
 
 // GetListSecurityPolicyDeploymentsLifecycleStateEnumValues Enumerates the set of values for ListSecurityPolicyDeploymentsLifecycleStateEnum
@@ -238,6 +247,7 @@ func GetListSecurityPolicyDeploymentsLifecycleStateEnumStringValues() []string {
 		"CREATING",
 		"UPDATING",
 		"DEPLOYED",
+		"PENDING_DEPLOYMENT",
 		"NEEDS_ATTENTION",
 		"FAILED",
 		"DELETING",

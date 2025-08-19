@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -16,22 +16,22 @@ import (
 	"strings"
 )
 
-// Plugin The agent plugin
+// Plugin An Oracle Cloud Agent plugin.
 type Plugin struct {
 
-	// The plugin name
+	// The plugin name.
 	Name *string `mandatory:"true" json:"name"`
 
-	// The plugin version
+	// The plugin version.
 	Version *string `mandatory:"true" json:"version"`
 
-	// The plugin status
+	// The plugin status.
 	Status *string `mandatory:"true" json:"status"`
 
-	// The last update time of the plugin
+	// The last updated time of the plugin, in UTC.
 	LastUpdateTime *common.SDKTime `mandatory:"false" json:"lastUpdateTime"`
 
-	// The optional message from the agent plugin
+	// An optional message from the plugin.
 	Message *string `mandatory:"false" json:"message"`
 }
 

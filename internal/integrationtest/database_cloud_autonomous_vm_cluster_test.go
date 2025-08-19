@@ -16,9 +16,10 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/tfresource"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_database "github.com/oracle/oci-go-sdk/v65/database"
 
@@ -48,24 +49,25 @@ var (
 	}
 
 	DatabaseCloudAutonomousVmClusterRepresentation = map[string]interface{}{
-		"cloud_exadata_infrastructure_id":       acctest.Representation{RepType: acctest.Required, Create: `${oci_database_cloud_exadata_infrastructure.test_cloud_exadata_infrastructure.id}`},
-		"compartment_id":                        acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
-		"display_name":                          acctest.Representation{RepType: acctest.Required, Create: `CloudAutonomousVmCluster`, Update: `displayName2`},
-		"subnet_id":                             acctest.Representation{RepType: acctest.Required, Create: `${oci_core_subnet.exadata_subnet.id}`},
-		"cluster_time_zone":                     acctest.Representation{RepType: acctest.Optional, Create: `Etc/UTC`},
-		"defined_tags":                          acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
-		"compute_model":                         acctest.Representation{RepType: acctest.Optional, Create: `ECPU`},
-		"description":                           acctest.Representation{RepType: acctest.Optional, Create: `description`, Update: `description2`},
-		"freeform_tags":                         acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
-		"is_mtls_enabled_vm_cluster":            acctest.Representation{RepType: acctest.Optional, Create: `false`},
-		"license_model":                         acctest.Representation{RepType: acctest.Optional, Create: `LICENSE_INCLUDED`},
+		"cloud_exadata_infrastructure_id": acctest.Representation{RepType: acctest.Required, Create: `${oci_database_cloud_exadata_infrastructure.test_cloud_exadata_infrastructure.id}`},
+		"compartment_id":                  acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"display_name":                    acctest.Representation{RepType: acctest.Required, Create: `CloudAutonomousVmCluster`, Update: `displayName2`},
+		"subnet_id":                       acctest.Representation{RepType: acctest.Required, Create: `${oci_core_subnet.exadata_subnet.id}`},
+		"cluster_time_zone":               acctest.Representation{RepType: acctest.Optional, Create: `Etc/UTC`},
+		"defined_tags":                    acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
+		"compute_model":                   acctest.Representation{RepType: acctest.Optional, Create: `ECPU`},
+		"description":                     acctest.Representation{RepType: acctest.Optional, Create: `description`, Update: `description2`},
+		"freeform_tags":                   acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
+		"is_mtls_enabled_vm_cluster":      acctest.Representation{RepType: acctest.Optional, Create: `false`},
+		"license_model":                   acctest.Representation{RepType: acctest.Optional, Create: `LICENSE_INCLUDED`},
+		//"security_attributes":                   acctest.Representation{RepType: acctest.Optional, Create: map[string]map[string]map[string]string{"Oracle-ZPR": {"MaxEgressCount": {"value": "42", "mode": "audit"}}}},
 		"scan_listener_port_non_tls":            acctest.Representation{RepType: acctest.Optional, Create: `2302`},
 		"scan_listener_port_tls":                acctest.Representation{RepType: acctest.Optional, Create: `2709`},
 		"nsg_ids":                               acctest.Representation{RepType: acctest.Optional, Create: []string{`${oci_core_network_security_group.test_network_security_group.id}`}, Update: []string{`${oci_core_network_security_group.test_network_security_group2.id}`}},
 		"lifecycle":                             acctest.RepresentationGroup{RepType: acctest.Optional, Group: AdbStorageInTbsIgnoreChangesRepresentation},
-		"total_container_databases":             acctest.Representation{RepType: acctest.Optional, Create: `5`, Update: `4`},
-		"memory_per_oracle_compute_unit_in_gbs": acctest.Representation{RepType: acctest.Optional, Create: `3`},
-		"cpu_core_count_per_node":               acctest.Representation{RepType: acctest.Optional, Create: `40`, Update: `20`},
+		"total_container_databases":             acctest.Representation{RepType: acctest.Optional, Create: `2`, Update: `1`},
+		"memory_per_oracle_compute_unit_in_gbs": acctest.Representation{RepType: acctest.Optional, Create: `5`},
+		"cpu_core_count_per_node":               acctest.Representation{RepType: acctest.Optional, Create: `40`, Update: `44`},
 		"autonomous_data_storage_size_in_tbs":   acctest.Representation{RepType: acctest.Optional, Create: `10`, Update: `4`},
 	}
 	AdbStorageInTbsIgnoreChangesRepresentation = map[string]interface{}{
@@ -274,8 +276,10 @@ func TestDatabaseCloudAutonomousVmClusterResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "maintenance_window.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.preference", "NO_PREFERENCE"),
 					// 					resource.TestCheckResourceAttr(resourceName, "cpu_core_count_per_node", "40"),
-					resource.TestCheckResourceAttr(resourceName, "memory_per_oracle_compute_unit_in_gbs", "3"),
-					resource.TestCheckResourceAttr(resourceName, "total_container_databases", "5"),
+					resource.TestCheckResourceAttr(resourceName, "memory_per_oracle_compute_unit_in_gbs", "5"),
+					resource.TestCheckResourceAttr(resourceName, "total_container_databases", "2"),
+					resource.TestCheckNoResourceAttr(resourceName, "subscription_id"),
+					resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 					func(s *terraform.State) (err error) {
 						resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -309,13 +313,17 @@ func TestDatabaseCloudAutonomousVmClusterResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "license_model", "LICENSE_INCLUDED"),
 					resource.TestCheckResourceAttr(resourceName, "scan_listener_port_non_tls", "2302"),
 					resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tls", "2709"),
+					resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "0"),
 					resource.TestCheckResourceAttrSet(resourceName, "state"),
 					resource.TestCheckResourceAttrSet(resourceName, "subnet_id"),
 					resource.TestCheckResourceAttr(resourceName, "maintenance_window.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.preference", "NO_PREFERENCE"),
 					// 					resource.TestCheckResourceAttr(resourceName, "cpu_core_count_per_node", "40"),
-					resource.TestCheckResourceAttr(resourceName, "memory_per_oracle_compute_unit_in_gbs", "3"),
-					resource.TestCheckResourceAttr(resourceName, "total_container_databases", "5"),
+					resource.TestCheckResourceAttr(resourceName, "memory_per_oracle_compute_unit_in_gbs", "5"),
+					resource.TestCheckResourceAttr(resourceName, "total_container_databases", "2"),
+					resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
+					resource.TestCheckNoResourceAttr(resourceName, "subscription_id"),
+					resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 					func(s *terraform.State) (err error) {
 						resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -343,13 +351,16 @@ func TestDatabaseCloudAutonomousVmClusterResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "license_model", "LICENSE_INCLUDED"),
 					resource.TestCheckResourceAttr(resourceName, "scan_listener_port_non_tls", "2302"),
 					resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tls", "2709"),
+					resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "0"),
 					resource.TestCheckResourceAttrSet(resourceName, "state"),
 					resource.TestCheckResourceAttrSet(resourceName, "subnet_id"),
 					// 					resource.TestCheckResourceAttr(resourceName, "cpu_core_count_per_node", "40"),
 					resource.TestCheckResourceAttr(resourceName, "maintenance_window.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.preference", "NO_PREFERENCE"),
-					resource.TestCheckResourceAttr(resourceName, "memory_per_oracle_compute_unit_in_gbs", "3"),
-					resource.TestCheckResourceAttr(resourceName, "total_container_databases", "4"),
+					resource.TestCheckResourceAttr(resourceName, "memory_per_oracle_compute_unit_in_gbs", "5"),
+					resource.TestCheckResourceAttr(resourceName, "total_container_databases", "1"),
+					resource.TestCheckNoResourceAttr(resourceName, "subscription_id"),
+					resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 					func(s *terraform.State) (err error) {
 						resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -393,6 +404,7 @@ func TestDatabaseCloudAutonomousVmClusterResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(datasourceName, "cloud_autonomous_vm_clusters.0.ocpu_count"),
 					resource.TestCheckResourceAttr(datasourceName, "cloud_autonomous_vm_clusters.0.scan_listener_port_non_tls", "2302"),
 					resource.TestCheckResourceAttr(datasourceName, "cloud_autonomous_vm_clusters.0.scan_listener_port_tls", "2709"),
+					resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "0"),
 					resource.TestCheckResourceAttrSet(datasourceName, "cloud_autonomous_vm_clusters.0.shape"),
 					resource.TestCheckResourceAttrSet(datasourceName, "cloud_autonomous_vm_clusters.0.state"),
 					resource.TestCheckResourceAttrSet(datasourceName, "cloud_autonomous_vm_clusters.0.subnet_id"),
@@ -411,6 +423,8 @@ func TestDatabaseCloudAutonomousVmClusterResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(datasourceName, "cloud_autonomous_vm_clusters.0.provisioned_cpus"),
 					resource.TestCheckResourceAttrSet(datasourceName, "cloud_autonomous_vm_clusters.0.reclaimable_cpus"),
 					resource.TestCheckResourceAttrSet(datasourceName, "cloud_autonomous_vm_clusters.0.reserved_cpus"),
+					resource.TestCheckResourceAttr(datasourceName, "cloud_autonomous_vm_clusters.0.subscription_id", ""),
+					resource.TestCheckResourceAttr(resourceName, "cloud_autonomous_vm_clusters.0.system_tags.%", "0"),
 				),
 			},
 			// verify singular datasource
@@ -441,8 +455,8 @@ func TestDatabaseCloudAutonomousVmClusterResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
 					resource.TestCheckResourceAttr(singularDatasourceName, "maintenance_window.#", "1"),
 					// 					resource.TestCheckResourceAttr(singularDatasourceName, "cpu_core_count_per_node", "40"),
-					resource.TestCheckResourceAttr(singularDatasourceName, "memory_per_oracle_compute_unit_in_gbs", "3"),
-					resource.TestCheckResourceAttr(singularDatasourceName, "total_container_databases", "4"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "memory_per_oracle_compute_unit_in_gbs", "5"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "total_container_databases", "1"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "exadata_storage_in_tbs_lowest_scaled_value"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "max_acds_lowest_scaled_value"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "ocpus_lowest_scaled_value"),
@@ -452,6 +466,8 @@ func TestDatabaseCloudAutonomousVmClusterResource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "provisioned_cpus"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "reclaimable_cpus"),
 					resource.TestCheckResourceAttrSet(singularDatasourceName, "reserved_cpus"),
+					resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "0"),
+					resource.TestCheckNoResourceAttr(singularDatasourceName, "subscription_id"),
 				),
 			},
 			// verify resource import

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -64,6 +64,12 @@ type UserAssessmentSummary struct {
 	// The OCID of the last user assessment baseline against which the latest assessment was compared.
 	LastComparedBaselineId *string `mandatory:"false" json:"lastComparedBaselineId"`
 
+	// The OCID of target database group.
+	TargetDatabaseGroupId *string `mandatory:"false" json:"targetDatabaseGroupId"`
+
+	// Indicates whether the user assessment is for a target database or a target database group.
+	TargetType UserAssessmentTargetTypeEnum `mandatory:"false" json:"targetType,omitempty"`
+
 	// Details about the current state of the user assessment.
 	LifecycleDetails *string `mandatory:"false" json:"lifecycleDetails"`
 
@@ -101,11 +107,11 @@ type UserAssessmentSummary struct {
 	// Indicates whether the user assessment was created by the system or the user.
 	TriggeredBy UserAssessmentSummaryTriggeredByEnum `mandatory:"false" json:"triggeredBy,omitempty"`
 
-	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Department": "Finance"}`
 	FreeformTags map[string]string `mandatory:"false" json:"freeformTags"`
 
-	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Operations": {"CostCenter": "42"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
 }
@@ -126,6 +132,9 @@ func (m UserAssessmentSummary) ValidateEnumValue() (bool, error) {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for Type: %s. Supported values are: %s.", m.Type, strings.Join(GetUserAssessmentSummaryTypeEnumStringValues(), ",")))
 	}
 
+	if _, ok := GetMappingUserAssessmentTargetTypeEnum(string(m.TargetType)); !ok && m.TargetType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TargetType: %s. Supported values are: %s.", m.TargetType, strings.Join(GetUserAssessmentTargetTypeEnumStringValues(), ",")))
+	}
 	if _, ok := GetMappingUserAssessmentSummaryTriggeredByEnum(string(m.TriggeredBy)); !ok && m.TriggeredBy != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TriggeredBy: %s. Supported values are: %s.", m.TriggeredBy, strings.Join(GetUserAssessmentSummaryTriggeredByEnumStringValues(), ",")))
 	}

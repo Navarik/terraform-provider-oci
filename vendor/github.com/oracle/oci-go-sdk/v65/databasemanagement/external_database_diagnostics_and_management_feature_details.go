@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -6,7 +6,7 @@
 //
 // Use the Database Management API to monitor and manage resources such as
 // Oracle Databases, MySQL Databases, and External Database Systems.
-// For more information, see Database Management (https://docs.cloud.oracle.com/iaas/database-management/home.htm).
+// For more information, see Database Management (https://docs.oracle.com/iaas/database-management/home.htm).
 //
 
 package databasemanagement
@@ -21,6 +21,12 @@ import (
 // ExternalDatabaseDiagnosticsAndManagementFeatureDetails The details required to enable the Diagnostics and Management feature.
 type ExternalDatabaseDiagnosticsAndManagementFeatureDetails struct {
 	ConnectorDetails ConnectorDetails `mandatory:"true" json:"connectorDetails"`
+
+	// Indicates whether Diagnostics & Management should be enabled for all the current pluggable databases in the container database.
+	CanEnableAllCurrentPdbs *bool `mandatory:"false" json:"canEnableAllCurrentPdbs"`
+
+	// Indicates whether Diagnostics & Management should be enabled automatically for all the pluggable databases in the container database.
+	IsAutoEnablePluggableDatabase *bool `mandatory:"false" json:"isAutoEnablePluggableDatabase"`
 
 	// The Oracle license model that applies to the external database.
 	LicenseModel ExternalDatabaseDiagnosticsAndManagementFeatureDetailsLicenseModelEnum `mandatory:"true" json:"licenseModel"`
@@ -67,8 +73,10 @@ func (m ExternalDatabaseDiagnosticsAndManagementFeatureDetails) MarshalJSON() (b
 // UnmarshalJSON unmarshals from json
 func (m *ExternalDatabaseDiagnosticsAndManagementFeatureDetails) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		ConnectorDetails connectordetails                                                       `json:"connectorDetails"`
-		LicenseModel     ExternalDatabaseDiagnosticsAndManagementFeatureDetailsLicenseModelEnum `json:"licenseModel"`
+		CanEnableAllCurrentPdbs       *bool                                                                  `json:"canEnableAllCurrentPdbs"`
+		IsAutoEnablePluggableDatabase *bool                                                                  `json:"isAutoEnablePluggableDatabase"`
+		ConnectorDetails              connectordetails                                                       `json:"connectorDetails"`
+		LicenseModel                  ExternalDatabaseDiagnosticsAndManagementFeatureDetailsLicenseModelEnum `json:"licenseModel"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -76,6 +84,10 @@ func (m *ExternalDatabaseDiagnosticsAndManagementFeatureDetails) UnmarshalJSON(d
 		return
 	}
 	var nn interface{}
+	m.CanEnableAllCurrentPdbs = model.CanEnableAllCurrentPdbs
+
+	m.IsAutoEnablePluggableDatabase = model.IsAutoEnablePluggableDatabase
+
 	nn, e = model.ConnectorDetails.UnmarshalPolymorphicJSON(model.ConnectorDetails.JsonData)
 	if e != nil {
 		return

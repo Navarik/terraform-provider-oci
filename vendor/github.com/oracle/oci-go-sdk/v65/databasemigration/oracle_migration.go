@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -75,6 +75,9 @@ type OracleMigration struct {
 
 	// The OCID of the resource being referenced.
 	SourceContainerDatabaseConnectionId *string `mandatory:"false" json:"sourceContainerDatabaseConnectionId"`
+
+	// The OCID of the resource being referenced.
+	SourceStandbyDatabaseConnectionId *string `mandatory:"false" json:"sourceStandbyDatabaseConnectionId"`
 
 	// List of Migration Parameter objects.
 	AdvancedParameters []MigrationParameterDetails `mandatory:"false" json:"advancedParameters"`
@@ -239,6 +242,7 @@ func (m *OracleMigration) UnmarshalJSON(data []byte) (e error) {
 		HubDetails                          *GoldenGateHubDetails             `json:"hubDetails"`
 		GgsDetails                          *OracleGgsDeploymentDetails       `json:"ggsDetails"`
 		SourceContainerDatabaseConnectionId *string                           `json:"sourceContainerDatabaseConnectionId"`
+		SourceStandbyDatabaseConnectionId   *string                           `json:"sourceStandbyDatabaseConnectionId"`
 		AdvancedParameters                  []MigrationParameterDetails       `json:"advancedParameters"`
 		Id                                  *string                           `json:"id"`
 		DisplayName                         *string                           `json:"displayName"`
@@ -292,6 +296,8 @@ func (m *OracleMigration) UnmarshalJSON(data []byte) (e error) {
 	m.GgsDetails = model.GgsDetails
 
 	m.SourceContainerDatabaseConnectionId = model.SourceContainerDatabaseConnectionId
+
+	m.SourceStandbyDatabaseConnectionId = model.SourceStandbyDatabaseConnectionId
 
 	m.AdvancedParameters = make([]MigrationParameterDetails, len(model.AdvancedParameters))
 	copy(m.AdvancedParameters, model.AdvancedParameters)

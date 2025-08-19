@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -64,6 +64,12 @@ type SecurityAssessment struct {
 	// The version of the target database.
 	TargetVersion *string `mandatory:"false" json:"targetVersion"`
 
+	// The ocid of a security assessment which is of type TEMPLATE, this will be null or empty when type is TEMPLATE.
+	TemplateAssessmentId *string `mandatory:"false" json:"templateAssessmentId"`
+
+	// The ocid of a security assessment which is of type TEMPLATE_BASELINE, this will be null or empty when type is TEMPLATE_BASELINE.
+	BaselineAssessmentId *string `mandatory:"false" json:"baselineAssessmentId"`
+
 	// Indicates whether or not the security assessment is set as a baseline. This is applicable only for saved security assessments.
 	IsBaseline *bool `mandatory:"false" json:"isBaseline"`
 
@@ -88,6 +94,15 @@ type SecurityAssessment struct {
 	// Indicates whether the assessment is scheduled to run.
 	IsAssessmentScheduled *bool `mandatory:"false" json:"isAssessmentScheduled"`
 
+	// The OCID of the target database group that the group assessment is created for.
+	TargetDatabaseGroupId *string `mandatory:"false" json:"targetDatabaseGroupId"`
+
+	// Indicates whether the security assessment is for a target database or a target database group.
+	TargetType SecurityAssessmentTargetTypeEnum `mandatory:"false" json:"targetType,omitempty"`
+
+	// The security checks to be evaluated for type template.
+	Checks []Check `mandatory:"false" json:"checks"`
+
 	// Schedule to save the assessment periodically in the specified format:
 	// <version-string>;<version-specific-schedule>
 	// Allowed version strings - "v1"
@@ -108,11 +123,11 @@ type SecurityAssessment struct {
 
 	Statistics *SecurityAssessmentStatistics `mandatory:"false" json:"statistics"`
 
-	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Department": "Finance"}`
 	FreeformTags map[string]string `mandatory:"false" json:"freeformTags"`
 
-	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+	// Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
 	// Example: `{"Operations": {"CostCenter": "42"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
 
@@ -139,6 +154,9 @@ func (m SecurityAssessment) ValidateEnumValue() (bool, error) {
 
 	if _, ok := GetMappingSecurityAssessmentTriggeredByEnum(string(m.TriggeredBy)); !ok && m.TriggeredBy != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TriggeredBy: %s. Supported values are: %s.", m.TriggeredBy, strings.Join(GetSecurityAssessmentTriggeredByEnumStringValues(), ",")))
+	}
+	if _, ok := GetMappingSecurityAssessmentTargetTypeEnum(string(m.TargetType)); !ok && m.TargetType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TargetType: %s. Supported values are: %s.", m.TargetType, strings.Join(GetSecurityAssessmentTargetTypeEnumStringValues(), ",")))
 	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
@@ -193,24 +211,30 @@ type SecurityAssessmentTypeEnum string
 
 // Set of constants representing the allowable values for SecurityAssessmentTypeEnum
 const (
-	SecurityAssessmentTypeLatest       SecurityAssessmentTypeEnum = "LATEST"
-	SecurityAssessmentTypeSaved        SecurityAssessmentTypeEnum = "SAVED"
-	SecurityAssessmentTypeSaveSchedule SecurityAssessmentTypeEnum = "SAVE_SCHEDULE"
-	SecurityAssessmentTypeCompartment  SecurityAssessmentTypeEnum = "COMPARTMENT"
+	SecurityAssessmentTypeLatest           SecurityAssessmentTypeEnum = "LATEST"
+	SecurityAssessmentTypeSaved            SecurityAssessmentTypeEnum = "SAVED"
+	SecurityAssessmentTypeSaveSchedule     SecurityAssessmentTypeEnum = "SAVE_SCHEDULE"
+	SecurityAssessmentTypeCompartment      SecurityAssessmentTypeEnum = "COMPARTMENT"
+	SecurityAssessmentTypeTemplate         SecurityAssessmentTypeEnum = "TEMPLATE"
+	SecurityAssessmentTypeTemplateBaseline SecurityAssessmentTypeEnum = "TEMPLATE_BASELINE"
 )
 
 var mappingSecurityAssessmentTypeEnum = map[string]SecurityAssessmentTypeEnum{
-	"LATEST":        SecurityAssessmentTypeLatest,
-	"SAVED":         SecurityAssessmentTypeSaved,
-	"SAVE_SCHEDULE": SecurityAssessmentTypeSaveSchedule,
-	"COMPARTMENT":   SecurityAssessmentTypeCompartment,
+	"LATEST":            SecurityAssessmentTypeLatest,
+	"SAVED":             SecurityAssessmentTypeSaved,
+	"SAVE_SCHEDULE":     SecurityAssessmentTypeSaveSchedule,
+	"COMPARTMENT":       SecurityAssessmentTypeCompartment,
+	"TEMPLATE":          SecurityAssessmentTypeTemplate,
+	"TEMPLATE_BASELINE": SecurityAssessmentTypeTemplateBaseline,
 }
 
 var mappingSecurityAssessmentTypeEnumLowerCase = map[string]SecurityAssessmentTypeEnum{
-	"latest":        SecurityAssessmentTypeLatest,
-	"saved":         SecurityAssessmentTypeSaved,
-	"save_schedule": SecurityAssessmentTypeSaveSchedule,
-	"compartment":   SecurityAssessmentTypeCompartment,
+	"latest":            SecurityAssessmentTypeLatest,
+	"saved":             SecurityAssessmentTypeSaved,
+	"save_schedule":     SecurityAssessmentTypeSaveSchedule,
+	"compartment":       SecurityAssessmentTypeCompartment,
+	"template":          SecurityAssessmentTypeTemplate,
+	"template_baseline": SecurityAssessmentTypeTemplateBaseline,
 }
 
 // GetSecurityAssessmentTypeEnumValues Enumerates the set of values for SecurityAssessmentTypeEnum
@@ -229,6 +253,8 @@ func GetSecurityAssessmentTypeEnumStringValues() []string {
 		"SAVED",
 		"SAVE_SCHEDULE",
 		"COMPARTMENT",
+		"TEMPLATE",
+		"TEMPLATE_BASELINE",
 	}
 }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -19,13 +19,13 @@ import (
 // CreateJobRunDetails Parameters needed to create a new job run.
 type CreateJobRunDetails struct {
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project to associate the job with.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project to associate the job run with.
 	ProjectId *string `mandatory:"true" json:"projectId"`
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want to create the job.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want to create the job run.
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job to create a run for.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job to create a run for.
 	JobId *string `mandatory:"true" json:"jobId"`
 
 	// A user-friendly display name for the resource.
@@ -37,11 +37,15 @@ type CreateJobRunDetails struct {
 
 	JobEnvironmentConfigurationOverrideDetails JobEnvironmentConfigurationDetails `mandatory:"false" json:"jobEnvironmentConfigurationOverrideDetails"`
 
-	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. See Resource Tags (https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+	JobInfrastructureConfigurationOverrideDetails JobInfrastructureConfigurationDetails `mandatory:"false" json:"jobInfrastructureConfigurationOverrideDetails"`
+
+	JobNodeConfigurationOverrideDetails JobNodeConfigurationDetails `mandatory:"false" json:"jobNodeConfigurationOverrideDetails"`
+
+	// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. See Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
 	// Example: `{"Department": "Finance"}`
 	FreeformTags map[string]string `mandatory:"false" json:"freeformTags"`
 
-	// Defined tags for this resource. Each key is predefined and scoped to a namespace. See Resource Tags (https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+	// Defined tags for this resource. Each key is predefined and scoped to a namespace. See Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
 	// Example: `{"Operations": {"CostCenter": "42"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
 }
@@ -65,15 +69,17 @@ func (m CreateJobRunDetails) ValidateEnumValue() (bool, error) {
 // UnmarshalJSON unmarshals from json
 func (m *CreateJobRunDetails) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		DisplayName                                *string                            `json:"displayName"`
-		JobConfigurationOverrideDetails            jobconfigurationdetails            `json:"jobConfigurationOverrideDetails"`
-		JobLogConfigurationOverrideDetails         *JobLogConfigurationDetails        `json:"jobLogConfigurationOverrideDetails"`
-		JobEnvironmentConfigurationOverrideDetails jobenvironmentconfigurationdetails `json:"jobEnvironmentConfigurationOverrideDetails"`
-		FreeformTags                               map[string]string                  `json:"freeformTags"`
-		DefinedTags                                map[string]map[string]interface{}  `json:"definedTags"`
-		ProjectId                                  *string                            `json:"projectId"`
-		CompartmentId                              *string                            `json:"compartmentId"`
-		JobId                                      *string                            `json:"jobId"`
+		DisplayName                                   *string                               `json:"displayName"`
+		JobConfigurationOverrideDetails               jobconfigurationdetails               `json:"jobConfigurationOverrideDetails"`
+		JobLogConfigurationOverrideDetails            *JobLogConfigurationDetails           `json:"jobLogConfigurationOverrideDetails"`
+		JobEnvironmentConfigurationOverrideDetails    jobenvironmentconfigurationdetails    `json:"jobEnvironmentConfigurationOverrideDetails"`
+		JobInfrastructureConfigurationOverrideDetails jobinfrastructureconfigurationdetails `json:"jobInfrastructureConfigurationOverrideDetails"`
+		JobNodeConfigurationOverrideDetails           jobnodeconfigurationdetails           `json:"jobNodeConfigurationOverrideDetails"`
+		FreeformTags                                  map[string]string                     `json:"freeformTags"`
+		DefinedTags                                   map[string]map[string]interface{}     `json:"definedTags"`
+		ProjectId                                     *string                               `json:"projectId"`
+		CompartmentId                                 *string                               `json:"compartmentId"`
+		JobId                                         *string                               `json:"jobId"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -103,6 +109,26 @@ func (m *CreateJobRunDetails) UnmarshalJSON(data []byte) (e error) {
 		m.JobEnvironmentConfigurationOverrideDetails = nn.(JobEnvironmentConfigurationDetails)
 	} else {
 		m.JobEnvironmentConfigurationOverrideDetails = nil
+	}
+
+	nn, e = model.JobInfrastructureConfigurationOverrideDetails.UnmarshalPolymorphicJSON(model.JobInfrastructureConfigurationOverrideDetails.JsonData)
+	if e != nil {
+		return
+	}
+	if nn != nil {
+		m.JobInfrastructureConfigurationOverrideDetails = nn.(JobInfrastructureConfigurationDetails)
+	} else {
+		m.JobInfrastructureConfigurationOverrideDetails = nil
+	}
+
+	nn, e = model.JobNodeConfigurationOverrideDetails.UnmarshalPolymorphicJSON(model.JobNodeConfigurationOverrideDetails.JsonData)
+	if e != nil {
+		return
+	}
+	if nn != nil {
+		m.JobNodeConfigurationOverrideDetails = nn.(JobNodeConfigurationDetails)
+	} else {
+		m.JobNodeConfigurationOverrideDetails = nil
 	}
 
 	m.FreeformTags = model.FreeformTags

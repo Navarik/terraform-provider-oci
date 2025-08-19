@@ -5,12 +5,13 @@ package resource_scheduler
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -40,7 +41,6 @@ func ResourceSchedulerScheduleResource() *schema.Resource {
 			"compartment_id": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 			"recurrence_details": {
 				Type:     schema.TypeString,
@@ -159,6 +159,43 @@ func ResourceSchedulerScheduleResource() *schema.Resource {
 							Computed: true,
 							Elem:     schema.TypeString,
 						},
+						"parameters": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Computed: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+									"parameter_type": {
+										Type:             schema.TypeString,
+										Required:         true,
+										DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
+										ValidateFunc: validation.StringInSlice([]string{
+											"BODY",
+											"HEADER",
+											"PATH",
+											"QUERY",
+										}, true),
+									},
+
+									// Optional
+									"value": {
+										Type:             schema.TypeList,
+										Optional:         true,
+										Computed:         true,
+										MaxItems:         1,
+										MinItems:         1,
+										DiffSuppressFunc: tfresource.JsonStringDiffSuppressFunction,
+										Elem: &schema.Schema{
+											Type:             schema.TypeString, // Store as a JSON string to handle both cases
+											ValidateFunc:     validation.StringIsJSON,
+											DiffSuppressFunc: tfresource.JsonStringDiffSuppressFunction},
+									},
+
+									// Computed
+								},
+							},
+						},
 
 						// Computed
 					},
@@ -188,6 +225,10 @@ func ResourceSchedulerScheduleResource() *schema.Resource {
 			},
 
 			// Computed
+			"last_run_status": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"system_tags": {
 				Type:     schema.TypeMap,
 				Computed: true,
@@ -436,15 +477,15 @@ func (s *ResourceSchedulerScheduleResourceCrud) Create() error {
 	if identifier != nil {
 		s.D.SetId(*identifier)
 	}
-	return s.getScheduleFromWorkRequest(workId, tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "resource_scheduler"), oci_resource_scheduler.ActionTypeRelated, s.D.Timeout(schema.TimeoutCreate))
+	return s.getScheduleFromWorkRequest(workId, tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "resource_scheduler"), []oci_resource_scheduler.ActionTypeEnum{oci_resource_scheduler.ActionTypeRelated, oci_resource_scheduler.ActionTypeCreated}, s.D.Timeout(schema.TimeoutCreate))
 }
 
 func (s *ResourceSchedulerScheduleResourceCrud) getScheduleFromWorkRequest(workId *string, retryPolicy *oci_common.RetryPolicy,
-	actionTypeEnum oci_resource_scheduler.ActionTypeEnum, timeout time.Duration) error {
+	actions []oci_resource_scheduler.ActionTypeEnum, timeout time.Duration) error {
 
 	// Wait until it finishes
 	scheduleId, err := scheduleWaitForWorkRequest(workId, "resourceschedule",
-		actionTypeEnum, timeout, s.DisableNotFoundRetries, s.Client)
+		actions, timeout, s.DisableNotFoundRetries, s.Client)
 
 	if err != nil {
 		// Try to cancel the work request
@@ -489,13 +530,13 @@ func scheduleWorkRequestShouldRetryFunc(timeout time.Duration) func(response oci
 	}
 }
 
-func scheduleWaitForWorkRequest(wId *string, entityType string, action oci_resource_scheduler.ActionTypeEnum,
+func scheduleWaitForWorkRequest(wId *string, entityType string, actions []oci_resource_scheduler.ActionTypeEnum,
 	timeout time.Duration, disableFoundRetries bool, client *oci_resource_scheduler.ScheduleClient) (*string, error) {
 	retryPolicy := tfresource.GetRetryPolicy(disableFoundRetries, "resource_scheduler")
 	retryPolicy.ShouldRetryOperation = scheduleWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_resource_scheduler.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_resource_scheduler.OperationStatusInProgress),
 			string(oci_resource_scheduler.OperationStatusAccepted),
@@ -528,7 +569,7 @@ func scheduleWaitForWorkRequest(wId *string, entityType string, action oci_resou
 	// The work request response contains an array of objects that finished the operation
 	for _, res := range response.Resources {
 		if strings.Contains(strings.ToLower(*res.EntityType), entityType) {
-			if res.ActionType == action {
+			if isActionTypeInList(res.ActionType, actions) {
 				identifier = res.Identifier
 				break
 			}
@@ -537,13 +578,23 @@ func scheduleWaitForWorkRequest(wId *string, entityType string, action oci_resou
 
 	// The workrequest may have failed, check for errors if identifier is not found or work failed or got cancelled
 	if identifier == nil || response.Status == oci_resource_scheduler.OperationStatusFailed || response.Status == oci_resource_scheduler.OperationStatusCanceled {
-		return nil, getErrorFromResourceSchedulerScheduleWorkRequest(client, wId, retryPolicy, entityType, action)
+		return nil, getErrorFromResourceSchedulerScheduleWorkRequest(client, wId, retryPolicy, entityType, response.OperationType)
 	}
 
 	return identifier, nil
 }
 
-func getErrorFromResourceSchedulerScheduleWorkRequest(client *oci_resource_scheduler.ScheduleClient, workId *string, retryPolicy *oci_common.RetryPolicy, entityType string, action oci_resource_scheduler.ActionTypeEnum) error {
+// Helper function to check if an action type is in the list
+func isActionTypeInList(action oci_resource_scheduler.ActionTypeEnum, actions []oci_resource_scheduler.ActionTypeEnum) bool {
+	for _, a := range actions {
+		if action == a {
+			return true
+		}
+	}
+	return false
+}
+
+func getErrorFromResourceSchedulerScheduleWorkRequest(client *oci_resource_scheduler.ScheduleClient, workId *string, retryPolicy *oci_common.RetryPolicy, entityType string, operation oci_resource_scheduler.OperationTypeEnum) error {
 	response, err := client.ListWorkRequestErrors(context.Background(),
 		oci_resource_scheduler.ListWorkRequestErrorsRequest{
 			WorkRequestId: workId,
@@ -561,7 +612,7 @@ func getErrorFromResourceSchedulerScheduleWorkRequest(client *oci_resource_sched
 	}
 	errorMessage := strings.Join(allErrs, "\n")
 
-	workRequestErr := fmt.Errorf("work request did not succeed, workId: %s, entity: %s, action: %s. Message: %s", *workId, entityType, action, errorMessage)
+	workRequestErr := fmt.Errorf("work request did not succeed, workId: %s, entity: %s, operation: %s. Message: %s", *workId, entityType, operation, errorMessage)
 
 	return workRequestErr
 }
@@ -584,6 +635,15 @@ func (s *ResourceSchedulerScheduleResourceCrud) Get() error {
 }
 
 func (s *ResourceSchedulerScheduleResourceCrud) Update() error {
+	if compartment, ok := s.D.GetOkExists("compartment_id"); ok && s.D.HasChange("compartment_id") {
+		oldRaw, newRaw := s.D.GetChange("compartment_id")
+		if newRaw != "" && oldRaw != "" {
+			err := s.updateCompartment(compartment)
+			if err != nil {
+				return err
+			}
+		}
+	}
 	request := oci_resource_scheduler.UpdateScheduleRequest{}
 
 	if action, ok := s.D.GetOkExists("action"); ok {
@@ -682,7 +742,7 @@ func (s *ResourceSchedulerScheduleResourceCrud) Update() error {
 	}
 
 	workId := response.OpcWorkRequestId
-	return s.getScheduleFromWorkRequest(workId, tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "resource_scheduler"), oci_resource_scheduler.ActionTypeRelated, s.D.Timeout(schema.TimeoutUpdate))
+	return s.getScheduleFromWorkRequest(workId, tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "resource_scheduler"), []oci_resource_scheduler.ActionTypeEnum{oci_resource_scheduler.ActionTypeRelated, oci_resource_scheduler.ActionTypeUpdated}, s.D.Timeout(schema.TimeoutUpdate))
 }
 
 func (s *ResourceSchedulerScheduleResourceCrud) Delete() error {
@@ -717,6 +777,8 @@ func (s *ResourceSchedulerScheduleResourceCrud) SetData() error {
 	}
 
 	s.D.Set("freeform_tags", s.Res.FreeformTags)
+
+	s.D.Set("last_run_status", s.Res.LastRunStatus)
 
 	if s.Res.RecurrenceDetails != nil {
 		s.D.Set("recurrence_details", *s.Res.RecurrenceDetails)
@@ -842,6 +904,116 @@ func DefinedTagFilterValueToMap(obj oci_resource_scheduler.DefinedTagFilterValue
 	return result
 }
 
+func (s *ResourceSchedulerScheduleResourceCrud) mapToParameter(fieldKeyFormat string) (oci_resource_scheduler.Parameter, error) {
+	var baseObject oci_resource_scheduler.Parameter
+	//discriminator
+	parameterTypeRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "parameter_type"))
+	var parameterType string
+	if ok {
+		parameterType = parameterTypeRaw.(string)
+	} else {
+		parameterType = "" // default value
+	}
+	switch strings.ToLower(parameterType) {
+	case strings.ToLower("BODY"):
+		details := oci_resource_scheduler.BodyParameter{}
+		if value, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "value")); ok {
+			if tmpList, ok := value.([]interface{}); ok && len(tmpList) > 0 {
+				jsonStr, ok := tmpList[0].(string)
+				if !ok {
+					return details, fmt.Errorf("expected string, got %T", tmpList[0])
+				}
+
+				var bodyParameterMap map[string]interface{}
+				if err := json.Unmarshal([]byte(jsonStr), &bodyParameterMap); err != nil {
+					return details, fmt.Errorf("failed to parse JSON string: %v", err)
+				}
+
+				var bodyParameterInterface interface{} = bodyParameterMap
+				details.Value = &bodyParameterInterface
+			}
+		}
+		baseObject = details
+	case strings.ToLower("HEADER"):
+		details := oci_resource_scheduler.HeaderParameter{}
+		if value, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "value")); ok {
+			valueList, isList := value.([]interface{})
+			if isList && len(valueList) > 0 {
+				if valueMap, isMap := valueList[0].(map[string]interface{}); isMap {
+					details.Value = tfresource.ObjectMapToStringMap(valueMap)
+				}
+			}
+		}
+		baseObject = details
+	case strings.ToLower("PATH"):
+		details := oci_resource_scheduler.PathParameter{}
+		if value, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "value")); ok {
+			valueList, isList := value.([]interface{})
+			if isList && len(valueList) > 0 {
+				if valueMap, isMap := valueList[0].(map[string]interface{}); isMap {
+					details.Value = tfresource.ObjectMapToStringMap(valueMap)
+				}
+			}
+		}
+		baseObject = details
+	case strings.ToLower("QUERY"):
+		details := oci_resource_scheduler.QueryParameter{}
+		if value, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "value")); ok {
+			valueList, isList := value.([]interface{})
+			if isList && len(valueList) > 0 {
+				if valueMap, isMap := valueList[0].(map[string]interface{}); isMap {
+					details.Value = tfresource.ObjectMapToStringMap(valueMap)
+				}
+			}
+		}
+		baseObject = details
+	default:
+		return nil, fmt.Errorf("unknown parameter_type '%v' was specified", parameterType)
+	}
+	return baseObject, nil
+}
+func marshalToJSONString(v interface{}) string {
+	jsonBytes, err := json.Marshal(v)
+	if err != nil {
+		log.Printf("[WARN] Failed to marshal value to JSON: %v", err)
+		return "{}"
+	}
+	return string(jsonBytes)
+}
+
+func ParameterToMap(obj oci_resource_scheduler.Parameter) map[string]interface{} {
+	result := map[string]interface{}{}
+	switch v := (obj).(type) {
+	case oci_resource_scheduler.BodyParameter:
+		result["parameter_type"] = "BODY"
+
+		if v.Value != nil {
+			jsonStr := marshalToJSONString(v.Value)
+			result["value"] = []interface{}{jsonStr}
+		}
+	case oci_resource_scheduler.HeaderParameter:
+		result["parameter_type"] = "HEADER"
+
+		jsonStr := marshalToJSONString(v.Value)
+		result["value"] = []interface{}{jsonStr}
+	case oci_resource_scheduler.PathParameter:
+		result["parameter_type"] = "PATH"
+
+		jsonStr := marshalToJSONString(v.Value)
+		result["value"] = []interface{}{jsonStr}
+	case oci_resource_scheduler.QueryParameter:
+		result["parameter_type"] = "QUERY"
+
+		jsonStr := marshalToJSONString(v.Value)
+		result["value"] = []interface{}{jsonStr}
+	default:
+		log.Printf("[WARN] Received 'parameter_type' of unknown type %v", obj)
+		return nil
+	}
+
+	return result
+}
+
 func (s *ResourceSchedulerScheduleResourceCrud) mapToResource(fieldKeyFormat string) (oci_resource_scheduler.Resource, error) {
 	result := oci_resource_scheduler.Resource{}
 
@@ -852,6 +1024,23 @@ func (s *ResourceSchedulerScheduleResourceCrud) mapToResource(fieldKeyFormat str
 
 	if metadata, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "metadata")); ok {
 		result.Metadata = tfresource.ObjectMapToStringMap(metadata.(map[string]interface{}))
+	}
+
+	if parameters, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "parameters")); ok {
+		interfaces := parameters.([]interface{})
+		tmp := make([]oci_resource_scheduler.Parameter, len(interfaces))
+		for i := range interfaces {
+			stateDataIndex := i
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "parameters"), stateDataIndex)
+			converted, err := s.mapToParameter(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, err
+			}
+			tmp[i] = converted
+		}
+		if len(tmp) != 0 || s.D.HasChange(fmt.Sprintf(fieldKeyFormat, "parameters")) {
+			result.Parameters = tmp
+		}
 	}
 
 	return result, nil
@@ -865,6 +1054,12 @@ func ResourceToMap(obj oci_resource_scheduler.Resource) map[string]interface{} {
 	}
 
 	result["metadata"] = obj.Metadata
+
+	parameters := []interface{}{}
+	for _, item := range obj.Parameters {
+		parameters = append(parameters, ParameterToMap(item))
+	}
+	result["parameters"] = parameters
 
 	return result
 }
@@ -1112,6 +1307,32 @@ func ScheduleSummaryToMap(obj oci_resource_scheduler.ScheduleSummary) map[string
 	if obj.TimeUpdated != nil {
 		result["time_updated"] = obj.TimeUpdated.String()
 	}
+
+	return result
+}
+
+func (s *ResourceSchedulerScheduleResourceCrud) updateCompartment(compartment interface{}) error {
+	changeCompartmentRequest := oci_resource_scheduler.ChangeScheduleCompartmentRequest{}
+
+	compartmentTmp := compartment.(string)
+	changeCompartmentRequest.CompartmentId = &compartmentTmp
+
+	idTmp := s.D.Id()
+	changeCompartmentRequest.ScheduleId = &idTmp
+
+	changeCompartmentRequest.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "resource_scheduler")
+
+	response, err := s.Client.ChangeScheduleCompartment(context.Background(), changeCompartmentRequest)
+	if err != nil {
+		return err
+	}
+
+	workId := response.OpcWorkRequestId
+	return s.getScheduleFromWorkRequest(workId, tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "resource_scheduler"), []oci_resource_scheduler.ActionTypeEnum{oci_resource_scheduler.ActionTypeUpdated}, s.D.Timeout(schema.TimeoutUpdate))
+}
+
+func objectToMap(obj *interface{}) map[string]interface{} {
+	result := map[string]interface{}{}
 
 	return result
 }

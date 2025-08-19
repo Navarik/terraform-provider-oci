@@ -7,12 +7,15 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
 	"github.com/oracle/terraform-provider-oci/internal/resourcediscovery"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 )
@@ -21,7 +24,7 @@ var (
 	acbDBName  = utils.RandomString(1, utils.CharsetWithoutDigits) + utils.RandomString(13, utils.Charset)
 	acbDBName2 = utils.RandomString(1, utils.CharsetWithoutDigits) + utils.RandomString(13, utils.Charset)
 
-	ExaccACDResourceConfig = ACDatabaseResourceDependencies +
+	ExaccACDResourceConfig = ACDECPUatabaseResourceDependencies +
 		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "test_autonomous_container_database", acctest.Optional, acctest.Update, ACDatabaseRepresentation)
 
 	ExaccACDRequiredOnlyResource = ExaccDatabaseAutonomousContainerDatabaseResourceFromAdsiDependencies +
@@ -40,7 +43,9 @@ var (
 	}
 
 	ACDatabaseRepresentation = map[string]interface{}{
+		"customer_contacts":            acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseCustomerContactsRepresentation},
 		"db_split_threshold":           acctest.Representation{RepType: acctest.Optional, Create: `8`},
+		"okv_end_point_group_name":     acctest.Representation{RepType: acctest.Optional, Create: `DUMMY_OKV_EPG_GROUP`, Update: `DUMMY_OKV_EPG_GROUP_2`},
 		"distribution_affinity":        acctest.Representation{RepType: acctest.Optional, Create: `MINIMUM_DISTRIBUTION`},
 		"net_services_architecture":    acctest.Representation{RepType: acctest.Optional, Create: `DEDICATED`},
 		"vm_failover_reservation":      acctest.Representation{RepType: acctest.Optional, Create: `25`},
@@ -52,12 +57,33 @@ var (
 		"key_store_id":                 acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_key_store.test_key_store.id}`},
 		"compartment_id":               acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
 		"db_unique_name":               acctest.Representation{RepType: acctest.Optional, Create: acbDBName},
-		"defined_tags":                 acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
+		"defined_tags":                 acctest.Representation{RepType: acctest.Optional, Create: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"})}`, Update: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "updatedValue"})}`},
 		"freeform_tags":                acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
 		"maintenance_window_details":   acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsRepresentation},
 		"service_level_agreement_type": acctest.Representation{RepType: acctest.Optional, Create: `STANDARD`},
 		"db_name":                      acctest.Representation{RepType: acctest.Optional, Create: `DBNAME`},
-		"db_version":                   acctest.Representation{RepType: acctest.Required, Create: utils.GetEnvSettingWithDefault("exacc_acd_db_version", "19.24.0.1.0")},
+		"db_version":                   acctest.Representation{RepType: acctest.Required, Create: utils.GetEnvSettingWithDefault("exacc_acd_db_version", "19.26.0.1.0")},
+		"is_dst_file_update_enabled":   acctest.Representation{RepType: acctest.Optional, Create: `false`, Update: `true`},
+	}
+	ACDatabaseWithRABkpDesRepresentation = map[string]interface{}{
+		"db_split_threshold":           acctest.Representation{RepType: acctest.Optional, Create: `8`},
+		"distribution_affinity":        acctest.Representation{RepType: acctest.Optional, Create: `MINIMUM_DISTRIBUTION`},
+		"net_services_architecture":    acctest.Representation{RepType: acctest.Optional, Create: `DEDICATED`},
+		"vm_failover_reservation":      acctest.Representation{RepType: acctest.Optional, Create: `25`},
+		"version_preference":           acctest.Representation{RepType: acctest.Optional, Create: `LATEST_RELEASE_UPDATE`, Update: `NEXT_RELEASE_UPDATE`},
+		"display_name":                 acctest.Representation{RepType: acctest.Required, Create: `containerdatabases2`},
+		"patch_model":                  acctest.Representation{RepType: acctest.Required, Create: `RELEASE_UPDATES`, Update: `RELEASE_UPDATE_REVISIONS`},
+		"autonomous_vm_cluster_id":     acctest.Representation{RepType: acctest.Required, Create: `${oci_database_autonomous_vm_cluster.test_autonomous_vm_cluster.id}`},
+		"backup_config":                acctest.RepresentationGroup{RepType: acctest.Required, Group: DatabaseAutonomousContainerDatabaseBackupConfigWithRAUpdateRepresentation},
+		"key_store_id":                 acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_key_store.test_key_store.id}`},
+		"compartment_id":               acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
+		"db_unique_name":               acctest.Representation{RepType: acctest.Optional, Create: acbDBName},
+		"defined_tags":                 acctest.Representation{RepType: acctest.Optional, Create: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"})}`, Update: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "updatedValue"})}`},
+		"freeform_tags":                acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
+		"maintenance_window_details":   acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsRepresentation},
+		"service_level_agreement_type": acctest.Representation{RepType: acctest.Optional, Create: `STANDARD`},
+		"db_name":                      acctest.Representation{RepType: acctest.Optional, Create: `DBNAME`},
+		"db_version":                   acctest.Representation{RepType: acctest.Required, Create: utils.GetEnvSettingWithDefault("exacc_acd_db_version", "19.26.0.1.0")},
 		"is_dst_file_update_enabled":   acctest.Representation{RepType: acctest.Optional, Create: `false`, Update: `true`},
 	}
 
@@ -76,7 +102,7 @@ var (
 		"maintenance_window_details":   acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsRepresentation},
 		"service_level_agreement_type": acctest.Representation{RepType: acctest.Optional, Create: `STANDARD`},
 		"db_name":                      acctest.Representation{RepType: acctest.Optional, Create: `DBNAME`},
-		"db_version":                   acctest.Representation{RepType: acctest.Required, Create: utils.GetEnvSettingWithDefault("exacc_acd_db_version", "19.22.0.1.0")},
+		"db_version":                   acctest.Representation{RepType: acctest.Required, Create: utils.GetEnvSettingWithDefault("exacc_acd_db_version", "19.26.0.1.0")},
 		"is_dst_file_update_enabled":   acctest.Representation{RepType: acctest.Optional, Create: `false`, Update: `true`},
 	}
 
@@ -123,16 +149,35 @@ var (
 		"vpc_password":   acctest.Representation{RepType: acctest.Optional, Create: `vpcPassword`, Update: `vpcPassword2`},
 		"vpc_user":       acctest.Representation{RepType: acctest.Optional, Create: `bkupUser1`},
 	}
-
+	autonomousContainerDatabaseBackupConfigBackupDestinationDetailsRepresentationWithNoUpdate = map[string]interface{}{
+		"type":           acctest.Representation{RepType: acctest.Required, Create: `NFS`},
+		"id":             acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_backup_destination.test_backup_destination.id}`},
+		"internet_proxy": acctest.Representation{RepType: acctest.Optional, Create: `internetProxy`},
+		"vpc_password":   acctest.Representation{RepType: acctest.Optional, Create: `vpcPassword`},
+		"vpc_user":       acctest.Representation{RepType: acctest.Optional, Create: `bkupUser1`},
+	}
+	autonomousContainerDatabaseBackupConfigBackupDestinationDetailsWithRAUpdateRepresentation = map[string]interface{}{
+		"type":           acctest.Representation{RepType: acctest.Required, Create: `NFS`, Update: `RECOVERY_APPLIANCE`},
+		"id":             acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_backup_destination.test_backup_destination.id}`, Update: `${oci_database_backup_destination.ra_backup_destination.id}`},
+		"internet_proxy": acctest.Representation{RepType: acctest.Optional, Create: `internetProxy`},
+		"vpc_password":   acctest.Representation{RepType: acctest.Optional, Create: `vpcPassword`, Update: `vpcPassword2`},
+		"vpc_user":       acctest.Representation{RepType: acctest.Optional, Create: `bkupUser1`},
+	}
+	autonomousContainerDatabaseBackupConfigBackupDestinationDetailsWithRARepresentation = map[string]interface{}{
+		"type":           acctest.Representation{RepType: acctest.Required, Create: `RECOVERY_APPLIANCE`},
+		"id":             acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_backup_destination.ra_backup_destination.id}`},
+		"internet_proxy": acctest.Representation{RepType: acctest.Optional, Create: `internetProxy`},
+		"vpc_password":   acctest.Representation{RepType: acctest.Optional, Create: `vpcPassword`},
+		"vpc_user":       acctest.Representation{RepType: acctest.Optional, Create: `bkupUser1`},
+	}
 	acdBackupConfigLocalRepresentation = map[string]interface{}{
 		"backup_destination_details": acctest.RepresentationGroup{RepType: acctest.Optional, Group: map[string]interface{}{
 			"type": acctest.Representation{RepType: acctest.Required, Create: `LOCAL`}}},
 		"recovery_window_in_days": acctest.Representation{RepType: acctest.Optional, Create: `7`},
 	}
-
 	ACDatabaseResourceDependencies = DatabaseAVMClusterWithSingleNetworkResourceDependencies +
 		acctest.GenerateResourceFromRepresentationMap("oci_database_backup_destination", "test_backup_destination", acctest.Optional, acctest.Create, backupDestinationNFSRepresentation) +
-		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_vm_cluster", "test_autonomous_vm_cluster", acctest.Required, acctest.Create, DatabaseOCPUAutonomousVmClusterRepresentation) +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_vm_cluster", "test_autonomous_vm_cluster", acctest.Required, acctest.Create, DatabaseECPUAutonomousVmClusterRepresentation) +
 		acctest.GenerateResourceFromRepresentationMap("oci_database_key_store", "test_key_store", acctest.Optional, acctest.Create, DatabaseKeyStoreRepresentation) +
 		KmsVaultIdVariableStr + OkvSecretVariableStr
 
@@ -144,11 +189,73 @@ var (
 
 	dgDbUniqueName = utils.RandomString(10, utils.CharsetWithoutDigits)
 
-	ExaccDatabaseAutonomousContainerDatabaseResourceDependencies = DatabaseAutonomousVmClusterRequiredOnlyResource +
+	DatabaseKeyStoreRepresentationWithIgnoreTagsChanges = map[string]interface{}{
+		"compartment_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"display_name":   acctest.Representation{RepType: acctest.Required, Create: `Key Store1`},
+		"type_details":   acctest.RepresentationGroup{RepType: acctest.Required, Group: DatabaseKeyStoreTypeDetailsRepresentation},
+		"defined_tags":   acctest.Representation{RepType: acctest.Optional, Create: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"})}`, Update: `${tomap({"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "updatedValue"})}`},
+		"freeform_tags":  acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
+		"lifecycle":      acctest.RepresentationGroup{RepType: acctest.Optional, Group: lifecycleGroupWithTagsIgnoreChanges},
+	}
+	lifecycleGroupWithTagsIgnoreChanges = map[string]interface{}{
+		"ignore_changes": acctest.Representation{RepType: acctest.Optional, Create: []string{`defined_tags`, `freeform_tags`}},
+	}
+	DatabaseAutonomousContainerExaccAutonomousContainerDatabaseDataguardAssociationResourceConfig2 = ExaccACDWithDataGuardResourceDependencies +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_backup_destination", "test_backup_destination", acctest.Optional, acctest.Create, backupDestinationADBCCNFSRepresentation) +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_backup_destination", "ra_backup_destination", acctest.Optional, acctest.Create, DatabaseBackupDestinationRepresentation)
+
+	ExaccACDWithDGUpdateBkpDesRepresentation = map[string]interface{}{
+		"db_version":                   acctest.Representation{RepType: acctest.Required, Create: utils.GetEnvSettingWithDefault("acd_db_version", "19.26.0.1.0")},
+		"display_name":                 acctest.Representation{RepType: acctest.Required, Create: `ACD-DG-TF-TEST`},
+		"patch_model":                  acctest.Representation{RepType: acctest.Required, Create: `RELEASE_UPDATES`, Update: `RELEASE_UPDATE_REVISIONS`},
+		"autonomous_vm_cluster_id":     acctest.Representation{RepType: acctest.Required, Create: `${oci_database_autonomous_vm_cluster.test_autonomous_vm_cluster.id}`},
+		"backup_config":                acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseBackupConfigWithRAUpdateRepresentation},
+		"compartment_id":               acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
+		"db_unique_name":               acctest.Representation{RepType: acctest.Optional, Create: dgDbUniqueName},
+		"freeform_tags":                acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
+		"maintenance_window_details":   acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsRepresentation},
+		"service_level_agreement_type": acctest.Representation{RepType: acctest.Optional, Create: `AUTONOMOUS_DATAGUARD`},
+		"peer_autonomous_container_database_backup_config":  acctest.RepresentationGroup{RepType: acctest.Optional, Group: AddStandbyAutonomousContainerDatabaseBackupConfigWithNoUpdateRepresentation},
+		"peer_autonomous_container_database_compartment_id": acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
+		"peer_autonomous_vm_cluster_id":                     acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_autonomous_vm_cluster.peer_autonomous_vm_cluster.id}`},
+		"peer_autonomous_container_database_display_name":   acctest.Representation{RepType: acctest.Optional, Create: `PEER-ACD-DG`},
+		"protection_mode":               acctest.Representation{RepType: acctest.Optional, Create: `MAXIMUM_PERFORMANCE`},
+		"is_automatic_failover_enabled": acctest.Representation{RepType: acctest.Optional, Create: `true`},
+	}
+	ExaCCStandbyAcdImportContainer = acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "standby_acd", acctest.Optional, acctest.Create,
+		acctest.RepresentationCopyWithNewProperties(StandbyACDRepresentation, map[string]interface{}{
+			"lifecycle":     acctest.RepresentationGroup{RepType: acctest.Required, Group: ignoreDataguardChangesRep},
+			"backup_config": acctest.RepresentationGroup{RepType: acctest.Required, Group: DatabaseAutonomousContainerDatabaseBackupConfigWithRARepresentation},
+			//"switchover_trigger": acctest.Representation{RepType: acctest.Required, Create: `1`},
+		}))
+	StandbyACDRepresentation = map[string]interface{}{
+		"depends_on":                 acctest.Representation{RepType: acctest.Required, Create: []string{"oci_database_autonomous_container_database.exacc_test_autonomous_container_database"}},
+		"autonomous_vm_cluster_id":   acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_autonomous_vm_cluster.peer_autonomous_vm_cluster.id}`},
+		"compartment_id":             acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
+		"display_name":               acctest.Representation{RepType: acctest.Optional, Create: `PEER-ACD-DG`},
+		"patch_model":                acctest.Representation{RepType: acctest.Required, Create: `RELEASE_UPDATES`},
+		"maintenance_window_details": acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation},
+	}
+
+	ignoreDataguardChangesWithMRRep = map[string]interface{}{
+		"ignore_changes": acctest.Representation{RepType: acctest.Required, Create: []string{`peer_autonomous_container_database_compartment_id`,
+			`peer_autonomous_container_database_display_name`,
+			`peer_autonomous_exadata_infrastructure_id`,
+			`peer_autonomous_vm_cluster_id`,
+			`peer_cloud_autonomous_vm_cluster_id`,
+			`peer_db_unique_name`,
+			`service_level_agreement_type`,
+			`protection_mode`,
+			`peer_autonomous_container_database_backup_config`,
+			`maintenance_window_details`}},
+	}
+	ExaccDatabaseAutonomousContainerDatabaseResourceDependencies = DatabaseAutonomousVmClusterResourceDependencies +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_vm_cluster", "test_autonomous_vm_cluster", acctest.Required, acctest.Create, DatabaseECPUAutonomousVmClusterRepresentation) +
 		KeyResourceDependencyConfig + kmsKeyIdCreateVariableStr + kmsKeyIdUpdateVariableStr +
 		acctest.GenerateResourceFromRepresentationMap("oci_database_backup_destination", "test_backup_destination", acctest.Optional, acctest.Create, backupDestinationADBCCNFSRepresentation) +
 		OkvSecretVariableStr +
-		acctest.GenerateResourceFromRepresentationMap("oci_database_key_store", "test_key_store", acctest.Optional, acctest.Create, DatabaseKeyStoreRepresentation)
+		acctest.GenerateResourceFromRepresentationMap("oci_database_key_store", "test_key_store", acctest.Optional, acctest.Create, DatabaseKeyStoreRepresentationWithIgnoreTagsChanges) +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_backup_destination", "ra_backup_destination", acctest.Optional, acctest.Create, DatabaseBackupDestinationRepresentation)
 
 	ExaccDatabaseAutonomousContainerDatabaseResourceFromAdsiDependencies = ExaccDatabaseAutonomousDatabaseSoftwareImageResourceConfig
 
@@ -209,6 +316,7 @@ func TestDatabaseExaccAutonomousContainerDatabaseFromAdsi_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "database_software_image_id"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME2"),
 				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "false"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -260,6 +368,7 @@ func TestDatabaseExaccAutonomousContainerDatabaseFromAdsi_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "database_software_image_id"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME2"),
 				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "true"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -273,7 +382,7 @@ func TestDatabaseExaccAutonomousContainerDatabaseFromAdsi_basic(t *testing.T) {
 
 		// verify resource import
 		{
-			Config:            config + ExaccACDRequiredOnlyResource,
+			Config:            config + ExaccACDRequiredOnlyResource + compartmentIdVariableStr,
 			ImportState:       true,
 			ImportStateVerify: true,
 			ImportStateVerifyIgnore: []string{
@@ -330,6 +439,7 @@ func TestDatabaseAutonomousContainerDatabaseFromAdsi_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "database_software_image_id"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME3"),
 				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "false"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -373,6 +483,7 @@ func TestDatabaseAutonomousContainerDatabaseFromAdsi_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "database_software_image_id"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME3"),
 				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "true"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -386,7 +497,7 @@ func TestDatabaseAutonomousContainerDatabaseFromAdsi_basic(t *testing.T) {
 
 		// verify resource import
 		{
-			Config:            config + ACDRequiredOnlyResource,
+			Config:            config + ACDRequiredOnlyResource + compartmentIdVariableStr,
 			ImportState:       true,
 			ImportStateVerify: true,
 			ImportStateVerifyIgnore: []string{
@@ -394,15 +505,90 @@ func TestDatabaseAutonomousContainerDatabaseFromAdsi_basic(t *testing.T) {
 				"maintenance_window_details",
 				"backup_config.0.backup_destination_details.0.vpc_password",
 				"is_automatic_failover_enabled",
+				"state",
 			},
 			ResourceName: resourceName,
 		},
 	})
 }
+func TestDatabaseExaccAutonomousContainerDatabase_BackupDestinationUpdate_DG(t *testing.T) {
+	httpreplay.SetScenario("TestDatabaseExaccAutonomousContainerDatabase_BackupDestinationUpdate_DG")
+	defer httpreplay.SaveScenario()
 
-// issue-routing-tag: database/dbaas-atp-d
-func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
-	httpreplay.SetScenario("TestDatabaseExaccAutonomousContainerDatabase_basic")
+	provider := acctest.TestAccProvider
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	datasourceName := "data.oci_database_autonomous_container_database_dataguard_associations.test"
+	standbyResourceName := "oci_database_autonomous_container_database.standby_acd"
+	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(t) },
+		Providers: map[string]*schema.Provider{
+			"oci": provider,
+		},
+		Steps: []resource.TestStep{
+			//  Create dg setup
+			{
+				Config: config +
+					acctest.GenerateDataSourceFromRepresentationMap("oci_database_autonomous_container_database_dataguard_associations", "test", acctest.Optional, acctest.Create, DatabaseExaccAutonomousContainerDatabaseDataguardAssociationDataSourceRepresentation) +
+					compartmentIdVariableStr + DatabaseAutonomousContainerExaccAutonomousContainerDatabaseDataguardAssociationResourceConfig2 + acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "exacc_test_autonomous_container_database", acctest.Optional, acctest.Create,
+					acctest.GetUpdatedRepresentationCopy("maintenance_window_details", acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation}, ExaccACDWithDGUpdateBkpDesRepresentation)),
+				Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.#"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.autonomous_container_database_id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.peer_autonomous_container_database_dataguard_association_id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.peer_autonomous_container_database_id"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.peer_lifecycle_state"),
+					resource.TestCheckResourceAttr(datasourceName, "autonomous_container_database_dataguard_associations.0.peer_role", "STANDBY"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.protection_mode"),
+					resource.TestCheckResourceAttr(datasourceName, "autonomous_container_database_dataguard_associations.0.role", "PRIMARY"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.state"),
+					resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_database_dataguard_associations.0.time_created"),
+				),
+			},
+			// NEW STEP: Refresh state
+			{
+				RefreshState: true, // reload state
+			},
+			{ // import the standby ACD
+				Config: config +
+					acctest.GenerateDataSourceFromRepresentationMap("oci_database_autonomous_container_database_dataguard_associations", "test", acctest.Optional, acctest.Create, DatabaseExaccAutonomousContainerDatabaseDataguardAssociationDataSourceRepresentation) +
+					compartmentIdVariableStr + DatabaseAutonomousContainerExaccAutonomousContainerDatabaseDataguardAssociationResourceConfig2 + acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "exacc_test_autonomous_container_database", acctest.Optional, acctest.Create,
+					acctest.GetUpdatedRepresentationCopy("maintenance_window_details", acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation}, ExaccACDWithDGUpdateBkpDesRepresentation)) +
+					acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "standby_acd", acctest.Optional, acctest.Create,
+						acctest.RepresentationCopyWithNewProperties(StandbyACDRepresentation, map[string]interface{}{
+							"lifecycle": acctest.RepresentationGroup{RepType: acctest.Required, Group: ignoreDataguardChangesWithMRRep},
+						})),
+				ImportState:        true,
+				ImportStateIdFunc:  getStandbyAcdOcidOldDG("data.oci_database_autonomous_container_database_dataguard_associations.test"),
+				ImportStatePersist: true,
+				ResourceName:       standbyResourceName,
+			},
+			{ // update backupDestination on standby ACD to RA
+				Config: config +
+					acctest.GenerateDataSourceFromRepresentationMap("oci_database_autonomous_container_database_dataguard_associations", "test", acctest.Optional, acctest.Create, DatabaseExaccAutonomousContainerDatabaseDataguardAssociationDataSourceRepresentation) +
+					compartmentIdVariableStr + DatabaseAutonomousContainerExaccAutonomousContainerDatabaseDataguardAssociationResourceConfig2 + acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "exacc_test_autonomous_container_database", acctest.Optional, acctest.Create,
+					acctest.GetUpdatedRepresentationCopy("maintenance_window_details", acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation}, ExaccACDWithDGUpdateBkpDesRepresentation)) +
+					acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "standby_acd", acctest.Optional, acctest.Create,
+						acctest.RepresentationCopyWithNewProperties(StandbyACDRepresentation, map[string]interface{}{
+							"lifecycle":     acctest.RepresentationGroup{RepType: acctest.Required, Group: ignoreDataguardChangesWithMRRep},
+							"backup_config": acctest.RepresentationGroup{RepType: acctest.Required, Group: DatabaseAutonomousContainerDatabaseBackupConfigWithRARepresentation},
+						})),
+				Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+					resource.TestCheckResourceAttr(standbyResourceName, "backup_config.0.backup_destination_details.0.type", "RECOVERY_APPLIANCE"),
+					resource.TestCheckResourceAttr(standbyResourceName, "display_name", "PEER-ACD-DG"),
+				),
+			},
+		},
+	})
+}
+
+func TestDatabaseExaccAutonomousContainerDatabase_BackupDestinationUpdate(t *testing.T) {
+	httpreplay.SetScenario("TestDatabaseExaccAutonomousContainerDatabase_BackupDestinationUpdate")
 	defer httpreplay.SaveScenario()
 
 	config := acctest.ProviderTestConfig()
@@ -411,8 +597,6 @@ func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
 	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
 
 	resourceName := "oci_database_autonomous_container_database.test_autonomous_container_database"
-	datasourceName := "data.oci_database_autonomous_container_databases.test_autonomous_container_databases"
-	singularDatasourceName := "data.oci_database_autonomous_container_database.test_autonomous_container_database"
 
 	var resId, resId2 string
 
@@ -421,7 +605,7 @@ func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
 		{
 			Config: config + compartmentIdVariableStr + ExaccDatabaseAutonomousContainerDatabaseResourceDependencies +
 				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "test_autonomous_container_database", acctest.Optional, acctest.Create,
-					acctest.GetUpdatedRepresentationCopy("maintenance_window_details", acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation}, ACDatabaseRepresentation)),
+					acctest.GetUpdatedRepresentationCopy("maintenance_window_details", acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation}, ACDatabaseWithRABkpDesRepresentation)),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(resourceName, "autonomous_vm_cluster_id"),
 				resource.TestCheckResourceAttr(resourceName, "backup_config.#", "1"),
@@ -458,6 +642,7 @@ func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "db_version"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME"),
 				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "false"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -471,19 +656,21 @@ func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
 			),
 		},
 
-		// verify updates to updatable parameters
+		// verify updates to updatable parameters along
+		// BackupDestination NFS to RA
 		{
 			Config: config + compartmentIdVariableStr + ExaccDatabaseAutonomousContainerDatabaseResourceDependencies +
-				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "test_autonomous_container_database", acctest.Optional, acctest.Update, ACDatabaseRepresentation),
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "test_autonomous_container_database", acctest.Optional, acctest.Update, ACDatabaseWithRABkpDesRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(resourceName, "autonomous_vm_cluster_id"),
 				resource.TestCheckResourceAttrSet(resourceName, "autonomous_vm_cluster_id"),
 				resource.TestCheckResourceAttr(resourceName, "backup_config.#", "1"),
-				resource.TestCheckResourceAttr(resourceName, "backup_config.0.recovery_window_in_days", "11"),
 				resource.TestCheckResourceAttrSet(resourceName, "backup_config.0.backup_destination_details.0.id"),
 				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.internet_proxy", "internetProxy"),
-				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.type", "NFS"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.type", "RECOVERY_APPLIANCE"),
 				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.vpc_user", "bkupUser1"),
+				resource.TestCheckResourceAttr(resourceName, "associated_backup_configuration_details.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "associated_backup_configuration_details.0.type", "NFS"),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(resourceName, "db_split_threshold", "8"),
 				resource.TestCheckResourceAttr(resourceName, "db_unique_name", acbDBName),
@@ -511,6 +698,154 @@ func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "db_version"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME"),
 				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "true"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
+
+				func(s *terraform.State) (err error) {
+					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
+					if resId != resId2 {
+						return fmt.Errorf("Resource recreated when it was supposed to be updated.")
+					}
+					return err
+				},
+			),
+		},
+		{ // BackupDestination RA to NFS
+			Config: config + compartmentIdVariableStr + ExaccDatabaseAutonomousContainerDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "test_autonomous_container_database", acctest.Optional, acctest.Create,
+					acctest.GetUpdatedRepresentationCopy("maintenance_window_details", acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation}, ACDatabaseWithRABkpDesRepresentation)),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttrSet(resourceName, "autonomous_vm_cluster_id"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.recovery_window_in_days", "10"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "backup_config.0.backup_destination_details.0.id"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.internet_proxy", "internetProxy"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.type", "NFS"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.vpc_user", "bkupUser1"),
+			),
+		},
+	})
+}
+
+// issue-routing-tag: database/dbaas-atp-d
+func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
+	httpreplay.SetScenario("TestDatabaseExaccAutonomousContainerDatabase_basic")
+	defer httpreplay.SaveScenario()
+
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	resourceName := "oci_database_autonomous_container_database.test_autonomous_container_database"
+	datasourceName := "data.oci_database_autonomous_container_databases.test_autonomous_container_databases"
+	singularDatasourceName := "data.oci_database_autonomous_container_database.test_autonomous_container_database"
+
+	var resId, resId2 string
+
+	acctest.ResourceTest(t, testAccCheckDatabaseAutonomousContainerDatabaseDestroy, []resource.TestStep{
+		// verify Create with optionals
+		{
+			Config: config + compartmentIdVariableStr + ExaccDatabaseAutonomousContainerDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "test_autonomous_container_database", acctest.Optional, acctest.Create,
+					acctest.GetUpdatedRepresentationCopy("maintenance_window_details", acctest.RepresentationGroup{RepType: acctest.Optional, Group: DatabaseAutonomousContainerDatabaseMaintenanceWindowDetailsNoPreferenceRepresentation}, ACDatabaseRepresentation)),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttrSet(resourceName, "autonomous_vm_cluster_id"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.recovery_window_in_days", "10"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "backup_config.0.backup_destination_details.0.id"),
+				resource.TestCheckResourceAttr(resourceName, "customer_contacts.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "customer_contacts.0.email", "test1@oracle.com"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.internet_proxy", "internetProxy"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.type", "NFS"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.vpc_user", "bkupUser1"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.vpc_password", "vpcPassword"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "db_split_threshold", "8"),
+				resource.TestCheckResourceAttr(resourceName, "db_unique_name", acbDBName),
+				resource.TestCheckResourceAttr(resourceName, "distribution_affinity", "MINIMUM_DISTRIBUTION"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "containerdatabases2"),
+				resource.TestCheckResourceAttrSet(resourceName, "memory_per_oracle_compute_unit_in_gbs"),
+				resource.TestCheckResourceAttr(resourceName, "okv_end_point_group_name", "DUMMY_OKV_EPG_GROUP"),
+				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttrSet(resourceName, "key_store_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "key_store_wallet_name"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.days_of_week.#", "0"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.hours_of_day.#", "0"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.months.#", "0"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.preference", "NO_PREFERENCE"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.weeks_of_month.#", "0"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.patching_mode", "ROLLING"),
+				resource.TestCheckResourceAttr(resourceName, "net_services_architecture", "DEDICATED"),
+				resource.TestCheckResourceAttr(resourceName, "patch_model", "RELEASE_UPDATES"),
+				resource.TestCheckResourceAttr(resourceName, "service_level_agreement_type", "STANDARD"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				resource.TestCheckResourceAttr(resourceName, "version_preference", "LATEST_RELEASE_UPDATE"),
+				resource.TestCheckResourceAttr(resourceName, "vm_failover_reservation", "25"),
+				resource.TestCheckResourceAttrSet(resourceName, "db_version"),
+				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME"),
+				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "false"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
+
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					if isEnableExportCompartment, _ := strconv.ParseBool(utils.GetEnvSettingWithDefault("enable_export_compartment", "true")); isEnableExportCompartment {
+						if errExport := resourcediscovery.TestExportCompartmentWithResourceName(&resId, &compartmentId, resourceName); errExport != nil {
+							return errExport
+						}
+					}
+					return err
+				},
+			),
+		},
+
+		// verify updates to updatable parameters
+		{
+			Config: config + compartmentIdVariableStr + ExaccDatabaseAutonomousContainerDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_container_database", "test_autonomous_container_database", acctest.Optional, acctest.Update, ACDatabaseRepresentation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttrSet(resourceName, "autonomous_vm_cluster_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "autonomous_vm_cluster_id"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.recovery_window_in_days", "11"),
+				resource.TestCheckResourceAttrSet(resourceName, "backup_config.0.backup_destination_details.0.id"),
+				resource.TestCheckResourceAttr(resourceName, "customer_contacts.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "customer_contacts.0.email", "test2@oracle.com"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.internet_proxy", "internetProxy"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.type", "NFS"),
+				resource.TestCheckResourceAttr(resourceName, "backup_config.0.backup_destination_details.0.vpc_user", "bkupUser1"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "okv_end_point_group_name", "DUMMY_OKV_EPG_GROUP_2"),
+				resource.TestCheckResourceAttr(resourceName, "db_split_threshold", "8"),
+				resource.TestCheckResourceAttr(resourceName, "db_unique_name", acbDBName),
+				resource.TestCheckResourceAttr(resourceName, "distribution_affinity", "MINIMUM_DISTRIBUTION"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "containerdatabases2"),
+				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttrSet(resourceName, "key_store_id"),
+				resource.TestCheckResourceAttrSet(resourceName, "key_store_wallet_name"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.days_of_week.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.days_of_week.0.name", "TUESDAY"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.hours_of_day.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.months.#", "4"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.months.0.name", "FEBRUARY"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.preference", "CUSTOM_PREFERENCE"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.weeks_of_month.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "maintenance_window.0.patching_mode", "NONROLLING"),
+				resource.TestCheckResourceAttr(resourceName, "net_services_architecture", "DEDICATED"),
+				resource.TestCheckResourceAttr(resourceName, "patch_model", "RELEASE_UPDATE_REVISIONS"),
+				resource.TestCheckResourceAttr(resourceName, "service_level_agreement_type", "STANDARD"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				resource.TestCheckResourceAttr(resourceName, "version_preference", "NEXT_RELEASE_UPDATE"),
+				resource.TestCheckResourceAttr(resourceName, "vm_failover_reservation", "25"),
+				resource.TestCheckResourceAttrSet(resourceName, "db_version"),
+				resource.TestCheckResourceAttr(resourceName, "db_name", "DBNAME"),
+				resource.TestCheckResourceAttr(resourceName, "is_dst_file_update_enabled", "true"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -567,6 +902,7 @@ func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_container_databases.0.vm_failover_reservation", "25"),
 				resource.TestCheckResourceAttrSet(datasourceName, "autonomous_container_databases.0.db_version"),
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_container_databases.0.maintenance_window.0.patching_mode", "NONROLLING"),
+				resource.TestCheckResourceAttr(resourceName, "autonomous_container_databases.0.system_tags.%", "0"),
 			),
 		},
 		// verify singular datasource
@@ -613,7 +949,7 @@ func TestDatabaseExaccAutonomousContainerDatabase_basic(t *testing.T) {
 		},
 		// verify resource import
 		{
-			Config:            config + DatabaseAutonomousContainerDatabaseRequiredOnlyResource,
+			Config:            config + DatabaseAutonomousContainerDatabaseRequiredOnlyResource + compartmentIdVariableStr,
 			ImportState:       true,
 			ImportStateVerify: true,
 			ImportStateVerifyIgnore: []string{
@@ -900,7 +1236,7 @@ func TestDatabaseAutonomousContainerDatabase_rotateDatabase(t *testing.T) {
 		},
 		// verify resource import
 		{
-			Config:            config + DatabaseAutonomousContainerDatabaseRequiredOnlyResource,
+			Config:            config + DatabaseAutonomousContainerDatabaseRequiredOnlyResource + compartmentIdVariableStr,
 			ImportState:       true,
 			ImportStateVerify: true,
 			ImportStateVerifyIgnore: []string{

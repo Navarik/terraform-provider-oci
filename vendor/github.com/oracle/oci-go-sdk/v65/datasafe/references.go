@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-// References References to the sections of STIG, CIS, GDPR and/or OBP relevant to the current finding.
+// References References to the sections of STIG, CIS, GDPR and/or ORP relevant to the current finding.
 type References struct {
 
 	// Relevant section from STIG.
@@ -29,6 +29,9 @@ type References struct {
 
 	// Relevant section from OBP.
 	Obp *string `mandatory:"false" json:"obp"`
+
+	// Relevant section from ORP.
+	Orp *string `mandatory:"false" json:"orp"`
 }
 
 func (m References) String() string {

@@ -1,11 +1,11 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
 // Management Agent API
 //
 // Use the Management Agent API to manage your infrastructure's management agents, including their plugins and install keys.
-// For more information, see Management Agent (https://docs.cloud.oracle.com/iaas/management-agents/index.html).
+// For more information, see Management Agent (https://docs.oracle.com/iaas/management-agents/index.html).
 //
 
 package managementagent
@@ -23,6 +23,7 @@ const (
 	ArchitectureTypesSparc   ArchitectureTypesEnum = "SPARC"
 	ArchitectureTypesX86     ArchitectureTypesEnum = "X86"
 	ArchitectureTypesM1      ArchitectureTypesEnum = "M1"
+	ArchitectureTypesPpc64   ArchitectureTypesEnum = "PPC64"
 	ArchitectureTypesAarch64 ArchitectureTypesEnum = "AARCH64"
 )
 
@@ -31,6 +32,7 @@ var mappingArchitectureTypesEnum = map[string]ArchitectureTypesEnum{
 	"SPARC":   ArchitectureTypesSparc,
 	"X86":     ArchitectureTypesX86,
 	"M1":      ArchitectureTypesM1,
+	"PPC64":   ArchitectureTypesPpc64,
 	"AARCH64": ArchitectureTypesAarch64,
 }
 
@@ -39,6 +41,7 @@ var mappingArchitectureTypesEnumLowerCase = map[string]ArchitectureTypesEnum{
 	"sparc":   ArchitectureTypesSparc,
 	"x86":     ArchitectureTypesX86,
 	"m1":      ArchitectureTypesM1,
+	"ppc64":   ArchitectureTypesPpc64,
 	"aarch64": ArchitectureTypesAarch64,
 }
 
@@ -58,6 +61,7 @@ func GetArchitectureTypesEnumStringValues() []string {
 		"SPARC",
 		"X86",
 		"M1",
+		"PPC64",
 		"AARCH64",
 	}
 }

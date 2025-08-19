@@ -10,7 +10,7 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 )
@@ -81,6 +81,7 @@ func TestOspGatewaySubscriptionResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "currency_code"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "gsi_org_code"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "id"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "is_corporate_conversion_allowed"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "is_intent_to_pay"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "language_code"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "organization_id"),

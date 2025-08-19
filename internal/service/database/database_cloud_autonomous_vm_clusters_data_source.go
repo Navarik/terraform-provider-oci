@@ -304,6 +304,8 @@ func (s *DatabaseCloudAutonomousVmClustersDataSourceCrud) SetData() error {
 			cloudAutonomousVmCluster["scan_listener_port_tls"] = *r.ScanListenerPortTls
 		}
 
+		cloudAutonomousVmCluster["security_attributes"] = tfresource.SecurityAttributesToMap(r.SecurityAttributes)
+
 		if r.Shape != nil {
 			cloudAutonomousVmCluster["shape"] = *r.Shape
 		}
@@ -314,8 +316,24 @@ func (s *DatabaseCloudAutonomousVmClustersDataSourceCrud) SetData() error {
 			cloudAutonomousVmCluster["subnet_id"] = *r.SubnetId
 		}
 
+		if r.SubscriptionId != nil {
+			cloudAutonomousVmCluster["subscription_id"] = *r.SubscriptionId
+		}
+
+		if r.SystemTags != nil {
+			cloudAutonomousVmCluster["system_tags"] = tfresource.SystemTagsToMap(r.SystemTags)
+		}
+
 		if r.TimeCreated != nil {
 			cloudAutonomousVmCluster["time_created"] = r.TimeCreated.String()
+		}
+
+		if r.TimeDatabaseSslCertificateExpires != nil {
+			cloudAutonomousVmCluster["time_database_ssl_certificate_expires"] = r.TimeDatabaseSslCertificateExpires.String()
+		}
+
+		if r.TimeOrdsCertificateExpires != nil {
+			cloudAutonomousVmCluster["time_ords_certificate_expires"] = r.TimeOrdsCertificateExpires.String()
 		}
 
 		if r.TimeUpdated != nil {

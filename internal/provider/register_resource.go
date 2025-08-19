@@ -6,12 +6,13 @@ package provider
 import (
 	"github.com/oracle/oci-go-sdk/v65/common"
 	tf_adm "github.com/oracle/terraform-provider-oci/internal/service/adm"
-	tf_ai_anomaly_detection "github.com/oracle/terraform-provider-oci/internal/service/ai_anomaly_detection"
 	tf_ai_document "github.com/oracle/terraform-provider-oci/internal/service/ai_document"
 	tf_ai_language "github.com/oracle/terraform-provider-oci/internal/service/ai_language"
 	tf_ai_vision "github.com/oracle/terraform-provider-oci/internal/service/ai_vision"
 	tf_analytics "github.com/oracle/terraform-provider-oci/internal/service/analytics"
 	tf_announcements_service "github.com/oracle/terraform-provider-oci/internal/service/announcements_service"
+	tf_api_platform "github.com/oracle/terraform-provider-oci/internal/service/api_platform"
+	tf_apiaccesscontrol "github.com/oracle/terraform-provider-oci/internal/service/apiaccesscontrol"
 	tf_apigateway "github.com/oracle/terraform-provider-oci/internal/service/apigateway"
 	tf_apm "github.com/oracle/terraform-provider-oci/internal/service/apm"
 	tf_apm_config "github.com/oracle/terraform-provider-oci/internal/service/apm_config"
@@ -46,13 +47,14 @@ import (
 	tf_dataflow "github.com/oracle/terraform-provider-oci/internal/service/dataflow"
 	tf_dataintegration "github.com/oracle/terraform-provider-oci/internal/service/dataintegration"
 	tf_datascience "github.com/oracle/terraform-provider-oci/internal/service/datascience"
+	tf_dblm "github.com/oracle/terraform-provider-oci/internal/service/dblm"
+	tf_dbmulticloud "github.com/oracle/terraform-provider-oci/internal/service/dbmulticloud"
 	tf_delegate_access_control "github.com/oracle/terraform-provider-oci/internal/service/delegate_access_control"
 	tf_demand_signal "github.com/oracle/terraform-provider-oci/internal/service/demand_signal"
 	tf_desktops "github.com/oracle/terraform-provider-oci/internal/service/desktops"
 	tf_devops "github.com/oracle/terraform-provider-oci/internal/service/devops"
 	tf_disaster_recovery "github.com/oracle/terraform-provider-oci/internal/service/disaster_recovery"
 	tf_dns "github.com/oracle/terraform-provider-oci/internal/service/dns"
-	tf_em_warehouse "github.com/oracle/terraform-provider-oci/internal/service/em_warehouse"
 	tf_email "github.com/oracle/terraform-provider-oci/internal/service/email"
 	tf_events "github.com/oracle/terraform-provider-oci/internal/service/events"
 	tf_file_storage "github.com/oracle/terraform-provider-oci/internal/service/file_storage"
@@ -61,7 +63,9 @@ import (
 	tf_functions "github.com/oracle/terraform-provider-oci/internal/service/functions"
 	tf_fusion_apps "github.com/oracle/terraform-provider-oci/internal/service/fusion_apps"
 	tf_generative_ai "github.com/oracle/terraform-provider-oci/internal/service/generative_ai"
+	tf_generative_ai_agent "github.com/oracle/terraform-provider-oci/internal/service/generative_ai_agent"
 	tf_generic_artifacts_content "github.com/oracle/terraform-provider-oci/internal/service/generic_artifacts_content"
+	tf_globally_distributed_database "github.com/oracle/terraform-provider-oci/internal/service/globally_distributed_database"
 	tf_golden_gate "github.com/oracle/terraform-provider-oci/internal/service/golden_gate"
 	tf_health_checks "github.com/oracle/terraform-provider-oci/internal/service/health_checks"
 	tf_identity "github.com/oracle/terraform-provider-oci/internal/service/identity"
@@ -76,6 +80,7 @@ import (
 	tf_load_balancer "github.com/oracle/terraform-provider-oci/internal/service/load_balancer"
 	tf_log_analytics "github.com/oracle/terraform-provider-oci/internal/service/log_analytics"
 	tf_logging "github.com/oracle/terraform-provider-oci/internal/service/logging"
+	tf_lustre_file_storage "github.com/oracle/terraform-provider-oci/internal/service/lustre_file_storage"
 	tf_management_agent "github.com/oracle/terraform-provider-oci/internal/service/management_agent"
 	tf_management_dashboard "github.com/oracle/terraform-provider-oci/internal/service/management_dashboard"
 	tf_marketplace "github.com/oracle/terraform-provider-oci/internal/service/marketplace"
@@ -98,7 +103,6 @@ import (
 	tf_opsi "github.com/oracle/terraform-provider-oci/internal/service/opsi"
 	tf_optimizer "github.com/oracle/terraform-provider-oci/internal/service/optimizer"
 	tf_os_management_hub "github.com/oracle/terraform-provider-oci/internal/service/os_management_hub"
-	tf_osmanagement "github.com/oracle/terraform-provider-oci/internal/service/osmanagement"
 	tf_osp_gateway "github.com/oracle/terraform-provider-oci/internal/service/osp_gateway"
 	tf_osub_billing_schedule "github.com/oracle/terraform-provider-oci/internal/service/osub_billing_schedule"
 	tf_osub_organization_subscription "github.com/oracle/terraform-provider-oci/internal/service/osub_organization_subscription"
@@ -115,9 +119,9 @@ import (
 	tf_security_attribute "github.com/oracle/terraform-provider-oci/internal/service/security_attribute"
 	tf_service_catalog "github.com/oracle/terraform-provider-oci/internal/service/service_catalog"
 	tf_service_manager_proxy "github.com/oracle/terraform-provider-oci/internal/service/service_manager_proxy"
-	tf_service_mesh "github.com/oracle/terraform-provider-oci/internal/service/service_mesh"
 	tf_stack_monitoring "github.com/oracle/terraform-provider-oci/internal/service/stack_monitoring"
 	tf_streaming "github.com/oracle/terraform-provider-oci/internal/service/streaming"
+	tf_tenantmanagercontrolplane "github.com/oracle/terraform-provider-oci/internal/service/tenantmanagercontrolplane"
 	tf_usage_proxy "github.com/oracle/terraform-provider-oci/internal/service/usage_proxy"
 	tf_vault "github.com/oracle/terraform-provider-oci/internal/service/vault"
 	tf_vbs_inst "github.com/oracle/terraform-provider-oci/internal/service/vbs_inst"
@@ -127,15 +131,13 @@ import (
 	tf_waa "github.com/oracle/terraform-provider-oci/internal/service/waa"
 	tf_waas "github.com/oracle/terraform-provider-oci/internal/service/waas"
 	tf_waf "github.com/oracle/terraform-provider-oci/internal/service/waf"
+	tf_wlms "github.com/oracle/terraform-provider-oci/internal/service/wlms"
 	tf_zpr "github.com/oracle/terraform-provider-oci/internal/service/zpr"
 )
 
 func init() {
 	if common.CheckForEnabledServices("adm") {
 		tf_adm.RegisterResource()
-	}
-	if common.CheckForEnabledServices("aianomalydetection") {
-		tf_ai_anomaly_detection.RegisterResource()
 	}
 	if common.CheckForEnabledServices("aidocument") {
 		tf_ai_document.RegisterResource()
@@ -151,6 +153,12 @@ func init() {
 	}
 	if common.CheckForEnabledServices("announcementsservice") {
 		tf_announcements_service.RegisterResource()
+	}
+	if common.CheckForEnabledServices("apiplatform") {
+		tf_api_platform.RegisterResource()
+	}
+	if common.CheckForEnabledServices("apiaccesscontrol") {
+		tf_apiaccesscontrol.RegisterResource()
 	}
 	if common.CheckForEnabledServices("apigateway") {
 		tf_apigateway.RegisterResource()
@@ -254,6 +262,12 @@ func init() {
 	if common.CheckForEnabledServices("datascience") {
 		tf_datascience.RegisterResource()
 	}
+	if common.CheckForEnabledServices("dblm") {
+		tf_dblm.RegisterResource()
+	}
+	if common.CheckForEnabledServices("dbmulticloud") {
+		tf_dbmulticloud.RegisterResource()
+	}
 	if common.CheckForEnabledServices("delegateaccesscontrol") {
 		tf_delegate_access_control.RegisterResource()
 	}
@@ -262,6 +276,9 @@ func init() {
 	}
 	if common.CheckForEnabledServices("desktops") {
 		tf_desktops.RegisterResource()
+	}
+	if common.CheckForEnabledServices("dblm") {
+		tf_dblm.RegisterResource()
 	}
 	if common.CheckForEnabledServices("devops") {
 		tf_devops.RegisterResource()
@@ -272,9 +289,6 @@ func init() {
 	if common.CheckForEnabledServices("dns") {
 		tf_dns.RegisterResource()
 	}
-	if common.CheckForEnabledServices("emwarehouse") {
-		tf_em_warehouse.RegisterResource()
-	}
 	if common.CheckForEnabledServices("email") {
 		tf_email.RegisterResource()
 	}
@@ -284,11 +298,11 @@ func init() {
 	if common.CheckForEnabledServices("filestorage") {
 		tf_file_storage.RegisterResource()
 	}
-	if common.CheckForEnabledServices("fleetsoftwareupdate") {
-		tf_fleet_software_update.RegisterResource()
-	}
 	if common.CheckForEnabledServices("fleetappsmanagement") {
 		tf_fleet_apps_management.RegisterResource()
+	}
+	if common.CheckForEnabledServices("fleetsoftwareupdate") {
+		tf_fleet_software_update.RegisterResource()
 	}
 	if common.CheckForEnabledServices("functions") {
 		tf_functions.RegisterResource()
@@ -299,8 +313,14 @@ func init() {
 	if common.CheckForEnabledServices("generativeai") {
 		tf_generative_ai.RegisterResource()
 	}
+	if common.CheckForEnabledServices("generativeaiagent") {
+		tf_generative_ai_agent.RegisterResource()
+	}
 	if common.CheckForEnabledServices("genericartifactscontent") {
 		tf_generic_artifacts_content.RegisterResource()
+	}
+	if common.CheckForEnabledServices("globallydistributeddatabase") {
+		tf_globally_distributed_database.RegisterResource()
 	}
 	if common.CheckForEnabledServices("goldengate") {
 		tf_golden_gate.RegisterResource()
@@ -343,6 +363,9 @@ func init() {
 	}
 	if common.CheckForEnabledServices("logging") {
 		tf_logging.RegisterResource()
+	}
+	if common.CheckForEnabledServices("lustrefilestorage") {
+		tf_lustre_file_storage.RegisterResource()
 	}
 	if common.CheckForEnabledServices("managementagent") {
 		tf_management_agent.RegisterResource()
@@ -407,11 +430,8 @@ func init() {
 	if common.CheckForEnabledServices("optimizer") {
 		tf_optimizer.RegisterResource()
 	}
-	if common.CheckForEnabledServices("os_management_hub") {
+	if common.CheckForEnabledServices("osmanagementhub") {
 		tf_os_management_hub.RegisterResource()
-	}
-	if common.CheckForEnabledServices("osmanagement") {
-		tf_osmanagement.RegisterResource()
 	}
 	if common.CheckForEnabledServices("ospgateway") {
 		tf_osp_gateway.RegisterResource()
@@ -461,14 +481,14 @@ func init() {
 	if common.CheckForEnabledServices("servicemanagerproxy") {
 		tf_service_manager_proxy.RegisterResource()
 	}
-	if common.CheckForEnabledServices("servicemesh") {
-		tf_service_mesh.RegisterResource()
-	}
 	if common.CheckForEnabledServices("stackmonitoring") {
 		tf_stack_monitoring.RegisterResource()
 	}
 	if common.CheckForEnabledServices("streaming") {
 		tf_streaming.RegisterResource()
+	}
+	if common.CheckForEnabledServices("tenantmanagercontrolplane") {
+		tf_tenantmanagercontrolplane.RegisterResource()
 	}
 	if common.CheckForEnabledServices("usageproxy") {
 		tf_usage_proxy.RegisterResource()
@@ -496,6 +516,9 @@ func init() {
 	}
 	if common.CheckForEnabledServices("waf") {
 		tf_waf.RegisterResource()
+	}
+	if common.CheckForEnabledServices("wlms") {
+		tf_wlms.RegisterResource()
 	}
 	if common.CheckForEnabledServices("zpr") {
 		tf_zpr.RegisterResource()

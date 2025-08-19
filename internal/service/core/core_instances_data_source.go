@@ -218,8 +218,24 @@ func (s *CoreInstancesDataSourceCrud) SetData() error {
 			instance["launch_options"] = nil
 		}
 
+		licensingConfigs := []interface{}{}
+		for _, item := range r.LicensingConfigs {
+			licensingConfigs = append(licensingConfigs, LicensingConfigToMap(item))
+		}
+		instance["licensing_configs"] = licensingConfigs
+
 		if r.Metadata != nil {
 			instance["metadata"] = r.Metadata
+		}
+
+		if r.PlacementConstraintDetails != nil {
+			placementConstraintDetailsArray := []interface{}{}
+			if placementConstraintDetailsMap := PlacementConstraintDetailsToMap(&r.PlacementConstraintDetails); placementConstraintDetailsMap != nil {
+				placementConstraintDetailsArray = append(placementConstraintDetailsArray, placementConstraintDetailsMap)
+			}
+			instance["placement_constraint_details"] = placementConstraintDetailsArray
+		} else {
+			instance["placement_constraint_details"] = nil
 		}
 
 		if r.PlatformConfig != nil {

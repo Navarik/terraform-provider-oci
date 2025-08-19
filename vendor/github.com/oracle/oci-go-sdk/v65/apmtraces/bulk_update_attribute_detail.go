@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -21,7 +21,7 @@ type BulkUpdateAttributeDetail struct {
 	// Name of the attribute for which notes are to be updated.
 	AttributeName *string `mandatory:"true" json:"attributeName"`
 
-	// Unit of the attribute to be updated.
+	// Unit of the attribute to be updated.  If unit is not specified, it defaults to NONE.
 	Unit BulkUpdateAttributeDetailUnitEnum `mandatory:"false" json:"unit,omitempty"`
 
 	// Namespace of the attribute for which the properties are to be updated.
@@ -119,16 +119,19 @@ type BulkUpdateAttributeDetailAttributeNameSpaceEnum string
 const (
 	BulkUpdateAttributeDetailAttributeNameSpaceTraces    BulkUpdateAttributeDetailAttributeNameSpaceEnum = "TRACES"
 	BulkUpdateAttributeDetailAttributeNameSpaceSynthetic BulkUpdateAttributeDetailAttributeNameSpaceEnum = "SYNTHETIC"
+	BulkUpdateAttributeDetailAttributeNameSpaceLogs      BulkUpdateAttributeDetailAttributeNameSpaceEnum = "LOGS"
 )
 
 var mappingBulkUpdateAttributeDetailAttributeNameSpaceEnum = map[string]BulkUpdateAttributeDetailAttributeNameSpaceEnum{
 	"TRACES":    BulkUpdateAttributeDetailAttributeNameSpaceTraces,
 	"SYNTHETIC": BulkUpdateAttributeDetailAttributeNameSpaceSynthetic,
+	"LOGS":      BulkUpdateAttributeDetailAttributeNameSpaceLogs,
 }
 
 var mappingBulkUpdateAttributeDetailAttributeNameSpaceEnumLowerCase = map[string]BulkUpdateAttributeDetailAttributeNameSpaceEnum{
 	"traces":    BulkUpdateAttributeDetailAttributeNameSpaceTraces,
 	"synthetic": BulkUpdateAttributeDetailAttributeNameSpaceSynthetic,
+	"logs":      BulkUpdateAttributeDetailAttributeNameSpaceLogs,
 }
 
 // GetBulkUpdateAttributeDetailAttributeNameSpaceEnumValues Enumerates the set of values for BulkUpdateAttributeDetailAttributeNameSpaceEnum
@@ -145,6 +148,7 @@ func GetBulkUpdateAttributeDetailAttributeNameSpaceEnumStringValues() []string {
 	return []string{
 		"TRACES",
 		"SYNTHETIC",
+		"LOGS",
 	}
 }
 

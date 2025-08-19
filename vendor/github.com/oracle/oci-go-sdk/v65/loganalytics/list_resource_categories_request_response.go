@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListResourceCategories.go.html to see an example of how to use ListResourceCategoriesRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListResourceCategories.go.html to see an example of how to use ListResourceCategoriesRequest.
 type ListResourceCategoriesRequest struct {
 
 	// The Logging Analytics namespace used for the request.
@@ -31,6 +31,9 @@ type ListResourceCategoriesRequest struct {
 	// A comma-separated list of resource unique identifiers used for filtering. Only resources
 	// with matching unique identifiers will be returned.
 	ResourceIds *string `mandatory:"false" contributesTo:"query" name:"resourceIds"`
+
+	// The compartment id
+	CompartmentId *string `mandatory:"false" contributesTo:"query" name:"compartmentId"`
 
 	// The sort order to use, either ascending (`ASC`) or descending (`DESC`).
 	SortOrder ListResourceCategoriesSortOrderEnum `mandatory:"false" contributesTo:"query" name:"sortOrder" omitEmpty:"true"`

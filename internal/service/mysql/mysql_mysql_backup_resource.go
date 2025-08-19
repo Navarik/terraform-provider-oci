@@ -11,7 +11,6 @@ import (
 
 	"github.com/oracle/terraform-provider-oci/internal/client"
 	"github.com/oracle/terraform-provider-oci/internal/tfresource"
-	"github.com/oracle/terraform-provider-oci/internal/utils"
 
 	oci_mysql "github.com/oracle/oci-go-sdk/v65/mysql"
 )
@@ -27,6 +26,7 @@ func MysqlMysqlBackupResource() *schema.Resource {
 		Update:   updateMysqlMysqlBackup,
 		Delete:   deleteMysqlMysqlBackup,
 		Schema: map[string]*schema.Schema{
+			// Optional
 			"db_system_id": {
 				Type:          schema.TypeString,
 				Optional:      true,
@@ -63,7 +63,6 @@ func MysqlMysqlBackupResource() *schema.Resource {
 				},
 			},
 
-			// Optional
 			"backup_type": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -100,6 +99,11 @@ func MysqlMysqlBackupResource() *schema.Resource {
 			},
 			"retention_in_days": {
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"soft_delete": {
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -150,6 +154,27 @@ func MysqlMysqlBackupResource() *schema.Resource {
 									// Optional
 
 									// Computed
+									"copy_policies": {
+										Type:     schema.TypeList,
+										Computed: true,
+										Elem: &schema.Resource{
+											Schema: map[string]*schema.Schema{
+												// Required
+
+												// Optional
+
+												// Computed
+												"backup_copy_retention_in_days": {
+													Type:     schema.TypeInt,
+													Computed: true,
+												},
+												"copy_to_region": {
+													Type:     schema.TypeString,
+													Computed: true,
+												},
+											},
+										},
+									},
 									"defined_tags": {
 										Type:     schema.TypeMap,
 										Computed: true,
@@ -183,6 +208,10 @@ func MysqlMysqlBackupResource() *schema.Resource {
 									},
 									"retention_in_days": {
 										Type:     schema.TypeInt,
+										Computed: true,
+									},
+									"soft_delete": {
+										Type:     schema.TypeString,
 										Computed: true,
 									},
 									"window_start_time": {
@@ -278,6 +307,27 @@ func MysqlMysqlBackupResource() *schema.Resource {
 						"display_name": {
 							Type:     schema.TypeString,
 							Computed: true,
+						},
+						"encrypt_data": {
+							Type:     schema.TypeList,
+							Computed: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+
+									// Optional
+
+									// Computed
+									"key_generation_type": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"key_id": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+								},
+							},
 						},
 						"endpoints": {
 							Type:     schema.TypeList,
@@ -377,6 +427,14 @@ func MysqlMysqlBackupResource() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"nsg_ids": {
+							Type:     schema.TypeSet,
+							Computed: true,
+							Set:      tfresource.LiteralTypeHashCodeForSets,
+							Elem: &schema.Schema{
+								Type: schema.TypeString,
+							},
+						},
 						"port": {
 							Type:     schema.TypeInt,
 							Computed: true,
@@ -385,9 +443,62 @@ func MysqlMysqlBackupResource() *schema.Resource {
 							Type:     schema.TypeInt,
 							Computed: true,
 						},
+						"read_endpoint": {
+							Type:     schema.TypeList,
+							Computed: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+
+									// Optional
+
+									// Computed
+									"exclude_ips": {
+										Type:     schema.TypeList,
+										Computed: true,
+										Elem: &schema.Schema{
+											Type: schema.TypeString,
+										},
+									},
+									"is_enabled": {
+										Type:     schema.TypeBool,
+										Computed: true,
+									},
+									"read_endpoint_hostname_label": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"read_endpoint_ip_address": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+								},
+							},
+						},
 						"region": {
 							Type:     schema.TypeString,
 							Computed: true,
+						},
+						"rest": {
+							Type:     schema.TypeList,
+							Computed: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+
+									// Optional
+
+									// Computed
+									"configuration": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"port": {
+										Type:     schema.TypeInt,
+										Computed: true,
+									},
+								},
+							},
 						},
 						"secure_connections": {
 							Type:     schema.TypeList,
@@ -416,6 +527,29 @@ func MysqlMysqlBackupResource() *schema.Resource {
 						},
 						"subnet_id": {
 							Type:     schema.TypeString,
+							Computed: true,
+						},
+					},
+				},
+			},
+			"encrypt_data": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Computed: true,
+				MaxItems: 1,
+				MinItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						// Required
+						"key_generation_type": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+
+						// Optional
+						"key_id": {
+							Type:     schema.TypeString,
+							Optional: true,
 							Computed: true,
 						},
 					},
@@ -470,6 +604,11 @@ func MysqlMysqlBackupResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"system_tags": {
+				Type:     schema.TypeMap,
+				Computed: true,
+				Elem:     schema.TypeString,
+			},
 			"time_copy_created": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -522,7 +661,6 @@ func deleteMysqlMysqlBackup(d *schema.ResourceData, m interface{}) error {
 type MysqlMysqlBackupResourceCrud struct {
 	tfresource.BaseCrud
 	Client                 *oci_mysql.DbBackupsClient
-	DestRegionClient       *oci_mysql.DbBackupsClient
 	Res                    *oci_mysql.Backup
 	DisableNotFoundRetries bool
 }
@@ -569,17 +707,7 @@ func (s *MysqlMysqlBackupResourceCrud) UpdatedTarget() []string {
 
 func (s *MysqlMysqlBackupResourceCrud) Create() error {
 	if s.isCopyCreate() {
-		err := s.createMysqlBackupCopy()
-		if err != nil {
-			return err
-		}
-		s.D.SetId(*s.Res.Id)
-		err = tfresource.WaitForResourceCondition(s, func() bool { return s.Res.LifecycleState == oci_mysql.BackupLifecycleStateActive }, s.D.Timeout(schema.TimeoutCreate))
-		if err != nil {
-			return err
-		}
-		// Update for some fields that can't be created by copy
-		return s.Update()
+		return s.createMysqlBackupCopy()
 	}
 
 	return s.createMysqlBackup()
@@ -633,6 +761,10 @@ func (s *MysqlMysqlBackupResourceCrud) createMysqlBackup() error {
 		request.RetentionInDays = &tmp
 	}
 
+	if softDelete, ok := s.D.GetOkExists("soft_delete"); ok {
+		request.SoftDelete = oci_mysql.SoftDeleteEnum(softDelete.(string))
+	}
+
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "mysql")
 
 	response, err := s.Client.CreateBackup(context.Background(), request)
@@ -657,6 +789,21 @@ func (s *MysqlMysqlBackupResourceCrud) createMysqlBackupCopy() error {
 		return fmt.Errorf("cannot access Region for the current ConfigurationProvider")
 	}
 
+	if backupCopyRetentionInDays, ok := s.D.GetOkExists("retention_in_days"); ok && backupCopyRetentionInDays != nil {
+		tmp := backupCopyRetentionInDays.(int)
+		copyMysqlBackupRequest.BackupCopyRetentionInDays = &tmp
+	}
+
+	if description, ok := s.D.GetOkExists("description"); ok && description != nil {
+		tmp := description.(string)
+		copyMysqlBackupRequest.Description = &tmp
+	}
+
+	if displayName, ok := s.D.GetOkExists("display_name"); ok {
+		tmp := displayName.(string)
+		copyMysqlBackupRequest.DisplayName = &tmp
+	}
+
 	if sourceDetails, ok := s.D.GetOkExists("source_details"); ok && sourceDetails != nil {
 		fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "source_details", 0)
 
@@ -676,17 +823,34 @@ func (s *MysqlMysqlBackupResourceCrud) createMysqlBackupCopy() error {
 		}
 	}
 
+	if encryptData, ok := s.D.GetOkExists("encrypt_data"); ok {
+		if tmpList := encryptData.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "encrypt_data", 0)
+			tmp, err := s.mapToEncryptDataDetails(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			copyMysqlBackupRequest.EncryptData = &tmp
+		}
+	}
+
 	err := s.createDbBackupClientInRegion(currentRegion)
 	if err != nil {
 		return err
 	}
 
-	response, err := s.DestRegionClient.CopyBackup(context.Background(), copyMysqlBackupRequest)
+	response, err := s.Client.CopyBackup(context.Background(), copyMysqlBackupRequest)
 	if err != nil {
 		return err
 	}
 
 	s.Res = &response.Backup
+
+	s.D.SetId(*s.Res.Id)
+	err = tfresource.WaitForResourceCondition(s, func() bool { return s.Res.LifecycleState == oci_mysql.BackupLifecycleStateActive }, s.D.Timeout(schema.TimeoutCreate))
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -750,6 +914,10 @@ func (s *MysqlMysqlBackupResourceCrud) Update() error {
 		request.RetentionInDays = &tmp
 	}
 
+	if softDelete, ok := s.D.GetOkExists("soft_delete"); ok {
+		request.SoftDelete = oci_mysql.SoftDeleteEnum(softDelete.(string))
+	}
+
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "mysql")
 
 	response, err := s.Client.UpdateBackup(context.Background(), request)
@@ -766,11 +934,6 @@ func (s *MysqlMysqlBackupResourceCrud) Delete() error {
 
 	tmp := s.D.Id()
 	request.BackupId = &tmp
-
-	if s.isBackupCopy() {
-		destinationRegion := utils.GetEnvSettingWithBlankDefault("destination_region")
-		s.Client.SetRegion(destinationRegion)
-	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "mysql")
 
@@ -807,7 +970,7 @@ func (s *MysqlMysqlBackupResourceCrud) SetData() error {
 	}
 
 	if s.Res.DbSystemSnapshot != nil {
-		s.D.Set("db_system_snapshot", []interface{}{DbSystemSnapshotToMap(s.Res.DbSystemSnapshot)})
+		s.D.Set("db_system_snapshot", []interface{}{DbSystemSnapshotToMap(s.Res.DbSystemSnapshot, false)})
 	} else {
 		s.D.Set("db_system_snapshot", nil)
 	}
@@ -822,6 +985,12 @@ func (s *MysqlMysqlBackupResourceCrud) SetData() error {
 
 	if s.Res.DisplayName != nil {
 		s.D.Set("display_name", *s.Res.DisplayName)
+	}
+
+	if s.Res.EncryptData != nil {
+		s.D.Set("encrypt_data", []interface{}{EncryptDataDetailsToMap(s.Res.EncryptData)})
+	} else {
+		s.D.Set("encrypt_data", nil)
 	}
 
 	s.D.Set("freeform_tags", s.Res.FreeformTags)
@@ -850,7 +1019,13 @@ func (s *MysqlMysqlBackupResourceCrud) SetData() error {
 		s.D.Set("shape_name", *s.Res.ShapeName)
 	}
 
+	s.D.Set("soft_delete", s.Res.SoftDelete)
+
 	s.D.Set("state", s.Res.LifecycleState)
+
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+	}
 
 	if s.Res.TimeCopyCreated != nil {
 		s.D.Set("time_copy_created", s.Res.TimeCopyCreated.String())
@@ -870,6 +1045,12 @@ func (s *MysqlMysqlBackupResourceCrud) SetData() error {
 func BackupPolicyToMap(obj *oci_mysql.BackupPolicy) map[string]interface{} {
 	result := map[string]interface{}{}
 
+	copyPolicies := []interface{}{}
+	for _, item := range obj.CopyPolicies {
+		copyPolicies = append(copyPolicies, CopyPolicyToMap(item))
+	}
+	result["copy_policies"] = copyPolicies
+
 	if obj.DefinedTags != nil {
 		result["defined_tags"] = tfresource.DefinedTagsToMap(obj.DefinedTags)
 	}
@@ -888,8 +1069,24 @@ func BackupPolicyToMap(obj *oci_mysql.BackupPolicy) map[string]interface{} {
 		result["retention_in_days"] = int(*obj.RetentionInDays)
 	}
 
+	result["soft_delete"] = string(obj.SoftDelete)
+
 	if obj.WindowStartTime != nil {
 		result["window_start_time"] = string(*obj.WindowStartTime)
+	}
+
+	return result
+}
+
+func CopyPolicyToMap(obj oci_mysql.CopyPolicy) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	if obj.BackupCopyRetentionInDays != nil {
+		result["backup_copy_retention_in_days"] = int(*obj.BackupCopyRetentionInDays)
+	}
+
+	if obj.CopyToRegion != nil {
+		result["copy_to_region"] = string(*obj.CopyToRegion)
 	}
 
 	return result
@@ -931,7 +1128,7 @@ func DbSystemEndpointToMap(obj oci_mysql.DbSystemEndpoint) map[string]interface{
 	return result
 }
 
-func DbSystemSnapshotToMap(obj *oci_mysql.DbSystemSnapshot) map[string]interface{} {
+func DbSystemSnapshotToMap(obj *oci_mysql.DbSystemSnapshot, datasource bool) map[string]interface{} {
 	result := map[string]interface{}{}
 
 	if obj.AdminUsername != nil {
@@ -982,6 +1179,10 @@ func DbSystemSnapshotToMap(obj *oci_mysql.DbSystemSnapshot) map[string]interface
 		result["display_name"] = string(*obj.DisplayName)
 	}
 
+	if obj.EncryptData != nil {
+		result["encrypt_data"] = []interface{}{EncryptDataDetailsToMap(obj.EncryptData)}
+	}
+
 	endpoints := []interface{}{}
 	for _, item := range obj.Endpoints {
 		endpoints = append(endpoints, DbSystemEndpointToMap(item))
@@ -1018,6 +1219,16 @@ func DbSystemSnapshotToMap(obj *oci_mysql.DbSystemSnapshot) map[string]interface
 		result["mysql_version"] = string(*obj.MysqlVersion)
 	}
 
+	nsgIds := []interface{}{}
+	for _, item := range obj.NsgIds {
+		nsgIds = append(nsgIds, item)
+	}
+	if datasource {
+		result["nsg_ids"] = nsgIds
+	} else {
+		result["nsg_ids"] = schema.NewSet(tfresource.LiteralTypeHashCodeForSets, nsgIds)
+	}
+
 	if obj.Port != nil {
 		result["port"] = int(*obj.Port)
 	}
@@ -1026,8 +1237,16 @@ func DbSystemSnapshotToMap(obj *oci_mysql.DbSystemSnapshot) map[string]interface
 		result["port_x"] = int(*obj.PortX)
 	}
 
+	if obj.ReadEndpoint != nil {
+		result["read_endpoint"] = []interface{}{ReadEndpointDetailsToMap(obj.ReadEndpoint)}
+	}
+
 	if obj.Region != nil {
 		result["region"] = string(*obj.Region)
+	}
+
+	if obj.Rest != nil {
+		result["rest"] = []interface{}{RestDetailsToMap(obj.Rest)}
 	}
 
 	if obj.SecureConnections != nil {
@@ -1071,6 +1290,21 @@ func MaintenanceDetailsToMap(obj *oci_mysql.MaintenanceDetails) map[string]inter
 	}
 
 	return result
+}
+
+func (s *MysqlMysqlBackupResourceCrud) mapToEncryptDataDetails(fieldKeyFormat string) (oci_mysql.EncryptDataDetails, error) {
+	result := oci_mysql.EncryptDataDetails{}
+
+	if keyGenerationType, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "key_generation_type")); ok {
+		result.KeyGenerationType = oci_mysql.KeyGenerationTypeEnum(keyGenerationType.(string))
+	}
+
+	if keyId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "key_id")); ok {
+		tmp := keyId.(string)
+		result.KeyId = &tmp
+	}
+
+	return result, nil
 }
 
 func (s *MysqlMysqlBackupResourceCrud) updateCompartment(compartment interface{}) error {

@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
@@ -155,7 +155,7 @@ func (s *NetworkFirewallNetworkFirewallPolicyResourceCrud) ID() string {
 func (s *NetworkFirewallNetworkFirewallPolicyResourceCrud) CreatedPending() []string {
 	return []string{
 		string(oci_network_firewall.LifecycleStateCreating),
-		string(oci_network_firewall.LifecycleStateAttaching),
+		//string(oci_network_firewall.LifecycleStateAttaching),
 	}
 }
 
@@ -169,7 +169,7 @@ func (s *NetworkFirewallNetworkFirewallPolicyResourceCrud) CreatedTarget() []str
 func (s *NetworkFirewallNetworkFirewallPolicyResourceCrud) DeletedPending() []string {
 	return []string{
 		string(oci_network_firewall.LifecycleStateDeleting),
-		string(oci_network_firewall.LifecycleStateDetaching),
+		//string(oci_network_firewall.LifecycleStateDetaching),
 	}
 }
 
@@ -278,7 +278,7 @@ func networkFirewallPolicyWaitForWorkRequest(wId *string, entityType string, act
 	retryPolicy.ShouldRetryOperation = networkFirewallPolicyWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_network_firewall.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_network_firewall.OperationStatusInProgress),
 			string(oci_network_firewall.OperationStatusAccepted),

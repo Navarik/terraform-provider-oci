@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -25,6 +25,11 @@ type InstanceAgentCommandContent struct {
 
 	// The output destination for the command.
 	Output InstanceAgentCommandOutputDetails `mandatory:"false" json:"output"`
+
+	// Command String is a fully formed command that runcommand executes.
+	// Example: main.sh is stored in object storage and user provides the following command with parameters to execute
+	// /bin/sh main.sh abc 10 foo.sh
+	CommandString *string `mandatory:"false" json:"commandString"`
 }
 
 func (m InstanceAgentCommandContent) String() string {
@@ -46,8 +51,9 @@ func (m InstanceAgentCommandContent) ValidateEnumValue() (bool, error) {
 // UnmarshalJSON unmarshals from json
 func (m *InstanceAgentCommandContent) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		Output instanceagentcommandoutputdetails `json:"output"`
-		Source instanceagentcommandsourcedetails `json:"source"`
+		Output        instanceagentcommandoutputdetails `json:"output"`
+		CommandString *string                           `json:"commandString"`
+		Source        instanceagentcommandsourcedetails `json:"source"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -64,6 +70,8 @@ func (m *InstanceAgentCommandContent) UnmarshalJSON(data []byte) (e error) {
 	} else {
 		m.Output = nil
 	}
+
+	m.CommandString = model.CommandString
 
 	nn, e = model.Source.UnmarshalPolymorphicJSON(model.Source.JsonData)
 	if e != nil {

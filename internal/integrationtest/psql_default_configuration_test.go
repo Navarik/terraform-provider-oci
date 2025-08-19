@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 	"github.com/oracle/terraform-provider-oci/internal/acctest"
@@ -118,6 +118,7 @@ func TestPsqlDefaultConfigurationResource_basic(t *testing.T) {
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "default_configuration_id"),
 
+				resource.TestCheckResourceAttr(singularDatasourceName, "compatible_shapes.#", "1"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "configuration_details.#", "1"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "db_version"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "description"),

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,13 +18,13 @@ import (
 // LogAnalyticsObjectCollectionRuleSummary The summary of an Object Storage based collection rule.
 type LogAnalyticsObjectCollectionRuleSummary struct {
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of this rule.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of this rule.
 	Id *string `mandatory:"true" json:"id"`
 
 	// A unique name to the rule. The name must be unique, within the tenancy, and cannot be changed.
 	Name *string `mandatory:"true" json:"name"`
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to which this rule belongs.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to which this rule belongs.
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// Object Storage namespace.
@@ -62,6 +62,9 @@ type LogAnalyticsObjectCollectionRuleSummary struct {
 
 	// Type of files/objects in this object collection rule.
 	LogType LogTypesEnum `mandatory:"false" json:"logType,omitempty"`
+
+	// A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE, which will be used by Logging Analytics while creating Event Rule and consume the event notifications created by the Object Storage.
+	StreamId *string `mandatory:"false" json:"streamId"`
 
 	// Defined tags for this resource. Each key is predefined and scoped to a namespace.
 	// Example: `{"foo-namespace": {"bar-key": "value"}}`

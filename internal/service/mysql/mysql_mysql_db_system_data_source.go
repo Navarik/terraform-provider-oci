@@ -66,6 +66,8 @@ func (s *MysqlMysqlDbSystemDataSourceCrud) SetData() error {
 
 	s.D.SetId(*s.Res.Id)
 
+	s.D.Set("access_mode", s.Res.AccessMode)
+
 	if s.Res.AvailabilityDomain != nil {
 		s.D.Set("availability_domain", *s.Res.AvailabilityDomain)
 	}
@@ -116,6 +118,8 @@ func (s *MysqlMysqlDbSystemDataSourceCrud) SetData() error {
 
 	s.D.Set("database_management", s.Res.DatabaseManagement)
 
+	s.D.Set("database_mode", s.Res.DatabaseMode)
+
 	if s.Res.DefinedTags != nil {
 		s.D.Set("defined_tags", tfresource.DefinedTagsToMap(s.Res.DefinedTags))
 	}
@@ -132,6 +136,12 @@ func (s *MysqlMysqlDbSystemDataSourceCrud) SetData() error {
 
 	if s.Res.DisplayName != nil {
 		s.D.Set("display_name", *s.Res.DisplayName)
+	}
+
+	if s.Res.EncryptData != nil {
+		s.D.Set("encrypt_data", []interface{}{EncryptDataDetailsToMap(s.Res.EncryptData)})
+	} else {
+		s.D.Set("encrypt_data", nil)
 	}
 
 	endpoints := []interface{}{}
@@ -182,6 +192,8 @@ func (s *MysqlMysqlDbSystemDataSourceCrud) SetData() error {
 		s.D.Set("mysql_version", *s.Res.MysqlVersion)
 	}
 
+	s.D.Set("nsg_ids", s.Res.NsgIds)
+
 	if s.Res.PointInTimeRecoveryDetails != nil {
 		s.D.Set("point_in_time_recovery_details", []interface{}{PointInTimeRecoveryDetailsToMap(s.Res.PointInTimeRecoveryDetails)})
 	} else {
@@ -194,6 +206,18 @@ func (s *MysqlMysqlDbSystemDataSourceCrud) SetData() error {
 
 	if s.Res.PortX != nil {
 		s.D.Set("port_x", *s.Res.PortX)
+	}
+
+	if s.Res.ReadEndpoint != nil {
+		s.D.Set("read_endpoint", []interface{}{ReadEndpointDetailsToMap(s.Res.ReadEndpoint)})
+	} else {
+		s.D.Set("read_endpoint", nil)
+	}
+
+	if s.Res.Rest != nil {
+		s.D.Set("rest", []interface{}{RestDetailsToMap(s.Res.Rest)})
+	} else {
+		s.D.Set("rest", nil)
 	}
 
 	if s.Res.SecureConnections != nil {
@@ -224,6 +248,10 @@ func (s *MysqlMysqlDbSystemDataSourceCrud) SetData() error {
 
 	if s.Res.SubnetId != nil {
 		s.D.Set("subnet_id", *s.Res.SubnetId)
+	}
+
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
 	}
 
 	if s.Res.TimeCreated != nil {

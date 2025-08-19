@@ -35,6 +35,10 @@ func DatabaseCloudVmClustersDataSource() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"vm_cluster_type": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"cloud_vm_clusters": {
 				Type:     schema.TypeList,
 				Computed: true,
@@ -82,6 +86,10 @@ func (s *DatabaseCloudVmClustersDataSourceCrud) Get() error {
 
 	if state, ok := s.D.GetOkExists("state"); ok {
 		request.LifecycleState = oci_database.CloudVmClusterSummaryLifecycleStateEnum(state.(string))
+	}
+
+	if vmClusterType, ok := s.D.GetOkExists("vm_cluster_type"); ok {
+		request.VmClusterType = oci_database.CloudVmClusterSummaryVmClusterTypeEnum(vmClusterType.(string))
 	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(false, "database")
@@ -143,6 +151,8 @@ func (s *DatabaseCloudVmClustersDataSourceCrud) SetData() error {
 		if r.ClusterName != nil {
 			cloudVmCluster["cluster_name"] = *r.ClusterName
 		}
+
+		cloudVmCluster["compute_model"] = r.ComputeModel
 
 		if r.CpuCoreCount != nil {
 			cloudVmCluster["cpu_core_count"] = *r.CpuCoreCount
@@ -228,6 +238,12 @@ func (s *DatabaseCloudVmClustersDataSourceCrud) SetData() error {
 			cloudVmCluster["memory_size_in_gbs"] = *r.MemorySizeInGBs
 		}
 
+		multiCloudIdentityConnectorConfigs := []interface{}{}
+		for _, item := range r.MultiCloudIdentityConnectorConfigs {
+			multiCloudIdentityConnectorConfigs = append(multiCloudIdentityConnectorConfigs, IdentityConnectorDetailsToMap(item))
+		}
+		cloudVmCluster["multi_cloud_identity_connector_configs"] = multiCloudIdentityConnectorConfigs
+
 		if r.NodeCount != nil {
 			cloudVmCluster["node_count"] = *r.NodeCount
 		}
@@ -248,6 +264,8 @@ func (s *DatabaseCloudVmClustersDataSourceCrud) SetData() error {
 
 		cloudVmCluster["scan_ip_ids"] = r.ScanIpIds
 
+		cloudVmCluster["scan_ipv6ids"] = r.ScanIpv6Ids
+
 		if r.ScanListenerPortTcp != nil {
 			cloudVmCluster["scan_listener_port_tcp"] = *r.ScanListenerPortTcp
 		}
@@ -255,6 +273,8 @@ func (s *DatabaseCloudVmClustersDataSourceCrud) SetData() error {
 		if r.ScanListenerPortTcpSsl != nil {
 			cloudVmCluster["scan_listener_port_tcp_ssl"] = *r.ScanListenerPortTcpSsl
 		}
+
+		cloudVmCluster["security_attributes"] = tfresource.SecurityAttributesToMap(r.SecurityAttributes)
 
 		if r.Shape != nil {
 			cloudVmCluster["shape"] = *r.Shape
@@ -284,6 +304,12 @@ func (s *DatabaseCloudVmClustersDataSourceCrud) SetData() error {
 			cloudVmCluster["system_version"] = *r.SystemVersion
 		}
 
+		if r.TdeKeyStoreType != "" {
+			cloudVmCluster["tde_key_store_type"] = r.TdeKeyStoreType
+		} else {
+			cloudVmCluster["tde_key_store_type"] = "NONE"
+		}
+
 		if r.TimeCreated != nil {
 			cloudVmCluster["time_created"] = r.TimeCreated.String()
 		}
@@ -293,6 +319,10 @@ func (s *DatabaseCloudVmClustersDataSourceCrud) SetData() error {
 		}
 
 		cloudVmCluster["vip_ids"] = r.VipIds
+
+		cloudVmCluster["vipv6ids"] = r.Vipv6Ids
+
+		cloudVmCluster["vm_cluster_type"] = r.VmClusterType
 
 		if r.ZoneId != nil {
 			cloudVmCluster["zone_id"] = *r.ZoneId

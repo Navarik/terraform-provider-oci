@@ -38,6 +38,25 @@ The following attributes are exported:
 	* `all_connection_strings` - All connection strings to use to connect to the Database.
 	* `cdb_default` - Host name based CDB Connection String.
 	* `cdb_ip_default` - IP based CDB Connection String.
+* `data_guard_group` - Details of Data Guard setup that the given database is part of.  Also includes information about databases part of this Data Guard group and properties for their Data Guard configuration. 
+	* `members` - List of Data Guard members, representing each database that is part of Data Guard.
+		* `apply_lag` - The lag time between updates to the primary database and application of the redo data on the standby database, as computed by the reporting database.  Example: `1 second` 
+		* `apply_rate` - The rate at which redo logs are synced between the associated databases.  Example: `102.96 MByte/s` 
+		* `database_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Database.
+		* `db_system_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DB system, Cloud VM cluster or VM cluster.
+		* `is_active_data_guard_enabled` - True if active Data Guard is enabled.
+		* `role` - The role of the reporting database in this Data Guard association.
+		* `transport_lag` - The rate at which redo logs are transported between the associated databases.  Example: `1 second` 
+		* `transport_lag_refresh` - The date and time when last redo transport has been done.
+		* `transport_type` - The redo transport type to use for this Data Guard association.  Valid values depend on the specified `protectionMode`:
+			* MAXIMUM_AVAILABILITY - SYNC or FASTSYNC
+			* MAXIMUM_PERFORMANCE - ASYNC
+			* MAXIMUM_PROTECTION - SYNC
+
+			For more information, see [Redo Transport Services](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-redo-transport-services.htm#SBYDB00400) in the Oracle Data Guard documentation.
+
+			**IMPORTANT** - The only transport type currently supported by the Database service is ASYNC. 
+	* `protection_mode` - The protection mode of this Data Guard. For more information, see [Oracle Data Guard Protection Modes](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000) in the Oracle Data Guard documentation. 
 * `database_management_config` - The configuration of the Database Management service.
 	* `management_status` - The status of the Database Management service.
 	* `management_type` - The Database Management type.
@@ -51,7 +70,13 @@ The following attributes are exported:
 	* `backup_destination_details` - Backup destination details.
 		* `dbrs_policy_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DBRS policy used for backup.
 		* `id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the backup destination.
-		* `type` - Type of the database backup destination.
+		* `is_remote` - Indicates whether the backup destination is cross-region or local region.
+		* `remote_region` - The name of the remote region where the remote automatic incremental backups will be stored.
+
+			For information about valid region names, see [Regions and Availability Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm). 
+		* `vpc_password` - For a RECOVERY_APPLIANCE backup destination, the password for the VPC user that is used to access the Recovery Appliance.
+        * `vpc_user` - For a RECOVERY_APPLIANCE backup destination, the Virtual Private Catalog (VPC) user that is used to access the Recovery Appliance.
+        * `type` - Type of the database backup destination.
 	* `recovery_window_in_days` - Number of days between the current and the earliest point of recoverability covered by automatic backups. This value applies to automatic backups only. After a new automatic backup has been created, Oracle removes old automatic backups that are created before the window. When the value is updated, it is applied to all existing automatic backups. 
 	* `run_immediate_full_backup` - If set to true, configures automatic full backups in the local region (the region of the DB system) for the first backup run immediately.
 * `db_home_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Database Home.
@@ -62,6 +87,10 @@ The following attributes are exported:
 
 	The database workload type. 
 * `defined_tags` - Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm). 
+* `encryption_key_location_details` - Types of providers supported for managing database encryption keys
+	* `azure_encryption_key_id` - Provide the key OCID of a registered Azure key.
+	* `hsm_password` - Provide the HSM password as you would in RDBMS for External HSM.
+	* `provider_type` - Use 'EXTERNAL' for creating a new database or migrating a database key to an External HSM. Use 'AZURE' for creating a new database or migrating a database key to Azure. 
 * `freeform_tags` - Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).  Example: `{"Department": "Finance"}` 
 * `id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database.
 * `is_cdb` - True if the database is a container database.
@@ -78,6 +107,7 @@ The following attributes are exported:
 * `sid_prefix` - Specifies a prefix for the `Oracle SID` of the database to be created. 
 * `source_database_point_in_time_recovery_timestamp` - Point in time recovery timeStamp of the source database at which cloned database system is cloned from the source database system, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339)
 * `state` - The current state of the database.
+* `system_tags` - System tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm). 
 * `time_created` - The date and time the database was created.
 * `vault_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/iaas/Content/KeyManagement/Concepts/keyoverview.htm#concepts). This parameter and `secretId` are required for Customer Managed Keys.
 * `vm_cluster_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VM cluster.

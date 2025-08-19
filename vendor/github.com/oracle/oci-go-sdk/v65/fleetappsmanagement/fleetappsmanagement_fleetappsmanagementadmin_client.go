@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -60,7 +60,7 @@ func newFleetAppsManagementAdminClientFromBaseClient(baseClient common.BaseClien
 	common.ConfigCircuitBreakerFromGlobalVar(&baseClient)
 
 	client = FleetAppsManagementAdminClient{BaseClient: baseClient}
-	client.BasePath = "20230831"
+	client.BasePath = "20250228"
 	err = client.setConfigurationProvider(configProvider)
 	return
 }
@@ -91,11 +91,139 @@ func (client *FleetAppsManagementAdminClient) ConfigurationProvider() *common.Co
 	return client.config
 }
 
-// CreateCompliancePolicyRule Creates a CompliancePolicyRule.
+// ChangePlatformConfigurationCompartment Moves a PlatformConfiguration into a different compartment within the same tenancy. For information about moving resources between
+// compartments, see Moving Resources to a Different Compartment (https://docs.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateCompliancePolicyRule.go.html to see an example of how to use CreateCompliancePolicyRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ChangePlatformConfigurationCompartment.go.html to see an example of how to use ChangePlatformConfigurationCompartment API.
+// A default retry strategy applies to this operation ChangePlatformConfigurationCompartment()
+func (client FleetAppsManagementAdminClient) ChangePlatformConfigurationCompartment(ctx context.Context, request ChangePlatformConfigurationCompartmentRequest) (response ChangePlatformConfigurationCompartmentResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.changePlatformConfigurationCompartment, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ChangePlatformConfigurationCompartmentResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ChangePlatformConfigurationCompartmentResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ChangePlatformConfigurationCompartmentResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ChangePlatformConfigurationCompartmentResponse")
+	}
+	return
+}
+
+// changePlatformConfigurationCompartment implements the OCIOperation interface (enables retrying operations)
+func (client FleetAppsManagementAdminClient) changePlatformConfigurationCompartment(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/platformConfigurations/{platformConfigurationId}/actions/changeCompartment", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ChangePlatformConfigurationCompartmentResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PlatformConfiguration/ChangePlatformConfigurationCompartment"
+		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ChangePlatformConfigurationCompartment", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ChangePropertyCompartment Moves a Property into a different compartment within the same tenancy. For information about moving resources between
+// compartments, see Moving Resources to a Different Compartment (https://docs.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ChangePropertyCompartment.go.html to see an example of how to use ChangePropertyCompartment API.
+// A default retry strategy applies to this operation ChangePropertyCompartment()
+func (client FleetAppsManagementAdminClient) ChangePropertyCompartment(ctx context.Context, request ChangePropertyCompartmentRequest) (response ChangePropertyCompartmentResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.changePropertyCompartment, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ChangePropertyCompartmentResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ChangePropertyCompartmentResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ChangePropertyCompartmentResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ChangePropertyCompartmentResponse")
+	}
+	return
+}
+
+// changePropertyCompartment implements the OCIOperation interface (enables retrying operations)
+func (client FleetAppsManagementAdminClient) changePropertyCompartment(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/properties/{propertyId}/actions/changeCompartment", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ChangePropertyCompartmentResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Property/ChangePropertyCompartment"
+		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ChangePropertyCompartment", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// CreateCompliancePolicyRule Creates a compliance policy rule.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateCompliancePolicyRule.go.html to see an example of how to use CreateCompliancePolicyRule API.
 // A default retry strategy applies to this operation CreateCompliancePolicyRule()
 func (client FleetAppsManagementAdminClient) CreateCompliancePolicyRule(ctx context.Context, request CreateCompliancePolicyRuleRequest) (response CreateCompliancePolicyRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -145,7 +273,7 @@ func (client FleetAppsManagementAdminClient) createCompliancePolicyRule(ctx cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/CompliancePolicyRule/CreateCompliancePolicyRule"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/CompliancePolicyRule/CreateCompliancePolicyRule"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "CreateCompliancePolicyRule", apiReferenceLink)
 		return response, err
 	}
@@ -159,7 +287,7 @@ func (client FleetAppsManagementAdminClient) createCompliancePolicyRule(ctx cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateOnboarding.go.html to see an example of how to use CreateOnboarding API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateOnboarding.go.html to see an example of how to use CreateOnboarding API.
 // A default retry strategy applies to this operation CreateOnboarding()
 func (client FleetAppsManagementAdminClient) CreateOnboarding(ctx context.Context, request CreateOnboardingRequest) (response CreateOnboardingResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -198,7 +326,7 @@ func (client FleetAppsManagementAdminClient) CreateOnboarding(ctx context.Contex
 // createOnboarding implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) createOnboarding(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodPost, "/Onboardings", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/onboardings", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +337,7 @@ func (client FleetAppsManagementAdminClient) createOnboarding(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Onboarding/CreateOnboarding"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Onboarding/CreateOnboarding"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "CreateOnboarding", apiReferenceLink)
 		return response, err
 	}
@@ -222,7 +350,7 @@ func (client FleetAppsManagementAdminClient) createOnboarding(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreatePlatformConfiguration.go.html to see an example of how to use CreatePlatformConfiguration API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreatePlatformConfiguration.go.html to see an example of how to use CreatePlatformConfiguration API.
 // A default retry strategy applies to this operation CreatePlatformConfiguration()
 func (client FleetAppsManagementAdminClient) CreatePlatformConfiguration(ctx context.Context, request CreatePlatformConfigurationRequest) (response CreatePlatformConfigurationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -272,7 +400,7 @@ func (client FleetAppsManagementAdminClient) createPlatformConfiguration(ctx con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/PlatformConfiguration/CreatePlatformConfiguration"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PlatformConfiguration/CreatePlatformConfiguration"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "CreatePlatformConfiguration", apiReferenceLink)
 		return response, err
 	}
@@ -281,11 +409,11 @@ func (client FleetAppsManagementAdminClient) createPlatformConfiguration(ctx con
 	return response, err
 }
 
-// CreateProperty Create a business-specific metadata property in Fleet Application Management and capture the business metadata classifications.
+// CreateProperty Create a business-specific metadata property in Fleet Application Management.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateProperty.go.html to see an example of how to use CreateProperty API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateProperty.go.html to see an example of how to use CreateProperty API.
 // A default retry strategy applies to this operation CreateProperty()
 func (client FleetAppsManagementAdminClient) CreateProperty(ctx context.Context, request CreatePropertyRequest) (response CreatePropertyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -335,7 +463,7 @@ func (client FleetAppsManagementAdminClient) createProperty(ctx context.Context,
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Property/CreateProperty"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Property/CreateProperty"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "CreateProperty", apiReferenceLink)
 		return response, err
 	}
@@ -344,11 +472,11 @@ func (client FleetAppsManagementAdminClient) createProperty(ctx context.Context,
 	return response, err
 }
 
-// DeleteCompliancePolicyRule Deletes a CompliancePolicyRule.
+// DeleteCompliancePolicyRule Deletes a compliance policy rule specified by an identifier.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteCompliancePolicyRule.go.html to see an example of how to use DeleteCompliancePolicyRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteCompliancePolicyRule.go.html to see an example of how to use DeleteCompliancePolicyRule API.
 // A default retry strategy applies to this operation DeleteCompliancePolicyRule()
 func (client FleetAppsManagementAdminClient) DeleteCompliancePolicyRule(ctx context.Context, request DeleteCompliancePolicyRuleRequest) (response DeleteCompliancePolicyRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -393,7 +521,7 @@ func (client FleetAppsManagementAdminClient) deleteCompliancePolicyRule(ctx cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/CompliancePolicyRule/DeleteCompliancePolicyRule"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/CompliancePolicyRule/DeleteCompliancePolicyRule"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "DeleteCompliancePolicyRule", apiReferenceLink)
 		return response, err
 	}
@@ -406,7 +534,7 @@ func (client FleetAppsManagementAdminClient) deleteCompliancePolicyRule(ctx cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteOnboarding.go.html to see an example of how to use DeleteOnboarding API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteOnboarding.go.html to see an example of how to use DeleteOnboarding API.
 // A default retry strategy applies to this operation DeleteOnboarding()
 func (client FleetAppsManagementAdminClient) DeleteOnboarding(ctx context.Context, request DeleteOnboardingRequest) (response DeleteOnboardingResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -440,7 +568,7 @@ func (client FleetAppsManagementAdminClient) DeleteOnboarding(ctx context.Contex
 // deleteOnboarding implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) deleteOnboarding(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/Onboardings/{onboardingId}", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/onboardings/{onboardingId}", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -451,7 +579,7 @@ func (client FleetAppsManagementAdminClient) deleteOnboarding(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Onboarding/DeleteOnboarding"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Onboarding/DeleteOnboarding"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "DeleteOnboarding", apiReferenceLink)
 		return response, err
 	}
@@ -464,7 +592,7 @@ func (client FleetAppsManagementAdminClient) deleteOnboarding(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeletePlatformConfiguration.go.html to see an example of how to use DeletePlatformConfiguration API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeletePlatformConfiguration.go.html to see an example of how to use DeletePlatformConfiguration API.
 // A default retry strategy applies to this operation DeletePlatformConfiguration()
 func (client FleetAppsManagementAdminClient) DeletePlatformConfiguration(ctx context.Context, request DeletePlatformConfigurationRequest) (response DeletePlatformConfigurationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -509,7 +637,7 @@ func (client FleetAppsManagementAdminClient) deletePlatformConfiguration(ctx con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/PlatformConfiguration/DeletePlatformConfiguration"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PlatformConfiguration/DeletePlatformConfiguration"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "DeletePlatformConfiguration", apiReferenceLink)
 		return response, err
 	}
@@ -522,7 +650,7 @@ func (client FleetAppsManagementAdminClient) deletePlatformConfiguration(ctx con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteProperty.go.html to see an example of how to use DeleteProperty API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteProperty.go.html to see an example of how to use DeleteProperty API.
 // A default retry strategy applies to this operation DeleteProperty()
 func (client FleetAppsManagementAdminClient) DeleteProperty(ctx context.Context, request DeletePropertyRequest) (response DeletePropertyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -567,7 +695,7 @@ func (client FleetAppsManagementAdminClient) deleteProperty(ctx context.Context,
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Property/DeleteProperty"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Property/DeleteProperty"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "DeleteProperty", apiReferenceLink)
 		return response, err
 	}
@@ -580,7 +708,7 @@ func (client FleetAppsManagementAdminClient) deleteProperty(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/EnableLatestPolicy.go.html to see an example of how to use EnableLatestPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/EnableLatestPolicy.go.html to see an example of how to use EnableLatestPolicy API.
 // A default retry strategy applies to this operation EnableLatestPolicy()
 func (client FleetAppsManagementAdminClient) EnableLatestPolicy(ctx context.Context, request EnableLatestPolicyRequest) (response EnableLatestPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -619,7 +747,7 @@ func (client FleetAppsManagementAdminClient) EnableLatestPolicy(ctx context.Cont
 // enableLatestPolicy implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) enableLatestPolicy(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodPost, "/Onboardings/{onboardingId}/actions/enableLatestPolicy", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/onboardings/{onboardingId}/actions/enableLatestPolicy", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -630,7 +758,7 @@ func (client FleetAppsManagementAdminClient) enableLatestPolicy(ctx context.Cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Onboarding/EnableLatestPolicy"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Onboarding/EnableLatestPolicy"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "EnableLatestPolicy", apiReferenceLink)
 		return response, err
 	}
@@ -639,11 +767,11 @@ func (client FleetAppsManagementAdminClient) enableLatestPolicy(ctx context.Cont
 	return response, err
 }
 
-// GetCompliancePolicy Gets information about a CompliancePolicy.
+// GetCompliancePolicy Gets information about a compliance policy.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetCompliancePolicy.go.html to see an example of how to use GetCompliancePolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetCompliancePolicy.go.html to see an example of how to use GetCompliancePolicy API.
 // A default retry strategy applies to this operation GetCompliancePolicy()
 func (client FleetAppsManagementAdminClient) GetCompliancePolicy(ctx context.Context, request GetCompliancePolicyRequest) (response GetCompliancePolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -688,7 +816,7 @@ func (client FleetAppsManagementAdminClient) getCompliancePolicy(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/CompliancePolicy/GetCompliancePolicy"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/CompliancePolicy/GetCompliancePolicy"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "GetCompliancePolicy", apiReferenceLink)
 		return response, err
 	}
@@ -697,11 +825,11 @@ func (client FleetAppsManagementAdminClient) getCompliancePolicy(ctx context.Con
 	return response, err
 }
 
-// GetCompliancePolicyRule Gets information about a CompliancePolicyRule.
+// GetCompliancePolicyRule Gets information about a compliance policy rule.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetCompliancePolicyRule.go.html to see an example of how to use GetCompliancePolicyRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetCompliancePolicyRule.go.html to see an example of how to use GetCompliancePolicyRule API.
 // A default retry strategy applies to this operation GetCompliancePolicyRule()
 func (client FleetAppsManagementAdminClient) GetCompliancePolicyRule(ctx context.Context, request GetCompliancePolicyRuleRequest) (response GetCompliancePolicyRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -746,7 +874,7 @@ func (client FleetAppsManagementAdminClient) getCompliancePolicyRule(ctx context
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/CompliancePolicyRule/GetCompliancePolicyRule"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/CompliancePolicyRule/GetCompliancePolicyRule"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "GetCompliancePolicyRule", apiReferenceLink)
 		return response, err
 	}
@@ -759,7 +887,7 @@ func (client FleetAppsManagementAdminClient) getCompliancePolicyRule(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetOnboarding.go.html to see an example of how to use GetOnboarding API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetOnboarding.go.html to see an example of how to use GetOnboarding API.
 // A default retry strategy applies to this operation GetOnboarding()
 func (client FleetAppsManagementAdminClient) GetOnboarding(ctx context.Context, request GetOnboardingRequest) (response GetOnboardingResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -793,7 +921,7 @@ func (client FleetAppsManagementAdminClient) GetOnboarding(ctx context.Context, 
 // getOnboarding implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) getOnboarding(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodGet, "/Onboardings/{onboardingId}", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/onboardings/{onboardingId}", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -804,7 +932,7 @@ func (client FleetAppsManagementAdminClient) getOnboarding(ctx context.Context, 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Onboarding/GetOnboarding"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Onboarding/GetOnboarding"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "GetOnboarding", apiReferenceLink)
 		return response, err
 	}
@@ -817,7 +945,7 @@ func (client FleetAppsManagementAdminClient) getOnboarding(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetPlatformConfiguration.go.html to see an example of how to use GetPlatformConfiguration API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetPlatformConfiguration.go.html to see an example of how to use GetPlatformConfiguration API.
 // A default retry strategy applies to this operation GetPlatformConfiguration()
 func (client FleetAppsManagementAdminClient) GetPlatformConfiguration(ctx context.Context, request GetPlatformConfigurationRequest) (response GetPlatformConfigurationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -862,7 +990,7 @@ func (client FleetAppsManagementAdminClient) getPlatformConfiguration(ctx contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/PlatformConfiguration/GetPlatformConfiguration"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PlatformConfiguration/GetPlatformConfiguration"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "GetPlatformConfiguration", apiReferenceLink)
 		return response, err
 	}
@@ -875,7 +1003,7 @@ func (client FleetAppsManagementAdminClient) getPlatformConfiguration(ctx contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetProperty.go.html to see an example of how to use GetProperty API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetProperty.go.html to see an example of how to use GetProperty API.
 // A default retry strategy applies to this operation GetProperty()
 func (client FleetAppsManagementAdminClient) GetProperty(ctx context.Context, request GetPropertyRequest) (response GetPropertyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -920,7 +1048,7 @@ func (client FleetAppsManagementAdminClient) getProperty(ctx context.Context, re
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Property/GetProperty"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Property/GetProperty"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "GetProperty", apiReferenceLink)
 		return response, err
 	}
@@ -929,11 +1057,12 @@ func (client FleetAppsManagementAdminClient) getProperty(ctx context.Context, re
 	return response, err
 }
 
-// ListCompliancePolicies Gets a list of compliancePolicies.
+// ListCompliancePolicies Returns a list of all the Compliance Policies in the specified compartment.
+// The query parameter `compartmentId` is required unless the query parameter `id` is specified.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListCompliancePolicies.go.html to see an example of how to use ListCompliancePolicies API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListCompliancePolicies.go.html to see an example of how to use ListCompliancePolicies API.
 // A default retry strategy applies to this operation ListCompliancePolicies()
 func (client FleetAppsManagementAdminClient) ListCompliancePolicies(ctx context.Context, request ListCompliancePoliciesRequest) (response ListCompliancePoliciesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -978,7 +1107,7 @@ func (client FleetAppsManagementAdminClient) listCompliancePolicies(ctx context.
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/CompliancePolicyCollection/ListCompliancePolicies"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/CompliancePolicyCollection/ListCompliancePolicies"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ListCompliancePolicies", apiReferenceLink)
 		return response, err
 	}
@@ -987,11 +1116,11 @@ func (client FleetAppsManagementAdminClient) listCompliancePolicies(ctx context.
 	return response, err
 }
 
-// ListCompliancePolicyRules Gets a list of CompliancePolicyRules.
+// ListCompliancePolicyRules Gets a list of Compliance policy rules in a compartment.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListCompliancePolicyRules.go.html to see an example of how to use ListCompliancePolicyRules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListCompliancePolicyRules.go.html to see an example of how to use ListCompliancePolicyRules API.
 // A default retry strategy applies to this operation ListCompliancePolicyRules()
 func (client FleetAppsManagementAdminClient) ListCompliancePolicyRules(ctx context.Context, request ListCompliancePolicyRulesRequest) (response ListCompliancePolicyRulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1036,7 +1165,7 @@ func (client FleetAppsManagementAdminClient) listCompliancePolicyRules(ctx conte
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/CompliancePolicyRuleCollection/ListCompliancePolicyRules"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/CompliancePolicyRuleCollection/ListCompliancePolicyRules"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ListCompliancePolicyRules", apiReferenceLink)
 		return response, err
 	}
@@ -1049,7 +1178,7 @@ func (client FleetAppsManagementAdminClient) listCompliancePolicyRules(ctx conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListOnboardingPolicies.go.html to see an example of how to use ListOnboardingPolicies API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListOnboardingPolicies.go.html to see an example of how to use ListOnboardingPolicies API.
 // A default retry strategy applies to this operation ListOnboardingPolicies()
 func (client FleetAppsManagementAdminClient) ListOnboardingPolicies(ctx context.Context, request ListOnboardingPoliciesRequest) (response ListOnboardingPoliciesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1083,7 +1212,7 @@ func (client FleetAppsManagementAdminClient) ListOnboardingPolicies(ctx context.
 // listOnboardingPolicies implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) listOnboardingPolicies(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodGet, "/OnboardingPolicies", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/onboardingPolicies", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -1094,7 +1223,7 @@ func (client FleetAppsManagementAdminClient) listOnboardingPolicies(ctx context.
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/OnboardingPolicyCollection/ListOnboardingPolicies"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/OnboardingPolicyCollection/ListOnboardingPolicies"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ListOnboardingPolicies", apiReferenceLink)
 		return response, err
 	}
@@ -1103,11 +1232,12 @@ func (client FleetAppsManagementAdminClient) listOnboardingPolicies(ctx context.
 	return response, err
 }
 
-// ListOnboardings Returns a list of onboarding information for the Tenancy.
+// ListOnboardings Returns a list of all the onboardings in the specified root compartment (tenancy).
+// The query parameter `compartmentId` is required unless the query parameter `id` is specified.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListOnboardings.go.html to see an example of how to use ListOnboardings API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListOnboardings.go.html to see an example of how to use ListOnboardings API.
 // A default retry strategy applies to this operation ListOnboardings()
 func (client FleetAppsManagementAdminClient) ListOnboardings(ctx context.Context, request ListOnboardingsRequest) (response ListOnboardingsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1141,7 +1271,7 @@ func (client FleetAppsManagementAdminClient) ListOnboardings(ctx context.Context
 // listOnboardings implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) listOnboardings(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodGet, "/Onboardings", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/onboardings", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -1152,7 +1282,7 @@ func (client FleetAppsManagementAdminClient) listOnboardings(ctx context.Context
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/OnboardingCollection/ListOnboardings"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/OnboardingCollection/ListOnboardings"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ListOnboardings", apiReferenceLink)
 		return response, err
 	}
@@ -1161,11 +1291,12 @@ func (client FleetAppsManagementAdminClient) listOnboardings(ctx context.Context
 	return response, err
 }
 
-// ListPlatformConfigurations Returns a list of PlatformConfiguration for Tenancy.
+// ListPlatformConfigurations Returns a list of all the Platform Configurations in the specified compartment.
+// The query parameter `compartmentId` is required unless the query parameter `id` is specified.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListPlatformConfigurations.go.html to see an example of how to use ListPlatformConfigurations API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListPlatformConfigurations.go.html to see an example of how to use ListPlatformConfigurations API.
 // A default retry strategy applies to this operation ListPlatformConfigurations()
 func (client FleetAppsManagementAdminClient) ListPlatformConfigurations(ctx context.Context, request ListPlatformConfigurationsRequest) (response ListPlatformConfigurationsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1210,7 +1341,7 @@ func (client FleetAppsManagementAdminClient) listPlatformConfigurations(ctx cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/PlatformConfigurationCollection/ListPlatformConfigurations"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PlatformConfigurationCollection/ListPlatformConfigurations"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ListPlatformConfigurations", apiReferenceLink)
 		return response, err
 	}
@@ -1219,11 +1350,12 @@ func (client FleetAppsManagementAdminClient) listPlatformConfigurations(ctx cont
 	return response, err
 }
 
-// ListProperties List properties and their values for a tenancy in Fleet Application Management.
+// ListProperties Returns a list of all the Properties in the specified compartment.
+// The query parameter `compartmentId` is required unless the query parameter `id` is specified.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListProperties.go.html to see an example of how to use ListProperties API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListProperties.go.html to see an example of how to use ListProperties API.
 // A default retry strategy applies to this operation ListProperties()
 func (client FleetAppsManagementAdminClient) ListProperties(ctx context.Context, request ListPropertiesRequest) (response ListPropertiesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1268,7 +1400,7 @@ func (client FleetAppsManagementAdminClient) listProperties(ctx context.Context,
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/PropertyCollection/ListProperties"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PropertyCollection/ListProperties"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ListProperties", apiReferenceLink)
 		return response, err
 	}
@@ -1281,7 +1413,7 @@ func (client FleetAppsManagementAdminClient) listProperties(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ManageSettings.go.html to see an example of how to use ManageSettings API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ManageSettings.go.html to see an example of how to use ManageSettings API.
 // A default retry strategy applies to this operation ManageSettings()
 func (client FleetAppsManagementAdminClient) ManageSettings(ctx context.Context, request ManageSettingsRequest) (response ManageSettingsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1320,7 +1452,7 @@ func (client FleetAppsManagementAdminClient) ManageSettings(ctx context.Context,
 // manageSettings implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) manageSettings(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodPost, "/Onboardings/{onboardingId}/actions/manageSettings", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/onboardings/{onboardingId}/actions/manageSettings", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -1331,7 +1463,7 @@ func (client FleetAppsManagementAdminClient) manageSettings(ctx context.Context,
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Onboarding/ManageSettings"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Onboarding/ManageSettings"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "ManageSettings", apiReferenceLink)
 		return response, err
 	}
@@ -1340,11 +1472,11 @@ func (client FleetAppsManagementAdminClient) manageSettings(ctx context.Context,
 	return response, err
 }
 
-// UpdateCompliancePolicyRule Updates a CompliancePolicyRule.
+// UpdateCompliancePolicyRule Updates a compliance policy rule specified by an identifier.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateCompliancePolicyRule.go.html to see an example of how to use UpdateCompliancePolicyRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateCompliancePolicyRule.go.html to see an example of how to use UpdateCompliancePolicyRule API.
 // A default retry strategy applies to this operation UpdateCompliancePolicyRule()
 func (client FleetAppsManagementAdminClient) UpdateCompliancePolicyRule(ctx context.Context, request UpdateCompliancePolicyRuleRequest) (response UpdateCompliancePolicyRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1389,7 +1521,7 @@ func (client FleetAppsManagementAdminClient) updateCompliancePolicyRule(ctx cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/CompliancePolicyRule/UpdateCompliancePolicyRule"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/CompliancePolicyRule/UpdateCompliancePolicyRule"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "UpdateCompliancePolicyRule", apiReferenceLink)
 		return response, err
 	}
@@ -1402,7 +1534,7 @@ func (client FleetAppsManagementAdminClient) updateCompliancePolicyRule(ctx cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateOnboarding.go.html to see an example of how to use UpdateOnboarding API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateOnboarding.go.html to see an example of how to use UpdateOnboarding API.
 // A default retry strategy applies to this operation UpdateOnboarding()
 func (client FleetAppsManagementAdminClient) UpdateOnboarding(ctx context.Context, request UpdateOnboardingRequest) (response UpdateOnboardingResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1436,7 +1568,7 @@ func (client FleetAppsManagementAdminClient) UpdateOnboarding(ctx context.Contex
 // updateOnboarding implements the OCIOperation interface (enables retrying operations)
 func (client FleetAppsManagementAdminClient) updateOnboarding(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
 
-	httpRequest, err := request.HTTPRequest(http.MethodPut, "/Onboardings/{onboardingId}", binaryReqBody, extraHeaders)
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/onboardings/{onboardingId}", binaryReqBody, extraHeaders)
 	if err != nil {
 		return nil, err
 	}
@@ -1447,7 +1579,7 @@ func (client FleetAppsManagementAdminClient) updateOnboarding(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Onboarding/UpdateOnboarding"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Onboarding/UpdateOnboarding"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "UpdateOnboarding", apiReferenceLink)
 		return response, err
 	}
@@ -1460,7 +1592,7 @@ func (client FleetAppsManagementAdminClient) updateOnboarding(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdatePlatformConfiguration.go.html to see an example of how to use UpdatePlatformConfiguration API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdatePlatformConfiguration.go.html to see an example of how to use UpdatePlatformConfiguration API.
 // A default retry strategy applies to this operation UpdatePlatformConfiguration()
 func (client FleetAppsManagementAdminClient) UpdatePlatformConfiguration(ctx context.Context, request UpdatePlatformConfigurationRequest) (response UpdatePlatformConfigurationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1505,7 +1637,7 @@ func (client FleetAppsManagementAdminClient) updatePlatformConfiguration(ctx con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/PlatformConfiguration/UpdatePlatformConfiguration"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PlatformConfiguration/UpdatePlatformConfiguration"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "UpdatePlatformConfiguration", apiReferenceLink)
 		return response, err
 	}
@@ -1518,7 +1650,7 @@ func (client FleetAppsManagementAdminClient) updatePlatformConfiguration(ctx con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateProperty.go.html to see an example of how to use UpdateProperty API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateProperty.go.html to see an example of how to use UpdateProperty API.
 // A default retry strategy applies to this operation UpdateProperty()
 func (client FleetAppsManagementAdminClient) UpdateProperty(ctx context.Context, request UpdatePropertyRequest) (response UpdatePropertyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1563,7 +1695,7 @@ func (client FleetAppsManagementAdminClient) updateProperty(ctx context.Context,
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Property/UpdateProperty"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Property/UpdateProperty"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementAdmin", "UpdateProperty", apiReferenceLink)
 		return response, err
 	}

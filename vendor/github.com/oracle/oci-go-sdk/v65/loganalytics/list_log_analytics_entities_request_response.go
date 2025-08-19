@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListLogAnalyticsEntities.go.html to see an example of how to use ListLogAnalyticsEntitiesRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListLogAnalyticsEntities.go.html to see an example of how to use ListLogAnalyticsEntitiesRequest.
 type ListLogAnalyticsEntitiesRequest struct {
 
 	// The Logging Analytics namespace used for the request.
@@ -84,6 +84,34 @@ type ListLogAnalyticsEntitiesRequest struct {
 	// A filter to return only log analytics entities whose metadata name, value and type matches the specified string.
 	// Each item in the array has the format "{name}:{value}:{type}".  All inputs are case-insensitive.
 	MetadataEquals []string `contributesTo:"query" name:"metadataEquals" collectionFormat:"multi"`
+
+	// A list of tag filters to apply.  Only entities with a defined tag matching the value will be returned.
+	// Each item in the list has the format "{namespace}.{tagName}.{value}".  All inputs are case-insensitive.
+	// Multiple values for the same key (i.e. same namespace and tag name) are interpreted as "OR".
+	// Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as "AND".
+	DefinedTagEquals []string `contributesTo:"query" name:"definedTagEquals" collectionFormat:"multi"`
+
+	// A list of tag filters to apply.  Only entities with a freeform tag matching the value will be returned.
+	// The key for each tag is "{tagName}.{value}".  All inputs are case-insensitive.
+	// Multiple values for the same tag name are interpreted as "OR".  Values for different tag names are interpreted as "AND".
+	FreeformTagEquals []string `contributesTo:"query" name:"freeformTagEquals" collectionFormat:"multi"`
+
+	// A list of tag existence filters to apply.  Only entities for which the specified defined tags exist will be returned.
+	// Each item in the list has the format "{namespace}.{tagName}.true" (for checking existence of a defined tag)
+	// or "{namespace}.true".  All inputs are case-insensitive.
+	// Currently, only existence ("true" at the end) is supported. Absence ("false" at the end) is not supported.
+	// Multiple values for the same key (i.e. same namespace and tag name) are interpreted as "OR".
+	// Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as "AND".
+	DefinedTagExists []string `contributesTo:"query" name:"definedTagExists" collectionFormat:"multi"`
+
+	// A list of tag existence filters to apply.  Only entities for which the specified freeform tags exist the value will be returned.
+	// The key for each tag is "{tagName}.true".  All inputs are case-insensitive.
+	// Currently, only existence ("true" at the end) is supported. Absence ("false" at the end) is not supported.
+	// Multiple values for different tag names are interpreted as "AND".
+	FreeformTagExists []string `contributesTo:"query" name:"freeformTagExists" collectionFormat:"multi"`
+
+	// Option to return count of associated log sources for log analytics entity(s).
+	IsShowAssociatedSourcesCount *bool `mandatory:"false" contributesTo:"query" name:"isShowAssociatedSourcesCount"`
 
 	// Metadata about the request. This information will not be transmitted to the service, but
 	// represents information that the SDK will consume to drive retry behavior.

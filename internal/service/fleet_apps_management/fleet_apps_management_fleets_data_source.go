@@ -110,7 +110,7 @@ func (s *FleetAppsManagementFleetsDataSourceCrud) Get() error {
 	}
 
 	if fleetType, ok := s.D.GetOkExists("fleet_type"); ok {
-		request.FleetType = oci_fleet_apps_management.FleetFleetTypeEnum(fleetType.(string))
+		request.FleetType = oci_fleet_apps_management.FleetDetailsFleetTypeEnum(fleetType.(string))
 	}
 
 	if id, ok := s.D.GetOkExists("id"); ok {

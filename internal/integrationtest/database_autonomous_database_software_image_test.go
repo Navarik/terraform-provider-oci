@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_database "github.com/oracle/oci-go-sdk/v65/database"
 
@@ -53,7 +53,6 @@ var (
 		"display_name":       acctest.Representation{RepType: acctest.Optional, Create: `image1` + randString},
 		"state":              acctest.Representation{RepType: acctest.Optional, Create: `AVAILABLE`},
 		"filter":             acctest.RepresentationGroup{RepType: acctest.Required, Group: DatabaseAutonomousDatabaseSoftwareImageDataSourceFilterRepresentation}}
-
 	DatabaseAutonomousDatabaseSoftwareImageDataSourceFilterRepresentation = map[string]interface{}{
 		"name":   acctest.Representation{RepType: acctest.Required, Create: `id`},
 		"values": acctest.Representation{RepType: acctest.Required, Create: []string{`${oci_database_autonomous_database_software_image.test_autonomous_database_software_image.id}`}},
@@ -130,6 +129,7 @@ func TestDatabaseExaccAutonomousDatabaseSoftwareImageResource_basic(t *testing.T
 				resource.TestCheckResourceAttr(resourceName, "display_name", "image1"+randString),
 				resource.TestCheckResourceAttr(resourceName, "image_shape_family", "EXACC_SHAPE"),
 				resource.TestCheckResourceAttrSet(resourceName, "source_cdb_id"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -157,6 +157,7 @@ func TestDatabaseExaccAutonomousDatabaseSoftwareImageResource_basic(t *testing.T
 				resource.TestCheckResourceAttrSet(resourceName, "source_cdb_id"),
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
 				resource.TestCheckResourceAttrSet(resourceName, "time_created"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -238,6 +239,7 @@ func TestDatabaseExaccAutonomousDatabaseSoftwareImageResource_basic(t *testing.T
 
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_database_software_image_collection.#", "1"),
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_database_software_image_collection.0.items.#", "1"),
+				resource.TestCheckResourceAttr(datasourceName, "autonomous_database_software_image_collection.0.system_tags.%", "0"),
 			),
 		},
 		// verify singular datasource
@@ -258,6 +260,7 @@ func TestDatabaseExaccAutonomousDatabaseSoftwareImageResource_basic(t *testing.T
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "release_update"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "state"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.%", "0"),
 			),
 		},
 		// verify resource import
@@ -304,6 +307,7 @@ func TestDatabaseAutonomousDatabaseSoftwareImageResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "display_name", "image1"+randString),
 				resource.TestCheckResourceAttr(resourceName, "image_shape_family", "EXADATA_SHAPE"),
 				resource.TestCheckResourceAttrSet(resourceName, "source_cdb_id"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -331,6 +335,7 @@ func TestDatabaseAutonomousDatabaseSoftwareImageResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "source_cdb_id"),
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
 				resource.TestCheckResourceAttrSet(resourceName, "time_created"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -412,6 +417,7 @@ func TestDatabaseAutonomousDatabaseSoftwareImageResource_basic(t *testing.T) {
 
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_database_software_image_collection.#", "1"),
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_database_software_image_collection.0.items.#", "1"),
+				resource.TestCheckResourceAttr(datasourceName, "system_tags.%", "0"),
 			),
 		},
 		// verify singular datasource
@@ -432,6 +438,7 @@ func TestDatabaseAutonomousDatabaseSoftwareImageResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "release_update"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "state"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.%", "0"),
 			),
 		},
 		// verify resource import

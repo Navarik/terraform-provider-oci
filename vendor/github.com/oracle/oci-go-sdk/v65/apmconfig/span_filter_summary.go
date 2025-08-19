@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -20,7 +20,7 @@ import (
 // SpanFilterSummary A named setting that specifies the span filter criteria to match a subset of the spans.
 type SpanFilterSummary struct {
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the configuration item. An OCID is generated
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration item. An OCID is generated
 	// when the item is created.
 	Id *string `mandatory:"false" json:"id"`
 
@@ -34,10 +34,10 @@ type SpanFilterSummary struct {
 	// Example: `2020-02-13T22:47:12.613Z`
 	TimeUpdated *common.SDKTime `mandatory:"false" json:"timeUpdated"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a user.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a user.
 	CreatedBy *string `mandatory:"false" json:"createdBy"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a user.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a user.
 	UpdatedBy *string `mandatory:"false" json:"updatedBy"`
 
 	// For optimistic concurrency control. See `if-match`.
@@ -50,6 +50,10 @@ type SpanFilterSummary struct {
 	// Defined tags for this resource. Each key is predefined and scoped to a namespace.
 	// Example: `{"foo-namespace": {"bar-key": "value"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
+
+	// Usage of system tag keys. These predefined keys are scoped to namespaces.
+	// Example: `{"orcl-cloud": {"free-tier-retained": "true"}}`
+	SystemTags map[string]map[string]interface{} `mandatory:"false" json:"systemTags"`
 
 	// The name by which a configuration entity is displayed to the end user.
 	DisplayName *string `mandatory:"false" json:"displayName"`
@@ -102,6 +106,11 @@ func (m SpanFilterSummary) GetFreeformTags() map[string]string {
 // GetDefinedTags returns DefinedTags
 func (m SpanFilterSummary) GetDefinedTags() map[string]map[string]interface{} {
 	return m.DefinedTags
+}
+
+// GetSystemTags returns SystemTags
+func (m SpanFilterSummary) GetSystemTags() map[string]map[string]interface{} {
+	return m.SystemTags
 }
 
 func (m SpanFilterSummary) String() string {

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -68,8 +68,12 @@ func (m *inputargument) UnmarshalPolymorphicJSON(data []byte) (interface{}, erro
 		mm := StringInputArgument{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
+	case "FILE":
+		mm := FileInputArgument{}
+		err = json.Unmarshal(data, &mm)
+		return mm, err
 	default:
-		common.Logf("Recieved unsupported enum value for InputArgument: %s.", m.Type)
+		common.Logf("Received unsupported enum value for InputArgument: %s.", m.Type)
 		return *m, nil
 	}
 }
@@ -107,16 +111,19 @@ type InputArgumentTypeEnum string
 const (
 	InputArgumentTypeString         InputArgumentTypeEnum = "STRING"
 	InputArgumentTypeOutputVariable InputArgumentTypeEnum = "OUTPUT_VARIABLE"
+	InputArgumentTypeFile           InputArgumentTypeEnum = "FILE"
 )
 
 var mappingInputArgumentTypeEnum = map[string]InputArgumentTypeEnum{
 	"STRING":          InputArgumentTypeString,
 	"OUTPUT_VARIABLE": InputArgumentTypeOutputVariable,
+	"FILE":            InputArgumentTypeFile,
 }
 
 var mappingInputArgumentTypeEnumLowerCase = map[string]InputArgumentTypeEnum{
 	"string":          InputArgumentTypeString,
 	"output_variable": InputArgumentTypeOutputVariable,
+	"file":            InputArgumentTypeFile,
 }
 
 // GetInputArgumentTypeEnumValues Enumerates the set of values for InputArgumentTypeEnum
@@ -133,6 +140,7 @@ func GetInputArgumentTypeEnumStringValues() []string {
 	return []string{
 		"STRING",
 		"OUTPUT_VARIABLE",
+		"FILE",
 	}
 }
 

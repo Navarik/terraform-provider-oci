@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -16,7 +16,8 @@ import (
 )
 
 // UserSummary The summary of information about the database user. It includes details such as user type, account status,
-// last login time, user creation time, authentication type, user profile, and time and date of the last password change.
+// last login time, user creation time, authentication type, user profile, and time and date of the last password change and
+// the date and time of the expiration of the password.
 // It also contains the user category derived from these user details, as well as granted privileges.
 type UserSummary struct {
 
@@ -49,6 +50,9 @@ type UserSummary struct {
 
 	// The date and time the user password was last changed, in the format defined by RFC3339 (https://tools.ietf.org/html/rfc3339).
 	TimePasswordChanged *common.SDKTime `mandatory:"false" json:"timePasswordChanged"`
+
+	// The date and time the user's password will expire, in the format defined by RFC3339 (https://tools.ietf.org/html/rfc3339).
+	TimePasswordExpiry *common.SDKTime `mandatory:"false" json:"timePasswordExpiry"`
 
 	// The user type, which can be a combination of the following:
 	// 'Admin Privileged': The user has administrative privileges.
@@ -160,27 +164,45 @@ type UserSummaryAccountStatusEnum string
 
 // Set of constants representing the allowable values for UserSummaryAccountStatusEnum
 const (
-	UserSummaryAccountStatusOpen             UserSummaryAccountStatusEnum = "OPEN"
-	UserSummaryAccountStatusLocked           UserSummaryAccountStatusEnum = "LOCKED"
-	UserSummaryAccountStatusExpired          UserSummaryAccountStatusEnum = "EXPIRED"
-	UserSummaryAccountStatusExpiredAndLocked UserSummaryAccountStatusEnum = "EXPIRED_AND_LOCKED"
-	UserSummaryAccountStatusNone             UserSummaryAccountStatusEnum = "NONE"
+	UserSummaryAccountStatusOpen                          UserSummaryAccountStatusEnum = "OPEN"
+	UserSummaryAccountStatusLocked                        UserSummaryAccountStatusEnum = "LOCKED"
+	UserSummaryAccountStatusExpired                       UserSummaryAccountStatusEnum = "EXPIRED"
+	UserSummaryAccountStatusExpiredAndLocked              UserSummaryAccountStatusEnum = "EXPIRED_AND_LOCKED"
+	UserSummaryAccountStatusOpenAndInRollover             UserSummaryAccountStatusEnum = "OPEN_AND_IN_ROLLOVER"
+	UserSummaryAccountStatusExpiredAndInRollover          UserSummaryAccountStatusEnum = "EXPIRED_AND_IN_ROLLOVER"
+	UserSummaryAccountStatusLockedAndInRollover           UserSummaryAccountStatusEnum = "LOCKED_AND_IN_ROLLOVER"
+	UserSummaryAccountStatusExpiredAndLockedAndInRollover UserSummaryAccountStatusEnum = "EXPIRED_AND_LOCKED_AND_IN_ROLLOVER"
+	UserSummaryAccountStatusLockedTimedAndInRollover      UserSummaryAccountStatusEnum = "LOCKED_TIMED_AND_IN_ROLLOVER"
+	UserSummaryAccountStatusExpiredAndLockedTimedAndInRol UserSummaryAccountStatusEnum = "EXPIRED_AND_LOCKED_TIMED_AND_IN_ROL"
+	UserSummaryAccountStatusNone                          UserSummaryAccountStatusEnum = "NONE"
 )
 
 var mappingUserSummaryAccountStatusEnum = map[string]UserSummaryAccountStatusEnum{
-	"OPEN":               UserSummaryAccountStatusOpen,
-	"LOCKED":             UserSummaryAccountStatusLocked,
-	"EXPIRED":            UserSummaryAccountStatusExpired,
-	"EXPIRED_AND_LOCKED": UserSummaryAccountStatusExpiredAndLocked,
-	"NONE":               UserSummaryAccountStatusNone,
+	"OPEN":                                UserSummaryAccountStatusOpen,
+	"LOCKED":                              UserSummaryAccountStatusLocked,
+	"EXPIRED":                             UserSummaryAccountStatusExpired,
+	"EXPIRED_AND_LOCKED":                  UserSummaryAccountStatusExpiredAndLocked,
+	"OPEN_AND_IN_ROLLOVER":                UserSummaryAccountStatusOpenAndInRollover,
+	"EXPIRED_AND_IN_ROLLOVER":             UserSummaryAccountStatusExpiredAndInRollover,
+	"LOCKED_AND_IN_ROLLOVER":              UserSummaryAccountStatusLockedAndInRollover,
+	"EXPIRED_AND_LOCKED_AND_IN_ROLLOVER":  UserSummaryAccountStatusExpiredAndLockedAndInRollover,
+	"LOCKED_TIMED_AND_IN_ROLLOVER":        UserSummaryAccountStatusLockedTimedAndInRollover,
+	"EXPIRED_AND_LOCKED_TIMED_AND_IN_ROL": UserSummaryAccountStatusExpiredAndLockedTimedAndInRol,
+	"NONE":                                UserSummaryAccountStatusNone,
 }
 
 var mappingUserSummaryAccountStatusEnumLowerCase = map[string]UserSummaryAccountStatusEnum{
-	"open":               UserSummaryAccountStatusOpen,
-	"locked":             UserSummaryAccountStatusLocked,
-	"expired":            UserSummaryAccountStatusExpired,
-	"expired_and_locked": UserSummaryAccountStatusExpiredAndLocked,
-	"none":               UserSummaryAccountStatusNone,
+	"open":                                UserSummaryAccountStatusOpen,
+	"locked":                              UserSummaryAccountStatusLocked,
+	"expired":                             UserSummaryAccountStatusExpired,
+	"expired_and_locked":                  UserSummaryAccountStatusExpiredAndLocked,
+	"open_and_in_rollover":                UserSummaryAccountStatusOpenAndInRollover,
+	"expired_and_in_rollover":             UserSummaryAccountStatusExpiredAndInRollover,
+	"locked_and_in_rollover":              UserSummaryAccountStatusLockedAndInRollover,
+	"expired_and_locked_and_in_rollover":  UserSummaryAccountStatusExpiredAndLockedAndInRollover,
+	"locked_timed_and_in_rollover":        UserSummaryAccountStatusLockedTimedAndInRollover,
+	"expired_and_locked_timed_and_in_rol": UserSummaryAccountStatusExpiredAndLockedTimedAndInRol,
+	"none":                                UserSummaryAccountStatusNone,
 }
 
 // GetUserSummaryAccountStatusEnumValues Enumerates the set of values for UserSummaryAccountStatusEnum
@@ -199,6 +221,12 @@ func GetUserSummaryAccountStatusEnumStringValues() []string {
 		"LOCKED",
 		"EXPIRED",
 		"EXPIRED_AND_LOCKED",
+		"OPEN_AND_IN_ROLLOVER",
+		"EXPIRED_AND_IN_ROLLOVER",
+		"LOCKED_AND_IN_ROLLOVER",
+		"EXPIRED_AND_LOCKED_AND_IN_ROLLOVER",
+		"LOCKED_TIMED_AND_IN_ROLLOVER",
+		"EXPIRED_AND_LOCKED_TIMED_AND_IN_ROL",
 		"NONE",
 	}
 }

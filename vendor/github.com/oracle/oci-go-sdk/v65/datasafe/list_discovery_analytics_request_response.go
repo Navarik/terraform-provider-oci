@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListDiscoveryAnalytics.go.html to see an example of how to use ListDiscoveryAnalyticsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListDiscoveryAnalytics.go.html to see an example of how to use ListDiscoveryAnalyticsRequest.
 type ListDiscoveryAnalyticsRequest struct {
 
 	// A filter to return only resources that match the specified compartment OCID.
@@ -31,16 +31,25 @@ type ListDiscoveryAnalyticsRequest struct {
 	// A filter to return only items related to a specific target OCID.
 	TargetId *string `mandatory:"false" contributesTo:"query" name:"targetId"`
 
+	// A filter to return the target database group that matches the specified OCID.
+	TargetDatabaseGroupId *string `mandatory:"false" contributesTo:"query" name:"targetDatabaseGroupId"`
+
+	// The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for all the fields is ascending.
+	SortBy ListDiscoveryAnalyticsSortByEnum `mandatory:"false" contributesTo:"query" name:"sortBy" omitEmpty:"true"`
+
+	// The sort order to use, either ascending (ASC) or descending (DESC).
+	SortOrder ListDiscoveryAnalyticsSortOrderEnum `mandatory:"false" contributesTo:"query" name:"sortOrder" omitEmpty:"true"`
+
 	// A filter to return only the resources that match the specified sensitive data model OCID.
 	SensitiveDataModelId *string `mandatory:"false" contributesTo:"query" name:"sensitiveDataModelId"`
 
 	// A filter to return only items related to a specific sensitive type OCID.
 	SensitiveTypeId *string `mandatory:"false" contributesTo:"query" name:"sensitiveTypeId"`
 
-	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
 
-	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
 	// Unique identifier for the request.
@@ -49,6 +58,9 @@ type ListDiscoveryAnalyticsRequest struct {
 	// A filter to return only the common sensitive type resources. Common sensitive types belong to
 	// library sensitive types which are frequently used to perform sensitive data discovery.
 	IsCommon *bool `mandatory:"false" contributesTo:"query" name:"isCommon"`
+
+	// An optional filter to return only resources that match the specified OCID of the sensitive type group resource.
+	SensitiveTypeGroupId *string `mandatory:"false" contributesTo:"query" name:"sensitiveTypeGroupId"`
 
 	// Metadata about the request. This information will not be transmitted to the service, but
 	// represents information that the SDK will consume to drive retry behavior.
@@ -89,6 +101,12 @@ func (request ListDiscoveryAnalyticsRequest) ValidateEnumValue() (bool, error) {
 	if _, ok := GetMappingListDiscoveryAnalyticsGroupByEnum(string(request.GroupBy)); !ok && request.GroupBy != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for GroupBy: %s. Supported values are: %s.", request.GroupBy, strings.Join(GetListDiscoveryAnalyticsGroupByEnumStringValues(), ",")))
 	}
+	if _, ok := GetMappingListDiscoveryAnalyticsSortByEnum(string(request.SortBy)); !ok && request.SortBy != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for SortBy: %s. Supported values are: %s.", request.SortBy, strings.Join(GetListDiscoveryAnalyticsSortByEnumStringValues(), ",")))
+	}
+	if _, ok := GetMappingListDiscoveryAnalyticsSortOrderEnum(string(request.SortOrder)); !ok && request.SortOrder != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for SortOrder: %s. Supported values are: %s.", request.SortOrder, strings.Join(GetListDiscoveryAnalyticsSortOrderEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
@@ -107,7 +125,7 @@ type ListDiscoveryAnalyticsResponse struct {
 	// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
 	OpcRequestId *string `presentIn:"header" name:"opc-request-id"`
 
-	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 
 	// For pagination of a list of items. When paging through a list, if this header appears in the response,
@@ -180,5 +198,85 @@ func GetListDiscoveryAnalyticsGroupByEnumStringValues() []string {
 // GetMappingListDiscoveryAnalyticsGroupByEnum performs case Insensitive comparison on enum value and return the desired enum
 func GetMappingListDiscoveryAnalyticsGroupByEnum(val string) (ListDiscoveryAnalyticsGroupByEnum, bool) {
 	enum, ok := mappingListDiscoveryAnalyticsGroupByEnumLowerCase[strings.ToLower(val)]
+	return enum, ok
+}
+
+// ListDiscoveryAnalyticsSortByEnum Enum with underlying type: string
+type ListDiscoveryAnalyticsSortByEnum string
+
+// Set of constants representing the allowable values for ListDiscoveryAnalyticsSortByEnum
+const (
+	ListDiscoveryAnalyticsSortByTimelastdiscovered ListDiscoveryAnalyticsSortByEnum = "timeLastDiscovered"
+)
+
+var mappingListDiscoveryAnalyticsSortByEnum = map[string]ListDiscoveryAnalyticsSortByEnum{
+	"timeLastDiscovered": ListDiscoveryAnalyticsSortByTimelastdiscovered,
+}
+
+var mappingListDiscoveryAnalyticsSortByEnumLowerCase = map[string]ListDiscoveryAnalyticsSortByEnum{
+	"timelastdiscovered": ListDiscoveryAnalyticsSortByTimelastdiscovered,
+}
+
+// GetListDiscoveryAnalyticsSortByEnumValues Enumerates the set of values for ListDiscoveryAnalyticsSortByEnum
+func GetListDiscoveryAnalyticsSortByEnumValues() []ListDiscoveryAnalyticsSortByEnum {
+	values := make([]ListDiscoveryAnalyticsSortByEnum, 0)
+	for _, v := range mappingListDiscoveryAnalyticsSortByEnum {
+		values = append(values, v)
+	}
+	return values
+}
+
+// GetListDiscoveryAnalyticsSortByEnumStringValues Enumerates the set of values in String for ListDiscoveryAnalyticsSortByEnum
+func GetListDiscoveryAnalyticsSortByEnumStringValues() []string {
+	return []string{
+		"timeLastDiscovered",
+	}
+}
+
+// GetMappingListDiscoveryAnalyticsSortByEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingListDiscoveryAnalyticsSortByEnum(val string) (ListDiscoveryAnalyticsSortByEnum, bool) {
+	enum, ok := mappingListDiscoveryAnalyticsSortByEnumLowerCase[strings.ToLower(val)]
+	return enum, ok
+}
+
+// ListDiscoveryAnalyticsSortOrderEnum Enum with underlying type: string
+type ListDiscoveryAnalyticsSortOrderEnum string
+
+// Set of constants representing the allowable values for ListDiscoveryAnalyticsSortOrderEnum
+const (
+	ListDiscoveryAnalyticsSortOrderAsc  ListDiscoveryAnalyticsSortOrderEnum = "ASC"
+	ListDiscoveryAnalyticsSortOrderDesc ListDiscoveryAnalyticsSortOrderEnum = "DESC"
+)
+
+var mappingListDiscoveryAnalyticsSortOrderEnum = map[string]ListDiscoveryAnalyticsSortOrderEnum{
+	"ASC":  ListDiscoveryAnalyticsSortOrderAsc,
+	"DESC": ListDiscoveryAnalyticsSortOrderDesc,
+}
+
+var mappingListDiscoveryAnalyticsSortOrderEnumLowerCase = map[string]ListDiscoveryAnalyticsSortOrderEnum{
+	"asc":  ListDiscoveryAnalyticsSortOrderAsc,
+	"desc": ListDiscoveryAnalyticsSortOrderDesc,
+}
+
+// GetListDiscoveryAnalyticsSortOrderEnumValues Enumerates the set of values for ListDiscoveryAnalyticsSortOrderEnum
+func GetListDiscoveryAnalyticsSortOrderEnumValues() []ListDiscoveryAnalyticsSortOrderEnum {
+	values := make([]ListDiscoveryAnalyticsSortOrderEnum, 0)
+	for _, v := range mappingListDiscoveryAnalyticsSortOrderEnum {
+		values = append(values, v)
+	}
+	return values
+}
+
+// GetListDiscoveryAnalyticsSortOrderEnumStringValues Enumerates the set of values in String for ListDiscoveryAnalyticsSortOrderEnum
+func GetListDiscoveryAnalyticsSortOrderEnumStringValues() []string {
+	return []string{
+		"ASC",
+		"DESC",
+	}
+}
+
+// GetMappingListDiscoveryAnalyticsSortOrderEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingListDiscoveryAnalyticsSortOrderEnum(val string) (ListDiscoveryAnalyticsSortOrderEnum, bool) {
+	enum, ok := mappingListDiscoveryAnalyticsSortOrderEnumLowerCase[strings.ToLower(val)]
 	return enum, ok
 }

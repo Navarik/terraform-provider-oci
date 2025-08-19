@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-// StandaloneJobInfrastructureConfigurationDetails The standalone job infrastructure configuration.
+// StandaloneJobInfrastructureConfigurationDetails This type should only be used at the top level infrastructure configuration field for configuring single-node jobs.
 type StandaloneJobInfrastructureConfigurationDetails struct {
 
 	// The shape used to launch the job run instances.

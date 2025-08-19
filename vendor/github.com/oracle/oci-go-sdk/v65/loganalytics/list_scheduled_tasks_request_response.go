@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListScheduledTasks.go.html to see an example of how to use ListScheduledTasksRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListScheduledTasks.go.html to see an example of how to use ListScheduledTasksRequest.
 type ListScheduledTasksRequest struct {
 
 	// The Logging Analytics namespace used for the request.
@@ -44,6 +44,10 @@ type ListScheduledTasksRequest struct {
 
 	// The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
 	SortBy ListScheduledTasksSortByEnum `mandatory:"false" contributesTo:"query" name:"sortBy" omitEmpty:"true"`
+
+	// A filter to return only scheduled tasks whose stream action templateId matches the given
+	// id  exactly.
+	TemplateId *string `mandatory:"false" contributesTo:"query" name:"templateId"`
 
 	// A filter to return only scheduled tasks whose stream action savedSearchId matches the given
 	// ManagementSavedSearch id [OCID] exactly.

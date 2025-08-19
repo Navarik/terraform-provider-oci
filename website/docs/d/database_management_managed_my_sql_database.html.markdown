@@ -39,6 +39,7 @@ The following attributes are exported:
 * `id` - The OCID of the Managed MySQL Database.
 * `time_created` - The date and time the Managed MySQL Database was created.
 * `heat_wave_cluster_display_name` - The name of the HeatWave cluster.
+* `heat_wave_management_type` - The customer's selected type for HeatWave management.
 * `heat_wave_memory_size` - The total memory belonging to the HeatWave cluster in GBs.
 * `heat_wave_node_shape` - The shape of the nodes in the HeatWave cluster.
 * `heat_wave_nodes` - The information about individual HeatWave nodes in the cluster.
@@ -50,4 +51,10 @@ The following attributes are exported:
 * `is_lakehouse_enabled` - Indicates whether HeatWave Lakehouse is enabled for the MySQL Database System or not.
 * `name` - The name of the Managed MySQL Database.
 * `time_created_heat_wave` - The date and time the Managed MySQL Database was created.
+* `database_type` - The type of the MySQL Database. Indicates whether the database is external or MDS. 
+* `management_state` - Indicates database management status.
+* `name` - The name of the Managed MySQL Database.
+* `state` - Indicates lifecycle  state of the resource.
+* `time_updated` - The date and time the Managed MySQL Database was updated.
+* `name` - The name of the Managed MySQL Database.
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -52,16 +52,19 @@ type BulkPinAttributeDetailAttributeNameSpaceEnum string
 const (
 	BulkPinAttributeDetailAttributeNameSpaceTraces    BulkPinAttributeDetailAttributeNameSpaceEnum = "TRACES"
 	BulkPinAttributeDetailAttributeNameSpaceSynthetic BulkPinAttributeDetailAttributeNameSpaceEnum = "SYNTHETIC"
+	BulkPinAttributeDetailAttributeNameSpaceLogs      BulkPinAttributeDetailAttributeNameSpaceEnum = "LOGS"
 )
 
 var mappingBulkPinAttributeDetailAttributeNameSpaceEnum = map[string]BulkPinAttributeDetailAttributeNameSpaceEnum{
 	"TRACES":    BulkPinAttributeDetailAttributeNameSpaceTraces,
 	"SYNTHETIC": BulkPinAttributeDetailAttributeNameSpaceSynthetic,
+	"LOGS":      BulkPinAttributeDetailAttributeNameSpaceLogs,
 }
 
 var mappingBulkPinAttributeDetailAttributeNameSpaceEnumLowerCase = map[string]BulkPinAttributeDetailAttributeNameSpaceEnum{
 	"traces":    BulkPinAttributeDetailAttributeNameSpaceTraces,
 	"synthetic": BulkPinAttributeDetailAttributeNameSpaceSynthetic,
+	"logs":      BulkPinAttributeDetailAttributeNameSpaceLogs,
 }
 
 // GetBulkPinAttributeDetailAttributeNameSpaceEnumValues Enumerates the set of values for BulkPinAttributeDetailAttributeNameSpaceEnum
@@ -78,6 +81,7 @@ func GetBulkPinAttributeDetailAttributeNameSpaceEnumStringValues() []string {
 	return []string{
 		"TRACES",
 		"SYNTHETIC",
+		"LOGS",
 	}
 }
 

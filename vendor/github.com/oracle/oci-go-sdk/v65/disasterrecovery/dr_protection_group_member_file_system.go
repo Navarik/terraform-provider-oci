@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -33,6 +33,12 @@ type DrProtectionGroupMemberFileSystem struct {
 
 	// A list of mappings between the primary region file system export and destination region mount target.
 	ExportMappings []FileSystemExportMapping `mandatory:"false" json:"exportMappings"`
+
+	DestinationEncryptionKey *VaultAndEncryptionKey `mandatory:"false" json:"destinationEncryptionKey"`
+
+	// The OCID of the snapshot policy to use in the destination region. This policy will be attached to the file system after it moves to the destination region.
+	// Example: `ocid1.filesystemsnapshotpolicy.oc1..uniqueID`
+	DestinationSnapshotPolicyId *string `mandatory:"false" json:"destinationSnapshotPolicyId"`
 }
 
 // GetMemberId returns MemberId

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListOnPremConnectors.go.html to see an example of how to use ListOnPremConnectorsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListOnPremConnectors.go.html to see an example of how to use ListOnPremConnectorsRequest.
 type ListOnPremConnectorsRequest struct {
 
 	// A filter to return only resources that match the specified compartment OCID.
@@ -28,12 +28,12 @@ type ListOnPremConnectorsRequest struct {
 	DisplayName *string `mandatory:"false" contributesTo:"query" name:"displayName"`
 
 	// A filter to return only on-premises connector resources that match the specified lifecycle state.
-	OnPremConnectorLifecycleState ListOnPremConnectorsOnPremConnectorLifecycleStateEnum `mandatory:"false" contributesTo:"query" name:"onPremConnectorLifecycleState" omitEmpty:"true"`
+	LifecycleState ListOnPremConnectorsLifecycleStateEnum `mandatory:"false" contributesTo:"query" name:"lifecycleState" omitEmpty:"true"`
 
-	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
 
-	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
 	// The sort order to use, either ascending (ASC) or descending (DESC).
@@ -93,8 +93,8 @@ func (request ListOnPremConnectorsRequest) RetryPolicy() *common.RetryPolicy {
 // Not recommended for calling this function directly
 func (request ListOnPremConnectorsRequest) ValidateEnumValue() (bool, error) {
 	errMessage := []string{}
-	if _, ok := GetMappingListOnPremConnectorsOnPremConnectorLifecycleStateEnum(string(request.OnPremConnectorLifecycleState)); !ok && request.OnPremConnectorLifecycleState != "" {
-		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for OnPremConnectorLifecycleState: %s. Supported values are: %s.", request.OnPremConnectorLifecycleState, strings.Join(GetListOnPremConnectorsOnPremConnectorLifecycleStateEnumStringValues(), ",")))
+	if _, ok := GetMappingListOnPremConnectorsLifecycleStateEnum(string(request.LifecycleState)); !ok && request.LifecycleState != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LifecycleState: %s. Supported values are: %s.", request.LifecycleState, strings.Join(GetListOnPremConnectorsLifecycleStateEnumStringValues(), ",")))
 	}
 	if _, ok := GetMappingListOnPremConnectorsSortOrderEnum(string(request.SortOrder)); !ok && request.SortOrder != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for SortOrder: %s. Supported values are: %s.", request.SortOrder, strings.Join(GetListOnPremConnectorsSortOrderEnumStringValues(), ",")))
@@ -123,7 +123,7 @@ type ListOnPremConnectorsResponse struct {
 	// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
 	OpcRequestId *string `presentIn:"header" name:"opc-request-id"`
 
-	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 }
 
@@ -136,54 +136,54 @@ func (response ListOnPremConnectorsResponse) HTTPResponse() *http.Response {
 	return response.RawResponse
 }
 
-// ListOnPremConnectorsOnPremConnectorLifecycleStateEnum Enum with underlying type: string
-type ListOnPremConnectorsOnPremConnectorLifecycleStateEnum string
+// ListOnPremConnectorsLifecycleStateEnum Enum with underlying type: string
+type ListOnPremConnectorsLifecycleStateEnum string
 
-// Set of constants representing the allowable values for ListOnPremConnectorsOnPremConnectorLifecycleStateEnum
+// Set of constants representing the allowable values for ListOnPremConnectorsLifecycleStateEnum
 const (
-	ListOnPremConnectorsOnPremConnectorLifecycleStateCreating       ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "CREATING"
-	ListOnPremConnectorsOnPremConnectorLifecycleStateUpdating       ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "UPDATING"
-	ListOnPremConnectorsOnPremConnectorLifecycleStateActive         ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "ACTIVE"
-	ListOnPremConnectorsOnPremConnectorLifecycleStateInactive       ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "INACTIVE"
-	ListOnPremConnectorsOnPremConnectorLifecycleStateDeleting       ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "DELETING"
-	ListOnPremConnectorsOnPremConnectorLifecycleStateDeleted        ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "DELETED"
-	ListOnPremConnectorsOnPremConnectorLifecycleStateFailed         ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "FAILED"
-	ListOnPremConnectorsOnPremConnectorLifecycleStateNeedsAttention ListOnPremConnectorsOnPremConnectorLifecycleStateEnum = "NEEDS_ATTENTION"
+	ListOnPremConnectorsLifecycleStateCreating       ListOnPremConnectorsLifecycleStateEnum = "CREATING"
+	ListOnPremConnectorsLifecycleStateUpdating       ListOnPremConnectorsLifecycleStateEnum = "UPDATING"
+	ListOnPremConnectorsLifecycleStateActive         ListOnPremConnectorsLifecycleStateEnum = "ACTIVE"
+	ListOnPremConnectorsLifecycleStateInactive       ListOnPremConnectorsLifecycleStateEnum = "INACTIVE"
+	ListOnPremConnectorsLifecycleStateDeleting       ListOnPremConnectorsLifecycleStateEnum = "DELETING"
+	ListOnPremConnectorsLifecycleStateDeleted        ListOnPremConnectorsLifecycleStateEnum = "DELETED"
+	ListOnPremConnectorsLifecycleStateFailed         ListOnPremConnectorsLifecycleStateEnum = "FAILED"
+	ListOnPremConnectorsLifecycleStateNeedsAttention ListOnPremConnectorsLifecycleStateEnum = "NEEDS_ATTENTION"
 )
 
-var mappingListOnPremConnectorsOnPremConnectorLifecycleStateEnum = map[string]ListOnPremConnectorsOnPremConnectorLifecycleStateEnum{
-	"CREATING":        ListOnPremConnectorsOnPremConnectorLifecycleStateCreating,
-	"UPDATING":        ListOnPremConnectorsOnPremConnectorLifecycleStateUpdating,
-	"ACTIVE":          ListOnPremConnectorsOnPremConnectorLifecycleStateActive,
-	"INACTIVE":        ListOnPremConnectorsOnPremConnectorLifecycleStateInactive,
-	"DELETING":        ListOnPremConnectorsOnPremConnectorLifecycleStateDeleting,
-	"DELETED":         ListOnPremConnectorsOnPremConnectorLifecycleStateDeleted,
-	"FAILED":          ListOnPremConnectorsOnPremConnectorLifecycleStateFailed,
-	"NEEDS_ATTENTION": ListOnPremConnectorsOnPremConnectorLifecycleStateNeedsAttention,
+var mappingListOnPremConnectorsLifecycleStateEnum = map[string]ListOnPremConnectorsLifecycleStateEnum{
+	"CREATING":        ListOnPremConnectorsLifecycleStateCreating,
+	"UPDATING":        ListOnPremConnectorsLifecycleStateUpdating,
+	"ACTIVE":          ListOnPremConnectorsLifecycleStateActive,
+	"INACTIVE":        ListOnPremConnectorsLifecycleStateInactive,
+	"DELETING":        ListOnPremConnectorsLifecycleStateDeleting,
+	"DELETED":         ListOnPremConnectorsLifecycleStateDeleted,
+	"FAILED":          ListOnPremConnectorsLifecycleStateFailed,
+	"NEEDS_ATTENTION": ListOnPremConnectorsLifecycleStateNeedsAttention,
 }
 
-var mappingListOnPremConnectorsOnPremConnectorLifecycleStateEnumLowerCase = map[string]ListOnPremConnectorsOnPremConnectorLifecycleStateEnum{
-	"creating":        ListOnPremConnectorsOnPremConnectorLifecycleStateCreating,
-	"updating":        ListOnPremConnectorsOnPremConnectorLifecycleStateUpdating,
-	"active":          ListOnPremConnectorsOnPremConnectorLifecycleStateActive,
-	"inactive":        ListOnPremConnectorsOnPremConnectorLifecycleStateInactive,
-	"deleting":        ListOnPremConnectorsOnPremConnectorLifecycleStateDeleting,
-	"deleted":         ListOnPremConnectorsOnPremConnectorLifecycleStateDeleted,
-	"failed":          ListOnPremConnectorsOnPremConnectorLifecycleStateFailed,
-	"needs_attention": ListOnPremConnectorsOnPremConnectorLifecycleStateNeedsAttention,
+var mappingListOnPremConnectorsLifecycleStateEnumLowerCase = map[string]ListOnPremConnectorsLifecycleStateEnum{
+	"creating":        ListOnPremConnectorsLifecycleStateCreating,
+	"updating":        ListOnPremConnectorsLifecycleStateUpdating,
+	"active":          ListOnPremConnectorsLifecycleStateActive,
+	"inactive":        ListOnPremConnectorsLifecycleStateInactive,
+	"deleting":        ListOnPremConnectorsLifecycleStateDeleting,
+	"deleted":         ListOnPremConnectorsLifecycleStateDeleted,
+	"failed":          ListOnPremConnectorsLifecycleStateFailed,
+	"needs_attention": ListOnPremConnectorsLifecycleStateNeedsAttention,
 }
 
-// GetListOnPremConnectorsOnPremConnectorLifecycleStateEnumValues Enumerates the set of values for ListOnPremConnectorsOnPremConnectorLifecycleStateEnum
-func GetListOnPremConnectorsOnPremConnectorLifecycleStateEnumValues() []ListOnPremConnectorsOnPremConnectorLifecycleStateEnum {
-	values := make([]ListOnPremConnectorsOnPremConnectorLifecycleStateEnum, 0)
-	for _, v := range mappingListOnPremConnectorsOnPremConnectorLifecycleStateEnum {
+// GetListOnPremConnectorsLifecycleStateEnumValues Enumerates the set of values for ListOnPremConnectorsLifecycleStateEnum
+func GetListOnPremConnectorsLifecycleStateEnumValues() []ListOnPremConnectorsLifecycleStateEnum {
+	values := make([]ListOnPremConnectorsLifecycleStateEnum, 0)
+	for _, v := range mappingListOnPremConnectorsLifecycleStateEnum {
 		values = append(values, v)
 	}
 	return values
 }
 
-// GetListOnPremConnectorsOnPremConnectorLifecycleStateEnumStringValues Enumerates the set of values in String for ListOnPremConnectorsOnPremConnectorLifecycleStateEnum
-func GetListOnPremConnectorsOnPremConnectorLifecycleStateEnumStringValues() []string {
+// GetListOnPremConnectorsLifecycleStateEnumStringValues Enumerates the set of values in String for ListOnPremConnectorsLifecycleStateEnum
+func GetListOnPremConnectorsLifecycleStateEnumStringValues() []string {
 	return []string{
 		"CREATING",
 		"UPDATING",
@@ -196,9 +196,9 @@ func GetListOnPremConnectorsOnPremConnectorLifecycleStateEnumStringValues() []st
 	}
 }
 
-// GetMappingListOnPremConnectorsOnPremConnectorLifecycleStateEnum performs case Insensitive comparison on enum value and return the desired enum
-func GetMappingListOnPremConnectorsOnPremConnectorLifecycleStateEnum(val string) (ListOnPremConnectorsOnPremConnectorLifecycleStateEnum, bool) {
-	enum, ok := mappingListOnPremConnectorsOnPremConnectorLifecycleStateEnumLowerCase[strings.ToLower(val)]
+// GetMappingListOnPremConnectorsLifecycleStateEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingListOnPremConnectorsLifecycleStateEnum(val string) (ListOnPremConnectorsLifecycleStateEnum, bool) {
+	enum, ok := mappingListOnPremConnectorsLifecycleStateEnumLowerCase[strings.ToLower(val)]
 	return enum, ok
 }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreatePlatformConfiguration.go.html to see an example of how to use CreatePlatformConfigurationRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreatePlatformConfiguration.go.html to see an example of how to use CreatePlatformConfigurationRequest.
 type CreatePlatformConfigurationRequest struct {
 
 	// Details for the new PlatformConfiguration.
@@ -82,8 +82,17 @@ type CreatePlatformConfigurationResponse struct {
 	// The PlatformConfiguration instance
 	PlatformConfiguration `presentIn:"body"`
 
+	// URL for the created PlatformConfiguration, the PlatformConfiguration id will be generated after this request is sent.
+	Location *string `presentIn:"header" name:"location"`
+
+	// Same as location
+	ContentLocation *string `presentIn:"header" name:"content-location"`
+
 	// For optimistic concurrency control. See `if-match`.
 	Etag *string `presentIn:"header" name:"etag"`
+
+	// Unique Oracle-assigned identifier for the asynchronous work. You can use this to query its status.
+	OpcWorkRequestId *string `presentIn:"header" name:"opc-work-request-id"`
 
 	// Unique Oracle-assigned identifier for the request. If you need to contact
 	// Oracle about a particular request, please provide the request ID.

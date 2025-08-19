@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -42,6 +42,12 @@ type AnalyzeDocumentResult struct {
 
 	// The document table extraction model version.
 	TableExtractionModelVersion *string `mandatory:"false" json:"tableExtractionModelVersion"`
+
+	// The document signature extraction model version.
+	SignatureExtractionModelVersion *string `mandatory:"false" json:"signatureExtractionModelVersion"`
+
+	// The document bar code extraction model version.
+	BarCodeExtractionModelVersion *string `mandatory:"false" json:"barCodeExtractionModelVersion"`
 
 	// The errors encountered during document analysis.
 	Errors []ProcessingError `mandatory:"false" json:"errors"`

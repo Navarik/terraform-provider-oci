@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -58,48 +58,63 @@ type ColumnFilterOperatorEnum string
 
 // Set of constants representing the allowable values for ColumnFilterOperatorEnum
 const (
-	ColumnFilterOperatorIn    ColumnFilterOperatorEnum = "IN"
-	ColumnFilterOperatorEq    ColumnFilterOperatorEnum = "EQ"
-	ColumnFilterOperatorGt    ColumnFilterOperatorEnum = "GT"
-	ColumnFilterOperatorGe    ColumnFilterOperatorEnum = "GE"
-	ColumnFilterOperatorLt    ColumnFilterOperatorEnum = "LT"
-	ColumnFilterOperatorLe    ColumnFilterOperatorEnum = "LE"
-	ColumnFilterOperatorAnd   ColumnFilterOperatorEnum = "AND"
-	ColumnFilterOperatorOr    ColumnFilterOperatorEnum = "OR"
-	ColumnFilterOperatorNe    ColumnFilterOperatorEnum = "NE"
-	ColumnFilterOperatorCo    ColumnFilterOperatorEnum = "CO"
-	ColumnFilterOperatorNot   ColumnFilterOperatorEnum = "NOT"
-	ColumnFilterOperatorNotIn ColumnFilterOperatorEnum = "NOT_IN"
+	ColumnFilterOperatorIn       ColumnFilterOperatorEnum = "IN"
+	ColumnFilterOperatorEq       ColumnFilterOperatorEnum = "EQ"
+	ColumnFilterOperatorEqCs     ColumnFilterOperatorEnum = "EQ_CS"
+	ColumnFilterOperatorGt       ColumnFilterOperatorEnum = "GT"
+	ColumnFilterOperatorGe       ColumnFilterOperatorEnum = "GE"
+	ColumnFilterOperatorLt       ColumnFilterOperatorEnum = "LT"
+	ColumnFilterOperatorLe       ColumnFilterOperatorEnum = "LE"
+	ColumnFilterOperatorAnd      ColumnFilterOperatorEnum = "AND"
+	ColumnFilterOperatorOr       ColumnFilterOperatorEnum = "OR"
+	ColumnFilterOperatorNe       ColumnFilterOperatorEnum = "NE"
+	ColumnFilterOperatorCo       ColumnFilterOperatorEnum = "CO"
+	ColumnFilterOperatorCoCs     ColumnFilterOperatorEnum = "CO_CS"
+	ColumnFilterOperatorNot      ColumnFilterOperatorEnum = "NOT"
+	ColumnFilterOperatorNotIn    ColumnFilterOperatorEnum = "NOT_IN"
+	ColumnFilterOperatorPr       ColumnFilterOperatorEnum = "PR"
+	ColumnFilterOperatorInSet    ColumnFilterOperatorEnum = "IN_SET"
+	ColumnFilterOperatorNotInSet ColumnFilterOperatorEnum = "NOT_IN_SET"
 )
 
 var mappingColumnFilterOperatorEnum = map[string]ColumnFilterOperatorEnum{
-	"IN":     ColumnFilterOperatorIn,
-	"EQ":     ColumnFilterOperatorEq,
-	"GT":     ColumnFilterOperatorGt,
-	"GE":     ColumnFilterOperatorGe,
-	"LT":     ColumnFilterOperatorLt,
-	"LE":     ColumnFilterOperatorLe,
-	"AND":    ColumnFilterOperatorAnd,
-	"OR":     ColumnFilterOperatorOr,
-	"NE":     ColumnFilterOperatorNe,
-	"CO":     ColumnFilterOperatorCo,
-	"NOT":    ColumnFilterOperatorNot,
-	"NOT_IN": ColumnFilterOperatorNotIn,
+	"IN":         ColumnFilterOperatorIn,
+	"EQ":         ColumnFilterOperatorEq,
+	"EQ_CS":      ColumnFilterOperatorEqCs,
+	"GT":         ColumnFilterOperatorGt,
+	"GE":         ColumnFilterOperatorGe,
+	"LT":         ColumnFilterOperatorLt,
+	"LE":         ColumnFilterOperatorLe,
+	"AND":        ColumnFilterOperatorAnd,
+	"OR":         ColumnFilterOperatorOr,
+	"NE":         ColumnFilterOperatorNe,
+	"CO":         ColumnFilterOperatorCo,
+	"CO_CS":      ColumnFilterOperatorCoCs,
+	"NOT":        ColumnFilterOperatorNot,
+	"NOT_IN":     ColumnFilterOperatorNotIn,
+	"PR":         ColumnFilterOperatorPr,
+	"IN_SET":     ColumnFilterOperatorInSet,
+	"NOT_IN_SET": ColumnFilterOperatorNotInSet,
 }
 
 var mappingColumnFilterOperatorEnumLowerCase = map[string]ColumnFilterOperatorEnum{
-	"in":     ColumnFilterOperatorIn,
-	"eq":     ColumnFilterOperatorEq,
-	"gt":     ColumnFilterOperatorGt,
-	"ge":     ColumnFilterOperatorGe,
-	"lt":     ColumnFilterOperatorLt,
-	"le":     ColumnFilterOperatorLe,
-	"and":    ColumnFilterOperatorAnd,
-	"or":     ColumnFilterOperatorOr,
-	"ne":     ColumnFilterOperatorNe,
-	"co":     ColumnFilterOperatorCo,
-	"not":    ColumnFilterOperatorNot,
-	"not_in": ColumnFilterOperatorNotIn,
+	"in":         ColumnFilterOperatorIn,
+	"eq":         ColumnFilterOperatorEq,
+	"eq_cs":      ColumnFilterOperatorEqCs,
+	"gt":         ColumnFilterOperatorGt,
+	"ge":         ColumnFilterOperatorGe,
+	"lt":         ColumnFilterOperatorLt,
+	"le":         ColumnFilterOperatorLe,
+	"and":        ColumnFilterOperatorAnd,
+	"or":         ColumnFilterOperatorOr,
+	"ne":         ColumnFilterOperatorNe,
+	"co":         ColumnFilterOperatorCo,
+	"co_cs":      ColumnFilterOperatorCoCs,
+	"not":        ColumnFilterOperatorNot,
+	"not_in":     ColumnFilterOperatorNotIn,
+	"pr":         ColumnFilterOperatorPr,
+	"in_set":     ColumnFilterOperatorInSet,
+	"not_in_set": ColumnFilterOperatorNotInSet,
 }
 
 // GetColumnFilterOperatorEnumValues Enumerates the set of values for ColumnFilterOperatorEnum
@@ -116,6 +131,7 @@ func GetColumnFilterOperatorEnumStringValues() []string {
 	return []string{
 		"IN",
 		"EQ",
+		"EQ_CS",
 		"GT",
 		"GE",
 		"LT",
@@ -124,8 +140,12 @@ func GetColumnFilterOperatorEnumStringValues() []string {
 		"OR",
 		"NE",
 		"CO",
+		"CO_CS",
 		"NOT",
 		"NOT_IN",
+		"PR",
+		"IN_SET",
+		"NOT_IN_SET",
 	}
 }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -95,7 +95,7 @@ func (client *TraceClient) ConfigurationProvider() *common.ConfigurationProvider
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetAggregatedSnapshot.go.html to see an example of how to use GetAggregatedSnapshot API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetAggregatedSnapshot.go.html to see an example of how to use GetAggregatedSnapshot API.
 func (client TraceClient) GetAggregatedSnapshot(ctx context.Context, request GetAggregatedSnapshotRequest) (response GetAggregatedSnapshotResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -148,11 +148,73 @@ func (client TraceClient) getAggregatedSnapshot(ctx context.Context, request com
 	return response, err
 }
 
+// GetLog Retrieve a log in the APM Domain.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetLog.go.html to see an example of how to use GetLog API.
+func (client TraceClient) GetLog(ctx context.Context, request GetLogRequest) (response GetLogResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.getLog, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetLogResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetLogResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetLogResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetLogResponse")
+	}
+	return
+}
+
+// getLog implements the OCIOperation interface (enables retrying operations)
+func (client TraceClient) getLog(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/logs/{logKey}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetLogResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/apm-trace-explorer/20200630/Log/GetLog"
+		err = common.PostProcessServiceError(err, "Trace", "GetLog", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // GetSpan Gets the span details identified by spanId.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetSpan.go.html to see an example of how to use GetSpan API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetSpan.go.html to see an example of how to use GetSpan API.
 func (client TraceClient) GetSpan(ctx context.Context, request GetSpanRequest) (response GetSpanResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -209,7 +271,7 @@ func (client TraceClient) getSpan(ctx context.Context, request common.OCIRequest
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetTrace.go.html to see an example of how to use GetTrace API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetTrace.go.html to see an example of how to use GetTrace API.
 func (client TraceClient) GetTrace(ctx context.Context, request GetTraceRequest) (response GetTraceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -266,7 +328,7 @@ func (client TraceClient) getTrace(ctx context.Context, request common.OCIReques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetTraceSnapshot.go.html to see an example of how to use GetTraceSnapshot API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/apmtraces/GetTraceSnapshot.go.html to see an example of how to use GetTraceSnapshot API.
 func (client TraceClient) GetTraceSnapshot(ctx context.Context, request GetTraceSnapshotRequest) (response GetTraceSnapshotResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()

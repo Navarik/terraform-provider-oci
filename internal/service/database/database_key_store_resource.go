@@ -117,6 +117,10 @@ func DatabaseKeyStoreResource() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"db_unique_name": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"id": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -131,6 +135,11 @@ func DatabaseKeyStoreResource() *schema.Resource {
 			"state": {
 				Type:     schema.TypeString,
 				Computed: true,
+			},
+			"system_tags": {
+				Type:     schema.TypeMap,
+				Computed: true,
+				Elem:     schema.TypeString,
 			},
 			"time_created": {
 				Type:     schema.TypeString,
@@ -377,6 +386,10 @@ func (s *DatabaseKeyStoreResourceCrud) SetData() error {
 
 	s.D.Set("state", s.Res.LifecycleState)
 
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+	}
+
 	if s.Res.TimeCreated != nil {
 		s.D.Set("time_created", s.Res.TimeCreated.String())
 	}
@@ -419,6 +432,10 @@ func KeyStoreAssociatedDatabaseDetailsToMap(obj oci_database.KeyStoreAssociatedD
 
 	if obj.DbName != nil {
 		result["db_name"] = string(*obj.DbName)
+	}
+
+	if obj.DbUniqueName != nil {
+		result["db_unique_name"] = string(*obj.DbUniqueName)
 	}
 
 	if obj.Id != nil {

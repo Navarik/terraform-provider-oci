@@ -11,9 +11,9 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/resourcediscovery"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 )
@@ -272,6 +272,58 @@ func TestDevopsBuildPipelineBuildStageCodeRepoResource_basic(t *testing.T) {
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{},
 				ResourceName:            resourceName,
+			},
+		},
+	})
+}
+
+func cloneMap(original map[string]interface{}) map[string]interface{} {
+	cloned := make(map[string]interface{})
+	for k, v := range original {
+		switch val := v.(type) {
+		case map[string]interface{}:
+			cloned[k] = cloneMap(val)
+		case acctest.Representation:
+			cloned[k] = val
+		case acctest.RepresentationGroup:
+			cloned[k] = val
+		default:
+			cloned[k] = v
+		}
+	}
+	return cloned
+}
+
+func TestDevopsBuildPipelineBuildStageCodeRepoResource_withOL8(t *testing.T) {
+	httpreplay.SetScenario("TestDevopsBuildPipelineBuildStageCodeRepoResource_withOL8")
+	defer httpreplay.SaveScenario()
+
+	provider := acctest.TestAccProvider
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	resourceName := "oci_devops_build_pipeline_stage.test_build_pipeline_stage"
+
+	// Clone representation and override the image
+	ol8Representation := cloneMap(buildPipelineBuildStageCodeRepoRepresentation)
+	ol8Representation["image"] = acctest.Representation{RepType: acctest.Required, Create: "OL8_X86_64_STANDARD_10"}
+
+	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.TestAccPreCheck(t) },
+		Providers: map[string]*schema.Provider{
+			"oci": provider,
+		},
+		CheckDestroy: testAccCheckDevopsBuildPipelineStageDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: config + compartmentIdVariableStr + BuildPipelineBuildStageCodeRepoResourceDependencies +
+					acctest.GenerateResourceFromRepresentationMap("oci_devops_build_pipeline_stage", "test_build_pipeline_stage", acctest.Required, acctest.Create, ol8Representation),
+				Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+					resource.TestCheckResourceAttr(resourceName, "build_pipeline_stage_type", "BUILD"),
+					resource.TestCheckResourceAttr(resourceName, "image", "OL8_X86_64_STANDARD_10"),
+				),
 			},
 		},
 	})

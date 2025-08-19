@@ -20,6 +20,8 @@ variable "compartment_ocid" {
 }
 
 provider "oci" {
+  # un-ignore to run backwards compatibility testing
+  #version = "6.32.0"
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
   fingerprint      = var.fingerprint
@@ -36,6 +38,11 @@ resource "oci_core_subnet" "test_subnet" {
 resource "oci_core_vcn" "test_vcn" {
   cidr_block     = "10.0.0.0/16"
   compartment_id = var.compartment_ocid
+}
+
+resource "oci_core_network_security_group" "test_network_security_group" {
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_vcn.test_vcn.id
 }
 
 resource "oci_mysql_mysql_backup" "test_mysql_backup" {
@@ -87,6 +94,15 @@ resource "oci_mysql_mysql_db_system" "test_mysql_db_system" {
     is_enabled        = "false"
     retention_in_days = "10"
     window_start_time = "01:00-00:00"
+    copy_policies {
+        backup_copy_retention_in_days = "2"
+        copy_to_region                = "us-phoenix-1"
+    }
+  }
+
+  #Optional
+  read_endpoint {
+    is_enabled       = "false"
   }
 
   #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "${var.mysql_defined_tags_value}"}
@@ -102,6 +118,7 @@ resource "oci_mysql_mysql_db_system" "test_mysql_db_system" {
     window_start_time = "sun 01:00"
   }
 
+  nsg_ids       = [oci_core_network_security_group.test_network_security_group.id]
   port          = "3306"
   port_x        = "33306"
 
@@ -112,15 +129,22 @@ resource "oci_mysql_mysql_db_system" "test_mysql_db_system" {
   }
 
   #Optional
+  access_mode = "UNRESTRICTED"
+  database_mode = "READ_WRITE"
+
+  #Optional
   crash_recovery = "ENABLED"
   database_management = "DISABLED"
   secure_connections {
     certificate_generation_type = "SYSTEM"
   }
+  encrypt_data {
+    key_generation_type = "SYSTEM"
+  }
 
   #Optional
   deletion_policy {
-    automatic_backup_retention = "DELETE"
+    automatic_backup_retention = "RETAIN"
     final_backup = "SKIP_FINAL_BACKUP"
     is_delete_protected = "false"
   }
@@ -134,6 +158,12 @@ resource "oci_mysql_mysql_db_system" "test_mysql_db_system" {
   data_storage {
     is_auto_expand_storage_enabled = "false"
     max_storage_size_in_gbs = "100"
+  }
+
+  #Optional
+  rest {
+    configuration = "DISABLED"
+    port = "443"
   }
 }
 
@@ -154,6 +184,16 @@ data "oci_mysql_shapes" "test_shapes" {
 
 data "oci_identity_availability_domains" "test_availability_domains" {
   compartment_id = var.tenancy_ocid
+}
+
+data "oci_mysql_mysql_db_system" "test_mysql_db_system" {
+  #Required
+  db_system_id = oci_mysql_mysql_db_system.test_mysql_backup_db_system.id
+}
+
+data "oci_mysql_mysql_backup" "test_mysql_backup" {
+  #Required
+  backup_id = oci_mysql_mysql_backup.test_mysql_backup.id
 }
 
 output "configuration_id" {

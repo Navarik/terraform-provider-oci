@@ -16,7 +16,7 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/tfresource"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -300,6 +300,11 @@ func ContainerengineNodePoolResource() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
+						"is_force_action_after_grace_duration": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Computed: true,
+						},
 						"is_force_delete_after_grace_duration": {
 							Type:     schema.TypeBool,
 							Optional: true,
@@ -343,6 +348,14 @@ func ContainerengineNodePoolResource() *schema.Resource {
 						// Required
 
 						// Optional
+						"cycle_modes": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Computed: true,
+							Elem: &schema.Schema{
+								Type: schema.TypeString,
+							},
+						},
 						"is_node_cycling_enabled": {
 							Type:     schema.TypeBool,
 							Optional: true,
@@ -940,7 +953,7 @@ func nodePoolWaitForWorkRequest(wId *string, entityType string, action oci_conta
 	retryPolicy.ShouldRetryOperation = nodePoolWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_containerengine.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_containerengine.WorkRequestStatusInProgress),
 			string(oci_containerengine.WorkRequestStatusAccepted),
@@ -1631,6 +1644,11 @@ func (s *ContainerengineNodePoolResourceCrud) mapToNodeEvictionNodePoolSettings(
 		result.EvictionGraceDuration = &tmp
 	}
 
+	if isForceActionAfterGraceDuration, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_force_action_after_grace_duration")); ok {
+		tmp := isForceActionAfterGraceDuration.(bool)
+		result.IsForceActionAfterGraceDuration = &tmp
+	}
+
 	if isForceDeleteAfterGraceDuration, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_force_delete_after_grace_duration")); ok {
 		tmp := isForceDeleteAfterGraceDuration.(bool)
 		result.IsForceDeleteAfterGraceDuration = &tmp
@@ -1646,6 +1664,10 @@ func NodeEvictionNodePoolSettingsToMap(obj *oci_containerengine.NodeEvictionNode
 		result["eviction_grace_duration"] = string(*obj.EvictionGraceDuration)
 	}
 
+	if obj.IsForceActionAfterGraceDuration != nil {
+		result["is_force_action_after_grace_duration"] = bool(*obj.IsForceActionAfterGraceDuration)
+	}
+
 	if obj.IsForceDeleteAfterGraceDuration != nil {
 		result["is_force_delete_after_grace_duration"] = bool(*obj.IsForceDeleteAfterGraceDuration)
 	}
@@ -1655,6 +1677,19 @@ func NodeEvictionNodePoolSettingsToMap(obj *oci_containerengine.NodeEvictionNode
 
 func (s *ContainerengineNodePoolResourceCrud) mapToNodePoolCyclingDetails(fieldKeyFormat string) (oci_containerengine.NodePoolCyclingDetails, error) {
 	result := oci_containerengine.NodePoolCyclingDetails{}
+
+	if cycleModes, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "cycle_modes")); ok {
+		interfaces := cycleModes.([]interface{})
+		tmp := make([]oci_containerengine.CycleModeEnum, len(interfaces))
+		for i := range interfaces {
+			if interfaces[i] != nil {
+				tmp[i] = oci_containerengine.CycleModeEnum(interfaces[i].(string))
+			}
+		}
+		if len(tmp) != 0 || s.D.HasChange(fmt.Sprintf(fieldKeyFormat, "cycle_modes")) {
+			result.CycleModes = tmp
+		}
+	}
 
 	if isNodeCyclingEnabled, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_node_cycling_enabled")); ok {
 		tmp := isNodeCyclingEnabled.(bool)
@@ -1676,6 +1711,8 @@ func (s *ContainerengineNodePoolResourceCrud) mapToNodePoolCyclingDetails(fieldK
 
 func NodePoolCyclingDetailsToMap(obj *oci_containerengine.NodePoolCyclingDetails) map[string]interface{} {
 	result := map[string]interface{}{}
+
+	result["cycle_modes"] = obj.CycleModes
 
 	if obj.IsNodeCyclingEnabled != nil {
 		result["is_node_cycling_enabled"] = bool(*obj.IsNodeCyclingEnabled)

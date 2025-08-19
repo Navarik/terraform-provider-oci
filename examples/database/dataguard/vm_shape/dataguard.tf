@@ -47,10 +47,12 @@ data "oci_identity_availability_domains" "test_availability_domains" {
 }
 
 resource "oci_core_vcn" "test_vcn" {
-  cidr_block     = "10.0.0.0/16"
-  compartment_id = var.compartment_ocid
-  display_name   = "TFExampleVCN"
-  dns_label      = "tfexamplevcn"
+  cidr_block              = "10.0.0.0/16"
+  compartment_id          = var.compartment_ocid
+  display_name            = "TFExampleVCN"
+  dns_label               = "tfexamplevcn"
+  ipv6private_cidr_blocks = ["fc00:1000::/52"]
+  is_ipv6enabled          = true
 }
 
 resource "oci_core_service_gateway" "test_service_gateway" {
@@ -117,6 +119,7 @@ resource "oci_core_subnet" "test_subnet" {
   dhcp_options_id     	   = oci_core_vcn.test_vcn.default_dhcp_options_id
   dns_label           	   = "tftestsubnet"
   prohibit_public_ip_on_vnic = "true"
+  ipv6cidr_blocks            = ["${substr(oci_core_vcn.test_vcn.ipv6cidr_blocks[0], 0, length(oci_core_vcn.test_vcn.ipv6cidr_blocks[0]) - 2)}${64}"]
 }
 
 
@@ -185,6 +188,7 @@ resource "oci_database_data_guard_association" "test_data_guard_association" {
   license_model             = "LICENSE_INCLUDED"
   node_count                = "1"
   private_ip                = "10.0.2.223"
+  private_ip_v6             = "${substr(oci_core_vcn.test_vcn.ipv6cidr_blocks[0], 0, length(oci_core_vcn.test_vcn.ipv6cidr_blocks[0]) - 4)}5901:cede:a617:8bba"
   time_zone                 = "US/Pacific"
   is_active_data_guard_enabled = "false"
 }

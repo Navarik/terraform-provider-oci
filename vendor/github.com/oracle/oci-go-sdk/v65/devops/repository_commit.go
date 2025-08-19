@@ -1,10 +1,10 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
 // DevOps API
 //
-// Use the DevOps API to create DevOps projects, configure code repositories,  add artifacts to deploy, build and test software applications, configure  target deployment environments, and deploy software applications.  For more information, see DevOps (https://docs.cloud.oracle.com/Content/devops/using/home.htm).
+// Use the DevOps API to create DevOps projects, configure code repositories,  add artifacts to deploy, build and test software applications, configure  target deployment environments, and deploy software applications.  For more information, see DevOps (https://docs.oracle.com/iaas/Content/devops/using/home.htm).
 //
 
 package devops
@@ -35,6 +35,9 @@ type RepositoryCommit struct {
 
 	// Email of who creates the commit.
 	CommitterEmail *string `mandatory:"false" json:"committerEmail"`
+
+	// Id of the PullRequest that this commit was merged with.
+	MergedPullRequestId *string `mandatory:"false" json:"mergedPullRequestId"`
 
 	// An array of parent commit IDs of created commit.
 	ParentCommitIds []string `mandatory:"false" json:"parentCommitIds"`

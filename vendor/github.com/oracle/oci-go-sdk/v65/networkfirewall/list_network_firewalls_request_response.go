@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListNetworkFirewalls.go.html to see an example of how to use ListNetworkFirewallsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListNetworkFirewalls.go.html to see an example of how to use ListNetworkFirewallsRequest.
 type ListNetworkFirewallsRequest struct {
 
 	// The ID of the compartment in which to list resources.
@@ -27,7 +27,7 @@ type ListNetworkFirewallsRequest struct {
 	// A filter to return only resources that match the entire networkFirewallPolicyId given.
 	NetworkFirewallPolicyId *string `mandatory:"false" contributesTo:"query" name:"networkFirewallPolicyId"`
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Network Firewall resource.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Network Firewall resource.
 	Id *string `mandatory:"false" contributesTo:"query" name:"id"`
 
 	// A filter to return only resources that are present within the specified availability domain.
@@ -117,10 +117,10 @@ type ListNetworkFirewallsResponse struct {
 	// Oracle about a particular request, please provide the request ID.
 	OpcRequestId *string `presentIn:"header" name:"opc-request-id"`
 
-	// For list pagination. When this header appears in the response, additional pages of results remain. For important details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, additional pages of results remain. For important details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 
-	// For list pagination. When this header appears in the response, previous pages of results exist. For important details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, previous pages of results exist. For important details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcPrevPage *string `presentIn:"header" name:"opc-prev-page"`
 
 	// For pagination of a list of items. When paging through a list, if this header appears in the response,
@@ -152,8 +152,6 @@ const (
 	ListNetworkFirewallsLifecycleStateDeleted        ListNetworkFirewallsLifecycleStateEnum = "DELETED"
 	ListNetworkFirewallsLifecycleStateFailed         ListNetworkFirewallsLifecycleStateEnum = "FAILED"
 	ListNetworkFirewallsLifecycleStateNeedsAttention ListNetworkFirewallsLifecycleStateEnum = "NEEDS_ATTENTION"
-	ListNetworkFirewallsLifecycleStateAttaching      ListNetworkFirewallsLifecycleStateEnum = "ATTACHING"
-	ListNetworkFirewallsLifecycleStateDetaching      ListNetworkFirewallsLifecycleStateEnum = "DETACHING"
 )
 
 var mappingListNetworkFirewallsLifecycleStateEnum = map[string]ListNetworkFirewallsLifecycleStateEnum{
@@ -164,8 +162,6 @@ var mappingListNetworkFirewallsLifecycleStateEnum = map[string]ListNetworkFirewa
 	"DELETED":         ListNetworkFirewallsLifecycleStateDeleted,
 	"FAILED":          ListNetworkFirewallsLifecycleStateFailed,
 	"NEEDS_ATTENTION": ListNetworkFirewallsLifecycleStateNeedsAttention,
-	"ATTACHING":       ListNetworkFirewallsLifecycleStateAttaching,
-	"DETACHING":       ListNetworkFirewallsLifecycleStateDetaching,
 }
 
 var mappingListNetworkFirewallsLifecycleStateEnumLowerCase = map[string]ListNetworkFirewallsLifecycleStateEnum{
@@ -176,8 +172,6 @@ var mappingListNetworkFirewallsLifecycleStateEnumLowerCase = map[string]ListNetw
 	"deleted":         ListNetworkFirewallsLifecycleStateDeleted,
 	"failed":          ListNetworkFirewallsLifecycleStateFailed,
 	"needs_attention": ListNetworkFirewallsLifecycleStateNeedsAttention,
-	"attaching":       ListNetworkFirewallsLifecycleStateAttaching,
-	"detaching":       ListNetworkFirewallsLifecycleStateDetaching,
 }
 
 // GetListNetworkFirewallsLifecycleStateEnumValues Enumerates the set of values for ListNetworkFirewallsLifecycleStateEnum
@@ -199,8 +193,6 @@ func GetListNetworkFirewallsLifecycleStateEnumStringValues() []string {
 		"DELETED",
 		"FAILED",
 		"NEEDS_ATTENTION",
-		"ATTACHING",
-		"DETACHING",
 	}
 }
 

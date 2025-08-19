@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -34,6 +34,7 @@ const (
 	OdmsJobPhasesOdmsInitializeReplicationInfrastructure OdmsJobPhasesEnum = "ODMS_INITIALIZE_REPLICATION_INFRASTRUCTURE"
 	OdmsJobPhasesOdmsInitialLoadExport                   OdmsJobPhasesEnum = "ODMS_INITIAL_LOAD_EXPORT"
 	OdmsJobPhasesOdmsDataUpload                          OdmsJobPhasesEnum = "ODMS_DATA_UPLOAD"
+	OdmsJobPhasesOdmsMetadataTransfer                    OdmsJobPhasesEnum = "ODMS_METADATA_TRANSFER"
 	OdmsJobPhasesOdmsInitialLoadExportDataUpload         OdmsJobPhasesEnum = "ODMS_INITIAL_LOAD_EXPORT_DATA_UPLOAD"
 	OdmsJobPhasesOdmsInitialLoadImport                   OdmsJobPhasesEnum = "ODMS_INITIAL_LOAD_IMPORT"
 	OdmsJobPhasesOdmsPostInitialLoad                     OdmsJobPhasesEnum = "ODMS_POST_INITIAL_LOAD"
@@ -60,6 +61,7 @@ var mappingOdmsJobPhasesEnum = map[string]OdmsJobPhasesEnum{
 	"ODMS_INITIALIZE_REPLICATION_INFRASTRUCTURE": OdmsJobPhasesOdmsInitializeReplicationInfrastructure,
 	"ODMS_INITIAL_LOAD_EXPORT":                   OdmsJobPhasesOdmsInitialLoadExport,
 	"ODMS_DATA_UPLOAD":                           OdmsJobPhasesOdmsDataUpload,
+	"ODMS_METADATA_TRANSFER":                     OdmsJobPhasesOdmsMetadataTransfer,
 	"ODMS_INITIAL_LOAD_EXPORT_DATA_UPLOAD":       OdmsJobPhasesOdmsInitialLoadExportDataUpload,
 	"ODMS_INITIAL_LOAD_IMPORT":                   OdmsJobPhasesOdmsInitialLoadImport,
 	"ODMS_POST_INITIAL_LOAD":                     OdmsJobPhasesOdmsPostInitialLoad,
@@ -86,6 +88,7 @@ var mappingOdmsJobPhasesEnumLowerCase = map[string]OdmsJobPhasesEnum{
 	"odms_initialize_replication_infrastructure": OdmsJobPhasesOdmsInitializeReplicationInfrastructure,
 	"odms_initial_load_export":                   OdmsJobPhasesOdmsInitialLoadExport,
 	"odms_data_upload":                           OdmsJobPhasesOdmsDataUpload,
+	"odms_metadata_transfer":                     OdmsJobPhasesOdmsMetadataTransfer,
 	"odms_initial_load_export_data_upload":       OdmsJobPhasesOdmsInitialLoadExportDataUpload,
 	"odms_initial_load_import":                   OdmsJobPhasesOdmsInitialLoadImport,
 	"odms_post_initial_load":                     OdmsJobPhasesOdmsPostInitialLoad,
@@ -123,6 +126,7 @@ func GetOdmsJobPhasesEnumStringValues() []string {
 		"ODMS_INITIALIZE_REPLICATION_INFRASTRUCTURE",
 		"ODMS_INITIAL_LOAD_EXPORT",
 		"ODMS_DATA_UPLOAD",
+		"ODMS_METADATA_TRANSFER",
 		"ODMS_INITIAL_LOAD_EXPORT_DATA_UPLOAD",
 		"ODMS_INITIAL_LOAD_IMPORT",
 		"ODMS_POST_INITIAL_LOAD",

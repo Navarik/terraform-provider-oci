@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/oracle/terraform-provider-oci/internal/acctest"
-	"github.com/oracle/terraform-provider-oci/internal/utils"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
+	"github.com/oracle/terraform-provider-oci/internal/acctest"
+
+	"github.com/oracle/terraform-provider-oci/internal/utils"
 )
 
 var (
@@ -20,13 +20,15 @@ var (
 		"log_analytics_entity_id": acctest.Representation{RepType: acctest.Required, Create: `${oci_log_analytics_log_analytics_entity.test_entity.id}`},
 		"namespace":               acctest.Representation{RepType: acctest.Required, Create: `${data.oci_objectstorage_namespace.test_namespace.namespace}`},
 		"state":                   acctest.Representation{RepType: acctest.Optional, Create: `ACTIVE`},
-		"metadata_equals":         acctest.Representation{RepType: acctest.Optional, Create: []string{`metadataName:metadataValue:metadataType`}},
+		"context":                 acctest.Representation{RepType: acctest.Optional, Create: ``},
+		//"metadata_equals":         acctest.Representation{RepType: acctest.Optional, Create: []string{`metadataName:metadataValue:metadataType`}},
 	}
 
 	LogAnalyticsLogAnalyticsLogAnalyticsEntityTopologyDataSourceRepresentation = map[string]interface{}{
 		"compartment_id":    acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
 		"entity_type_name":  acctest.Representation{RepType: acctest.Required, Create: `Host (Linux)`},
 		"name":              acctest.Representation{RepType: acctest.Required, Create: `TF_LA_ENTITY`},
+		"metadata_equals":   acctest.Representation{RepType: acctest.Optional, Create: []string{`metadataName:metadataValue:metadataType`}, Update: []string{`metadataName:metadataValue:metadataType`}},
 		"namespace":         acctest.Representation{RepType: acctest.Required, Create: `${data.oci_objectstorage_namespace.test_namespace.namespace}`},
 		"cloud_resource_id": acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
 		"hostname":          acctest.Representation{RepType: acctest.Optional, Create: `hostname`},

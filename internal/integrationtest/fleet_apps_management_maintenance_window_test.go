@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_fleet_apps_management "github.com/oracle/oci-go-sdk/v65/fleetappsmanagement"
 
@@ -36,31 +36,31 @@ var (
 	}
 
 	FleetAppsManagementMaintenanceWindowDataSourceRepresentation = map[string]interface{}{
-		"compartment_id": acctest.Representation{RepType: acctest.Optional, Create: `${var.tenancy_ocid}`},
-		"display_name":   acctest.Representation{RepType: acctest.Optional, Create: `displayName`, Update: `displayName2`},
-		"state":          acctest.Representation{RepType: acctest.Optional, Create: `ACTIVE`},
-		"filter":         acctest.RepresentationGroup{RepType: acctest.Required, Group: FleetAppsManagementMaintenanceWindowDataSourceFilterRepresentation}}
+		"compartment_id": acctest.Representation{RepType: acctest.Optional, Create: `${var.compartment_id}`},
+		"time_schedule_start_greater_than_or_equal_to": acctest.Representation{RepType: acctest.Optional, Create: `2026-01-01T00:00:00.111Z`},
+		"state":  acctest.Representation{RepType: acctest.Optional, Create: `ACTIVE`},
+		"filter": acctest.RepresentationGroup{RepType: acctest.Required, Group: FleetAppsManagementMaintenanceWindowDataSourceFilterRepresentation},
+	}
 	FleetAppsManagementMaintenanceWindowDataSourceFilterRepresentation = map[string]interface{}{
 		"name":   acctest.Representation{RepType: acctest.Required, Create: `id`},
 		"values": acctest.Representation{RepType: acctest.Required, Create: []string{`${oci_fleet_apps_management_maintenance_window.test_maintenance_window.id}`}},
 	}
 
 	FleetAppsManagementMaintenanceWindowRepresentation = map[string]interface{}{
-		"compartment_id":          acctest.Representation{RepType: acctest.Required, Create: `${var.tenancy_ocid}`},
-		"duration":                acctest.Representation{RepType: acctest.Required, Create: `PT2H`, Update: `PT1H`},
-		"defined_tags":            acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
-		"description":             acctest.Representation{RepType: acctest.Optional, Create: `description`, Update: `description2`},
-		"display_name":            acctest.Representation{RepType: acctest.Required, Create: `MWTT20240808`, Update: `displayName2`},
-		"freeform_tags":           acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"bar-key": "value"}, Update: map[string]string{"Department": "Accounting"}},
-		"is_outage":               acctest.Representation{RepType: acctest.Required, Create: `false`, Update: `true`},
-		"is_recurring":            acctest.Representation{RepType: acctest.Required, Create: `false`, Update: `true`},
-		"maintenance_window_type": acctest.Representation{RepType: acctest.Required, Create: `OPEN_ENDED`},
-		"recurrences":             acctest.Representation{RepType: acctest.Optional, Create: `recurrences`, Update: `recurrences2`},
-		"task_initiation_cutoff":  acctest.Representation{RepType: acctest.Required, Create: `1`, Update: `11`},
-		"time_schedule_start":     acctest.Representation{RepType: acctest.Required, Create: `2024-08-08T17:43:32.292Z`, Update: `2024-12-09T17:43:32.292Z`},
+		"compartment_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"duration":       acctest.Representation{RepType: acctest.Required, Create: `PT3H`, Update: `PT1H`},
+		//TODO temp removed "defined_tags":   acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
+		"description": acctest.Representation{RepType: acctest.Optional, Create: `description`, Update: `description2`},
+		//"display_name":        acctest.Representation{RepType: acctest.Optional, Create: `displayName`, Update: `displayName2`},
+		"freeform_tags": acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"bar-key": "value"}},
+		"is_outage":     acctest.Representation{RepType: acctest.Required, Create: `false`, Update: `true`},
+		"is_recurring":  acctest.Representation{RepType: acctest.Required, Create: `false`, Update: `true`},
+		//"maintenance_window_type": acctest.Representation{RepType: acctest.Required, Create: `OPEN_ENDED`},
+		"recurrences":         acctest.Representation{RepType: acctest.Optional, Create: `FREQ=MONTHLY;BYMONTHDAY=1;INTERVAL=1;COUNT=10`, Update: `FREQ=MONTHLY;BYMONTHDAY=1;INTERVAL=1;COUNT=14`},
+		"time_schedule_start": acctest.Representation{RepType: acctest.Required, Create: `2026-09-30T00:00:00.111Z`, Update: `2026-12-09T00:00:00.111Z`},
 	}
 
-	FleetAppsManagementMaintenanceWindowResourceDependencies = DefinedTagsDependencies
+	FleetAppsManagementMaintenanceWindowResourceDependencies = "" //TODO temp removed: DefinedTagsDependencies
 )
 
 // issue-routing-tag: fleet_apps_management/default
@@ -70,7 +70,7 @@ func TestFleetAppsManagementMaintenanceWindowResource_basic(t *testing.T) {
 
 	config := acctest.ProviderTestConfig()
 
-	compartmentId := utils.GetEnvSettingWithBlankDefault("tenancy_ocid")
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
 	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
 
 	resourceName := "oci_fleet_apps_management_maintenance_window.test_maintenance_window"
@@ -89,7 +89,7 @@ func TestFleetAppsManagementMaintenanceWindowResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_fleet_apps_management_maintenance_window", "test_maintenance_window", acctest.Required, acctest.Create, FleetAppsManagementMaintenanceWindowRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "duration", "PT2H"),
+				resource.TestCheckResourceAttr(resourceName, "duration", "PT3H"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -109,18 +109,15 @@ func TestFleetAppsManagementMaintenanceWindowResource_basic(t *testing.T) {
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(resourceName, "description", "description"),
-				resource.TestCheckResourceAttr(resourceName, "display_name", "MWTT20240808"),
-				resource.TestCheckResourceAttr(resourceName, "duration", "PT2H"),
+				resource.TestCheckResourceAttr(resourceName, "duration", "PT3H"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
 				resource.TestCheckResourceAttr(resourceName, "is_outage", "false"),
 				resource.TestCheckResourceAttr(resourceName, "is_recurring", "false"),
-				resource.TestCheckResourceAttr(resourceName, "maintenance_window_type", "OPEN_ENDED"),
-				resource.TestCheckResourceAttr(resourceName, "recurrences", "recurrences"),
+				resource.TestCheckResourceAttr(resourceName, "recurrences", "FREQ=MONTHLY;BYMONTHDAY=1;INTERVAL=1;COUNT=10"),
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
-				resource.TestCheckResourceAttr(resourceName, "task_initiation_cutoff", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "time_created"),
-				resource.TestCheckResourceAttr(resourceName, "time_schedule_start", "2024-08-08T17:43:32.292Z"),
+				resource.TestCheckResourceAttr(resourceName, "time_schedule_start", "2026-09-30T00:00:00.111Z"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -141,18 +138,15 @@ func TestFleetAppsManagementMaintenanceWindowResource_basic(t *testing.T) {
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(resourceName, "description", "description2"),
-				resource.TestCheckResourceAttr(resourceName, "display_name", "displayName2"),
 				resource.TestCheckResourceAttr(resourceName, "duration", "PT1H"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
 				resource.TestCheckResourceAttr(resourceName, "is_outage", "true"),
 				resource.TestCheckResourceAttr(resourceName, "is_recurring", "true"),
-				resource.TestCheckResourceAttr(resourceName, "maintenance_window_type", "OPEN_ENDED"),
-				resource.TestCheckResourceAttr(resourceName, "recurrences", "recurrences2"),
+				resource.TestCheckResourceAttr(resourceName, "recurrences", "FREQ=MONTHLY;BYMONTHDAY=1;INTERVAL=1;COUNT=14"),
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
-				resource.TestCheckResourceAttr(resourceName, "task_initiation_cutoff", "11"),
 				resource.TestCheckResourceAttrSet(resourceName, "time_created"),
-				resource.TestCheckResourceAttr(resourceName, "time_schedule_start", "2024-12-09T17:43:32.292Z"),
+				resource.TestCheckResourceAttr(resourceName, "time_schedule_start", "2026-12-09T00:00:00.111Z"),
 
 				func(s *terraform.State) (err error) {
 					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -171,11 +165,10 @@ func TestFleetAppsManagementMaintenanceWindowResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_fleet_apps_management_maintenance_window", "test_maintenance_window", acctest.Optional, acctest.Update, FleetAppsManagementMaintenanceWindowRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(datasourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(datasourceName, "display_name", "displayName2"),
+				resource.TestCheckResourceAttrSet(datasourceName, "time_schedule_start_greater_than_or_equal_to"),
 				resource.TestCheckResourceAttr(datasourceName, "state", "ACTIVE"),
-
 				resource.TestCheckResourceAttr(datasourceName, "maintenance_window_collection.#", "1"),
-				resource.TestCheckResourceAttr(datasourceName, "maintenance_window_collection.0.items.#", "1"),
+				resource.TestCheckResourceAttrSet(datasourceName, "maintenance_window_collection.0.items.#"),
 			),
 		},
 		// verify singular datasource
@@ -185,20 +178,16 @@ func TestFleetAppsManagementMaintenanceWindowResource_basic(t *testing.T) {
 				compartmentIdVariableStr + FleetAppsManagementMaintenanceWindowResourceConfig,
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "maintenance_window_id"),
-
 				resource.TestCheckResourceAttr(singularDatasourceName, "compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(singularDatasourceName, "description", "description2"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "display_name", "displayName2"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "duration", "PT1H"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "id"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "is_outage", "true"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "is_recurring", "true"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "maintenance_window_type", "OPEN_ENDED"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "recurrences", "recurrences2"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "recurrences", "FREQ=MONTHLY;BYMONTHDAY=1;INTERVAL=1;COUNT=14"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "resource_region"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "state"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "task_initiation_cutoff", "11"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_schedule_start"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_updated"),

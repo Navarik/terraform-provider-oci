@@ -39,6 +39,11 @@ func VaultSecretResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"key_id": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 			"secret_name": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -63,24 +68,56 @@ func VaultSecretResource() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"enable_auto_generation": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  false,
+			},
 			"freeform_tags": {
 				Type:     schema.TypeMap,
 				Optional: true,
 				Computed: true,
 				Elem:     schema.TypeString,
 			},
-			"key_id": {
-				Type: schema.TypeString,
-				//Optional: true,
-				//Computed: true,
-				Required: true,
-				ForceNew: true,
-			},
 			"metadata": {
 				Type:     schema.TypeMap,
 				Optional: true,
 				Computed: true,
 				Elem:     schema.TypeString,
+			},
+			"replication_config": {
+				Type:     schema.TypeList,
+				Optional: true,
+				MaxItems: 1,
+				MinItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"replication_targets": {
+							Type:     schema.TypeList,
+							Required: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"target_key_id": {
+										Type:     schema.TypeString,
+										Required: true,
+									},
+									"target_region": {
+										Type:     schema.TypeString,
+										Required: true,
+									},
+									"target_vault_id": {
+										Type:     schema.TypeString,
+										Required: true,
+									},
+								},
+							},
+						},
+						"is_write_forward_enabled": {
+							Type:     schema.TypeBool,
+							Optional: true,
+						},
+					},
+				},
 			},
 			"rotation_config": {
 				Type:     schema.TypeList,
@@ -90,7 +127,6 @@ func VaultSecretResource() *schema.Resource {
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						// Required
 						"target_system_details": {
 							Type:     schema.TypeList,
 							Required: true,
@@ -98,7 +134,6 @@ func VaultSecretResource() *schema.Resource {
 							MinItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									// Required
 									"target_system_type": {
 										Type:             schema.TypeString,
 										Required:         true,
@@ -108,8 +143,6 @@ func VaultSecretResource() *schema.Resource {
 											"FUNCTION",
 										}, true),
 									},
-
-									// Optional
 									"adb_id": {
 										Type:     schema.TypeString,
 										Optional: true,
@@ -120,13 +153,9 @@ func VaultSecretResource() *schema.Resource {
 										Optional: true,
 										Computed: true,
 									},
-
-									// Computed
 								},
 							},
 						},
-
-						// Optional
 						"is_scheduled_rotation_enabled": {
 							Type:     schema.TypeBool,
 							Optional: true,
@@ -137,8 +166,6 @@ func VaultSecretResource() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
-
-						// Computed
 					},
 				},
 			},
@@ -150,7 +177,6 @@ func VaultSecretResource() *schema.Resource {
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						// Required
 						"content_type": {
 							Type:             schema.TypeString,
 							Required:         true,
@@ -159,8 +185,6 @@ func VaultSecretResource() *schema.Resource {
 								"BASE64",
 							}, true),
 						},
-
-						// Optional
 						"content": {
 							Type:     schema.TypeString,
 							Optional: true,
@@ -174,8 +198,39 @@ func VaultSecretResource() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
-
-						// Computed
+					},
+				},
+			},
+			"secret_generation_context": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Computed: true,
+				MaxItems: 1,
+				MinItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"generation_template": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+						"generation_type": {
+							Type:             schema.TypeString,
+							Required:         true,
+							DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
+							ValidateFunc: validation.StringInSlice([]string{
+								"BYTES",
+								"PASSPHRASE",
+								"SSH_KEY",
+							}, true),
+						},
+						"passphrase_length": {
+							Type:     schema.TypeInt,
+							Optional: true,
+						},
+						"secret_template": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 					},
 				},
 			},
@@ -185,7 +240,6 @@ func VaultSecretResource() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						// Required
 						"rule_type": {
 							Type:             schema.TypeString,
 							Required:         true,
@@ -195,8 +249,6 @@ func VaultSecretResource() *schema.Resource {
 								"SECRET_REUSE_RULE",
 							}, true),
 						},
-
-						// Optional
 						"is_enforced_on_deleted_secret_versions": {
 							Type:     schema.TypeBool,
 							Optional: true,
@@ -218,15 +270,19 @@ func VaultSecretResource() *schema.Resource {
 							Computed:         true,
 							DiffSuppressFunc: tfresource.TimeDiffSuppressFunction,
 						},
-
-						// Computed
 					},
 				},
 			},
-
-			// Computed
 			"current_version_number": {
 				Type:     schema.TypeString,
+				Computed: true,
+			},
+			"is_auto_generation_enabled": {
+				Type:     schema.TypeBool,
+				Computed: true,
+			},
+			"is_replica": {
+				Type:     schema.TypeBool,
 				Computed: true,
 			},
 			"last_rotation_time": {
@@ -244,6 +300,26 @@ func VaultSecretResource() *schema.Resource {
 			"rotation_status": {
 				Type:     schema.TypeString,
 				Computed: true,
+			},
+			"source_region_information": {
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"source_key_id": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"source_region": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"source_vault_id": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+					},
+				},
 			},
 			"state": {
 				Type:     schema.TypeString,
@@ -360,6 +436,11 @@ func (s *VaultSecretResourceCrud) Create() error {
 		request.Description = &tmp
 	}
 
+	if enableAutoGeneration, ok := s.D.GetOkExists("enable_auto_generation"); ok {
+		tmp := enableAutoGeneration.(bool)
+		request.EnableAutoGeneration = &tmp
+	}
+
 	if freeformTags, ok := s.D.GetOkExists("freeform_tags"); ok {
 		request.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
 	}
@@ -371,6 +452,17 @@ func (s *VaultSecretResourceCrud) Create() error {
 
 	if metadata, ok := s.D.GetOkExists("metadata"); ok {
 		request.Metadata = metadata.(map[string]interface{})
+	}
+
+	if replicationConfig, ok := s.D.GetOkExists("replication_config"); ok {
+		if tmpList := replicationConfig.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "replication_config", 0)
+			tmp, err := s.mapToReplicationConfig(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			request.ReplicationConfig = &tmp
+		}
 	}
 
 	if rotationConfig, ok := s.D.GetOkExists("rotation_config"); ok {
@@ -392,6 +484,17 @@ func (s *VaultSecretResourceCrud) Create() error {
 				return err
 			}
 			request.SecretContent = tmp
+		}
+	}
+
+	if secretGenerationContext, ok := s.D.GetOkExists("secret_generation_context"); ok {
+		if tmpList := secretGenerationContext.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "secret_generation_context", 0)
+			tmp, err := s.mapToSecretGenerationContext(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			request.SecretGenerationContext = tmp
 		}
 	}
 
@@ -451,6 +554,10 @@ func (s *VaultSecretResourceCrud) Get() error {
 }
 
 func (s *VaultSecretResourceCrud) Update() error {
+	val, ok := s.D.GetOkExists("is_replica")
+	if ok && val.(bool) {
+		return fmt.Errorf("Write forwarding for replica secrets is not allowed through Terraform. Please use SDK/CLI/Console to perform write forwarding on replica secrets")
+	}
 	if compartment, ok := s.D.GetOkExists("compartment_id"); ok && s.D.HasChange("compartment_id") {
 		oldRaw, newRaw := s.D.GetChange("compartment_id")
 		if newRaw != "" && oldRaw != "" {
@@ -484,12 +591,28 @@ func (s *VaultSecretResourceCrud) Update() error {
 		request.Description = &tmp
 	}
 
+	if enableAutoGeneration, ok := s.D.GetOkExists("enable_auto_generation"); ok {
+		tmp := enableAutoGeneration.(bool)
+		request.EnableAutoGeneration = &tmp
+	}
+
 	if freeformTags, ok := s.D.GetOkExists("freeform_tags"); ok {
 		request.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
 	}
 
 	if metadata, ok := s.D.GetOkExists("metadata"); ok {
 		request.Metadata = metadata.(map[string]interface{})
+	}
+
+	if replicationConfig, ok := s.D.GetOkExists("replication_config"); ok {
+		if tmpList := replicationConfig.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "replication_config", 0)
+			tmp, err := s.mapToReplicationConfig(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			request.ReplicationConfig = &tmp
+		}
 	}
 
 	if rotationConfig, ok := s.D.GetOkExists("rotation_config"); ok {
@@ -511,6 +634,17 @@ func (s *VaultSecretResourceCrud) Update() error {
 				return err
 			}
 			request.SecretContent = tmp
+		}
+	}
+
+	if secretGenerationContext, ok := s.D.GetOkExists("secret_generation_context"); ok {
+		if tmpList := secretGenerationContext.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "secret_generation_context", 0)
+			tmp, err := s.mapToSecretGenerationContext(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			request.SecretGenerationContext = tmp
 		}
 	}
 
@@ -546,13 +680,15 @@ func (s *VaultSecretResourceCrud) Update() error {
 }
 
 func (s *VaultSecretResourceCrud) Delete() error {
-	request := oci_vault.ScheduleSecretDeletionRequest{}
+	val, ok := s.D.GetOkExists("is_replica")
+	if ok && val.(bool) {
+		return fmt.Errorf("Write forwarding for replica secrets is not allowed through Terraform. Please use SDK/CLI/Console to perform write forwarding on replica secrets")
+	}
 
+	request := oci_vault.ScheduleSecretDeletionRequest{}
 	tmp := s.D.Id()
 	request.SecretId = &tmp
-
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "vault")
-
 	_, err := s.Client.ScheduleSecretDeletion(context.Background(), request)
 	return err
 }
@@ -576,6 +712,14 @@ func (s *VaultSecretResourceCrud) SetData() error {
 
 	s.D.Set("freeform_tags", s.Res.FreeformTags)
 
+	if s.Res.IsAutoGenerationEnabled != nil {
+		s.D.Set("is_auto_generation_enabled", *s.Res.IsAutoGenerationEnabled)
+	}
+
+	if s.Res.IsReplica != nil {
+		s.D.Set("is_replica", *s.Res.IsReplica)
+	}
+
 	if s.Res.KeyId != nil {
 		s.D.Set("key_id", *s.Res.KeyId)
 	}
@@ -594,6 +738,12 @@ func (s *VaultSecretResourceCrud) SetData() error {
 		s.D.Set("next_rotation_time", s.Res.NextRotationTime.String())
 	}
 
+	if s.Res.ReplicationConfig != nil {
+		s.D.Set("replication_config", []interface{}{ReplicationConfigToMap(s.Res.ReplicationConfig)})
+	} else {
+		s.D.Set("replication_config", nil)
+	}
+
 	if s.Res.RotationConfig != nil {
 		s.D.Set("rotation_config", []interface{}{RotationConfigToMap(s.Res.RotationConfig)})
 	} else {
@@ -601,6 +751,16 @@ func (s *VaultSecretResourceCrud) SetData() error {
 	}
 
 	s.D.Set("rotation_status", s.Res.RotationStatus)
+
+	if s.Res.SecretGenerationContext != nil {
+		secretGenerationContextArray := []interface{}{}
+		if secretGenerationContextMap := SecretGenerationContextToMap(&s.Res.SecretGenerationContext); secretGenerationContextMap != nil {
+			secretGenerationContextArray = append(secretGenerationContextArray, secretGenerationContextMap)
+		}
+		s.D.Set("secret_generation_context", secretGenerationContextArray)
+	} else {
+		s.D.Set("secret_generation_context", nil)
+	}
 
 	if s.Res.SecretName != nil {
 		s.D.Set("secret_name", *s.Res.SecretName)
@@ -611,6 +771,12 @@ func (s *VaultSecretResourceCrud) SetData() error {
 		secretRules = append(secretRules, SecretRuleToMap(item))
 	}
 	s.D.Set("secret_rules", secretRules)
+
+	if s.Res.SourceRegionInformation != nil {
+		s.D.Set("source_region_information", []interface{}{SourceRegionInformationToMap(s.Res.SourceRegionInformation)})
+	} else {
+		s.D.Set("source_region_information", nil)
+	}
 
 	s.D.Set("state", s.Res.LifecycleState)
 
@@ -631,6 +797,89 @@ func (s *VaultSecretResourceCrud) SetData() error {
 	}
 
 	return nil
+}
+
+func (s *VaultSecretResourceCrud) mapToReplicationConfig(fieldKeyFormat string) (oci_vault.ReplicationConfig, error) {
+	result := oci_vault.ReplicationConfig{}
+
+	if isWriteForwardEnabled, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_write_forward_enabled")); ok {
+		tmp := isWriteForwardEnabled.(bool)
+		result.IsWriteForwardEnabled = &tmp
+	}
+
+	if replicationTargets, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "replication_targets")); ok {
+		interfaces := replicationTargets.([]interface{})
+		tmp := make([]oci_vault.ReplicationTarget, len(interfaces))
+		for i := range interfaces {
+			stateDataIndex := i
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "replication_targets"), stateDataIndex)
+			converted, err := s.mapToReplicationTarget(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, err
+			}
+			tmp[i] = converted
+		}
+		if len(tmp) != 0 || s.D.HasChange(fmt.Sprintf(fieldKeyFormat, "replication_targets")) {
+			result.ReplicationTargets = tmp
+		}
+	}
+
+	return result, nil
+}
+
+func ReplicationConfigToMap(obj *oci_vault.ReplicationConfig) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	if obj.IsWriteForwardEnabled != nil {
+		result["is_write_forward_enabled"] = bool(*obj.IsWriteForwardEnabled)
+	}
+
+	replicationTargets := []interface{}{}
+	for _, item := range obj.ReplicationTargets {
+		replicationTargets = append(replicationTargets, ReplicationTargetToMap(item))
+	}
+	result["replication_targets"] = replicationTargets
+
+	return result
+}
+
+func (s *VaultSecretResourceCrud) mapToReplicationTarget(fieldKeyFormat string) (oci_vault.ReplicationTarget, error) {
+	result := oci_vault.ReplicationTarget{}
+
+	if targetKeyId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "target_key_id")); ok {
+		tmp := targetKeyId.(string)
+		result.TargetKeyId = &tmp
+	}
+
+	if targetRegion, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "target_region")); ok {
+		tmp := targetRegion.(string)
+		result.TargetRegion = &tmp
+	}
+
+	if targetVaultId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "target_vault_id")); ok {
+		tmp := targetVaultId.(string)
+		result.TargetVaultId = &tmp
+	}
+
+	return result, nil
+}
+
+func ReplicationTargetToMap(obj oci_vault.ReplicationTarget) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	if obj.TargetKeyId != nil {
+		result["target_key_id"] = string(*obj.TargetKeyId)
+	}
+
+	if obj.TargetRegion != nil {
+		result["target_region"] = string(*obj.TargetRegion)
+	}
+
+	if obj.TargetVaultId != nil {
+		result["target_vault_id"] = string(*obj.TargetVaultId)
+	}
+
+	return result
 }
 
 func (s *VaultSecretResourceCrud) mapToRotationConfig(fieldKeyFormat string) (oci_vault.RotationConfig, error) {
@@ -734,6 +983,96 @@ func SecretContentDetailsToMap(obj *oci_vault.SecretContentDetails) map[string]i
 	return result
 }
 
+func (s *VaultSecretResourceCrud) mapToSecretGenerationContext(fieldKeyFormat string) (oci_vault.SecretGenerationContext, error) {
+	var baseObject oci_vault.SecretGenerationContext
+	//discriminator
+	generationTypeRaw, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "generation_type"))
+	var generationType string
+	if ok {
+		generationType = generationTypeRaw.(string)
+	} else {
+		generationType = "" // default value
+	}
+	switch strings.ToLower(generationType) {
+	case strings.ToLower("BYTES"):
+		details := oci_vault.BytesGenerationContext{}
+		if generationTemplate, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "generation_template")); ok {
+			details.GenerationTemplate = oci_vault.BytesGenerationContextGenerationTemplateEnum(generationTemplate.(string))
+		}
+		if secretTemplate, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "secret_template")); ok {
+			tmp := secretTemplate.(string)
+			details.SecretTemplate = &tmp
+		}
+		baseObject = details
+	case strings.ToLower("PASSPHRASE"):
+		details := oci_vault.PassphraseGenerationContext{}
+		if generationTemplate, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "generation_template")); ok {
+			details.GenerationTemplate = oci_vault.PassphraseGenerationContextGenerationTemplateEnum(generationTemplate.(string))
+		}
+		if passphraseLength, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "passphrase_length")); ok {
+			tmp := passphraseLength.(int)
+			details.PassphraseLength = &tmp
+		}
+		if secretTemplate, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "secret_template")); ok {
+			tmp := secretTemplate.(string)
+			details.SecretTemplate = &tmp
+		}
+		baseObject = details
+	case strings.ToLower("SSH_KEY"):
+		details := oci_vault.SshKeyGenerationContext{}
+		if generationTemplate, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "generation_template")); ok {
+			details.GenerationTemplate = oci_vault.SshKeyGenerationContextGenerationTemplateEnum(generationTemplate.(string))
+		}
+		if secretTemplate, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "secret_template")); ok {
+			tmp := secretTemplate.(string)
+			details.SecretTemplate = &tmp
+		}
+		baseObject = details
+	default:
+		return nil, fmt.Errorf("unknown generation_type '%v' was specified", generationType)
+	}
+	return baseObject, nil
+}
+
+func SecretGenerationContextToMap(obj *oci_vault.SecretGenerationContext) map[string]interface{} {
+	result := map[string]interface{}{}
+	switch v := (*obj).(type) {
+	case oci_vault.BytesGenerationContext:
+		result["generation_type"] = "BYTES"
+
+		result["generation_template"] = string(v.GenerationTemplate)
+
+		if v.SecretTemplate != nil {
+			result["secret_template"] = string(*v.SecretTemplate)
+		}
+	case oci_vault.PassphraseGenerationContext:
+		result["generation_type"] = "PASSPHRASE"
+
+		result["generation_template"] = string(v.GenerationTemplate)
+
+		if v.PassphraseLength != nil {
+			result["passphrase_length"] = int(*v.PassphraseLength)
+		}
+
+		if v.SecretTemplate != nil {
+			result["secret_template"] = string(*v.SecretTemplate)
+		}
+	case oci_vault.SshKeyGenerationContext:
+		result["generation_type"] = "SSH_KEY"
+
+		result["generation_template"] = string(v.GenerationTemplate)
+
+		if v.SecretTemplate != nil {
+			result["secret_template"] = string(*v.SecretTemplate)
+		}
+	default:
+		log.Printf("[WARN] Received 'generation_type' of unknown type %v", *obj)
+		return nil
+	}
+
+	return result
+}
+
 func (s *VaultSecretResourceCrud) mapToSecretRule(fieldKeyFormat string) (oci_vault.SecretRule, error) {
 	var baseObject oci_vault.SecretRule
 	//discriminator
@@ -802,6 +1141,24 @@ func SecretRuleToMap(obj oci_vault.SecretRule) map[string]interface{} {
 	default:
 		log.Printf("[WARN] Received 'rule_type' of unknown type %v", obj)
 		return nil
+	}
+
+	return result
+}
+
+func SourceRegionInformationToMap(obj *oci_vault.SourceRegionInformation) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	if obj.SourceKeyId != nil {
+		result["source_key_id"] = string(*obj.SourceKeyId)
+	}
+
+	if obj.SourceRegion != nil {
+		result["source_region"] = string(*obj.SourceRegion)
+	}
+
+	if obj.SourceVaultId != nil {
+		result["source_vault_id"] = string(*obj.SourceVaultId)
 	}
 
 	return result

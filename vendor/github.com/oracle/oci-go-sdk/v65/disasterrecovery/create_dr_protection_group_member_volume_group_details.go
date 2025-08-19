@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -25,6 +25,23 @@ type CreateDrProtectionGroupMemberVolumeGroupDetails struct {
 	// The OCID of the member.
 	// Example: `ocid1.instance.oc1..uniqueID`
 	MemberId *string `mandatory:"true" json:"memberId"`
+
+	// The OCID of the backup policy to use in the destination region. This policy will be used to create backups
+	// for this volume group after it moves the destination region.
+	// Example: `ocid1.volumebackuppolicy.oc1..uniqueID`
+	DestinationBackupPolicyId *string `mandatory:"false" json:"destinationBackupPolicyId"`
+
+	// A list of mappings between source volume IDs in the volume group and customer-managed encryption keys in the
+	// destination region which will be used to encrypt the volume after it moves to the destination region.
+	// If you add the entry for source volumes and its corresponding vault and encryption keys here, you can not use
+	// 'commonDestinationKey' for encrypting all volumes with common encryption key. Similarly, if you specify common
+	// vault and encryption key using 'commonDestinationKey', you cannot specify vaults and encryption keys individually
+	// for each volume using 'sourceVolumeToDestinationEncryptionKeyMappings'.
+	// An entry for each volume in volume group should be added in this list. The encryption key will not be updated
+	// for the volumes that are part of volume group but missing in this list.
+	SourceVolumeToDestinationEncryptionKeyMappings []CreateSourceVolumeToDestinationEncryptionKeyMappingDetails `mandatory:"false" json:"sourceVolumeToDestinationEncryptionKeyMappings"`
+
+	CommonDestinationKey *CreateVaultAndEncryptionKeyDetails `mandatory:"false" json:"commonDestinationKey"`
 }
 
 // GetMemberId returns MemberId

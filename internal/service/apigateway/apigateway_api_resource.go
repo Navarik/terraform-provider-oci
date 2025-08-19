@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	oci_apigateway "github.com/oracle/oci-go-sdk/v65/apigateway"
@@ -61,6 +61,42 @@ func ApigatewayApiResource() *schema.Resource {
 				Computed: true,
 				Elem:     schema.TypeString,
 			},
+			"locks": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Computed: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						// Required
+						"type": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+
+						// Optional
+						"message": {
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
+
+						// Computed
+						"related_resource_id": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"time_created": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+					},
+				},
+			},
+			"is_lock_override": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Computed: true,
+			},
 
 			// Computed
 			"lifecycle_details": {
@@ -74,6 +110,11 @@ func ApigatewayApiResource() *schema.Resource {
 			"state": {
 				Type:     schema.TypeString,
 				Computed: true,
+			},
+			"system_tags": {
+				Type:     schema.TypeMap,
+				Computed: true,
+				Elem:     schema.TypeString,
 			},
 			"time_created": {
 				Type:     schema.TypeString,
@@ -210,6 +251,23 @@ func (s *ApigatewayApiResourceCrud) Create() error {
 		request.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
 	}
 
+	if locks, ok := s.D.GetOkExists("locks"); ok {
+		interfaces := locks.([]interface{})
+		tmp := make([]oci_apigateway.AddResourceLockDetails, len(interfaces))
+		for i := range interfaces {
+			stateDataIndex := i
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "locks", stateDataIndex)
+			converted, err := s.mapToAddResourceLockDetails(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			tmp[i] = converted
+		}
+		if len(tmp) != 0 || s.D.HasChange("locks") {
+			request.Locks = tmp
+		}
+	}
+
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "apigateway")
 
 	response, err := s.Client.CreateApi(context.Background(), request)
@@ -286,7 +344,7 @@ func apiWaitForWorkRequest(wId *string, entityType string, action oci_apigateway
 	retryPolicy.ShouldRetryOperation = apiWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_apigateway.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_apigateway.WorkRequestStatusInProgress),
 			string(oci_apigateway.WorkRequestStatusAccepted),
@@ -409,6 +467,11 @@ func (s *ApigatewayApiResourceCrud) Update() error {
 		request.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
 	}
 
+	if isLockOverride, ok := s.D.GetOkExists("is_lock_override"); ok {
+		tmp := isLockOverride.(bool)
+		request.IsLockOverride = &tmp
+	}
+
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "apigateway")
 
 	response, err := s.Client.UpdateApi(context.Background(), request)
@@ -429,6 +492,11 @@ func (s *ApigatewayApiResourceCrud) Delete() error {
 
 	tmp := s.D.Id()
 	request.ApiId = &tmp
+
+	if isLockOverride, ok := s.D.GetOkExists("is_lock_override"); ok {
+		tmp := isLockOverride.(bool)
+		request.IsLockOverride = &tmp
+	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "apigateway")
 
@@ -463,11 +531,21 @@ func (s *ApigatewayApiResourceCrud) SetData() error {
 		s.D.Set("lifecycle_details", *s.Res.LifecycleDetails)
 	}
 
+	locks := []interface{}{}
+	for _, item := range s.Res.Locks {
+		locks = append(locks, ResourceLockToMap(item))
+	}
+	s.D.Set("locks", locks)
+
 	if s.Res.SpecificationType != nil {
 		s.D.Set("specification_type", *s.Res.SpecificationType)
 	}
 
 	s.D.Set("state", s.Res.LifecycleState)
+
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+	}
 
 	if s.Res.TimeCreated != nil {
 		s.D.Set("time_created", s.Res.TimeCreated.String())
@@ -484,6 +562,21 @@ func (s *ApigatewayApiResourceCrud) SetData() error {
 	s.D.Set("validation_results", validationResults)
 
 	return nil
+}
+
+func (s *ApigatewayApiResourceCrud) mapToAddResourceLockDetails(fieldKeyFormat string) (oci_apigateway.AddResourceLockDetails, error) {
+	result := oci_apigateway.AddResourceLockDetails{}
+
+	if message, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "message")); ok {
+		tmp := message.(string)
+		result.Message = &tmp
+	}
+
+	if type_, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type")); ok {
+		result.Type = oci_apigateway.AddResourceLockDetailsTypeEnum(type_.(string))
+	}
+
+	return result, nil
 }
 
 func ApiSummaryToMap(obj oci_apigateway.ApiSummary) map[string]interface{} {
@@ -511,11 +604,21 @@ func ApiSummaryToMap(obj oci_apigateway.ApiSummary) map[string]interface{} {
 		result["lifecycle_details"] = string(*obj.LifecycleDetails)
 	}
 
+	locks := []interface{}{}
+	for _, item := range obj.Locks {
+		locks = append(locks, ResourceLockToMap(item))
+	}
+	result["locks"] = locks
+
 	if obj.SpecificationType != nil {
 		result["specification_type"] = string(*obj.SpecificationType)
 	}
 
 	result["state"] = string(obj.LifecycleState)
+
+	if obj.SystemTags != nil {
+		result["system_tags"] = tfresource.SystemTagsToMap(obj.SystemTags)
+	}
 
 	if obj.TimeCreated != nil {
 		result["time_created"] = obj.TimeCreated.String()
@@ -555,6 +658,11 @@ func (s *ApigatewayApiResourceCrud) updateCompartment(compartment interface{}) e
 	compartmentTmp := compartment.(string)
 	changeCompartmentRequest.CompartmentId = &compartmentTmp
 
+	if isLockOverride, ok := s.D.GetOkExists("is_lock_override"); ok {
+		tmp := isLockOverride.(bool)
+		changeCompartmentRequest.IsLockOverride = &tmp
+	}
+
 	changeCompartmentRequest.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "apigateway")
 
 	response, err := s.Client.ChangeApiCompartment(context.Background(), changeCompartmentRequest)
@@ -591,7 +699,7 @@ func apiWaitForValidation(apiId *string, timeout time.Duration, disableFoundRetr
 	retryPolicy.ShouldRetryOperation = apiResourceShouldRetryFunc(timeout)
 
 	response := oci_apigateway.GetApiResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			"Validating",
 		},

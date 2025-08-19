@@ -1,10 +1,10 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
-// Application Performance Monitoring Synthetic Monitoring API
+// APM Availability Monitoring API
 //
-// Use the Application Performance Monitoring Synthetic Monitoring API to query synthetic scripts and monitors. For more information, see Application Performance Monitoring (https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
+// Use the APM Availability Monitoring API to query Scripts, Monitors, Dedicated Vantage Points and On-Premise Vantage Points resources. For more information, see Application Performance Monitoring (https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
 //
 
 package apmsynthetics
@@ -16,7 +16,7 @@ import (
 )
 
 // UpdateScriptDetails Details of the request body used to update a script.
-// Only Side or JavaScript content types are supported and content should be in Side or JavaScript formats only.
+// Only Side, JavaScript and Playwright TypeScript content types are supported and content should be in Side, JavaScript and TypeScript formats only.
 type UpdateScriptDetails struct {
 
 	// Unique name that can be edited. The name should not contain any confidential information.
@@ -31,7 +31,7 @@ type UpdateScriptDetails struct {
 	// Examples:
 	// With mandatory param name : `<ORAP><ON>param name</ON></ORAP>`
 	// With parameter name and value : `<ORAP><ON>param name</ON><OV>param value</OV></ORAP>`
-	// Note that the content is valid if it matches the given content type. For example, if the content type is SIDE, then the content should be in Side script format. If the content type is JS, then the content should be in JavaScript format.
+	// Note that the content is valid if it matches the given content type. For example, if the content type is SIDE, then the content should be in Side script format. If the content type is JS, then the content should be in JavaScript format. If the content type is PLAYWRIGHT_TS, then the content should be in TypeScript format.
 	Content *string `mandatory:"false" json:"content"`
 
 	// File name of uploaded script content.

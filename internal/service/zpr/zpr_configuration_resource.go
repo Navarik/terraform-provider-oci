@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
@@ -101,7 +101,7 @@ func ZprConfigurationResource() *schema.Resource {
 func parseResourceID(id string) (string, string, error) {
 	parts := strings.SplitN(id, "/", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
-		return "", "", fmt.Errorf("unexpected format of ID (%s), expected compartmentId:configurationId", id)
+		return "", "", fmt.Errorf("unexpected format of ID (%s), expected compartmentId/configurationId", id)
 	}
 
 	return parts[0], parts[1], nil
@@ -258,7 +258,7 @@ func configurationWaitForWorkRequest(wId *string, entityType string, action oci_
 	retryPolicy.ShouldRetryOperation = configurationWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_zpr.GetZprConfigurationWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_zpr.WorkRequestStatusInProgress),
 			string(oci_zpr.WorkRequestStatusAccepted),
@@ -349,6 +349,7 @@ func (s *ZprConfigurationResourceCrud) Get() error {
 }
 
 func (s *ZprConfigurationResourceCrud) SetData() error {
+
 	if s.Res.CompartmentId != nil {
 		s.D.Set("compartment_id", *s.Res.CompartmentId)
 	}
@@ -365,9 +366,7 @@ func (s *ZprConfigurationResourceCrud) SetData() error {
 
 	s.D.Set("state", s.Res.LifecycleState)
 
-	if s.Res.SystemTags != nil {
-		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
-	}
+	s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
 
 	if s.Res.TimeCreated != nil {
 		s.D.Set("time_created", s.Res.TimeCreated.String())

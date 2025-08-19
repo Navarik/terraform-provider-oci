@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -20,13 +20,13 @@ import (
 // the resources directly or provide a set of resource filters to select the resources.
 // To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, contact your
 // administrator. If you're an administrator who needs to write policies to give users access, see
-// Getting Started with Policies (https://docs.cloud.oracle.com/iaas/Content/Identity/policiesgs/get-started-with-policies.htm).
+// Getting Started with Policies (https://docs.oracle.com/iaas/Content/Identity/policiesgs/get-started-with-policies.htm).
 type Schedule struct {
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the schedule
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the schedule
 	Id *string `mandatory:"true" json:"id"`
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which the schedule is created
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which the schedule is created
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// This is a user-friendly name for the schedule. It does not have to be unique, and it's changeable.
@@ -50,12 +50,12 @@ type Schedule struct {
 	LifecycleState ScheduleLifecycleStateEnum `mandatory:"true" json:"lifecycleState"`
 
 	// These are free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-	// For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+	// For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
 	// Example: `{"Department": "Finance"}`
 	FreeformTags map[string]string `mandatory:"true" json:"freeformTags"`
 
 	// These are defined tags for this resource. Each key is predefined and scoped to a namespace.
-	// For more information, see Resource Tags (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+	// For more information, see Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
 	// Example: `{"Operations": {"CostCenter": "42"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"true" json:"definedTags"`
 
@@ -88,6 +88,9 @@ type Schedule struct {
 	// Example: `2016-08-25T21:10:29.600Z`
 	TimeNextRun *common.SDKTime `mandatory:"false" json:"timeNextRun"`
 
+	// This is the status of the last work request.
+	LastRunStatus OperationStatusEnum `mandatory:"false" json:"lastRunStatus,omitempty"`
+
 	// These are system tags for this resource. Each key is predefined and scoped to a namespace.
 	// Example: `{"orcl-cloud": {"free-tier-retained": "true"}}`
 	SystemTags map[string]map[string]interface{} `mandatory:"false" json:"systemTags"`
@@ -112,6 +115,9 @@ func (m Schedule) ValidateEnumValue() (bool, error) {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LifecycleState: %s. Supported values are: %s.", m.LifecycleState, strings.Join(GetScheduleLifecycleStateEnumStringValues(), ",")))
 	}
 
+	if _, ok := GetMappingOperationStatusEnum(string(m.LastRunStatus)); !ok && m.LastRunStatus != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LastRunStatus: %s. Supported values are: %s.", m.LastRunStatus, strings.Join(GetOperationStatusEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
@@ -129,6 +135,7 @@ func (m *Schedule) UnmarshalJSON(data []byte) (e error) {
 		TimeUpdated       *common.SDKTime                   `json:"timeUpdated"`
 		TimeLastRun       *common.SDKTime                   `json:"timeLastRun"`
 		TimeNextRun       *common.SDKTime                   `json:"timeNextRun"`
+		LastRunStatus     OperationStatusEnum               `json:"lastRunStatus"`
 		SystemTags        map[string]map[string]interface{} `json:"systemTags"`
 		Id                *string                           `json:"id"`
 		CompartmentId     *string                           `json:"compartmentId"`
@@ -172,6 +179,8 @@ func (m *Schedule) UnmarshalJSON(data []byte) (e error) {
 	m.TimeLastRun = model.TimeLastRun
 
 	m.TimeNextRun = model.TimeNextRun
+
+	m.LastRunStatus = model.LastRunStatus
 
 	m.SystemTags = model.SystemTags
 

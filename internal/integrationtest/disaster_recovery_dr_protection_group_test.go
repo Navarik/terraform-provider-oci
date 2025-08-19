@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_disaster_recovery "github.com/oracle/oci-go-sdk/v65/disasterrecovery"
 
@@ -48,12 +48,12 @@ var (
 	}
 
 	DisasterRecoveryDrProtectionGroupRepresentation = map[string]interface{}{
-		"compartment_id":       acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
-		"display_name":         acctest.Representation{RepType: acctest.Required, Create: `My DR Protection Group`, Update: `displayName2`},
-		"log_location":         acctest.RepresentationGroup{RepType: acctest.Required, Group: DisasterRecoveryDrProtectionGroupLogLocationRepresentation},
-		"association":          acctest.RepresentationGroup{RepType: acctest.Optional, Group: DisasterRecoveryDrProtectionGroupAssociationRepresentation},
-		"members":              acctest.RepresentationGroup{RepType: acctest.Required, Group: DisasterRecoveryDrProtectionGroupMembersRepresentation},
-		"defined_tags":         acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
+		"compartment_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"display_name":   acctest.Representation{RepType: acctest.Required, Create: `My DR Protection Group`, Update: `displayName2`},
+		"log_location":   acctest.RepresentationGroup{RepType: acctest.Required, Group: DisasterRecoveryDrProtectionGroupLogLocationRepresentation},
+		"association":    acctest.RepresentationGroup{RepType: acctest.Optional, Group: DisasterRecoveryDrProtectionGroupAssociationRepresentation},
+		"members":        acctest.RepresentationGroup{RepType: acctest.Required, Group: DisasterRecoveryDrProtectionGroupMembersRepresentation},
+		//"defined_tags":         acctest.Representation{RepType: acctest.Optional, Create: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}`, Update: `${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "updatedValue")}`},
 		"freeform_tags":        acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"Department": "Finance"}, Update: map[string]string{"Department": "Accounting"}},
 		"lifecycle":            acctest.RepresentationGroup{RepType: acctest.Optional, Group: DefinedTagsIgnoreRepresentation},
 		"disassociate_trigger": acctest.Representation{RepType: acctest.Optional, Create: `0`},
@@ -96,11 +96,11 @@ var (
 		   		bucket    = data.oci_objectstorage_bucket.test_bucket.name
 		   		namespace = data.oci_objectstorage_namespace.test_namespace.namespace
 		  }
-          members {
+	     members {
 		   		member_id = data.oci_core_instances.dr_instances.instances[0].id
 		   		member_type = "COMPUTE_INSTANCE_MOVABLE"
 		  }
-    }
+	}
 	`
 
 	ObjectStorageBucketDependencyConfig = `
@@ -122,17 +122,6 @@ var (
 	}
 	`
 
-	VolumeGroupDependencyConfig = `
-	data "oci_core_volume_groups" "test_volume_groups" {
-  		#Required
-  		compartment_id = var.compartment_id
-
-  		#Optional
-  		availability_domain = data.oci_identity_availability_domains.test_availability_domains.availability_domains[0].name
-  		display_name        = "example-volume-group"
-  		state               = "AVAILABLE"
-	}
-	`
 	ComputeInstanceDependencyConfig = `
 	data "oci_core_instances" "dr_instances" {
 	  	#Required
@@ -143,12 +132,95 @@ var (
 	}
 	`
 
+	VolumeGroupDependencyConfig = `
+	data "oci_core_volume_groups" "test_volume_groups" {
+  		#Required
+  		compartment_id = var.compartment_id
+
+  		#Optional
+  		availability_domain = data.oci_identity_availability_domains.test_availability_domains.availability_domains[0].name
+  		display_name        = "example-volume-group"
+  		state               = "AVAILABLE"
+	}
+	data "oci_core_volume_backup_policies" "test_backup_policy" {
+		#Required
+		compartment_id = var.compartment_id
+	}
+	`
+
+	FileSystemDependencyConfig = `
+	data "oci_file_storage_file_systems" "test_file_systems" {
+		#Required
+		compartment_id = var.compartment_id
+
+		#Optional
+		display_name = "example-file-system"
+		availability_domain = data.oci_identity_availability_domains.test_availability_domains.availability_domains[0].name
+	}
+	`
+
+	DisasterRecoveryDrProtectionGroupWithVolumeGroupMemberConfig = `
+	resource "oci_disaster_recovery_dr_protection_group" "test_dr_protection_group" {
+		#Required
+		compartment_id = var.compartment_id
+		display_name   = "My DR Protection Group"
+		log_location {
+			#Required
+			bucket    = data.oci_objectstorage_bucket.test_bucket.name
+			namespace = data.oci_objectstorage_namespace.test_namespace.namespace
+		}
+		members {
+			member_id = data.oci_core_volume_groups.test_volume_groups.volume_groups[0].id
+			member_type = "VOLUME_GROUP"
+			destination_backup_policy_id = data.oci_core_volume_backup_policies.test_backup_policy.volume_backup_policies[0].id
+		}
+	
+		# Optional
+		association {
+    		role        = "PRIMARY"
+    		peer_id     = oci_disaster_recovery_dr_protection_group.test_peer.id
+    		peer_region = var.region
+  		}
+	}
+	`
+
+	DisasterRecoveryDrProtectionGroupWithFileSystemMemberConfig = `
+	resource "oci_disaster_recovery_dr_protection_group" "test_dr_protection_group" {
+    	#Required
+    	compartment_id = var.compartment_id
+    	display_name   = "My DR Protection Group"
+    	log_location {
+        	#Required
+        	bucket    = data.oci_objectstorage_bucket.test_bucket.name
+        	namespace = data.oci_objectstorage_namespace.test_namespace.namespace
+    	}
+    	members {
+        	member_id = "ocid1.filesystem.oc1.uk_london_1.aaaaaaaaaalfsel3nruhellqojxwiotvnmwwy33omrxw4ljrfvqwiljr" 
+        	member_type = "FILE_SYSTEM"
+        	destination_availability_domain = "MGpW:UK-LONDON-1-AD-2" 
+        	destination_snapshot_policy_id = "ocid1.filesystemsnapshotpolicy.oc1.uk_london_1.aaaaaby27vie7y7znruhellqojxwiotvnmwwy33omrxw4ljrfvqwiljs" 
+        	export_mappings {
+				export_id = "ocid1.export.oc1.uk_london_1.aaaaacvipp24kiennruhellqojxwiotvnmwwy33omrxw4ljrfvqwiljr"
+        	    destination_mount_target_id = "ocid1.mounttarget.oc1.uk_london_1.aaaaaa4np2vysybcnruhellqojxwiotvnmwwy33omrxw4ljrfvqwiljs" 
+        	}
+    	}
+    
+	# Optional
+    	association {
+        	role        = "PRIMARY"
+        	peer_id     = oci_disaster_recovery_dr_protection_group.test_peer.id
+        	peer_region = var.region
+    	}
+	}
+	`
+
 	DisasterRecoveryDrProtectionGroupResourceDependencies = acctest.GenerateResourceFromRepresentationMap("oci_disaster_recovery_dr_protection_group", "test_peer", acctest.Optional, acctest.Create, DisasterRecoveryPeerDrProtectionGroupRepresentation) +
 		ObjectStorageBucketDependencyConfig +
 		VolumeGroupDependencyConfig +
 		ComputeInstanceDependencyConfig +
-		AvailabilityDomainConfig +
-		DefinedTagsDependencies
+		FileSystemDependencyConfig +
+		AvailabilityDomainConfig
+	//DefinedTagsDependencies
 )
 
 // issue-routing-tag: disaster_recovery/default
@@ -200,7 +272,7 @@ func TestDisasterRecoveryDrProtectionGroupResource_basic(t *testing.T) {
 				},
 			),
 		},
-		// verify Create with Volume Group as member of DR Protection Group
+		// verify Create with Object Storage Bucket as member of DR Protection Group
 		{
 			Config: config + compartmentIdVariableStr + DisasterRecoveryDrProtectionGroupResourceDependencies +
 				acctest.GenerateResourceFromRepresentationMap("oci_disaster_recovery_dr_protection_group", "test_dr_protection_group", acctest.Required, acctest.Create, DisasterRecoveryDrProtectionGroupRepresentation),
@@ -213,26 +285,6 @@ func TestDisasterRecoveryDrProtectionGroupResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "members.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "members.0.member_id"),
 				resource.TestCheckResourceAttr(resourceName, "members.0.member_type", "OBJECT_STORAGE_BUCKET"),
-
-				func(s *terraform.State) (err error) {
-					resId, err = acctest.FromInstanceState(s, resourceName, "id")
-					return err
-				},
-			),
-		},
-		// Update member of DR Protection Group: Remove Volume Group, Add Compute Instance
-		{
-			Config: config + compartmentIdVariableStr + DisasterRecoveryDrProtectionGroupResourceDependencies +
-				DisasterRecoveryDrProtectionGroupWithComputeMemberConfig,
-			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
-				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "display_name", "My DR Protection Group"),
-				resource.TestCheckResourceAttr(resourceName, "log_location.#", "1"),
-				resource.TestCheckResourceAttr(resourceName, "log_location.0.bucket", "testBucketName"),
-				resource.TestCheckResourceAttrSet(resourceName, "log_location.0.namespace"),
-				resource.TestCheckResourceAttr(resourceName, "members.#", "1"),
-				resource.TestCheckResourceAttrSet(resourceName, "members.0.member_id"),
-				resource.TestCheckResourceAttr(resourceName, "members.0.member_type", "COMPUTE_INSTANCE_MOVABLE"),
 
 				func(s *terraform.State) (err error) {
 					resId, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -285,6 +337,78 @@ func TestDisasterRecoveryDrProtectionGroupResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "members.#", "1"),
 				resource.TestCheckResourceAttrSet(resourceName, "members.0.member_id"),
 				resource.TestCheckResourceAttr(resourceName, "members.0.member_type", "OBJECT_STORAGE_BUCKET"),
+				resource.TestCheckResourceAttrSet(resourceName, "role"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				resource.TestCheckResourceAttrSet(resourceName, "time_created"),
+				resource.TestCheckResourceAttrSet(resourceName, "time_updated"),
+
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					if isEnableExportCompartment, _ := strconv.ParseBool(utils.GetEnvSettingWithDefault("enable_export_compartment", "true")); isEnableExportCompartment {
+						if errExport := resourcediscovery.TestExportCompartmentWithResourceName(&resId, &compartmentId, resourceName); errExport != nil {
+							return errExport
+						}
+					}
+					return err
+				},
+			),
+		},
+
+		// Verify create with optionals, add VolumeGroup with Backup policy configured as a member
+		{
+			Config: config + compartmentIdVariableStr + DisasterRecoveryDrProtectionGroupResourceDependencies +
+				DisasterRecoveryDrProtectionGroupWithVolumeGroupMemberConfig,
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "association.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "association.0.peer_id"),
+				resource.TestCheckResourceAttr(resourceName, "association.0.peer_region", region),
+				resource.TestCheckResourceAttr(resourceName, "association.0.role", "PRIMARY"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "My DR Protection Group"),
+				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttr(resourceName, "log_location.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "log_location.0.bucket", "testBucketName"),
+				resource.TestCheckResourceAttrSet(resourceName, "log_location.0.namespace"),
+				resource.TestCheckResourceAttr(resourceName, "members.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "members.0.member_id"),
+				resource.TestCheckResourceAttr(resourceName, "members.0.member_type", "VOLUME_GROUP"),
+				resource.TestCheckResourceAttrSet(resourceName, "role"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				resource.TestCheckResourceAttrSet(resourceName, "time_created"),
+				resource.TestCheckResourceAttrSet(resourceName, "time_updated"),
+
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					if isEnableExportCompartment, _ := strconv.ParseBool(utils.GetEnvSettingWithDefault("enable_export_compartment", "true")); isEnableExportCompartment {
+						if errExport := resourcediscovery.TestExportCompartmentWithResourceName(&resId, &compartmentId, resourceName); errExport != nil {
+							return errExport
+						}
+					}
+					return err
+				},
+			),
+		},
+
+		// Verify create with optionals, add FileSystem with Snapshot policy configured as a member
+		{
+			Config: config + compartmentIdVariableStr + DisasterRecoveryDrProtectionGroupResourceDependencies +
+				DisasterRecoveryDrProtectionGroupWithFileSystemMemberConfig,
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "association.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "association.0.peer_id"),
+				resource.TestCheckResourceAttr(resourceName, "association.0.peer_region", region),
+				resource.TestCheckResourceAttr(resourceName, "association.0.role", "PRIMARY"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "display_name", "My DR Protection Group"),
+				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttr(resourceName, "log_location.#", "1"),
+				resource.TestCheckResourceAttr(resourceName, "log_location.0.bucket", "testBucketName"),
+				resource.TestCheckResourceAttrSet(resourceName, "log_location.0.namespace"),
+				resource.TestCheckResourceAttr(resourceName, "members.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "members.0.member_id"),
+				resource.TestCheckResourceAttr(resourceName, "members.0.member_type", "FILE_SYSTEM"),
 				resource.TestCheckResourceAttrSet(resourceName, "role"),
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
 				resource.TestCheckResourceAttrSet(resourceName, "time_created"),

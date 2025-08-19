@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -6,7 +6,7 @@
 //
 // Use the Database Management API to monitor and manage resources such as
 // Oracle Databases, MySQL Databases, and External Database Systems.
-// For more information, see Database Management (https://docs.cloud.oracle.com/iaas/database-management/home.htm).
+// For more information, see Database Management (https://docs.oracle.com/iaas/database-management/home.htm).
 //
 
 package databasemanagement
@@ -20,30 +20,33 @@ type DatabaseTypeEnum string
 
 // Set of constants representing the allowable values for DatabaseTypeEnum
 const (
-	DatabaseTypeExternalSidb DatabaseTypeEnum = "EXTERNAL_SIDB"
-	DatabaseTypeExternalRac  DatabaseTypeEnum = "EXTERNAL_RAC"
-	DatabaseTypeCloudSidb    DatabaseTypeEnum = "CLOUD_SIDB"
-	DatabaseTypeCloudRac     DatabaseTypeEnum = "CLOUD_RAC"
-	DatabaseTypeShared       DatabaseTypeEnum = "SHARED"
-	DatabaseTypeDedicated    DatabaseTypeEnum = "DEDICATED"
+	DatabaseTypeExternalSidb    DatabaseTypeEnum = "EXTERNAL_SIDB"
+	DatabaseTypeExternalRac     DatabaseTypeEnum = "EXTERNAL_RAC"
+	DatabaseTypeCloudSidb       DatabaseTypeEnum = "CLOUD_SIDB"
+	DatabaseTypeCloudRac        DatabaseTypeEnum = "CLOUD_RAC"
+	DatabaseTypeShared          DatabaseTypeEnum = "SHARED"
+	DatabaseTypeDedicated       DatabaseTypeEnum = "DEDICATED"
+	DatabaseTypeCloudAtCustomer DatabaseTypeEnum = "CLOUD_AT_CUSTOMER"
 )
 
 var mappingDatabaseTypeEnum = map[string]DatabaseTypeEnum{
-	"EXTERNAL_SIDB": DatabaseTypeExternalSidb,
-	"EXTERNAL_RAC":  DatabaseTypeExternalRac,
-	"CLOUD_SIDB":    DatabaseTypeCloudSidb,
-	"CLOUD_RAC":     DatabaseTypeCloudRac,
-	"SHARED":        DatabaseTypeShared,
-	"DEDICATED":     DatabaseTypeDedicated,
+	"EXTERNAL_SIDB":     DatabaseTypeExternalSidb,
+	"EXTERNAL_RAC":      DatabaseTypeExternalRac,
+	"CLOUD_SIDB":        DatabaseTypeCloudSidb,
+	"CLOUD_RAC":         DatabaseTypeCloudRac,
+	"SHARED":            DatabaseTypeShared,
+	"DEDICATED":         DatabaseTypeDedicated,
+	"CLOUD_AT_CUSTOMER": DatabaseTypeCloudAtCustomer,
 }
 
 var mappingDatabaseTypeEnumLowerCase = map[string]DatabaseTypeEnum{
-	"external_sidb": DatabaseTypeExternalSidb,
-	"external_rac":  DatabaseTypeExternalRac,
-	"cloud_sidb":    DatabaseTypeCloudSidb,
-	"cloud_rac":     DatabaseTypeCloudRac,
-	"shared":        DatabaseTypeShared,
-	"dedicated":     DatabaseTypeDedicated,
+	"external_sidb":     DatabaseTypeExternalSidb,
+	"external_rac":      DatabaseTypeExternalRac,
+	"cloud_sidb":        DatabaseTypeCloudSidb,
+	"cloud_rac":         DatabaseTypeCloudRac,
+	"shared":            DatabaseTypeShared,
+	"dedicated":         DatabaseTypeDedicated,
+	"cloud_at_customer": DatabaseTypeCloudAtCustomer,
 }
 
 // GetDatabaseTypeEnumValues Enumerates the set of values for DatabaseTypeEnum
@@ -64,6 +67,7 @@ func GetDatabaseTypeEnumStringValues() []string {
 		"CLOUD_RAC",
 		"SHARED",
 		"DEDICATED",
+		"CLOUD_AT_CUSTOMER",
 	}
 }
 

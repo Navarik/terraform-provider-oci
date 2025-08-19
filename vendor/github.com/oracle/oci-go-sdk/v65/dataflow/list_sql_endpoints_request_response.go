@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/dataflow/ListSqlEndpoints.go.html to see an example of how to use ListSqlEndpointsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/dataflow/ListSqlEndpoints.go.html to see an example of how to use ListSqlEndpointsRequest.
 type ListSqlEndpointsRequest struct {
 
 	// The OCID of the compartment in which to query resources.
@@ -107,7 +107,7 @@ type ListSqlEndpointsResponse struct {
 	SqlEndpointCollection `presentIn:"body"`
 
 	// Retrieves the next page of results. When this header appears in the response,
-	// additional pages of results remain. See List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// additional pages of results remain. See List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 
 	// Unique Oracle assigned identifier for the request.
@@ -136,6 +136,7 @@ const (
 	ListSqlEndpointsLifecycleStateFailed         ListSqlEndpointsLifecycleStateEnum = "FAILED"
 	ListSqlEndpointsLifecycleStateUpdating       ListSqlEndpointsLifecycleStateEnum = "UPDATING"
 	ListSqlEndpointsLifecycleStateNeedsAttention ListSqlEndpointsLifecycleStateEnum = "NEEDS_ATTENTION"
+	ListSqlEndpointsLifecycleStateInactive       ListSqlEndpointsLifecycleStateEnum = "INACTIVE"
 )
 
 var mappingListSqlEndpointsLifecycleStateEnum = map[string]ListSqlEndpointsLifecycleStateEnum{
@@ -146,6 +147,7 @@ var mappingListSqlEndpointsLifecycleStateEnum = map[string]ListSqlEndpointsLifec
 	"FAILED":          ListSqlEndpointsLifecycleStateFailed,
 	"UPDATING":        ListSqlEndpointsLifecycleStateUpdating,
 	"NEEDS_ATTENTION": ListSqlEndpointsLifecycleStateNeedsAttention,
+	"INACTIVE":        ListSqlEndpointsLifecycleStateInactive,
 }
 
 var mappingListSqlEndpointsLifecycleStateEnumLowerCase = map[string]ListSqlEndpointsLifecycleStateEnum{
@@ -156,6 +158,7 @@ var mappingListSqlEndpointsLifecycleStateEnumLowerCase = map[string]ListSqlEndpo
 	"failed":          ListSqlEndpointsLifecycleStateFailed,
 	"updating":        ListSqlEndpointsLifecycleStateUpdating,
 	"needs_attention": ListSqlEndpointsLifecycleStateNeedsAttention,
+	"inactive":        ListSqlEndpointsLifecycleStateInactive,
 }
 
 // GetListSqlEndpointsLifecycleStateEnumValues Enumerates the set of values for ListSqlEndpointsLifecycleStateEnum
@@ -177,6 +180,7 @@ func GetListSqlEndpointsLifecycleStateEnumStringValues() []string {
 		"FAILED",
 		"UPDATING",
 		"NEEDS_ATTENTION",
+		"INACTIVE",
 	}
 }
 

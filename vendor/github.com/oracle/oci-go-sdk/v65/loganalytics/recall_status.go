@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,21 +18,24 @@ type RecallStatusEnum string
 
 // Set of constants representing the allowable values for RecallStatusEnum
 const (
-	RecallStatusRecalled RecallStatusEnum = "RECALLED"
-	RecallStatusPending  RecallStatusEnum = "PENDING"
-	RecallStatusFailed   RecallStatusEnum = "FAILED"
+	RecallStatusRecalled        RecallStatusEnum = "RECALLED"
+	RecallStatusPending         RecallStatusEnum = "PENDING"
+	RecallStatusFailed          RecallStatusEnum = "FAILED"
+	RecallStatusPartialRecalled RecallStatusEnum = "PARTIAL_RECALLED"
 )
 
 var mappingRecallStatusEnum = map[string]RecallStatusEnum{
-	"RECALLED": RecallStatusRecalled,
-	"PENDING":  RecallStatusPending,
-	"FAILED":   RecallStatusFailed,
+	"RECALLED":         RecallStatusRecalled,
+	"PENDING":          RecallStatusPending,
+	"FAILED":           RecallStatusFailed,
+	"PARTIAL_RECALLED": RecallStatusPartialRecalled,
 }
 
 var mappingRecallStatusEnumLowerCase = map[string]RecallStatusEnum{
-	"recalled": RecallStatusRecalled,
-	"pending":  RecallStatusPending,
-	"failed":   RecallStatusFailed,
+	"recalled":         RecallStatusRecalled,
+	"pending":          RecallStatusPending,
+	"failed":           RecallStatusFailed,
+	"partial_recalled": RecallStatusPartialRecalled,
 }
 
 // GetRecallStatusEnumValues Enumerates the set of values for RecallStatusEnum
@@ -50,6 +53,7 @@ func GetRecallStatusEnumStringValues() []string {
 		"RECALLED",
 		"PENDING",
 		"FAILED",
+		"PARTIAL_RECALLED",
 	}
 }
 

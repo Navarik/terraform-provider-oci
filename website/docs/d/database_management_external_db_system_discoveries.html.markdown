@@ -55,6 +55,7 @@ The following attributes are exported:
 		* `association_type` - The association type.
 		* `component_id` - The identifier of the associated component.
 		* `component_type` - The type of associated component.
+	* `can_enable_all_current_pdbs` - Indicates whether Diagnostics & Management should be enabled for all the current pluggable databases in the container database.
 	* `cluster_id` - The unique identifier of the Oracle cluster.
 	* `cluster_instances` - 
 		* `adr_home_directory` - The Automatic Diagnostic Repository (ADR) home directory for the cluster instance.
@@ -135,6 +136,12 @@ The following attributes are exported:
 	* `crs_base_directory` - The Oracle base location of Cluster Ready Services (CRS).
 	* `db_edition` - The Oracle Database edition.
 	* `db_id` - The Oracle Database ID.
+	* `db_instances` - The list of database instances.
+		* `adr_home_directory` - The Automatic Diagnostic Repository (ADR) home directory for the DB instance.
+		* `host_name` - The name of the host on which the DB instance is running.
+		* `instance_name` - The name of the DB instance.
+		* `node_name` - The name of the DB instance node.
+		* `oracle_home` - The Oracle home location of the DB instance.
 	* `db_node_name` - The name of the DB node.
 	* `db_packs` - The database packs licensed for the external Oracle Database.
 	* `db_role` - The role of the Oracle Database in Oracle Data Guard configuration.
@@ -153,6 +160,7 @@ The following attributes are exported:
 	* `home_directory` - The location of the DB home.
 	* `host_name` - The name of the host on which the external listener is running.
 	* `instance_name` - The name of the ASM instance.
+	* `is_auto_enable_pluggable_database` - Indicates whether Diagnostics & Management should be enabled automatically for all the pluggable databases in the container database.
 	* `is_cluster` - Indicates whether the Oracle Database is part of a cluster.
 	* `is_flex_cluster` - Indicates whether the cluster is an Oracle Flex Cluster or not.
 	* `is_flex_enabled` - Indicates whether Oracle Flex ASM is enabled or not.
@@ -165,9 +173,10 @@ The following attributes are exported:
 		* `network_number` - The network number.
 		* `network_type` - The network type.
 		* `subnet` - The subnet for the network.
+	* `node_name` - The name of the DB instance node.
 	* `node_role` - The role of the cluster node.
 	* `ocr_file_location` - The location of the Oracle Cluster Registry (OCR) file.
-	* `oracle_home` - The Oracle home location of the listener.
+	* `oracle_home` - The Oracle home location of the DB instance.
 	* `pluggable_databases` - The list of Pluggable Databases.
 		* `compartment_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
 		* `connector` - The connector details used to connect to the external DB system component.

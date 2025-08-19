@@ -62,6 +62,10 @@ func DatabaseDbServersDataSource() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"compute_model": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"cpu_core_count": {
 							Type:     schema.TypeInt,
 							Computed: true,
@@ -155,6 +159,11 @@ func DatabaseDbServersDataSource() *schema.Resource {
 						"state": {
 							Type:     schema.TypeString,
 							Computed: true,
+						},
+						"system_tags": {
+							Type:     schema.TypeMap,
+							Computed: true,
+							Elem:     schema.TypeString,
 						},
 						"time_created": {
 							Type:     schema.TypeString,
@@ -255,6 +264,8 @@ func (s *DatabaseDbServersDataSourceCrud) SetData() error {
 
 		dbServer["autonomous_vm_cluster_ids"] = r.AutonomousVmClusterIds
 
+		dbServer["compute_model"] = r.ComputeModel
+
 		if r.CpuCoreCount != nil {
 			dbServer["cpu_core_count"] = *r.CpuCoreCount
 		}
@@ -310,6 +321,10 @@ func (s *DatabaseDbServersDataSourceCrud) SetData() error {
 		}
 
 		dbServer["state"] = r.LifecycleState
+
+		if r.SystemTags != nil {
+			dbServer["system_tags"] = tfresource.SystemTagsToMap(r.SystemTags)
+		}
 
 		if r.TimeCreated != nil {
 			dbServer["time_created"] = r.TimeCreated.String()

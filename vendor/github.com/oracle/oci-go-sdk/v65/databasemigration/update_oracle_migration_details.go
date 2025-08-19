@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -54,8 +54,11 @@ type UpdateOracleMigrationDetails struct {
 	// List of Migration Parameter objects.
 	AdvancedParameters []MigrationParameterDetails `mandatory:"false" json:"advancedParameters"`
 
-	// The OCID of the resource being referenced.
+	// The OCID of the resource being updated.
 	SourceContainerDatabaseConnectionId *string `mandatory:"false" json:"sourceContainerDatabaseConnectionId"`
+
+	// The OCID of the resource being updated.
+	SourceStandbyDatabaseConnectionId *string `mandatory:"false" json:"sourceStandbyDatabaseConnectionId"`
 
 	// The type of the migration to be performed.
 	// Example: ONLINE if no downtime is preferred for a migration. This method uses Oracle GoldenGate for replication.
@@ -147,6 +150,7 @@ func (m *UpdateOracleMigrationDetails) UnmarshalJSON(data []byte) (e error) {
 		GgsDetails                          *UpdateOracleGgsDeploymentDetails     `json:"ggsDetails"`
 		AdvancedParameters                  []MigrationParameterDetails           `json:"advancedParameters"`
 		SourceContainerDatabaseConnectionId *string                               `json:"sourceContainerDatabaseConnectionId"`
+		SourceStandbyDatabaseConnectionId   *string                               `json:"sourceStandbyDatabaseConnectionId"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -189,6 +193,8 @@ func (m *UpdateOracleMigrationDetails) UnmarshalJSON(data []byte) (e error) {
 	m.AdvancedParameters = make([]MigrationParameterDetails, len(model.AdvancedParameters))
 	copy(m.AdvancedParameters, model.AdvancedParameters)
 	m.SourceContainerDatabaseConnectionId = model.SourceContainerDatabaseConnectionId
+
+	m.SourceStandbyDatabaseConnectionId = model.SourceStandbyDatabaseConnectionId
 
 	return
 }

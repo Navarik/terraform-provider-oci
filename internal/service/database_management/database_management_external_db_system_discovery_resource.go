@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -307,6 +307,10 @@ func DatabaseManagementExternalDbSystemDiscoveryResource() *schema.Resource {
 									},
 								},
 							},
+						},
+						"can_enable_all_current_pdbs": {
+							Type:     schema.TypeBool,
+							Computed: true,
 						},
 						"cluster_id": {
 							Type:     schema.TypeString,
@@ -717,6 +721,39 @@ func DatabaseManagementExternalDbSystemDiscoveryResource() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"db_instances": {
+							Type:     schema.TypeList,
+							Computed: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+
+									// Optional
+
+									// Computed
+									"adr_home_directory": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"host_name": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"instance_name": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"node_name": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"oracle_home": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+								},
+							},
+						},
 						"db_node_name": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -801,6 +838,10 @@ func DatabaseManagementExternalDbSystemDiscoveryResource() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"is_auto_enable_pluggable_database": {
+							Type:     schema.TypeBool,
+							Computed: true,
+						},
 						"is_cluster": {
 							Type:     schema.TypeBool,
 							Computed: true,
@@ -857,6 +898,10 @@ func DatabaseManagementExternalDbSystemDiscoveryResource() *schema.Resource {
 									},
 								},
 							},
+						},
+						"node_name": {
+							Type:     schema.TypeString,
+							Computed: true,
 						},
 						"node_role": {
 							Type:     schema.TypeString,
@@ -1371,7 +1416,7 @@ func externalDbSystemDiscoveryWaitForWorkRequest(wId *string, entityType string,
 	retryPolicy.ShouldRetryOperation = externalDbSystemDiscoveryWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_database_management.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_database_management.WorkRequestStatusInProgress),
 			string(oci_database_management.WorkRequestStatusAccepted),
@@ -1938,6 +1983,63 @@ func DiscoveredExternalClusterInstanceToMap(obj oci_database_management.Discover
 	return result
 }
 
+func (s *DatabaseManagementExternalDbSystemDiscoveryResourceCrud) mapToDiscoveredExternalDbInstance(fieldKeyFormat string) (oci_database_management.DiscoveredExternalDbInstance, error) {
+	result := oci_database_management.DiscoveredExternalDbInstance{}
+
+	if adrHomeDirectory, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "adr_home_directory")); ok {
+		tmp := adrHomeDirectory.(string)
+		result.AdrHomeDirectory = &tmp
+	}
+
+	if hostName, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "host_name")); ok {
+		tmp := hostName.(string)
+		result.HostName = &tmp
+	}
+
+	if instanceName, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "instance_name")); ok {
+		tmp := instanceName.(string)
+		result.InstanceName = &tmp
+	}
+
+	if nodeName, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "node_name")); ok {
+		tmp := nodeName.(string)
+		result.NodeName = &tmp
+	}
+
+	if oracleHome, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "oracle_home")); ok {
+		tmp := oracleHome.(string)
+		result.OracleHome = &tmp
+	}
+
+	return result, nil
+}
+
+func DiscoveredExternalDbInstanceToMap(obj oci_database_management.DiscoveredExternalDbInstance) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	if obj.AdrHomeDirectory != nil {
+		result["adr_home_directory"] = string(*obj.AdrHomeDirectory)
+	}
+
+	if obj.HostName != nil {
+		result["host_name"] = string(*obj.HostName)
+	}
+
+	if obj.InstanceName != nil {
+		result["instance_name"] = string(*obj.InstanceName)
+	}
+
+	if obj.NodeName != nil {
+		result["node_name"] = string(*obj.NodeName)
+	}
+
+	if obj.OracleHome != nil {
+		result["oracle_home"] = string(*obj.OracleHome)
+	}
+
+	return result
+}
+
 func DiscoveredExternalDbSystemComponentToMap(obj oci_database_management.DiscoveredExternalDbSystemComponent) map[string]interface{} {
 	result := map[string]interface{}{}
 	switch v := (obj).(type) {
@@ -2168,6 +2270,10 @@ func DiscoveredExternalDbSystemComponentToMap(obj oci_database_management.Discov
 	case oci_database_management.DiscoveredExternalDatabase:
 		result["component_type"] = "DATABASE"
 
+		if v.CanEnableAllCurrentPdbs != nil {
+			result["can_enable_all_current_pdbs"] = bool(*v.CanEnableAllCurrentPdbs)
+		}
+
 		if v.CompartmentId != nil {
 			result["compartment_id"] = string(*v.CompartmentId)
 		}
@@ -2188,6 +2294,12 @@ func DiscoveredExternalDbSystemComponentToMap(obj oci_database_management.Discov
 			result["db_id"] = string(*v.DbId)
 		}
 
+		dbInstances := []interface{}{}
+		for _, item := range v.DbInstances {
+			dbInstances = append(dbInstances, DiscoveredExternalDbInstanceToMap(item))
+		}
+		result["db_instances"] = dbInstances
+
 		if v.DbPacks != nil {
 			result["db_packs"] = string(*v.DbPacks)
 		}
@@ -2202,6 +2314,10 @@ func DiscoveredExternalDbSystemComponentToMap(obj oci_database_management.Discov
 
 		if v.DbVersion != nil {
 			result["db_version"] = string(*v.DbVersion)
+		}
+
+		if v.IsAutoEnablePluggableDatabase != nil {
+			result["is_auto_enable_pluggable_database"] = bool(*v.IsAutoEnablePluggableDatabase)
 		}
 
 		if v.IsCluster != nil {
@@ -2246,6 +2362,56 @@ func DiscoveredExternalDbSystemComponentToMap(obj oci_database_management.Discov
 
 		if v.HomeDirectory != nil {
 			result["home_directory"] = string(*v.HomeDirectory)
+		}
+
+		associatedComponents := []interface{}{}
+		for _, item := range v.AssociatedComponents {
+			associatedComponents = append(associatedComponents, AssociatedComponentToMap(item))
+		}
+		result["associated_components"] = associatedComponents
+
+		if v.ComponentId != nil {
+			result["component_id"] = string(*v.ComponentId)
+		}
+
+		if v.ComponentName != nil {
+			result["component_name"] = string(*v.ComponentName)
+		}
+
+		if v.DisplayName != nil {
+			result["display_name"] = string(*v.DisplayName)
+		}
+
+		if v.IsSelectedForMonitoring != nil {
+			result["is_selected_for_monitoring"] = bool(*v.IsSelectedForMonitoring)
+		}
+
+		if v.ResourceId != nil {
+			result["resource_id"] = string(*v.ResourceId)
+		}
+
+		result["status"] = string(v.Status)
+	case oci_database_management.DiscoveredExternalDbInstance:
+		result["component_type"] = "DATABASE_INSTANCE"
+
+		if v.AdrHomeDirectory != nil {
+			result["adr_home_directory"] = string(*v.AdrHomeDirectory)
+		}
+
+		if v.HostName != nil {
+			result["host_name"] = string(*v.HostName)
+		}
+
+		if v.InstanceName != nil {
+			result["instance_name"] = string(*v.InstanceName)
+		}
+
+		if v.NodeName != nil {
+			result["node_name"] = string(*v.NodeName)
+		}
+
+		if v.OracleHome != nil {
+			result["oracle_home"] = string(*v.OracleHome)
 		}
 
 		associatedComponents := []interface{}{}

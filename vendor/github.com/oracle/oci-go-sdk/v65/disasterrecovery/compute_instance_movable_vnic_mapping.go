@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -39,6 +39,10 @@ type ComputeInstanceMovableVnicMapping struct {
 	// (for example, 'myhost1' in the FQDN 'myhost1.subnet123.vcn1.oraclevcn.com').
 	// Example: `myhost1`
 	DestinationPrimaryPrivateIpHostnameLabel *string `mandatory:"false" json:"destinationPrimaryPrivateIpHostnameLabel"`
+
+	// The OCID of the reserved public IP address to be assigned to the compute instance in the destination region.
+	// Example: `ocid1.publicip.oc1..uniqueID`
+	DestinationReservedPublicIpId *string `mandatory:"false" json:"destinationReservedPublicIpId"`
 
 	// A list of OCIDs of network security groups (NSG) in the destination region which should be assigned to
 	// the source VNIC.

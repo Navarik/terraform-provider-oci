@@ -61,6 +61,10 @@ func DatabaseDbNodeResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"backup_ipv6id": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"backup_vnic2id": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -93,6 +97,10 @@ func DatabaseDbNodeResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"host_ipv6id": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"hostname": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -116,6 +124,11 @@ func DatabaseDbNodeResource() *schema.Resource {
 			"state": {
 				Type:     schema.TypeString,
 				Computed: true,
+			},
+			"system_tags": {
+				Type:     schema.TypeMap,
+				Computed: true,
+				Elem:     schema.TypeString,
 			},
 			"time_created": {
 				Type:     schema.TypeString,
@@ -325,6 +338,10 @@ func (s *DatabaseDbNodeResourceCrud) SetData() error {
 		s.D.Set("backup_ip_id", *s.Res.BackupIpId)
 	}
 
+	if s.Res.BackupIpv6Id != nil {
+		s.D.Set("backup_ipv6id", *s.Res.BackupIpv6Id)
+	}
+
 	if s.Res.BackupVnic2Id != nil {
 		s.D.Set("backup_vnic2id", *s.Res.BackupVnic2Id)
 	}
@@ -365,6 +382,10 @@ func (s *DatabaseDbNodeResourceCrud) SetData() error {
 		s.D.Set("host_ip_id", *s.Res.HostIpId)
 	}
 
+	if s.Res.HostIpv6Id != nil {
+		s.D.Set("host_ipv6id", *s.Res.HostIpv6Id)
+	}
+
 	if s.Res.Hostname != nil {
 		s.D.Set("hostname", *s.Res.Hostname)
 	}
@@ -384,6 +405,10 @@ func (s *DatabaseDbNodeResourceCrud) SetData() error {
 	}
 
 	s.D.Set("state", s.Res.LifecycleState)
+
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+	}
 
 	if s.Res.TimeCreated != nil {
 		s.D.Set("time_created", s.Res.TimeCreated.String())

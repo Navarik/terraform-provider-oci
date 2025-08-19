@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -47,6 +47,10 @@ const (
 	DrPlanStepTypeAutonomousDatabaseStopDrillDeleteCloneStandby                         DrPlanStepTypeEnum = "AUTONOMOUS_DATABASE_STOP_DRILL_DELETE_CLONE_STANDBY"
 	DrPlanStepTypeAutonomousDatabaseStartDrillConvertToSnapshotStandby                  DrPlanStepTypeEnum = "AUTONOMOUS_DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY"
 	DrPlanStepTypeAutonomousDatabaseStopDrillConvertToPhysicalStandby                   DrPlanStepTypeEnum = "AUTONOMOUS_DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY"
+	DrPlanStepTypeDatabaseStartDrillConvertToSnapshotStandbyPrecheck                    DrPlanStepTypeEnum = "DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY_PRECHECK"
+	DrPlanStepTypeDatabaseStopDrillConvertToPhysicalStandbyPrecheck                     DrPlanStepTypeEnum = "DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY_PRECHECK"
+	DrPlanStepTypeDatabaseStartDrillConvertToSnapshotStandby                            DrPlanStepTypeEnum = "DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY"
+	DrPlanStepTypeDatabaseStopDrillConvertToPhysicalStandby                             DrPlanStepTypeEnum = "DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY"
 	DrPlanStepTypeUserDefinedPrecheck                                                   DrPlanStepTypeEnum = "USER_DEFINED_PRECHECK"
 	DrPlanStepTypeComputeInstanceLaunch                                                 DrPlanStepTypeEnum = "COMPUTE_INSTANCE_LAUNCH"
 	DrPlanStepTypeComputeInstanceStop                                                   DrPlanStepTypeEnum = "COMPUTE_INSTANCE_STOP"
@@ -63,6 +67,7 @@ const (
 	DrPlanStepTypeVolumeGroupRemove                                                     DrPlanStepTypeEnum = "VOLUME_GROUP_REMOVE"
 	DrPlanStepTypeVolumeGroupTerminate                                                  DrPlanStepTypeEnum = "VOLUME_GROUP_TERMINATE"
 	DrPlanStepTypeUserDefined                                                           DrPlanStepTypeEnum = "USER_DEFINED"
+	DrPlanStepTypeUserDefinedCustomPrecheck                                             DrPlanStepTypeEnum = "USER_DEFINED_CUSTOM_PRECHECK"
 	DrPlanStepTypeVolumeGroupRestoreStartDrillPrecheck                                  DrPlanStepTypeEnum = "VOLUME_GROUP_RESTORE_START_DRILL_PRECHECK"
 	DrPlanStepTypeVolumeGroupRemovePrecheck                                             DrPlanStepTypeEnum = "VOLUME_GROUP_REMOVE_PRECHECK"
 	DrPlanStepTypeVolumeGroupTerminatePrecheck                                          DrPlanStepTypeEnum = "VOLUME_GROUP_TERMINATE_PRECHECK"
@@ -106,6 +111,22 @@ const (
 	DrPlanStepTypeComputeCapacityReservationFailoverPrecheck                            DrPlanStepTypeEnum = "COMPUTE_CAPACITY_RESERVATION_FAILOVER_PRECHECK"
 	DrPlanStepTypeComputeCapacityAvailabilitySwitchoverPrecheck                         DrPlanStepTypeEnum = "COMPUTE_CAPACITY_AVAILABILITY_SWITCHOVER_PRECHECK"
 	DrPlanStepTypeComputeCapacityAvailabilityFailoverPrecheck                           DrPlanStepTypeEnum = "COMPUTE_CAPACITY_AVAILABILITY_FAILOVER_PRECHECK"
+	DrPlanStepTypeOkeClusterSwitchoverCleanupPrimaryPrecheck                            DrPlanStepTypeEnum = "OKE_CLUSTER_SWITCHOVER_CLEANUP_PRIMARY_PRECHECK"
+	DrPlanStepTypeOkeClusterSwitchoverRestoreStandbyPrecheck                            DrPlanStepTypeEnum = "OKE_CLUSTER_SWITCHOVER_RESTORE_STANDBY_PRECHECK"
+	DrPlanStepTypeOkeClusterFailoverRestoreStandbyPrecheck                              DrPlanStepTypeEnum = "OKE_CLUSTER_FAILOVER_RESTORE_STANDBY_PRECHECK"
+	DrPlanStepTypeOkeClusterStopDrillCleanupStandbyPrecheck                             DrPlanStepTypeEnum = "OKE_CLUSTER_STOP_DRILL_CLEANUP_STANDBY_PRECHECK"
+	DrPlanStepTypeOkeClusterStartDrillRestoreStandbyPrecheck                            DrPlanStepTypeEnum = "OKE_CLUSTER_START_DRILL_RESTORE_STANDBY_PRECHECK"
+	DrPlanStepTypeOkeClusterSwitchoverCleanupPrimary                                    DrPlanStepTypeEnum = "OKE_CLUSTER_SWITCHOVER_CLEANUP_PRIMARY"
+	DrPlanStepTypeOkeClusterSwitchoverScaleUpStandby                                    DrPlanStepTypeEnum = "OKE_CLUSTER_SWITCHOVER_SCALE_UP_STANDBY"
+	DrPlanStepTypeOkeClusterSwitchoverRestoreStandby                                    DrPlanStepTypeEnum = "OKE_CLUSTER_SWITCHOVER_RESTORE_STANDBY"
+	DrPlanStepTypeOkeClusterSwitchoverReverseBackupStandby                              DrPlanStepTypeEnum = "OKE_CLUSTER_SWITCHOVER_REVERSE_BACKUP_STANDBY"
+	DrPlanStepTypeOkeClusterSwitchoverScaleDownPrimary                                  DrPlanStepTypeEnum = "OKE_CLUSTER_SWITCHOVER_SCALE_DOWN_PRIMARY"
+	DrPlanStepTypeOkeClusterFailoverRestoreStandby                                      DrPlanStepTypeEnum = "OKE_CLUSTER_FAILOVER_RESTORE_STANDBY"
+	DrPlanStepTypeOkeClusterFailoverScaleUpStandby                                      DrPlanStepTypeEnum = "OKE_CLUSTER_FAILOVER_SCALE_UP_STANDBY"
+	DrPlanStepTypeOkeClusterStartDrillRestoreStandby                                    DrPlanStepTypeEnum = "OKE_CLUSTER_START_DRILL_RESTORE_STANDBY"
+	DrPlanStepTypeOkeClusterStartDrillScaleUpStandby                                    DrPlanStepTypeEnum = "OKE_CLUSTER_START_DRILL_SCALE_UP_STANDBY"
+	DrPlanStepTypeOkeClusterStopDrillCleanupStandby                                     DrPlanStepTypeEnum = "OKE_CLUSTER_STOP_DRILL_CLEANUP_STANDBY"
+	DrPlanStepTypeOkeClusterStopDrillScaleDownStandby                                   DrPlanStepTypeEnum = "OKE_CLUSTER_STOP_DRILL_SCALE_DOWN_STANDBY"
 	DrPlanStepTypeObjectStorageBucketSwitchoverDeleteReplicationPrimaryPrecheck         DrPlanStepTypeEnum = "OBJECT_STORAGE_BUCKET_SWITCHOVER_DELETE_REPLICATION_PRIMARY_PRECHECK"
 	DrPlanStepTypeObjectStorageBucketSwitchoverSetupReverseReplicationStandbyPrecheck   DrPlanStepTypeEnum = "OBJECT_STORAGE_BUCKET_SWITCHOVER_SETUP_REVERSE_REPLICATION_STANDBY_PRECHECK"
 	DrPlanStepTypeObjectStorageBucketFailoverDeleteReplicationStandbyPrecheck           DrPlanStepTypeEnum = "OBJECT_STORAGE_BUCKET_FAILOVER_DELETE_REPLICATION_STANDBY_PRECHECK"
@@ -143,6 +164,10 @@ var mappingDrPlanStepTypeEnum = map[string]DrPlanStepTypeEnum{
 	"AUTONOMOUS_DATABASE_STOP_DRILL_DELETE_CLONE_STANDBY":                            DrPlanStepTypeAutonomousDatabaseStopDrillDeleteCloneStandby,
 	"AUTONOMOUS_DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY":                    DrPlanStepTypeAutonomousDatabaseStartDrillConvertToSnapshotStandby,
 	"AUTONOMOUS_DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY":                     DrPlanStepTypeAutonomousDatabaseStopDrillConvertToPhysicalStandby,
+	"DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY_PRECHECK":                      DrPlanStepTypeDatabaseStartDrillConvertToSnapshotStandbyPrecheck,
+	"DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY_PRECHECK":                       DrPlanStepTypeDatabaseStopDrillConvertToPhysicalStandbyPrecheck,
+	"DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY":                               DrPlanStepTypeDatabaseStartDrillConvertToSnapshotStandby,
+	"DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY":                                DrPlanStepTypeDatabaseStopDrillConvertToPhysicalStandby,
 	"USER_DEFINED_PRECHECK":                                                          DrPlanStepTypeUserDefinedPrecheck,
 	"COMPUTE_INSTANCE_LAUNCH":                                                        DrPlanStepTypeComputeInstanceLaunch,
 	"COMPUTE_INSTANCE_STOP":                                                          DrPlanStepTypeComputeInstanceStop,
@@ -159,6 +184,7 @@ var mappingDrPlanStepTypeEnum = map[string]DrPlanStepTypeEnum{
 	"VOLUME_GROUP_REMOVE":                                                            DrPlanStepTypeVolumeGroupRemove,
 	"VOLUME_GROUP_TERMINATE":                                                         DrPlanStepTypeVolumeGroupTerminate,
 	"USER_DEFINED":                                                                   DrPlanStepTypeUserDefined,
+	"USER_DEFINED_CUSTOM_PRECHECK":                                                   DrPlanStepTypeUserDefinedCustomPrecheck,
 	"VOLUME_GROUP_RESTORE_START_DRILL_PRECHECK":                                      DrPlanStepTypeVolumeGroupRestoreStartDrillPrecheck,
 	"VOLUME_GROUP_REMOVE_PRECHECK":                                                   DrPlanStepTypeVolumeGroupRemovePrecheck,
 	"VOLUME_GROUP_TERMINATE_PRECHECK":                                                DrPlanStepTypeVolumeGroupTerminatePrecheck,
@@ -202,6 +228,22 @@ var mappingDrPlanStepTypeEnum = map[string]DrPlanStepTypeEnum{
 	"COMPUTE_CAPACITY_RESERVATION_FAILOVER_PRECHECK":                                 DrPlanStepTypeComputeCapacityReservationFailoverPrecheck,
 	"COMPUTE_CAPACITY_AVAILABILITY_SWITCHOVER_PRECHECK":                              DrPlanStepTypeComputeCapacityAvailabilitySwitchoverPrecheck,
 	"COMPUTE_CAPACITY_AVAILABILITY_FAILOVER_PRECHECK":                                DrPlanStepTypeComputeCapacityAvailabilityFailoverPrecheck,
+	"OKE_CLUSTER_SWITCHOVER_CLEANUP_PRIMARY_PRECHECK":                                DrPlanStepTypeOkeClusterSwitchoverCleanupPrimaryPrecheck,
+	"OKE_CLUSTER_SWITCHOVER_RESTORE_STANDBY_PRECHECK":                                DrPlanStepTypeOkeClusterSwitchoverRestoreStandbyPrecheck,
+	"OKE_CLUSTER_FAILOVER_RESTORE_STANDBY_PRECHECK":                                  DrPlanStepTypeOkeClusterFailoverRestoreStandbyPrecheck,
+	"OKE_CLUSTER_STOP_DRILL_CLEANUP_STANDBY_PRECHECK":                                DrPlanStepTypeOkeClusterStopDrillCleanupStandbyPrecheck,
+	"OKE_CLUSTER_START_DRILL_RESTORE_STANDBY_PRECHECK":                               DrPlanStepTypeOkeClusterStartDrillRestoreStandbyPrecheck,
+	"OKE_CLUSTER_SWITCHOVER_CLEANUP_PRIMARY":                                         DrPlanStepTypeOkeClusterSwitchoverCleanupPrimary,
+	"OKE_CLUSTER_SWITCHOVER_SCALE_UP_STANDBY":                                        DrPlanStepTypeOkeClusterSwitchoverScaleUpStandby,
+	"OKE_CLUSTER_SWITCHOVER_RESTORE_STANDBY":                                         DrPlanStepTypeOkeClusterSwitchoverRestoreStandby,
+	"OKE_CLUSTER_SWITCHOVER_REVERSE_BACKUP_STANDBY":                                  DrPlanStepTypeOkeClusterSwitchoverReverseBackupStandby,
+	"OKE_CLUSTER_SWITCHOVER_SCALE_DOWN_PRIMARY":                                      DrPlanStepTypeOkeClusterSwitchoverScaleDownPrimary,
+	"OKE_CLUSTER_FAILOVER_RESTORE_STANDBY":                                           DrPlanStepTypeOkeClusterFailoverRestoreStandby,
+	"OKE_CLUSTER_FAILOVER_SCALE_UP_STANDBY":                                          DrPlanStepTypeOkeClusterFailoverScaleUpStandby,
+	"OKE_CLUSTER_START_DRILL_RESTORE_STANDBY":                                        DrPlanStepTypeOkeClusterStartDrillRestoreStandby,
+	"OKE_CLUSTER_START_DRILL_SCALE_UP_STANDBY":                                       DrPlanStepTypeOkeClusterStartDrillScaleUpStandby,
+	"OKE_CLUSTER_STOP_DRILL_CLEANUP_STANDBY":                                         DrPlanStepTypeOkeClusterStopDrillCleanupStandby,
+	"OKE_CLUSTER_STOP_DRILL_SCALE_DOWN_STANDBY":                                      DrPlanStepTypeOkeClusterStopDrillScaleDownStandby,
 	"OBJECT_STORAGE_BUCKET_SWITCHOVER_DELETE_REPLICATION_PRIMARY_PRECHECK":           DrPlanStepTypeObjectStorageBucketSwitchoverDeleteReplicationPrimaryPrecheck,
 	"OBJECT_STORAGE_BUCKET_SWITCHOVER_SETUP_REVERSE_REPLICATION_STANDBY_PRECHECK":    DrPlanStepTypeObjectStorageBucketSwitchoverSetupReverseReplicationStandbyPrecheck,
 	"OBJECT_STORAGE_BUCKET_FAILOVER_DELETE_REPLICATION_STANDBY_PRECHECK":             DrPlanStepTypeObjectStorageBucketFailoverDeleteReplicationStandbyPrecheck,
@@ -239,6 +281,10 @@ var mappingDrPlanStepTypeEnumLowerCase = map[string]DrPlanStepTypeEnum{
 	"autonomous_database_stop_drill_delete_clone_standby":                            DrPlanStepTypeAutonomousDatabaseStopDrillDeleteCloneStandby,
 	"autonomous_database_start_drill_convert_to_snapshot_standby":                    DrPlanStepTypeAutonomousDatabaseStartDrillConvertToSnapshotStandby,
 	"autonomous_database_stop_drill_convert_to_physical_standby":                     DrPlanStepTypeAutonomousDatabaseStopDrillConvertToPhysicalStandby,
+	"database_start_drill_convert_to_snapshot_standby_precheck":                      DrPlanStepTypeDatabaseStartDrillConvertToSnapshotStandbyPrecheck,
+	"database_stop_drill_convert_to_physical_standby_precheck":                       DrPlanStepTypeDatabaseStopDrillConvertToPhysicalStandbyPrecheck,
+	"database_start_drill_convert_to_snapshot_standby":                               DrPlanStepTypeDatabaseStartDrillConvertToSnapshotStandby,
+	"database_stop_drill_convert_to_physical_standby":                                DrPlanStepTypeDatabaseStopDrillConvertToPhysicalStandby,
 	"user_defined_precheck":                                                          DrPlanStepTypeUserDefinedPrecheck,
 	"compute_instance_launch":                                                        DrPlanStepTypeComputeInstanceLaunch,
 	"compute_instance_stop":                                                          DrPlanStepTypeComputeInstanceStop,
@@ -255,6 +301,7 @@ var mappingDrPlanStepTypeEnumLowerCase = map[string]DrPlanStepTypeEnum{
 	"volume_group_remove":                                                            DrPlanStepTypeVolumeGroupRemove,
 	"volume_group_terminate":                                                         DrPlanStepTypeVolumeGroupTerminate,
 	"user_defined":                                                                   DrPlanStepTypeUserDefined,
+	"user_defined_custom_precheck":                                                   DrPlanStepTypeUserDefinedCustomPrecheck,
 	"volume_group_restore_start_drill_precheck":                                      DrPlanStepTypeVolumeGroupRestoreStartDrillPrecheck,
 	"volume_group_remove_precheck":                                                   DrPlanStepTypeVolumeGroupRemovePrecheck,
 	"volume_group_terminate_precheck":                                                DrPlanStepTypeVolumeGroupTerminatePrecheck,
@@ -298,6 +345,22 @@ var mappingDrPlanStepTypeEnumLowerCase = map[string]DrPlanStepTypeEnum{
 	"compute_capacity_reservation_failover_precheck":                                 DrPlanStepTypeComputeCapacityReservationFailoverPrecheck,
 	"compute_capacity_availability_switchover_precheck":                              DrPlanStepTypeComputeCapacityAvailabilitySwitchoverPrecheck,
 	"compute_capacity_availability_failover_precheck":                                DrPlanStepTypeComputeCapacityAvailabilityFailoverPrecheck,
+	"oke_cluster_switchover_cleanup_primary_precheck":                                DrPlanStepTypeOkeClusterSwitchoverCleanupPrimaryPrecheck,
+	"oke_cluster_switchover_restore_standby_precheck":                                DrPlanStepTypeOkeClusterSwitchoverRestoreStandbyPrecheck,
+	"oke_cluster_failover_restore_standby_precheck":                                  DrPlanStepTypeOkeClusterFailoverRestoreStandbyPrecheck,
+	"oke_cluster_stop_drill_cleanup_standby_precheck":                                DrPlanStepTypeOkeClusterStopDrillCleanupStandbyPrecheck,
+	"oke_cluster_start_drill_restore_standby_precheck":                               DrPlanStepTypeOkeClusterStartDrillRestoreStandbyPrecheck,
+	"oke_cluster_switchover_cleanup_primary":                                         DrPlanStepTypeOkeClusterSwitchoverCleanupPrimary,
+	"oke_cluster_switchover_scale_up_standby":                                        DrPlanStepTypeOkeClusterSwitchoverScaleUpStandby,
+	"oke_cluster_switchover_restore_standby":                                         DrPlanStepTypeOkeClusterSwitchoverRestoreStandby,
+	"oke_cluster_switchover_reverse_backup_standby":                                  DrPlanStepTypeOkeClusterSwitchoverReverseBackupStandby,
+	"oke_cluster_switchover_scale_down_primary":                                      DrPlanStepTypeOkeClusterSwitchoverScaleDownPrimary,
+	"oke_cluster_failover_restore_standby":                                           DrPlanStepTypeOkeClusterFailoverRestoreStandby,
+	"oke_cluster_failover_scale_up_standby":                                          DrPlanStepTypeOkeClusterFailoverScaleUpStandby,
+	"oke_cluster_start_drill_restore_standby":                                        DrPlanStepTypeOkeClusterStartDrillRestoreStandby,
+	"oke_cluster_start_drill_scale_up_standby":                                       DrPlanStepTypeOkeClusterStartDrillScaleUpStandby,
+	"oke_cluster_stop_drill_cleanup_standby":                                         DrPlanStepTypeOkeClusterStopDrillCleanupStandby,
+	"oke_cluster_stop_drill_scale_down_standby":                                      DrPlanStepTypeOkeClusterStopDrillScaleDownStandby,
 	"object_storage_bucket_switchover_delete_replication_primary_precheck":           DrPlanStepTypeObjectStorageBucketSwitchoverDeleteReplicationPrimaryPrecheck,
 	"object_storage_bucket_switchover_setup_reverse_replication_standby_precheck":    DrPlanStepTypeObjectStorageBucketSwitchoverSetupReverseReplicationStandbyPrecheck,
 	"object_storage_bucket_failover_delete_replication_standby_precheck":             DrPlanStepTypeObjectStorageBucketFailoverDeleteReplicationStandbyPrecheck,
@@ -346,6 +409,10 @@ func GetDrPlanStepTypeEnumStringValues() []string {
 		"AUTONOMOUS_DATABASE_STOP_DRILL_DELETE_CLONE_STANDBY",
 		"AUTONOMOUS_DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY",
 		"AUTONOMOUS_DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY",
+		"DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY_PRECHECK",
+		"DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY_PRECHECK",
+		"DATABASE_START_DRILL_CONVERT_TO_SNAPSHOT_STANDBY",
+		"DATABASE_STOP_DRILL_CONVERT_TO_PHYSICAL_STANDBY",
 		"USER_DEFINED_PRECHECK",
 		"COMPUTE_INSTANCE_LAUNCH",
 		"COMPUTE_INSTANCE_STOP",
@@ -362,6 +429,7 @@ func GetDrPlanStepTypeEnumStringValues() []string {
 		"VOLUME_GROUP_REMOVE",
 		"VOLUME_GROUP_TERMINATE",
 		"USER_DEFINED",
+		"USER_DEFINED_CUSTOM_PRECHECK",
 		"VOLUME_GROUP_RESTORE_START_DRILL_PRECHECK",
 		"VOLUME_GROUP_REMOVE_PRECHECK",
 		"VOLUME_GROUP_TERMINATE_PRECHECK",
@@ -405,6 +473,22 @@ func GetDrPlanStepTypeEnumStringValues() []string {
 		"COMPUTE_CAPACITY_RESERVATION_FAILOVER_PRECHECK",
 		"COMPUTE_CAPACITY_AVAILABILITY_SWITCHOVER_PRECHECK",
 		"COMPUTE_CAPACITY_AVAILABILITY_FAILOVER_PRECHECK",
+		"OKE_CLUSTER_SWITCHOVER_CLEANUP_PRIMARY_PRECHECK",
+		"OKE_CLUSTER_SWITCHOVER_RESTORE_STANDBY_PRECHECK",
+		"OKE_CLUSTER_FAILOVER_RESTORE_STANDBY_PRECHECK",
+		"OKE_CLUSTER_STOP_DRILL_CLEANUP_STANDBY_PRECHECK",
+		"OKE_CLUSTER_START_DRILL_RESTORE_STANDBY_PRECHECK",
+		"OKE_CLUSTER_SWITCHOVER_CLEANUP_PRIMARY",
+		"OKE_CLUSTER_SWITCHOVER_SCALE_UP_STANDBY",
+		"OKE_CLUSTER_SWITCHOVER_RESTORE_STANDBY",
+		"OKE_CLUSTER_SWITCHOVER_REVERSE_BACKUP_STANDBY",
+		"OKE_CLUSTER_SWITCHOVER_SCALE_DOWN_PRIMARY",
+		"OKE_CLUSTER_FAILOVER_RESTORE_STANDBY",
+		"OKE_CLUSTER_FAILOVER_SCALE_UP_STANDBY",
+		"OKE_CLUSTER_START_DRILL_RESTORE_STANDBY",
+		"OKE_CLUSTER_START_DRILL_SCALE_UP_STANDBY",
+		"OKE_CLUSTER_STOP_DRILL_CLEANUP_STANDBY",
+		"OKE_CLUSTER_STOP_DRILL_SCALE_DOWN_STANDBY",
 		"OBJECT_STORAGE_BUCKET_SWITCHOVER_DELETE_REPLICATION_PRIMARY_PRECHECK",
 		"OBJECT_STORAGE_BUCKET_SWITCHOVER_SETUP_REVERSE_REPLICATION_STANDBY_PRECHECK",
 		"OBJECT_STORAGE_BUCKET_FAILOVER_DELETE_REPLICATION_STANDBY_PRECHECK",

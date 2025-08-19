@@ -243,6 +243,11 @@ func DatabaseVmClusterNetworkResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"system_tags": {
+				Type:     schema.TypeMap,
+				Computed: true,
+				Elem:     schema.TypeString,
+			},
 			"time_created": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -773,6 +778,10 @@ func (s *DatabaseVmClusterNetworkResourceCrud) SetData() error {
 
 	s.D.Set("state", s.Res.LifecycleState)
 
+	if s.Res.SystemTags != nil {
+		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
+	}
+
 	if s.Res.TimeCreated != nil {
 		s.D.Set("time_created", s.Res.TimeCreated.String())
 	}
@@ -1057,9 +1066,6 @@ func nodesHashCodeForSets(v interface{}) int {
 	}
 	if ip, ok := m["ip"]; ok && ip != "" {
 		buf.WriteString(fmt.Sprintf("%v-", ip))
-	}
-	if state, ok := m["state"]; ok && state != "" {
-		buf.WriteString(fmt.Sprintf("%v-", state))
 	}
 	if vip, ok := m["vip"]; ok && vip != "" {
 		buf.WriteString(fmt.Sprintf("%v-", vip))

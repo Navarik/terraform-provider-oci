@@ -19,8 +19,8 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/resourcediscovery"
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
 	oci_database "github.com/oracle/oci-go-sdk/v65/database"
 
@@ -71,7 +71,7 @@ var (
 			"character_set":                    acctest.Representation{RepType: acctest.Optional, Create: `AR8ADOS710`},
 			"ncharacter_set":                   acctest.Representation{RepType: acctest.Optional, Create: `UTF8`},
 			"compute_model":                    acctest.Representation{RepType: acctest.Optional, Create: `ECPU`},
-			"compute_count":                    acctest.Representation{RepType: acctest.Required, Create: `8.0`, Update: `10.0`},
+			"compute_count":                    acctest.Representation{RepType: acctest.Required, Create: utils.GetEnvSettingWithDefault("pdb_compute_count_create", "8.0"), Update: utils.GetEnvSettingWithDefault("pdb_compute_count_update", "10.0")},
 			"in_memory_percentage":             acctest.Representation{RepType: acctest.Optional, Create: `50`, Update: `60`},
 		})
 
@@ -106,7 +106,7 @@ var (
 
 	DatabaseAutonomousDatabaseBackupRepresentationNew = map[string]interface{}{
 		"autonomous_database_id":   acctest.Representation{RepType: acctest.Required, Create: `${oci_database_autonomous_database.test_autonomous_database.id}`},
-		"display_name":             acctest.Representation{RepType: acctest.Required, Create: `LongTerm Backup`},
+		"display_name":             acctest.Representation{RepType: acctest.Required, Create: `adbLongTermBackup`},
 		"is_long_term_backup":      acctest.Representation{RepType: acctest.Required, Create: `true`},
 		"retention_period_in_days": acctest.Representation{RepType: acctest.Required, Create: `90`, Update: `91`},
 	}
@@ -117,7 +117,12 @@ var (
 			acctest.RepresentationCopyWithNewProperties(DatabaseAutonomousDatabaseRepresentation, map[string]interface{}{
 				"db_name": acctest.Representation{RepType: acctest.Required, Create: adbBackupSourceName},
 			}))
-
+	AutonomousDatabaseFromBackupDependenciesPartialDedicated = AutonomousDatabaseDedicatedResourceDependencies +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database_backup", "test_autonomous_database_backup", acctest.Required, acctest.Create, DatabaseAutonomousDatabaseBackupRepresentationNew) +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Create,
+			acctest.RepresentationCopyWithNewProperties(acctest.RepresentationCopyWithRemovedProperties(autonomousDatabaseDedicatedRepresentation, []string{"in_memory_percentage"}), map[string]interface{}{
+				"db_name": acctest.Representation{RepType: acctest.Required, Create: adbBackupSourceName},
+			}))
 	autonomousDatabaseRepresentationForSourceFromBackupId = acctest.RepresentationCopyWithNewProperties(
 		acctest.GetUpdatedRepresentationCopy("db_name", acctest.Representation{RepType: acctest.Required, Create: adbBackupIdName}, DatabaseAutonomousDatabaseRepresentation),
 		map[string]interface{}{
@@ -126,6 +131,24 @@ var (
 			"autonomous_database_backup_id": acctest.Representation{RepType: acctest.Required, Create: `${oci_database_autonomous_database_backup.test_autonomous_database_backup.id}`},
 		})
 
+	adbdAutonomousDatabaseRepresentationForPartialClone = acctest.RepresentationCopyWithNewProperties(
+		acctest.GetUpdatedRepresentationCopy("db_name", acctest.Representation{RepType: acctest.Optional, Create: adbBackupIdName},
+			acctest.RepresentationCopyWithRemovedProperties(autonomousDatabaseDedicatedRepresentation, []string{"in_memory_percentage", "display_name"})),
+		map[string]interface{}{
+			"display_name":                  acctest.Representation{RepType: acctest.Required, Create: adbDedicatedCloneName},
+			"clone_type":                    acctest.Representation{RepType: acctest.Required, Create: `PARTIAL`},
+			"clone_table_space_list":        acctest.Representation{RepType: acctest.Optional, Create: []string{`1`, `2`, `3`}},
+			"source":                        acctest.Representation{RepType: acctest.Required, Create: `BACKUP_FROM_ID`},
+			"autonomous_database_backup_id": acctest.Representation{RepType: acctest.Required, Create: `${oci_database_autonomous_database_backup.test_autonomous_database_backup.id}`},
+		})
+	exaccAutonomousDatabaseRepresentationForPartialClone = acctest.RepresentationCopyWithNewProperties(
+		acctest.GetUpdatedRepresentationCopy("db_name", acctest.Representation{RepType: acctest.Required, Create: adbBackupIdName}, autonomousDatabaseExaccRepresentation),
+		map[string]interface{}{
+			"clone_type":                    acctest.Representation{RepType: acctest.Required, Create: `PARTIAL`},
+			"clone_table_space_list":        acctest.Representation{RepType: acctest.Optional, Create: []string{`1`, `2`, `3`}},
+			"source":                        acctest.Representation{RepType: acctest.Required, Create: `BACKUP_FROM_ID`},
+			"autonomous_database_backup_id": acctest.Representation{RepType: acctest.Required, Create: `${oci_database_autonomous_database_backup.test_autonomous_database_backup.id}`},
+		})
 	autonomousDatabaseRepresentationForSourceFromBackupTimestamp = acctest.RepresentationCopyWithNewProperties(
 		acctest.RepresentationCopyWithRemovedProperties(acctest.GetUpdatedRepresentationCopy("db_name", acctest.Representation{RepType: acctest.Required, Create: adbBackupTimestampName}, DatabaseAutonomousDatabaseRepresentation), []string{"kms_key_id", "vault_id"}),
 		map[string]interface{}{
@@ -344,6 +367,22 @@ var (
 
 	ExaccADBDatabaseResourceDependencies = ExaccACDResourceConfig
 
+	ExaccAutonomousDatabaseResourceFromBackupDependencies = ExaccAutonomousDatabaseResourceFromBackupDependenciesWithoutBkp +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database_backup", "test_autonomous_database_backup", acctest.Optional, acctest.Create,
+			acctest.RepresentationCopyWithNewProperties(DatabaseExaccAutonomousDatabaseBackupRepresentationForLongTermBackup, map[string]interface{}{
+				"lifecycle": acctest.RepresentationGroup{
+					Group: map[string]interface{}{
+						"prevent_destroy": acctest.Representation{
+							Create: `false`},
+					},
+				},
+			}))
+	ExaccAutonomousDatabaseResourceFromBackupDependenciesWithoutBkp = ExaccACDResourceConfig +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Create,
+			acctest.RepresentationCopyWithNewProperties(autonomousDatabaseExaccRepresentation, map[string]interface{}{
+				"db_name": acctest.Representation{RepType: acctest.Required, Create: adbBackupSourceName},
+			}))
+
 	ExaccKeyResourceDependencyConfigDbaas = tfStaticCompartmentIdVariableStr + `
 	data "oci_kms_keys" "test_keys_dependency" {
 		#Required
@@ -459,12 +498,13 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#11"),
 				resource.TestCheckResourceAttrSet(resourceName, "autonomous_container_database_id"),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "compute_count", "8"),
+				resource.TestCheckResourceAttrSet(resourceName, "compute_count"),
 				resource.TestCheckResourceAttr(resourceName, "data_storage_size_in_tbs", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", adbDedicatedName),
 				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
 				resource.TestCheckResourceAttr(resourceName, "display_name", adDedicatedName),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 				resource.TestCheckResourceAttrSet(resourceName, "id"),
 				resource.TestCheckResourceAttr(resourceName, "is_dedicated", "true"),
 				resource.TestCheckResourceAttr(resourceName, "rotate_key_trigger", "true"),
@@ -492,7 +532,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#12"),
 				resource.TestCheckResourceAttrSet(resourceName, "autonomous_container_database_id"),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "compute_count", "10"),
+				resource.TestCheckResourceAttrSet(resourceName, "compute_count"),
 				resource.TestCheckResourceAttr(resourceName, "data_storage_size_in_tbs", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", adbDedicatedName),
 				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
@@ -504,6 +544,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
 				resource.TestCheckResourceAttr(resourceName, "in_memory_percentage", "60"),
 				resource.TestCheckResourceAttrSet(resourceName, "in_memory_area_in_gbs"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -520,12 +561,13 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Update,
 					acctest.RepresentationCopyWithNewProperties(autonomousDatabaseDedicatedRepresentation, map[string]interface{}{
 						"rotate_key_trigger": acctest.Representation{RepType: acctest.Optional, Create: `true`},
+						"key_version_id":     acctest.Representation{RepType: acctest.Optional, Create: `1`},
 					})),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#12"),
 				resource.TestCheckResourceAttrSet(resourceName, "autonomous_container_database_id"),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "compute_count", "10"),
+				resource.TestCheckResourceAttrSet(resourceName, "compute_count"),
 				resource.TestCheckResourceAttr(resourceName, "data_storage_size_in_tbs", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", adbDedicatedName),
 				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
@@ -537,6 +579,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttrSet(resourceName, "state"),
 				resource.TestCheckResourceAttr(resourceName, "in_memory_percentage", "60"),
 				resource.TestCheckResourceAttrSet(resourceName, "in_memory_area_in_gbs"),
+				resource.TestCheckResourceAttr(resourceName, "system_tags.%", "0"),
 
 				func(s *terraform.State) (err error) {
 					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
@@ -558,7 +601,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#12"),
 				resource.TestCheckResourceAttrSet(resourceName, "autonomous_container_database_id"),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "compute_count", "10"),
+				resource.TestCheckResourceAttrSet(resourceName, "compute_count"),
 				resource.TestCheckResourceAttr(resourceName, "data_storage_size_in_tbs", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", adbDedicatedName),
 				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
@@ -618,7 +661,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_databases.0.compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_databases.0.connection_strings.#", "1"),
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_databases.0.connection_urls.#", "1"),
-				resource.TestCheckResourceAttr(datasourceName, "autonomous_databases.0.compute_count", "10"),
+				resource.TestCheckResourceAttrSet(datasourceName, "autonomous_databases.0.compute_count"),
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_databases.0.data_storage_size_in_tbs", "1"),
 				resource.TestCheckResourceAttr(datasourceName, "autonomous_databases.0.db_name", adbDedicatedName),
 				resource.TestCheckResourceAttrSet(datasourceName, "autonomous_databases.0.db_version"),
@@ -646,7 +689,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttr(singularDatasourceName, "connection_strings.#", "1"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "connection_strings.0.all_connection_strings.%", "3"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "connection_urls.#", "1"),
-				resource.TestCheckResourceAttr(singularDatasourceName, "compute_count", "10"),
+				resource.TestCheckResourceAttrSet(singularDatasourceName, "compute_count"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "data_storage_size_in_tbs", "1"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "db_name", adbDedicatedName),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "db_version"),
@@ -660,6 +703,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "in_memory_area_in_gbs"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "in_memory_percentage", "60"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.%", "0"),
 			),
 		},
 		// 7. verify resource import
@@ -677,6 +721,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				"is_auto_scaling_enabled",
 				"is_auto_scaling_for_storage_enabled",
 				"rotate_key_trigger",
+				"key_version_id",
 				"is_mtls_connection_required",
 				"character_set",
 				"is_auto_scaling_for_storage_enabled",
@@ -698,7 +743,7 @@ func TestResourceDatabaseAutonomousDatabaseDedicated(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#11"),
 				resource.TestCheckResourceAttr(resourceName, "clone_type", "FULL"),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
-				resource.TestCheckResourceAttr(resourceName, "compute_count", "8"),
+				resource.TestCheckResourceAttrSet(resourceName, "compute_count"),
 				resource.TestCheckResourceAttr(resourceName, "data_storage_size_in_tbs", "1"),
 				resource.TestCheckResourceAttr(resourceName, "db_name", adbDedicatedCloneName),
 				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
@@ -1177,6 +1222,11 @@ func TestResourceDatabaseAutonomousDatabaseResource_preview(t *testing.T) {
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_longtermBackup(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_dataSafeStatus test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
 
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_longtermBackup")
 	defer httpreplay.SaveScenario()
@@ -1252,8 +1302,119 @@ func TestResourceDatabaseAutonomousDatabaseResource_longtermBackup(t *testing.T)
 	})
 }
 
+func TestDatabaseAutonomousDatabaseResource_schedule_upgrade(t *testing.T) {
+	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_schedule_upgrade")
+	defer httpreplay.SaveScenario()
+
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	resourceName := "oci_database_autonomous_database.test_autonomous_database"
+
+	acctest.SaveConfigContent(config+compartmentIdVariableStr+DatabaseAutonomousDatabaseResourceDependenciesLockBckRetention+
+		acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Create, DatabaseAutonomousDatabaseRepresentationLockBckRetention), "database", "autonomousDatabase", t)
+
+	acctest.ResourceTest(t, testAccCheckDatabaseAutonomousDatabaseDestroy, []resource.TestStep{
+		//0. Verify Create
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Create, DatabaseAutonomousDatabaseRepresentationLockBckRetention),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compute_model", "ECPU"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "db_name", adbName),
+			),
+		},
+		//1. schedule to earliest available time
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Update,
+					acctest.RepresentationCopyWithRemovedProperties(acctest.RepresentationCopyWithNewProperties(DatabaseAutonomousDatabaseRepresentationLockBckRetention, map[string]interface{}{
+						"is_schedule_db_version_upgrade_to_earliest": acctest.Representation{RepType: acctest.Optional, Create: nil, Update: `true`},
+						"db_version": acctest.Representation{RepType: acctest.Optional, Create: nil, Update: `23ai`},
+					}), []string{"admin_password", "customer_contacts", "freeform_tags", "display_name"})),
+			ExpectNonEmptyPlan: true,
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compute_model", "ECPU"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "db_name", adbName),
+			),
+		},
+		//2. update schedule time for db upgrade
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Update,
+					acctest.RepresentationCopyWithRemovedProperties(acctest.RepresentationCopyWithNewProperties(DatabaseAutonomousDatabaseRepresentationLockBckRetention, map[string]interface{}{
+						"time_scheduled_db_version_upgrade": acctest.Representation{RepType: acctest.Optional, Create: nil, Update: timeOfAutoRefreshCreate.Truncate(10 * time.Minute).Add(10 * time.Minute).Format(time.RFC3339)},
+						"db_version":                        acctest.Representation{RepType: acctest.Optional, Create: nil, Update: `23ai`},
+					}), []string{"admin_password", "customer_contacts", "freeform_tags", "display_name"})),
+			ExpectNonEmptyPlan: true,
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compute_model", "ECPU"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "db_name", adbName),
+				resource.TestCheckResourceAttrSet(resourceName, "time_scheduled_db_version_upgrade"),
+			),
+		},
+		//3. re-schedule time for db upgrade
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Update,
+					acctest.RepresentationCopyWithRemovedProperties(acctest.RepresentationCopyWithNewProperties(DatabaseAutonomousDatabaseRepresentationLockBckRetention, map[string]interface{}{
+						"time_scheduled_db_version_upgrade": acctest.Representation{RepType: acctest.Optional, Create: nil, Update: timeOfAutoRefreshUpdate.Truncate(10 * time.Minute).Add(10 * time.Minute).Format(time.RFC3339)},
+						"db_version":                        acctest.Representation{RepType: acctest.Optional, Create: nil, Update: `23ai`},
+					}), []string{"admin_password", "customer_contacts", "freeform_tags", "display_name"})),
+			ExpectNonEmptyPlan: true,
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compute_model", "ECPU"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "db_name", adbName),
+				resource.TestCheckResourceAttrSet(resourceName, "time_scheduled_db_version_upgrade"),
+			),
+		},
+		//4. cancel time for db upgrade
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Update,
+					acctest.RepresentationCopyWithRemovedProperties(acctest.RepresentationCopyWithNewProperties(DatabaseAutonomousDatabaseRepresentationLockBckRetention, map[string]interface{}{
+						"is_disable_db_version_upgrade_schedule": acctest.Representation{RepType: acctest.Optional, Create: nil, Update: `true`},
+					}), []string{"admin_password", "customer_contacts", "freeform_tags", "display_name"})),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compute_model", "ECPU"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "db_name", adbName),
+			),
+		},
+		//5. scheduled db upgrade time again
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Update,
+					acctest.RepresentationCopyWithRemovedProperties(acctest.RepresentationCopyWithNewProperties(DatabaseAutonomousDatabaseRepresentationLockBckRetention, map[string]interface{}{
+						"time_scheduled_db_version_upgrade":      acctest.Representation{RepType: acctest.Optional, Create: nil, Update: timeOfAutoRefreshCreate.Truncate(10 * time.Minute).Add(10 * time.Minute).Format(time.RFC3339)},
+						"is_disable_db_version_upgrade_schedule": acctest.Representation{RepType: acctest.Optional, Create: nil, Update: `false`},
+						"db_version":                             acctest.Representation{RepType: acctest.Optional, Create: nil, Update: `23ai`},
+					}), []string{"admin_password", "customer_contacts", "freeform_tags", "display_name"})),
+			ExpectNonEmptyPlan: true,
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "compute_model", "ECPU"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "db_name", adbName),
+				resource.TestCheckResourceAttrSet(resourceName, "time_scheduled_db_version_upgrade"),
+			),
+		},
+	})
+}
+
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_dataSafeStatus(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_dataSafeStatus test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_dataSafeStatus")
 	defer httpreplay.SaveScenario()
 
@@ -1419,9 +1580,57 @@ func TestResourceDatabaseAutonomousDatabaseResource_dataSafeStatus(t *testing.T)
 		},
 	})
 }
+func TestAutonomousDatabaseDedicatedResourceCreateFromBackupAsPartialClone(t *testing.T) {
+	httpreplay.SetScenario("TestAutonomousDatabaseResourceCreateFromBackupAsPartialClone")
+	defer httpreplay.SaveScenario()
+
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	resourceName := "oci_database_autonomous_database.test_autonomous_database_from_backupid"
+
+	acctest.ResourceTest(t, testAccCheckDatabaseAutonomousDatabaseDestroy, []resource.TestStep{
+		//0. Create dependencies
+		{
+			Config: config + compartmentIdVariableStr + AutonomousDatabaseFromBackupDependenciesPartialDedicated,
+		},
+		//1. verify create
+		{
+			Config: config + compartmentIdVariableStr + AutonomousDatabaseFromBackupDependenciesPartialDedicated +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database_from_backupid", acctest.Optional, acctest.Create, adbdAutonomousDatabaseRepresentationForPartialClone),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "clone_type", "PARTIAL"),
+				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#11"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				//resource.TestCheckResourceAttr(resourceName, "cpu_core_count", "1"),
+				resource.TestCheckResourceAttr(resourceName, "clone_table_space_list.#", "3"),
+				resource.TestCheckResourceAttr(resourceName, "data_storage_size_in_tbs", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "db_name"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", adbDedicatedCloneName),
+
+				func(s *terraform.State) (err error) {
+					resId, err := acctest.FromInstanceState(s, resourceName, "id")
+					sourceresId, err := acctest.FromInstanceState(s, "oci_database_autonomous_database.test_autonomous_database", "id")
+					if resId == sourceresId {
+						return fmt.Errorf("resource not created when it was supposed to be created")
+					}
+					return err
+				},
+			),
+		},
+	})
+}
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_FromBackupId(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_FromBackupId test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_FromBackupFromId")
 	defer httpreplay.SaveScenario()
 
@@ -1488,6 +1697,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_FromBackupId(t *testing.T) {
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_FromBackupTimestamp(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_FromBackupTimestamp test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_FromBackupTimestamp")
 	defer httpreplay.SaveScenario()
 
@@ -1554,6 +1769,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_FromBackupTimestamp(t *testi
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_privateEndpoint(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_dataSafeStatus test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_privateEndPoint")
 	defer httpreplay.SaveScenario()
 
@@ -1946,6 +2167,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_privateEndpoint(t *testing.T
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_privateEndpointWithPublicAccess(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_privateEndpointWithPublicAccess test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_privateEndPointWithPublicAccess")
 	defer httpreplay.SaveScenario()
 
@@ -2035,6 +2262,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_privateEndpointWithPublicAcc
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_dbVersion(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_dbVersion test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_dbVersion")
 	defer httpreplay.SaveScenario()
 
@@ -2156,6 +2389,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_dbVersion(t *testing.T) {
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_dataGuard(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_dataGuard test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_dataGuard")
 	defer httpreplay.SaveScenario()
 
@@ -2459,6 +2698,61 @@ func TestResourceDatabaseExaccAutonomousDatabaseResource(t *testing.T) {
 	})
 }
 
+func TestAutonomousDatabaseExaccResourceCreateFromBackupAsPartialClone(t *testing.T) {
+	shouldSkipEXACCtest := utils.GetEnvSettingWithDefault("TF_VAR_should_skip_exacc_test", "false")
+
+	if shouldSkipEXACCtest == "true" {
+		t.Skip("Skipping TestAutonomousDatabaseExaccResourceCreateFromBackupAsPartialClone test.\n" + "Current TF_VAR_should_skip_exacc_test=" + shouldSkipEXACCtest)
+	}
+
+	httpreplay.SetScenario("TestAutonomousDatabaseExaccResourceCreateFromBackupAsPartialClone")
+	defer httpreplay.SaveScenario()
+
+	config := acctest.ProviderTestConfig()
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	resourceName := "oci_database_autonomous_database.autonomous_database_partial_clone"
+
+	var resId string
+
+	acctest.ResourceTest(t, testAccCheckDatabaseAutonomousDatabaseDestroy, []resource.TestStep{
+		// verify create partial clone
+		{
+			Config: config + compartmentIdVariableStr + ExaccAutonomousDatabaseResourceFromBackupDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "autonomous_database_partial_clone", acctest.Optional, acctest.Create, acctest.RepresentationCopyWithNewProperties(exaccAutonomousDatabaseRepresentationForPartialClone, map[string]interface{}{
+					"display_name": acctest.Representation{RepType: acctest.Optional, Create: adbCloneExaccName},
+				})),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#11"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "cpu_core_count", "1"),
+				resource.TestCheckResourceAttr(resourceName, "clone_table_space_list.#", "3"),
+				resource.TestCheckResourceAttr(resourceName, "data_storage_size_in_tbs", "1"),
+				resource.TestCheckResourceAttr(resourceName, "db_name", adbBackupIdName),
+				resource.TestCheckResourceAttrSet(resourceName, "db_version"),
+				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
+				resource.TestCheckResourceAttr(resourceName, "display_name", adbCloneExaccName),
+				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "id"),
+				resource.TestCheckResourceAttr(resourceName, "is_auto_scaling_enabled", "false"),
+				resource.TestCheckResourceAttr(resourceName, "is_dedicated", "true"),
+				resource.TestCheckResourceAttrSet(resourceName, "state"),
+				resource.TestCheckResourceAttrSet(resourceName, "memory_per_oracle_compute_unit_in_gbs"),
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					if isEnableExportCompartment, _ := strconv.ParseBool(utils.GetEnvSettingWithDefault("enable_export_compartment", "false")); isEnableExportCompartment {
+						if errExport := resourcediscovery.TestExportCompartmentWithResourceName(&resId, &compartmentId, resourceName); errExport != nil {
+							return errExport
+						}
+					}
+					return err
+				},
+			),
+		},
+	})
+}
+
 func ListAutonomousDatabasesWaitCondition(response oci_common.OCIOperationResponse) bool {
 	if listListAutonomousDatabasesResponse, ok := response.Response.(oci_database.ListAutonomousDatabasesResponse); ok {
 		if len(listListAutonomousDatabasesResponse.Items) > 0 {
@@ -2471,6 +2765,12 @@ func ListAutonomousDatabasesWaitCondition(response oci_common.OCIOperationRespon
 
 // issue-routing-tag: database/ExaCC
 func TestResourceDatabaseInMemoryExaccAutonomousDatabaseResource_dataGuard(t *testing.T) {
+	shouldSkipEXACCtest := utils.GetEnvSettingWithDefault("TF_VAR_should_skip_exacc_test", "false")
+
+	if shouldSkipEXACCtest == "true" {
+		t.Skip("Skipping TestResourceDatabaseInMemoryExaccAutonomousDatabaseResource_dataGuard test.\n" + "Current TF_VAR_should_skip_exacc_test=" + shouldSkipEXACCtest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseExaccAutonomousDatabaseResource_dataGuard")
 	defer httpreplay.SaveScenario()
 
@@ -2550,6 +2850,12 @@ func TestResourceDatabaseInMemoryExaccAutonomousDatabaseResource_dataGuard(t *te
 
 // issue-routing-tag: database/ExaCC
 func TestResourceDatabaseInMemoryExaccAutonomousDatabaseResource(t *testing.T) {
+	shouldSkipEXACCtest := utils.GetEnvSettingWithDefault("TF_VAR_should_skip_exacc_test", "false")
+
+	if shouldSkipEXACCtest == "true" {
+		t.Skip("Skipping TestResourceDatabaseInMemoryExaccAutonomousDatabaseResource test.\n" + "Current TF_VAR_should_skip_exacc_test=" + shouldSkipEXACCtest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseExaccAutonomousDatabaseResource")
 	defer httpreplay.SaveScenario()
 
@@ -2631,6 +2937,12 @@ func TestResourceDatabaseInMemoryExaccAutonomousDatabaseResource(t *testing.T) {
 }
 
 func TestResourceDatabaseDevTierExaccAutonomousDatabaseResource(t *testing.T) {
+	shouldSkipEXACCtest := utils.GetEnvSettingWithDefault("TF_VAR_should_skip_exacc_test", "false")
+
+	if shouldSkipEXACCtest == "true" {
+		t.Skip("Skipping TestResourceDatabaseDevTierExaccAutonomousDatabaseResource test.\n" + "Current TF_VAR_should_skip_exacc_test=" + shouldSkipEXACCtest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseDevTierExaccAutonomousDatabaseResource")
 	defer httpreplay.SaveScenario()
 
@@ -2728,6 +3040,12 @@ func listListAutonomousDatabasesFetchOperation(client *client.OracleClients, dat
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_switchover(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_switchover test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_switchover")
 	defer httpreplay.SaveScenario()
 
@@ -2984,6 +3302,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_switchover(t *testing.T) {
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_refreshableClone(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_refreshableClone test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_refreshableClone")
 	defer httpreplay.SaveScenario()
 
@@ -3477,6 +3801,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_refreshableClone(t *testing.
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_AJD(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_AJD test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_AJD")
 	defer httpreplay.SaveScenario()
 
@@ -3654,6 +3984,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_AJD(t *testing.T) {
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_APEX(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_APEX test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_APEX")
 	defer httpreplay.SaveScenario()
 
@@ -3830,6 +4166,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_APEX(t *testing.T) {
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_ConfigureKey(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_ConfigureKey test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_ConfigureKey")
 	defer httpreplay.SaveScenario()
 
@@ -3951,6 +4293,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_ConfigureKey(t *testing.T) {
 
 // issue-routing-tag: database/dbaas-adb
 func TestResourceDatabaseAutonomousDatabaseResource_CrossRegionClone(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestResourceDatabaseAutonomousDatabaseResource_CrossRegionClone test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestResourceDatabaseAutonomousDatabaseResource_CrossRegionClone")
 	defer httpreplay.SaveScenario()
 
@@ -4035,6 +4383,12 @@ func TestResourceDatabaseAutonomousDatabaseResource_CrossRegionClone(t *testing.
 
 // issue-routing-tag: database/dbaas-adb
 func TestDatabaseAutonomousDatabaseResource_ecpu(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestDatabaseAutonomousDatabaseResource_ecpu test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_ecpu")
 	defer httpreplay.SaveScenario()
 
@@ -4136,6 +4490,12 @@ func TestDatabaseAutonomousDatabaseResource_ecpu(t *testing.T) {
 
 }
 func TestDatabaseAutonomousDatabaseResource_ElasticResourcePool(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestDatabaseAutonomousDatabaseResource_ElasticResourcePool test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_ElasticResourcePool")
 	defer httpreplay.SaveScenario()
 
@@ -4336,6 +4696,12 @@ func TestDatabaseAutonomousDatabaseResource_ElasticResourcePool(t *testing.T) {
 }
 
 func TestDatabaseAutonomousDatabase_opsi_dbms(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestDatabaseAutonomousDatabase_opsi_dbms test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
 	httpreplay.SetScenario("TestDatabaseAutonomousDatabase_opsi_dbms")
 	defer httpreplay.SaveScenario()
 
@@ -4424,7 +4790,13 @@ func TestDatabaseAutonomousDatabase_opsi_dbms(t *testing.T) {
 }
 
 func TestDatabaseAutonomousDatabaseResource_DeveloperDatabases(t *testing.T) {
-	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_scheduledOperations")
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestDatabaseAutonomousDatabase_opsi_dbms test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
+	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_DeveloperDatabases")
 	defer httpreplay.SaveScenario()
 
 	config := acctest.ProviderTestConfig()
@@ -4482,6 +4854,11 @@ func TestDatabaseAutonomousDatabaseResource_DeveloperDatabases(t *testing.T) {
 }
 
 func TestDatabaseAutonomousDatabaseResource_scheduledOperations(t *testing.T) {
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestDatabaseAutonomousDatabaseResource_scheduledOperations test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
 
 	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_scheduledOperations")
 	defer httpreplay.SaveScenario()
@@ -4743,11 +5120,57 @@ func TestDatabaseAutonomousDatabaseResource_scheduledOperations(t *testing.T) {
 				},
 			),
 		},
+		//test to verify if the plan fails.
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Create,
+					acctest.RepresentationCopyWithNewProperties(autonomousDatabaseRepresentationForScheduledOperations,
+						map[string]interface{}{
+							"enable_delete_scheduled_operations": acctest.Representation{RepType: acctest.Optional, Create: `true`},
+						})),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#11"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				// verify computed field db_workload to be defaulted to OLTP
+				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
+				func(s *terraform.State) (err error) {
+					_, err = acctest.FromInstanceState(s, resourceName, "id")
+					return err
+				},
+			),
+		},
+		{
+			Config: config + compartmentIdVariableStr + DatabaseAutonomousDatabaseResourceDependencies +
+				acctest.GenerateResourceFromRepresentationMap("oci_database_autonomous_database", "test_autonomous_database", acctest.Optional, acctest.Create,
+					acctest.RepresentationCopyWithNewProperties(autonomousDatabaseRepresentationForScheduledOperations,
+						map[string]interface{}{
+							"enable_delete_scheduled_operations": acctest.Representation{RepType: acctest.Optional, Create: `true`},
+							"cpu_core_count":                     acctest.Representation{RepType: acctest.Optional, Create: `10`},
+						})),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "admin_password", "BEstrO0ng_#11"),
+				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				// verify computed field db_workload to be defaulted to OLTP
+				resource.TestCheckResourceAttr(resourceName, "db_workload", "OLTP"),
+				resource.TestCheckResourceAttr(resourceName, "scheduled_operations.#", "0"),
+				resource.TestCheckResourceAttr(resourceName, "cpu_core_count", "10"),
+				func(s *terraform.State) (err error) {
+					_, err = acctest.FromInstanceState(s, resourceName, "id")
+					return err
+				},
+			),
+		},
 	})
 }
 
 func TestDatabaseAutonomousDatabaseResource_dbTools(t *testing.T) {
-	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_scheduledOperations")
+	shouldSkipADBStest := os.Getenv("TF_VAR_should_skip_adbs_test")
+
+	if shouldSkipADBStest == "true" {
+		t.Skip("Skipping TestDatabaseAutonomousDatabaseResource_dbTools test.\n" + "Current TF_VAR_should_skip_adbs_test=" + shouldSkipADBStest)
+	}
+
+	httpreplay.SetScenario("TestDatabaseAutonomousDatabaseResource_dbTools")
 	defer httpreplay.SaveScenario()
 
 	config := acctest.ProviderTestConfig()

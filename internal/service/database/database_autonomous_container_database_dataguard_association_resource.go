@@ -106,6 +106,18 @@ func DatabaseAutonomousContainerDatabaseDataguardAssociationResource() *schema.R
 										Computed: true,
 										ForceNew: true,
 									},
+									"is_remote": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+									"remote_region": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
 									"vpc_password": {
 										Type:      schema.TypeString,
 										Optional:  true,
@@ -164,6 +176,10 @@ func DatabaseAutonomousContainerDatabaseDataguardAssociationResource() *schema.R
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
+			},
+			"migrate_trigger": {
+				Type:     schema.TypeInt,
+				Optional: true,
 			},
 
 			// Computed
@@ -229,7 +245,18 @@ func createDatabaseAutonomousContainerDatabaseDataguardAssociation(d *schema.Res
 	sync.Client = m.(*client.OracleClients).DatabaseClient()
 	sync.WorkRequestClient = m.(*client.OracleClients).WorkRequestClient
 
-	return tfresource.CreateResource(d, sync)
+	if e := tfresource.CreateResource(d, sync); e != nil {
+		return e
+	}
+
+	if _, ok := sync.D.GetOkExists("migrate_trigger"); ok {
+		err := sync.MigrateAutonomousContainerDatabaseDataguardAssociation()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+
 }
 
 func readDatabaseAutonomousContainerDatabaseDataguardAssociation(d *schema.ResourceData, m interface{}) error {
@@ -246,7 +273,27 @@ func updateDatabaseAutonomousContainerDatabaseDataguardAssociation(d *schema.Res
 	sync.Client = m.(*client.OracleClients).DatabaseClient()
 	sync.WorkRequestClient = m.(*client.OracleClients).WorkRequestClient
 
-	return tfresource.UpdateResource(d, sync)
+	if _, ok := sync.D.GetOkExists("migrate_trigger"); ok && sync.D.HasChange("migrate_trigger") {
+		oldRaw, newRaw := sync.D.GetChange("migrate_trigger")
+		oldValue := oldRaw.(int)
+		newValue := newRaw.(int)
+		if oldValue < newValue {
+			err := sync.MigrateAutonomousContainerDatabaseDataguardAssociation()
+
+			if err != nil {
+				return err
+			}
+		} else {
+			sync.D.Set("migrate_trigger", oldRaw)
+			return fmt.Errorf("new value of trigger should be greater than the old value")
+		}
+	}
+
+	if err := tfresource.UpdateResource(d, sync); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func deleteDatabaseAutonomousContainerDatabaseDataguardAssociation(d *schema.ResourceData, m interface{}) error {
@@ -540,6 +587,35 @@ func GetAutonomousContainerDatabaseDataguardAssociationCompositeId(autonomousCon
 // 	return
 // }
 
+func (s *DatabaseAutonomousContainerDatabaseDataguardAssociationResourceCrud) MigrateAutonomousContainerDatabaseDataguardAssociation() error {
+	request := oci_database.MigrateAutonomousContainerDatabaseDataguardAssociationRequest{}
+
+	idTmp := s.D.Id()
+	request.AutonomousContainerDatabaseDataguardAssociationId = &idTmp
+
+	if autonomousContainerDatabaseId, ok := s.D.GetOkExists("autonomous_container_database_id"); ok {
+		tmp := autonomousContainerDatabaseId.(string)
+		request.AutonomousContainerDatabaseId = &tmp
+	}
+
+	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "database")
+
+	response, err := s.Client.MigrateAutonomousContainerDatabaseDataguardAssociation(context.Background(), request)
+	if err != nil {
+		return err
+	}
+
+	if waitErr := tfresource.WaitForUpdatedState(s.D, s); waitErr != nil {
+		return waitErr
+	}
+
+	val := s.D.Get("migrate_trigger")
+	s.D.Set("migrate_trigger", val)
+
+	s.Res = &response.AutonomousContainerDatabaseDataguardAssociation
+	return nil
+}
+
 func (s *DatabaseAutonomousContainerDatabaseDataguardAssociationResourceCrud) mapToBackupDestinationDetails(fieldKeyFormat string) (oci_database.BackupDestinationDetails, error) {
 	result := oci_database.BackupDestinationDetails{}
 
@@ -556,6 +632,16 @@ func (s *DatabaseAutonomousContainerDatabaseDataguardAssociationResourceCrud) ma
 	if internetProxy, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "internet_proxy")); ok {
 		tmp := internetProxy.(string)
 		result.InternetProxy = &tmp
+	}
+
+	if isRemote, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "is_remote")); ok {
+		tmp := isRemote.(bool)
+		result.IsRemote = &tmp
+	}
+
+	if remoteRegion, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "remote_region")); ok {
+		tmp := remoteRegion.(string)
+		result.RemoteRegion = &tmp
 	}
 
 	if type_, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "type")); ok {

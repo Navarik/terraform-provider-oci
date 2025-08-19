@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -61,18 +61,24 @@ const (
 	SecurityAssessmentComparisonLifecycleStateCreating  SecurityAssessmentComparisonLifecycleStateEnum = "CREATING"
 	SecurityAssessmentComparisonLifecycleStateSucceeded SecurityAssessmentComparisonLifecycleStateEnum = "SUCCEEDED"
 	SecurityAssessmentComparisonLifecycleStateFailed    SecurityAssessmentComparisonLifecycleStateEnum = "FAILED"
+	SecurityAssessmentComparisonLifecycleStateDeleted   SecurityAssessmentComparisonLifecycleStateEnum = "DELETED"
+	SecurityAssessmentComparisonLifecycleStateDeleting  SecurityAssessmentComparisonLifecycleStateEnum = "DELETING"
 )
 
 var mappingSecurityAssessmentComparisonLifecycleStateEnum = map[string]SecurityAssessmentComparisonLifecycleStateEnum{
 	"CREATING":  SecurityAssessmentComparisonLifecycleStateCreating,
 	"SUCCEEDED": SecurityAssessmentComparisonLifecycleStateSucceeded,
 	"FAILED":    SecurityAssessmentComparisonLifecycleStateFailed,
+	"DELETED":   SecurityAssessmentComparisonLifecycleStateDeleted,
+	"DELETING":  SecurityAssessmentComparisonLifecycleStateDeleting,
 }
 
 var mappingSecurityAssessmentComparisonLifecycleStateEnumLowerCase = map[string]SecurityAssessmentComparisonLifecycleStateEnum{
 	"creating":  SecurityAssessmentComparisonLifecycleStateCreating,
 	"succeeded": SecurityAssessmentComparisonLifecycleStateSucceeded,
 	"failed":    SecurityAssessmentComparisonLifecycleStateFailed,
+	"deleted":   SecurityAssessmentComparisonLifecycleStateDeleted,
+	"deleting":  SecurityAssessmentComparisonLifecycleStateDeleting,
 }
 
 // GetSecurityAssessmentComparisonLifecycleStateEnumValues Enumerates the set of values for SecurityAssessmentComparisonLifecycleStateEnum
@@ -90,6 +96,8 @@ func GetSecurityAssessmentComparisonLifecycleStateEnumStringValues() []string {
 		"CREATING",
 		"SUCCEEDED",
 		"FAILED",
+		"DELETED",
+		"DELETING",
 	}
 }
 

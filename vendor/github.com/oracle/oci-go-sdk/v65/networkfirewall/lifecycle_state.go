@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -25,8 +25,6 @@ const (
 	LifecycleStateDeleted        LifecycleStateEnum = "DELETED"
 	LifecycleStateFailed         LifecycleStateEnum = "FAILED"
 	LifecycleStateNeedsAttention LifecycleStateEnum = "NEEDS_ATTENTION"
-	LifecycleStateAttaching      LifecycleStateEnum = "ATTACHING"
-	LifecycleStateDetaching      LifecycleStateEnum = "DETACHING"
 )
 
 var mappingLifecycleStateEnum = map[string]LifecycleStateEnum{
@@ -37,8 +35,6 @@ var mappingLifecycleStateEnum = map[string]LifecycleStateEnum{
 	"DELETED":         LifecycleStateDeleted,
 	"FAILED":          LifecycleStateFailed,
 	"NEEDS_ATTENTION": LifecycleStateNeedsAttention,
-	"ATTACHING":       LifecycleStateAttaching,
-	"DETACHING":       LifecycleStateDetaching,
 }
 
 var mappingLifecycleStateEnumLowerCase = map[string]LifecycleStateEnum{
@@ -49,8 +45,6 @@ var mappingLifecycleStateEnumLowerCase = map[string]LifecycleStateEnum{
 	"deleted":         LifecycleStateDeleted,
 	"failed":          LifecycleStateFailed,
 	"needs_attention": LifecycleStateNeedsAttention,
-	"attaching":       LifecycleStateAttaching,
-	"detaching":       LifecycleStateDetaching,
 }
 
 // GetLifecycleStateEnumValues Enumerates the set of values for LifecycleStateEnum
@@ -72,8 +66,6 @@ func GetLifecycleStateEnumStringValues() []string {
 		"DELETED",
 		"FAILED",
 		"NEEDS_ATTENTION",
-		"ATTACHING",
-		"DETACHING",
 	}
 }
 

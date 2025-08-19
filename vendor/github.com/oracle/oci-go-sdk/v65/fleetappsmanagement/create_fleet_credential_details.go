@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -23,9 +23,6 @@ type CreateFleetCredentialDetails struct {
 	// Avoid entering confidential information.
 	// Example: `My new resource`
 	DisplayName *string `mandatory:"true" json:"displayName"`
-
-	// Tenancy OCID
-	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	EntitySpecifics CredentialEntitySpecificDetails `mandatory:"true" json:"entitySpecifics"`
 
@@ -54,7 +51,6 @@ func (m CreateFleetCredentialDetails) ValidateEnumValue() (bool, error) {
 func (m *CreateFleetCredentialDetails) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
 		DisplayName     *string                         `json:"displayName"`
-		CompartmentId   *string                         `json:"compartmentId"`
 		EntitySpecifics credentialentityspecificdetails `json:"entitySpecifics"`
 		User            credentialdetails               `json:"user"`
 		Password        credentialdetails               `json:"password"`
@@ -66,8 +62,6 @@ func (m *CreateFleetCredentialDetails) UnmarshalJSON(data []byte) (e error) {
 	}
 	var nn interface{}
 	m.DisplayName = model.DisplayName
-
-	m.CompartmentId = model.CompartmentId
 
 	nn, e = model.EntitySpecifics.UnmarshalPolymorphicJSON(model.EntitySpecifics.JsonData)
 	if e != nil {

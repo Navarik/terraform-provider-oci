@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListFields.go.html to see an example of how to use ListFieldsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/loganalytics/ListFields.go.html to see an example of how to use ListFieldsRequest.
 type ListFieldsRequest struct {
 
 	// The Logging Analytics namespace used for the request.
@@ -257,18 +257,21 @@ type ListFieldsSortByEnum string
 
 // Set of constants representing the allowable values for ListFieldsSortByEnum
 const (
-	ListFieldsSortByName     ListFieldsSortByEnum = "name"
-	ListFieldsSortByDatatype ListFieldsSortByEnum = "dataType"
+	ListFieldsSortByName        ListFieldsSortByEnum = "name"
+	ListFieldsSortByDatatype    ListFieldsSortByEnum = "dataType"
+	ListFieldsSortByTimeupdated ListFieldsSortByEnum = "timeUpdated"
 )
 
 var mappingListFieldsSortByEnum = map[string]ListFieldsSortByEnum{
-	"name":     ListFieldsSortByName,
-	"dataType": ListFieldsSortByDatatype,
+	"name":        ListFieldsSortByName,
+	"dataType":    ListFieldsSortByDatatype,
+	"timeUpdated": ListFieldsSortByTimeupdated,
 }
 
 var mappingListFieldsSortByEnumLowerCase = map[string]ListFieldsSortByEnum{
-	"name":     ListFieldsSortByName,
-	"datatype": ListFieldsSortByDatatype,
+	"name":        ListFieldsSortByName,
+	"datatype":    ListFieldsSortByDatatype,
+	"timeupdated": ListFieldsSortByTimeupdated,
 }
 
 // GetListFieldsSortByEnumValues Enumerates the set of values for ListFieldsSortByEnum
@@ -285,6 +288,7 @@ func GetListFieldsSortByEnumStringValues() []string {
 	return []string{
 		"name",
 		"dataType",
+		"timeUpdated",
 	}
 }
 

@@ -6,10 +6,11 @@ package os_management_hub
 import (
 	"context"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
@@ -17,6 +18,7 @@ import (
 
 	"github.com/oracle/terraform-provider-oci/internal/client"
 	"github.com/oracle/terraform-provider-oci/internal/tfresource"
+	"github.com/oracle/terraform-provider-oci/internal/utils"
 )
 
 func OsManagementHubManagedInstanceResource() *schema.Resource {
@@ -85,6 +87,10 @@ func OsManagementHubManagedInstanceResource() *schema.Resource {
 			},
 
 			// Computed
+			"agent_version": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"architecture": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -220,6 +226,10 @@ func OsManagementHubManagedInstanceResource() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"profile_version": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"scheduled_job_count": {
 				Type:     schema.TypeInt,
 				Computed: true,
@@ -324,14 +334,13 @@ func updateOsManagementHubManagedInstance(d *schema.ResourceData, m interface{})
 }
 
 func deleteOsManagementHubManagedInstance(d *schema.ResourceData, m interface{}) error {
-	//sync := &OsManagementHubManagedInstanceResourceCrud{}
-	//sync.D = d
-	//sync.Client = m.(*client.OracleClients).ManagedInstanceClient()
-	//sync.DisableNotFoundRetries = true
-	//sync.WorkRequestClient = m.(*client.OracleClients).OsManagementHubWorkRequestClient()
-	//
-	//return tfresource.DeleteResource(d, sync)
-	return nil
+	sync := &OsManagementHubManagedInstanceResourceCrud{}
+	sync.D = d
+	sync.Client = m.(*client.OracleClients).ManagedInstanceClient()
+	sync.DisableNotFoundRetries = true
+	sync.WorkRequestClient = m.(*client.OracleClients).OsManagementHubWorkRequestClient()
+
+	return tfresource.DeleteResource(d, sync)
 }
 
 type OsManagementHubManagedInstanceResourceCrud struct {
@@ -396,21 +405,6 @@ func (s *OsManagementHubManagedInstanceResourceCrud) Create() error {
 	return nil
 }
 
-func (s *OsManagementHubManagedInstanceResourceCrud) getManagedInstanceFromWorkRequest(workId *string, retryPolicy *oci_common.RetryPolicy,
-	actionTypeEnum oci_os_management_hub.ActionTypeEnum, timeout time.Duration) error {
-
-	// Wait until it finishes
-	managedInstanceId, err := managedInstanceWaitForWorkRequest(workId, "managedinstance",
-		actionTypeEnum, timeout, s.DisableNotFoundRetries, s.WorkRequestClient)
-
-	if err != nil {
-		return err
-	}
-	s.D.SetId(*managedInstanceId)
-
-	return s.Get()
-}
-
 func managedInstanceWorkRequestShouldRetryFunc(timeout time.Duration) func(response oci_common.OCIOperationResponse) bool {
 	startTime := time.Now()
 	stopTime := startTime.Add(timeout)
@@ -440,7 +434,7 @@ func managedInstanceWaitForWorkRequest(wId *string, entityType string, action oc
 	retryPolicy.ShouldRetryOperation = managedInstanceWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_os_management_hub.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_os_management_hub.OperationStatusInProgress),
 			string(oci_os_management_hub.OperationStatusAccepted),
@@ -577,27 +571,35 @@ func (s *OsManagementHubManagedInstanceResourceCrud) Update() error {
 }
 
 func (s *OsManagementHubManagedInstanceResourceCrud) Delete() error {
-	//request := oci_os_management_hub.DeleteManagedInstanceRequest{}
-	//
-	//tmp := s.D.Id()
-	//request.ManagedInstanceId = &tmp
-	//
-	//request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "os_management_hub")
-	//
-	//response, err := s.Client.DeleteManagedInstance(context.Background(), request)
-	//if err != nil {
-	//	return err
-	//}
-	//
-	//workId := response.OpcWorkRequestId
-	//// Wait until it finishes
-	//_, delWorkRequestErr := managedInstanceWaitForWorkRequest(workId, "managedinstance",
-	//	oci_os_management_hub.ActionTypeDeleted, s.D.Timeout(schema.TimeoutDelete), s.DisableNotFoundRetries, s.WorkRequestClient)
-	//return delWorkRequestErr
-	return nil
+	if utils.GetEnvSettingWithBlankDefault("osmh_skip_managed_instance_deletion") == "true" {
+		log.Printf("[INFO] Skipping deletion of managed instance: %s", s.D.Id())
+		return nil
+	}
+
+	request := oci_os_management_hub.DeleteManagedInstanceRequest{}
+
+	tmp := s.D.Id()
+	request.ManagedInstanceId = &tmp
+
+	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "os_management_hub")
+
+	response, err := s.Client.DeleteManagedInstance(context.Background(), request)
+	if err != nil {
+		return err
+	}
+
+	workId := response.OpcWorkRequestId
+	// Wait until it finishes
+	_, delWorkRequestErr := managedInstanceWaitForWorkRequest(workId, "instance",
+		oci_os_management_hub.ActionTypeUpdated, s.D.Timeout(schema.TimeoutDelete), s.DisableNotFoundRetries, s.WorkRequestClient)
+	return delWorkRequestErr
 }
 
 func (s *OsManagementHubManagedInstanceResourceCrud) SetData() error {
+	if s.Res.AgentVersion != nil {
+		s.D.Set("agent_version", *s.Res.AgentVersion)
+	}
+
 	s.D.Set("architecture", s.Res.Architecture)
 
 	if s.Res.AutonomousSettings != nil {
@@ -700,6 +702,10 @@ func (s *OsManagementHubManagedInstanceResourceCrud) SetData() error {
 		s.D.Set("profile", *s.Res.Profile)
 	}
 
+	if s.Res.ProfileVersion != nil {
+		s.D.Set("profile_version", *s.Res.ProfileVersion)
+	}
+
 	if s.Res.ScheduledJobCount != nil {
 		s.D.Set("scheduled_job_count", *s.Res.ScheduledJobCount)
 	}
@@ -781,6 +787,10 @@ func IdToMap(obj *oci_os_management_hub.Id) map[string]interface{} {
 
 func ManagedInstanceSummaryToMap(obj oci_os_management_hub.ManagedInstanceSummary) map[string]interface{} {
 	result := map[string]interface{}{}
+
+	if obj.AgentVersion != nil {
+		result["agent_version"] = string(*obj.AgentVersion)
+	}
 
 	result["architecture"] = string(obj.Architecture)
 

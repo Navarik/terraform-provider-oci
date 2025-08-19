@@ -19,6 +19,9 @@ Gets the list of Managed MySQL Databases in a specific compartment.
 data "oci_database_management_managed_my_sql_databases" "test_managed_my_sql_databases" {
 	#Required
 	compartment_id = var.compartment_id
+
+	#Optional
+	filter_by_my_sql_database_type_param = var.managed_my_sql_database_filter_by_my_sql_database_type_param
 }
 ```
 
@@ -27,6 +30,7 @@ data "oci_database_management_managed_my_sql_databases" "test_managed_my_sql_dat
 The following arguments are supported:
 
 * `compartment_id` - (Required) The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+* `filter_by_my_sql_database_type_param` - (Optional) The parameter to filter by MySQL database type. Allowed values are EXTERNAL or MDS.
 
 
 ## Attributes Reference
@@ -46,6 +50,7 @@ The following attributes are exported:
 * `name` - The name of the Managed MySQL Database.
 * `time_created` - The date and time the Managed Database was created.
 * `heat_wave_cluster_display_name` - The name of the HeatWave cluster.
+* `heat_wave_management_type` - The customer's selected type for HeatWave management.
 * `heat_wave_memory_size` - The total memory belonging to the HeatWave cluster in GBs.
 * `heat_wave_node_shape` - Shape of the nodes in the HeatWave cluster.
 * `heat_wave_nodes` - The information about an individual HeatWave nodes in the cluster.
@@ -56,4 +61,7 @@ The following attributes are exported:
 * `is_heat_wave_enabled` - If HeatWave is enabled for this db system or not.
 * `is_lakehouse_enabled` - If HeatWave Lakehouse is enabled for the db system or not.
 * `time_created_heat_wave` - The date and time the Managed MySQL Database was created.
+* `database_type` - The type of the MySQL Database. Indicates whether the database is external or MDS. 
+* `management_state` - Indicates database management status.
+* `time_updated` - The date and time the Managed MySQL Database was updated.
 

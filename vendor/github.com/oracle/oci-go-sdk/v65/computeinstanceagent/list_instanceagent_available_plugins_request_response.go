@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,21 +15,21 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/computeinstanceagent/ListInstanceagentAvailablePlugins.go.html to see an example of how to use ListInstanceagentAvailablePluginsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/computeinstanceagent/ListInstanceagentAvailablePlugins.go.html to see an example of how to use ListInstanceagentAvailablePluginsRequest.
 type ListInstanceagentAvailablePluginsRequest struct {
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
 	CompartmentId *string `mandatory:"true" contributesTo:"query" name:"compartmentId"`
 
-	// The OS for which the plugin is supported.
-	// Examples of OperatingSystemQueryParam:OperatingSystemVersionQueryParam are as follows:
-	// 'CentOS' '6.10' , 'CentOS Linux' '7', 'CentOS Linux' '8',
-	// 'Oracle Linux Server' '6.10', 'Oracle Linux Server' '8.0',
-	// 'Red Hat Enterprise Linux Server' '7.8',
-	// 'Windows' '10', 'Windows' '2008ServerR2', 'Windows' '2012ServerR2', 'Windows' '7', 'Windows' '8.1'
+	// The image (OS) for the compute instance.
+	// If no match is found, all plugins are returned.
+	// Examples: `CentOS`, `Oracle Linux`, `Oracle Autonomous Linux`, `Canonical Ubuntu`, `Windows Server`
 	OsName *string `mandatory:"true" contributesTo:"query" name:"osName"`
 
-	// The OS version for which the plugin is supported.
+	// The OS version for the instance.
+	// If no match is found, all plugins are returned.
+	// Examples: `7.9`, `8` for CentOS and Oracle Linux. `20.04`, `20.04 Minimal` for Canonical Ubuntu.
+	// `2012 R2 Datacenter`, `2019 Standard` for Windows Server.
 	OsVersion *string `mandatory:"true" contributesTo:"query" name:"osVersion"`
 
 	// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
@@ -38,12 +38,12 @@ type ListInstanceagentAvailablePluginsRequest struct {
 
 	// For list pagination. The value of the `opc-next-page` response header from the previous "List"
 	// call. For important details about how pagination works, see
-	// List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
 	// For list pagination. The maximum number of results per page, or items to return in a paginated
 	// "List" call. For important details about how pagination works, see
-	// List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
 
 	// The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -58,7 +58,7 @@ type ListInstanceagentAvailablePluginsRequest struct {
 	// is case sensitive.
 	SortOrder ListInstanceagentAvailablePluginsSortOrderEnum `mandatory:"false" contributesTo:"query" name:"sortOrder" omitEmpty:"true"`
 
-	// The plugin name
+	// The plugin name.
 	Name *string `mandatory:"false" contributesTo:"query" name:"name"`
 
 	// Metadata about the request. This information will not be transmitted to the service, but
@@ -124,7 +124,7 @@ type ListInstanceagentAvailablePluginsResponse struct {
 
 	// For list pagination. When this header appears in the response, additional pages
 	// of results remain. For important details about how pagination works, see
-	// List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 }
 

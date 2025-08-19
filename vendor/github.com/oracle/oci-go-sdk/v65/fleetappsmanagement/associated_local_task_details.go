@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -42,7 +42,7 @@ type AssociatedLocalTaskDetails struct {
 	Name *string `mandatory:"false" json:"name"`
 
 	// The OS for the task.
-	OsType OsTypeEnum `mandatory:"true" json:"osType"`
+	OsType OsTypeEnum `mandatory:"false" json:"osType,omitempty"`
 }
 
 func (m AssociatedLocalTaskDetails) String() string {
@@ -84,12 +84,12 @@ func (m *AssociatedLocalTaskDetails) UnmarshalJSON(data []byte) (e error) {
 		Description            *string          `json:"description"`
 		Platform               *string          `json:"platform"`
 		IsCopyToLibraryEnabled *bool            `json:"isCopyToLibraryEnabled"`
+		OsType                 OsTypeEnum       `json:"osType"`
 		Properties             *Properties      `json:"properties"`
 		IsDiscoveryOutputTask  *bool            `json:"isDiscoveryOutputTask"`
 		IsApplySubjectTask     *bool            `json:"isApplySubjectTask"`
 		Name                   *string          `json:"name"`
 		ExecutionDetails       executiondetails `json:"executionDetails"`
-		OsType                 OsTypeEnum       `json:"osType"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -102,6 +102,8 @@ func (m *AssociatedLocalTaskDetails) UnmarshalJSON(data []byte) (e error) {
 	m.Platform = model.Platform
 
 	m.IsCopyToLibraryEnabled = model.IsCopyToLibraryEnabled
+
+	m.OsType = model.OsType
 
 	m.Properties = model.Properties
 
@@ -120,8 +122,6 @@ func (m *AssociatedLocalTaskDetails) UnmarshalJSON(data []byte) (e error) {
 	} else {
 		m.ExecutionDetails = nil
 	}
-
-	m.OsType = model.OsType
 
 	return
 }

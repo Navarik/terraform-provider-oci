@@ -10,10 +10,15 @@ import (
 
 func init() {
 	exportBdsBdsInstanceApiKeyHints.GetIdFn = getBdsBdsInstanceApiKeyId
-	exportBdsBdsInstanceMetastoreConfigHints.GetIdFn = getBdsBdsInstanceMetastoreConfigId
-	exportBdsBdsInstanceResourcePrincipalConfigurationHints.GetIdFn = getBdsBdsInstanceResourcePrincipalConfigurationId
+	exportBdsBdsInstanceIdentityConfigurationHints.GetIdFn = getBdsBdsInstanceIdentityConfigurationId
 	exportBdsBdsInstanceApiKeyHints.ProcessDiscoveredResourcesFn = processBdsInstanceApiKeys
 	exportBdsBdsInstanceMetastoreConfigHints.ProcessDiscoveredResourcesFn = processBdsInstanceMetastoreConfigs
+	exportBdsBdsInstanceIdentityConfigurationHints.ProcessDiscoveredResourcesFn = processBdsInstanceIdentityConfigurations
+	exportBdsBdsInstanceResourcePrincipalConfigurationHints.GetIdFn = getBdsBdsInstanceResourcePrincipalConfigurationId
+	exportBdsBdsInstanceNodeReplaceConfigurationHints.GetIdFn = getBdsBdsInstanceNodeReplaceConfigurationId
+	exportBdsBdsInstanceNodeBackupConfigurationHints.GetIdFn = getBdsBdsInstanceNodeBackupConfigurationId
+	exportBdsBdsInstanceNodeBackupConfigurationHints.ProcessDiscoveredResourcesFn = processBdsInstanceNodeBackupConfigurations
+	exportBdsBdsInstanceNodeReplaceConfigurationHints.ProcessDiscoveredResourcesFn = processBdsInstanceNodeReplaceConfigurations
 	tf_export.RegisterCompartmentGraphs("bds", bdsResourceGraph)
 }
 
@@ -38,6 +43,32 @@ func processBdsInstanceApiKeys(ctx *tf_export.ResourceDiscoveryContext, resource
 	}
 	return resources, nil
 }
+func processBdsInstanceIdentityConfigurations(ctx *tf_export.ResourceDiscoveryContext, resources []*tf_export.OCIResource) ([]*tf_export.OCIResource, error) {
+	for _, resource := range resources {
+		identityConfigurationId := resource.Id
+		bdsInstanceId := resource.SourceAttributes["bds_instance_id"].(string)
+		resource.ImportId = GetBdsInstanceIdentityConfigurationCompositeId(bdsInstanceId, identityConfigurationId)
+	}
+	return resources, nil
+}
+
+func processBdsInstanceNodeBackupConfigurations(ctx *tf_export.ResourceDiscoveryContext, resources []*tf_export.OCIResource) ([]*tf_export.OCIResource, error) {
+	for _, resource := range resources {
+		nodeBackupConfigurationId := resource.Id
+		bdsInstanceId := resource.SourceAttributes["bds_instance_id"].(string)
+		resource.ImportId = GetBdsInstanceNodeBackupConfigurationCompositeId(bdsInstanceId, nodeBackupConfigurationId)
+	}
+	return resources, nil
+}
+
+func processBdsInstanceNodeReplaceConfigurations(ctx *tf_export.ResourceDiscoveryContext, resources []*tf_export.OCIResource) ([]*tf_export.OCIResource, error) {
+	for _, resource := range resources {
+		nodeReplaceConfigurationId := resource.Id
+		bdsInstanceId := resource.SourceAttributes["bds_instance_id"].(string)
+		resource.ImportId = GetBdsInstanceNodeReplaceConfigurationCompositeId(bdsInstanceId, nodeReplaceConfigurationId)
+	}
+	return resources, nil
+}
 
 func getBdsBdsInstanceApiKeyId(resource *tf_export.OCIResource) (string, error) {
 
@@ -59,14 +90,41 @@ func getBdsBdsInstanceMetastoreConfigId(resource *tf_export.OCIResource) (string
 	return GetBdsInstanceMetastoreConfigCompositeId(bdsInstanceId, metastoreConfigId), nil
 }
 
-func getBdsBdsInstanceResourcePrincipalConfigurationId(resource *tf_export.OCIResource) (string, error) {
+func getBdsBdsInstanceIdentityConfigurationId(resource *tf_export.OCIResource) (string, error) {
 
+	bdsInstanceId := resource.Parent.Id
+	identityConfigurationId, ok := resource.SourceAttributes["id"].(string)
+	if !ok {
+		return "", fmt.Errorf("[ERROR] unable to find identityConfigurationId for Bds BdsInstanceIdentityConfiguration")
+	}
+	return GetBdsInstanceIdentityConfigurationCompositeId(bdsInstanceId, identityConfigurationId), nil
+}
+
+func getBdsBdsInstanceResourcePrincipalConfigurationId(resource *tf_export.OCIResource) (string, error) {
 	bdsInstanceId := resource.Parent.Id
 	resourcePrincipalConfigurationId, ok := resource.SourceAttributes["resource_principal_configuration_id"].(string)
 	if !ok {
 		return "", fmt.Errorf("[ERROR] unable to find resourcePrincipalConfigurationId for Bds BdsInstanceResourcePrincipalConfiguration")
 	}
 	return GetBdsInstanceResourcePrincipalConfigurationCompositeId(bdsInstanceId, resourcePrincipalConfigurationId), nil
+}
+func getBdsBdsInstanceNodeReplaceConfigurationId(resource *tf_export.OCIResource) (string, error) {
+	bdsInstanceId := resource.Parent.Id
+	nodeReplaceConfigurationId, ok := resource.SourceAttributes["id"].(string)
+	if !ok {
+		return "", fmt.Errorf("[ERROR] unable to find nodeReplaceConfigurationId for Bds BdsInstanceNodeReplaceConfiguration")
+	}
+	return GetBdsInstanceNodeReplaceConfigurationCompositeId(bdsInstanceId, nodeReplaceConfigurationId), nil
+}
+
+func getBdsBdsInstanceNodeBackupConfigurationId(resource *tf_export.OCIResource) (string, error) {
+
+	bdsInstanceId := resource.Parent.Id
+	nodeBackupConfigurationId, ok := resource.SourceAttributes["id"].(string)
+	if !ok {
+		return "", fmt.Errorf("[ERROR] unable to find nodeBackupConfigurationId for Bds BdsInstanceNodeBackupConfiguration")
+	}
+	return GetBdsInstanceNodeBackupConfigurationCompositeId(bdsInstanceId, nodeBackupConfigurationId), nil
 }
 
 // Hints for discovering and exporting this resource to configuration and state files
@@ -102,6 +160,17 @@ var exportBdsBdsInstanceMetastoreConfigHints = &tf_export.TerraformResourceHints
 	},
 }
 
+var exportBdsBdsInstanceIdentityConfigurationHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_bds_bds_instance_identity_configuration",
+	DatasourceClass:        "oci_bds_bds_instance_identity_configurations",
+	DatasourceItemsAttr:    "identity_configurations",
+	ResourceAbbreviation:   "bds_instance_identity_configuration",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_bds.IdentityConfigurationLifecycleStateActive),
+	},
+}
+
 var exportBdsBdsInstanceResourcePrincipalConfigurationHints = &tf_export.TerraformResourceHints{
 	ResourceClass:          "oci_bds_bds_instance_resource_principal_configuration",
 	DatasourceClass:        "oci_bds_bds_instance_resource_principal_configurations",
@@ -110,6 +179,28 @@ var exportBdsBdsInstanceResourcePrincipalConfigurationHints = &tf_export.Terrafo
 	RequireResourceRefresh: true,
 	DiscoverableLifecycleStates: []string{
 		string(oci_bds.ResourcePrincipalConfigurationLifecycleStateActive),
+	},
+}
+
+var exportBdsBdsInstanceNodeReplaceConfigurationHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_bds_bds_instance_node_replace_configuration",
+	DatasourceClass:        "oci_bds_bds_instance_node_replace_configurations",
+	DatasourceItemsAttr:    "node_replace_configurations",
+	ResourceAbbreviation:   "bds_instance_node_replace_configuration",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_bds.NodeReplaceConfigurationLifecycleStateActive),
+	},
+}
+
+var exportBdsBdsInstanceNodeBackupConfigurationHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_bds_bds_instance_node_backup_configuration",
+	DatasourceClass:        "oci_bds_bds_instance_node_backup_configurations",
+	DatasourceItemsAttr:    "node_backup_configurations",
+	ResourceAbbreviation:   "bds_instance_node_backup_configuration",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_bds.NodeBackupConfigurationLifecycleStateActive),
 	},
 }
 
@@ -125,13 +216,25 @@ var bdsResourceGraph = tf_export.TerraformResourceGraph{
 			},
 		},
 		{
+			TerraformResourceHints: exportBdsBdsInstanceIdentityConfigurationHints,
+			DatasourceQueryParams: map[string]string{
+				"bds_instance_id": "id",
+			},
+		},
+		{
 			TerraformResourceHints: exportBdsBdsInstanceMetastoreConfigHints,
 			DatasourceQueryParams: map[string]string{
 				"bds_instance_id": "id",
 			},
 		},
 		{
-			TerraformResourceHints: exportBdsBdsInstanceResourcePrincipalConfigurationHints,
+			TerraformResourceHints: exportBdsBdsInstanceNodeBackupConfigurationHints,
+			DatasourceQueryParams: map[string]string{
+				"bds_instance_id": "id",
+			},
+		},
+		{
+			TerraformResourceHints: exportBdsBdsInstanceNodeReplaceConfigurationHints,
 			DatasourceQueryParams: map[string]string{
 				"bds_instance_id": "id",
 			},

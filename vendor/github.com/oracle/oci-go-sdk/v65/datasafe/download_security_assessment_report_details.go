@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,7 +18,7 @@ import (
 // DownloadSecurityAssessmentReportDetails The details used to download a security assessment report.
 type DownloadSecurityAssessmentReportDetails struct {
 
-	// Format of the report.
+	// Format of the Security Assessment report.
 	Format DownloadSecurityAssessmentReportDetailsFormatEnum `mandatory:"true" json:"format"`
 }
 
@@ -46,18 +46,21 @@ type DownloadSecurityAssessmentReportDetailsFormatEnum string
 
 // Set of constants representing the allowable values for DownloadSecurityAssessmentReportDetailsFormatEnum
 const (
-	DownloadSecurityAssessmentReportDetailsFormatPdf DownloadSecurityAssessmentReportDetailsFormatEnum = "PDF"
-	DownloadSecurityAssessmentReportDetailsFormatXls DownloadSecurityAssessmentReportDetailsFormatEnum = "XLS"
+	DownloadSecurityAssessmentReportDetailsFormatPdf     DownloadSecurityAssessmentReportDetailsFormatEnum = "PDF"
+	DownloadSecurityAssessmentReportDetailsFormatXls     DownloadSecurityAssessmentReportDetailsFormatEnum = "XLS"
+	DownloadSecurityAssessmentReportDetailsFormatStigxls DownloadSecurityAssessmentReportDetailsFormatEnum = "STIGXLS"
 )
 
 var mappingDownloadSecurityAssessmentReportDetailsFormatEnum = map[string]DownloadSecurityAssessmentReportDetailsFormatEnum{
-	"PDF": DownloadSecurityAssessmentReportDetailsFormatPdf,
-	"XLS": DownloadSecurityAssessmentReportDetailsFormatXls,
+	"PDF":     DownloadSecurityAssessmentReportDetailsFormatPdf,
+	"XLS":     DownloadSecurityAssessmentReportDetailsFormatXls,
+	"STIGXLS": DownloadSecurityAssessmentReportDetailsFormatStigxls,
 }
 
 var mappingDownloadSecurityAssessmentReportDetailsFormatEnumLowerCase = map[string]DownloadSecurityAssessmentReportDetailsFormatEnum{
-	"pdf": DownloadSecurityAssessmentReportDetailsFormatPdf,
-	"xls": DownloadSecurityAssessmentReportDetailsFormatXls,
+	"pdf":     DownloadSecurityAssessmentReportDetailsFormatPdf,
+	"xls":     DownloadSecurityAssessmentReportDetailsFormatXls,
+	"stigxls": DownloadSecurityAssessmentReportDetailsFormatStigxls,
 }
 
 // GetDownloadSecurityAssessmentReportDetailsFormatEnumValues Enumerates the set of values for DownloadSecurityAssessmentReportDetailsFormatEnum
@@ -74,6 +77,7 @@ func GetDownloadSecurityAssessmentReportDetailsFormatEnumStringValues() []string
 	return []string{
 		"PDF",
 		"XLS",
+		"STIGXLS",
 	}
 }
 

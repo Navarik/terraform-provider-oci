@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -65,12 +65,16 @@ func (m *schedule) UnmarshalPolymorphicJSON(data []byte) (interface{}, error) {
 		mm := CronSchedule{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
+	case "AUTO":
+		mm := AutoSchedule{}
+		err = json.Unmarshal(data, &mm)
+		return mm, err
 	case "FIXED_FREQUENCY":
 		mm := FixedFrequencySchedule{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
 	default:
-		common.Logf("Recieved unsupported enum value for Schedule: %s.", m.Type)
+		common.Logf("Received unsupported enum value for Schedule: %s.", m.Type)
 		return *m, nil
 	}
 }
@@ -157,16 +161,19 @@ type ScheduleTypeEnum string
 const (
 	ScheduleTypeFixedFrequency ScheduleTypeEnum = "FIXED_FREQUENCY"
 	ScheduleTypeCron           ScheduleTypeEnum = "CRON"
+	ScheduleTypeAuto           ScheduleTypeEnum = "AUTO"
 )
 
 var mappingScheduleTypeEnum = map[string]ScheduleTypeEnum{
 	"FIXED_FREQUENCY": ScheduleTypeFixedFrequency,
 	"CRON":            ScheduleTypeCron,
+	"AUTO":            ScheduleTypeAuto,
 }
 
 var mappingScheduleTypeEnumLowerCase = map[string]ScheduleTypeEnum{
 	"fixed_frequency": ScheduleTypeFixedFrequency,
 	"cron":            ScheduleTypeCron,
+	"auto":            ScheduleTypeAuto,
 }
 
 // GetScheduleTypeEnumValues Enumerates the set of values for ScheduleTypeEnum
@@ -183,6 +190,7 @@ func GetScheduleTypeEnumStringValues() []string {
 	return []string{
 		"FIXED_FREQUENCY",
 		"CRON",
+		"AUTO",
 	}
 }
 

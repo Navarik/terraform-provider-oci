@@ -152,11 +152,27 @@ func (s *CoreInstanceDataSourceCrud) SetData() error {
 		s.D.Set("launch_options", nil)
 	}
 
+	licensingConfigs := []interface{}{}
+	for _, item := range s.Res.LicensingConfigs {
+		licensingConfigs = append(licensingConfigs, LicensingConfigToMap(item))
+	}
+	s.D.Set("licensing_configs", licensingConfigs)
+
 	if s.Res.Metadata != nil {
 		err := s.D.Set("metadata", s.Res.Metadata)
 		if err != nil {
 			log.Printf("error setting metadata %q", err)
 		}
+	}
+
+	if s.Res.PlacementConstraintDetails != nil {
+		placementConstraintDetailsArray := []interface{}{}
+		if placementConstraintDetailsMap := PlacementConstraintDetailsToMap(&s.Res.PlacementConstraintDetails); placementConstraintDetailsMap != nil {
+			placementConstraintDetailsArray = append(placementConstraintDetailsArray, placementConstraintDetailsMap)
+		}
+		s.D.Set("placement_constraint_details", placementConstraintDetailsArray)
+	} else {
+		s.D.Set("placement_constraint_details", nil)
 	}
 
 	if s.Res.PlatformConfig != nil {

@@ -89,6 +89,10 @@ func (s *OpensearchOpensearchClusterDataSourceCrud) SetData() error {
 		s.D.Set("data_node_host_ocpu_count", *s.Res.DataNodeHostOcpuCount)
 	}
 
+	if s.Res.DataNodeHostShape != nil {
+		s.D.Set("data_node_host_shape", *s.Res.DataNodeHostShape)
+	}
+
 	s.D.Set("data_node_host_type", s.Res.DataNodeHostType)
 
 	if s.Res.DataNodeStorageGB != nil {
@@ -109,8 +113,16 @@ func (s *OpensearchOpensearchClusterDataSourceCrud) SetData() error {
 
 	s.D.Set("freeform_tags", s.Res.FreeformTags)
 
+	s.D.Set("inbound_cluster_ids", s.Res.InboundClusterIds)
+
 	if s.Res.LifecycleDetails != nil {
 		s.D.Set("lifecycle_details", *s.Res.LifecycleDetails)
+	}
+
+	if s.Res.MaintenanceDetails != nil {
+		s.D.Set("maintenance_details", []interface{}{MaintenanceDetailsToMap(s.Res.MaintenanceDetails)})
+	} else {
+		s.D.Set("maintenance_details", nil)
 	}
 
 	if s.Res.MasterNodeCount != nil {
@@ -127,6 +139,10 @@ func (s *OpensearchOpensearchClusterDataSourceCrud) SetData() error {
 
 	if s.Res.MasterNodeHostOcpuCount != nil {
 		s.D.Set("master_node_host_ocpu_count", *s.Res.MasterNodeHostOcpuCount)
+	}
+
+	if s.Res.MasterNodeHostShape != nil {
+		s.D.Set("master_node_host_shape", *s.Res.MasterNodeHostShape)
 	}
 
 	s.D.Set("master_node_host_type", s.Res.MasterNodeHostType)
@@ -147,6 +163,10 @@ func (s *OpensearchOpensearchClusterDataSourceCrud) SetData() error {
 		s.D.Set("opendashboard_node_host_ocpu_count", *s.Res.OpendashboardNodeHostOcpuCount)
 	}
 
+	if s.Res.OpendashboardNodeHostShape != nil {
+		s.D.Set("opendashboard_node_host_shape", *s.Res.OpendashboardNodeHostShape)
+	}
+
 	if s.Res.OpendashboardPrivateIp != nil {
 		s.D.Set("opendashboard_private_ip", *s.Res.OpendashboardPrivateIp)
 	}
@@ -157,6 +177,42 @@ func (s *OpensearchOpensearchClusterDataSourceCrud) SetData() error {
 
 	if s.Res.OpensearchPrivateIp != nil {
 		s.D.Set("opensearch_private_ip", *s.Res.OpensearchPrivateIp)
+	}
+
+	if s.Res.OutboundClusterConfig != nil {
+		s.D.Set("outbound_cluster_config", []interface{}{OutboundClusterConfigToMap(s.Res.OutboundClusterConfig)})
+	} else {
+		s.D.Set("outbound_cluster_config", nil)
+	}
+
+	s.D.Set("reverse_connection_endpoint_customer_ips", s.Res.ReverseConnectionEndpointCustomerIps)
+
+	reverseConnectionEndpoints := []interface{}{}
+	for _, item := range s.Res.ReverseConnectionEndpoints {
+		reverseConnectionEndpoints = append(reverseConnectionEndpoints, ReverseConnectionEndpointToMap(item))
+	}
+	s.D.Set("reverse_connection_endpoints", reverseConnectionEndpoints)
+
+	if s.Res.SearchNodeCount != nil {
+		s.D.Set("search_node_count", *s.Res.SearchNodeCount)
+	}
+
+	if s.Res.SearchNodeHostMemoryGB != nil {
+		s.D.Set("search_node_host_memory_gb", *s.Res.SearchNodeHostMemoryGB)
+	}
+
+	if s.Res.SearchNodeHostOcpuCount != nil {
+		s.D.Set("search_node_host_ocpu_count", *s.Res.SearchNodeHostOcpuCount)
+	}
+
+	if s.Res.SearchNodeHostShape != nil {
+		s.D.Set("search_node_host_shape", *s.Res.SearchNodeHostShape)
+	}
+
+	s.D.Set("search_node_host_type", s.Res.SearchNodeHostType)
+
+	if s.Res.SearchNodeStorageGB != nil {
+		s.D.Set("search_node_storage_gb", *s.Res.SearchNodeStorageGB)
 	}
 
 	if s.Res.SecurityMasterUserName != nil {
@@ -171,6 +227,10 @@ func (s *OpensearchOpensearchClusterDataSourceCrud) SetData() error {
 
 	if s.Res.SoftwareVersion != nil {
 		s.D.Set("software_version", *s.Res.SoftwareVersion)
+	}
+
+	if s.Res.SecuritySamlConfig != nil {
+		s.D.Set("security_saml_config", *s.Res.SecuritySamlConfig)
 	}
 
 	s.D.Set("state", s.Res.LifecycleState)

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -22,7 +22,7 @@ type PlatformConfiguration struct {
 	// The OCID of the resource.
 	Id *string `mandatory:"true" json:"id"`
 
-	// Tenancy OCID
+	// Compartment OCID
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// A user-friendly name. Does not have to be unique, and it's changeable.
@@ -204,6 +204,7 @@ const (
 	PlatformConfigurationLifecycleStateFailed   PlatformConfigurationLifecycleStateEnum = "FAILED"
 	PlatformConfigurationLifecycleStateDeleting PlatformConfigurationLifecycleStateEnum = "DELETING"
 	PlatformConfigurationLifecycleStateUpdating PlatformConfigurationLifecycleStateEnum = "UPDATING"
+	PlatformConfigurationLifecycleStateCreating PlatformConfigurationLifecycleStateEnum = "CREATING"
 )
 
 var mappingPlatformConfigurationLifecycleStateEnum = map[string]PlatformConfigurationLifecycleStateEnum{
@@ -212,6 +213,7 @@ var mappingPlatformConfigurationLifecycleStateEnum = map[string]PlatformConfigur
 	"FAILED":   PlatformConfigurationLifecycleStateFailed,
 	"DELETING": PlatformConfigurationLifecycleStateDeleting,
 	"UPDATING": PlatformConfigurationLifecycleStateUpdating,
+	"CREATING": PlatformConfigurationLifecycleStateCreating,
 }
 
 var mappingPlatformConfigurationLifecycleStateEnumLowerCase = map[string]PlatformConfigurationLifecycleStateEnum{
@@ -220,6 +222,7 @@ var mappingPlatformConfigurationLifecycleStateEnumLowerCase = map[string]Platfor
 	"failed":   PlatformConfigurationLifecycleStateFailed,
 	"deleting": PlatformConfigurationLifecycleStateDeleting,
 	"updating": PlatformConfigurationLifecycleStateUpdating,
+	"creating": PlatformConfigurationLifecycleStateCreating,
 }
 
 // GetPlatformConfigurationLifecycleStateEnumValues Enumerates the set of values for PlatformConfigurationLifecycleStateEnum
@@ -239,6 +242,7 @@ func GetPlatformConfigurationLifecycleStateEnumStringValues() []string {
 		"FAILED",
 		"DELETING",
 		"UPDATING",
+		"CREATING",
 	}
 }
 

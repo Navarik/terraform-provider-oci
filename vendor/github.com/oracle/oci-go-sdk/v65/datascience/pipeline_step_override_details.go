@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -25,6 +25,10 @@ type PipelineStepOverrideDetails struct {
 	StepConfigurationDetails *PipelineStepConfigurationDetails `mandatory:"true" json:"stepConfigurationDetails"`
 
 	StepContainerConfigurationDetails PipelineContainerConfigurationDetails `mandatory:"false" json:"stepContainerConfigurationDetails"`
+
+	StepDataflowConfigurationDetails *PipelineDataflowConfigurationDetails `mandatory:"false" json:"stepDataflowConfigurationDetails"`
+
+	StepInfrastructureConfigurationDetails *PipelineInfrastructureConfigurationDetails `mandatory:"false" json:"stepInfrastructureConfigurationDetails"`
 }
 
 func (m PipelineStepOverrideDetails) String() string {
@@ -46,9 +50,11 @@ func (m PipelineStepOverrideDetails) ValidateEnumValue() (bool, error) {
 // UnmarshalJSON unmarshals from json
 func (m *PipelineStepOverrideDetails) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		StepContainerConfigurationDetails pipelinecontainerconfigurationdetails `json:"stepContainerConfigurationDetails"`
-		StepName                          *string                               `json:"stepName"`
-		StepConfigurationDetails          *PipelineStepConfigurationDetails     `json:"stepConfigurationDetails"`
+		StepContainerConfigurationDetails      pipelinecontainerconfigurationdetails       `json:"stepContainerConfigurationDetails"`
+		StepDataflowConfigurationDetails       *PipelineDataflowConfigurationDetails       `json:"stepDataflowConfigurationDetails"`
+		StepInfrastructureConfigurationDetails *PipelineInfrastructureConfigurationDetails `json:"stepInfrastructureConfigurationDetails"`
+		StepName                               *string                                     `json:"stepName"`
+		StepConfigurationDetails               *PipelineStepConfigurationDetails           `json:"stepConfigurationDetails"`
 	}{}
 
 	e = json.Unmarshal(data, &model)
@@ -65,6 +71,10 @@ func (m *PipelineStepOverrideDetails) UnmarshalJSON(data []byte) (e error) {
 	} else {
 		m.StepContainerConfigurationDetails = nil
 	}
+
+	m.StepDataflowConfigurationDetails = model.StepDataflowConfigurationDetails
+
+	m.StepInfrastructureConfigurationDetails = model.StepInfrastructureConfigurationDetails
 
 	m.StepName = model.StepName
 

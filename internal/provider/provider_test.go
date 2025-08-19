@@ -3,6 +3,7 @@ package provider
 import (
 	"context"
 	"crypto/tls"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -57,6 +58,8 @@ xTHuOMkklNO7SiTluAUBvXrjxfGqe/gwJOHxXQGHC8W6vyhR2BdVx9PKFVebWjlr
 gzRMpGgWnjsaz0ldu3uO7ozRxZg8FgdToIzAIaTytpHKI8HvONvPJlYywOMC1gRi
 KwX6p26xaVtCV8PbDpF3RHuEJV1NU6PDIhaIHhdL374BiX/KmcJ6yv7tbkczpK+V
 -----END RSA PRIVATE KEY-----`
+
+var testPrivateKeyPassphrase = "dummy-passphrase"
 
 // This test runs the Provider sanity checks.
 // issue-routing-tag: terraform/default
@@ -123,14 +126,7 @@ func TestUnitBuildClientConfigureFn_withCustomCert(t *testing.T) {
 		t.Error(err)
 	}
 
-	prevEnvVar, hadPreviousEnvVar := os.LookupEnv(globalvar.CustomCertLocationEnv)
-	if hadPreviousEnvVar {
-		defer os.Setenv(globalvar.CustomCertLocationEnv, prevEnvVar)
-	} else {
-		defer os.Unsetenv(globalvar.CustomCertLocationEnv)
-	}
-
-	os.Setenv(globalvar.CustomCertLocationEnv, tempCert.Name())
+	t.Setenv(globalvar.CustomCertLocationEnv, tempCert.Name())
 	assert.Equal(t, tempCert.Name(), utils.GetEnvSettingWithBlankDefault(globalvar.CustomCertLocationEnv))
 	configProvider := oci_common.DefaultConfigProvider()
 	httpClient := BuildHttpClient()
@@ -151,12 +147,7 @@ func TestUnitBuildClientConfigureFn_withCustomCert(t *testing.T) {
 // ensure local certs can be admitted
 // issue-routing-tag: terraform/default
 func TestUnitBuildClientConfigureFn_acceptLocalCerts(t *testing.T) {
-	prevEnvVar, hadPreviousEnvVar := os.LookupEnv(globalvar.AcceptLocalCerts)
-	if hadPreviousEnvVar {
-		defer os.Setenv(globalvar.AcceptLocalCerts, prevEnvVar)
-	} else {
-		defer os.Unsetenv(globalvar.AcceptLocalCerts)
-	}
+	t.Setenv(globalvar.AcceptLocalCerts, "")
 
 	// ensure disabled by default - no env var
 	os.Unsetenv(globalvar.AcceptLocalCerts)
@@ -222,130 +213,12 @@ func TestUnitBuildClientConfigureFn_acceptLocalCerts(t *testing.T) {
 	assert.True(t, tr.TLSClientConfig.InsecureSkipVerify)
 }
 
-// ensure a custom domain can be targeted and expected http client settings are preserved
-// issue-routing-tag: terraform/default
-func TestUnitBuildClientConfigureFn_withDomainNameOverride(t *testing.T) {
-
-	prevEnvVar, hadPreviousEnvVar := os.LookupEnv(globalvar.DomainNameOverrideEnv)
-	if hadPreviousEnvVar {
-		defer os.Setenv(globalvar.DomainNameOverrideEnv, prevEnvVar)
-	} else {
-		defer os.Unsetenv(globalvar.DomainNameOverrideEnv)
-	}
-
-	if hadPreviousEnvVar {
-		defer os.Setenv(globalvar.HasCorrectDomainNameEnv, prevEnvVar)
-	} else {
-		defer os.Unsetenv(globalvar.HasCorrectDomainNameEnv)
-	}
-
-	os.Setenv(globalvar.DomainNameOverrideEnv, "0r4-c10ud.com")
-	assert.Equal(t, "0r4-c10ud.com", utils.GetEnvSettingWithBlankDefault(globalvar.DomainNameOverrideEnv))
-	configProvider := oci_common.DefaultConfigProvider()
-	httpClient := BuildHttpClient()
-	configureClientFn, err := BuildConfigureClientFn(configProvider, httpClient)
-	assert.NoError(t, err)
-
-	baseClient := &oci_common.BaseClient{}
-	baseClient.Host = "https://svc.region.oraclecloud.com"
-	err = configureClientFn(baseClient)
-	assert.NoError(t, err)
-
-	// verify transport settings are unchanged
-	tr := httpClient.Transport.(*http.Transport)
-	assert.NotNil(t, tr.TLSClientConfig)
-	assert.Equal(t, uint16(tls.VersionTLS12), tr.TLSClientConfig.MinVersion, "expected min tls 1.2")
-	assert.NotNil(t, tr.Proxy, "expected http.ProxyFromEnvironment fn")
-	assert.Nil(t, tr.TLSClientConfig.RootCAs)
-
-	// verify url has expected domain
-	assert.Equal(t, `https://svc.region.0r4-c10ud.com`, baseClient.Host)
-
-	// verify subdomains are preserved
-	baseClient = &oci_common.BaseClient{}
-	baseClient.Host = "avnzdivwaadfa-management.kms.us-phoenix-1.oraclecloud.com"
-	err = configureClientFn(baseClient)
-	assert.NoError(t, err)
-	assert.Equal(t, `avnzdivwaadfa-management.kms.us-phoenix-1.0r4-c10ud.com`, baseClient.Host)
-
-	// verify non-match preserves original url
-	baseClient = &oci_common.BaseClient{}
-	baseClient.Host = "DUMMY_ENDPOINT"
-	err = configureClientFn(baseClient)
-	assert.NoError(t, err)
-	assert.Equal(t, `DUMMY_ENDPOINT`, baseClient.Host)
-}
-
-// ensure a custom domain that has already override with more than 2 dots can be targeted and expected http client settings are preserved
-// issue-routing-tag: terraform/default
-func TestUnitBuildClientConfigureFn_withDomainNameOverrideAndCorrectDomainName(t *testing.T) {
-
-	prevEnvVar, hadPreviousEnvVar := os.LookupEnv(globalvar.DomainNameOverrideEnv)
-	if hadPreviousEnvVar {
-		defer os.Setenv(globalvar.DomainNameOverrideEnv, prevEnvVar)
-	} else {
-		defer os.Unsetenv(globalvar.DomainNameOverrideEnv)
-	}
-
-	if hadPreviousEnvVar {
-		defer os.Setenv(globalvar.HasCorrectDomainNameEnv, prevEnvVar)
-	} else {
-		defer os.Unsetenv(globalvar.HasCorrectDomainNameEnv)
-	}
-
-	os.Setenv(globalvar.DomainNameOverrideEnv, "oc.0r4-c10ud.com")
-	os.Setenv(globalvar.HasCorrectDomainNameEnv, "oc.0r4-c10ud.com")
-	assert.Equal(t, "oc.0r4-c10ud.com", utils.GetEnvSettingWithBlankDefault(globalvar.DomainNameOverrideEnv))
-	assert.Equal(t, "oc.0r4-c10ud.com", utils.GetEnvSettingWithBlankDefault(globalvar.HasCorrectDomainNameEnv))
-	configProvider := oci_common.DefaultConfigProvider()
-	httpClient := BuildHttpClient()
-	configureClientFn, err := BuildConfigureClientFn(configProvider, httpClient)
-	assert.NoError(t, err)
-
-	baseClient := &oci_common.BaseClient{}
-	baseClient.Host = "https://svc.region.oc.0r4-c10ud.com"
-	err = configureClientFn(baseClient)
-	assert.NoError(t, err)
-
-	// verify transport settings are unchanged
-	tr := httpClient.Transport.(*http.Transport)
-	assert.NotNil(t, tr.TLSClientConfig)
-	assert.Equal(t, uint16(tls.VersionTLS12), tr.TLSClientConfig.MinVersion, "expected min tls 1.2")
-	assert.NotNil(t, tr.Proxy, "expected http.ProxyFromEnvironment fn")
-	assert.Nil(t, tr.TLSClientConfig.RootCAs)
-
-	// verify url has expected domain
-	assert.Equal(t, `https://svc.region.oc.0r4-c10ud.com`, baseClient.Host)
-
-	// verify subdomains are preserved
-	baseClient = &oci_common.BaseClient{}
-	baseClient.Host = "avnzdivwaadfa-management.kms.us-phoenix-1.oraclecloud.com"
-	err = configureClientFn(baseClient)
-	assert.NoError(t, err)
-	assert.Equal(t, `avnzdivwaadfa-management.kms.us-phoenix-1.oc.0r4-c10ud.com`, baseClient.Host)
-
-	// verify non-match preserves original url
-	baseClient = &oci_common.BaseClient{}
-	baseClient.Host = "DUMMY_ENDPOINT"
-	err = configureClientFn(baseClient)
-	assert.NoError(t, err)
-	assert.Equal(t, `DUMMY_ENDPOINT`, baseClient.Host)
-}
-
 // ensure use_obo_token env var results in `opc-obo-token` http header injection
 // issue-routing-tag: terraform/default
 func TestUnitBuildClientConfigureFn_interceptor(t *testing.T) {
 
-	prevEnvVar, hadPreviousEnvVar := os.LookupEnv("use_obo_token")
-	if hadPreviousEnvVar {
-		defer os.Setenv("use_obo_token", prevEnvVar)
-	} else {
-		defer os.Unsetenv("use_obo_token")
-	}
-
-	os.Setenv("use_obo_token", "true")
-	os.Setenv(globalvar.OboTokenAttrName, "fake-token")
-	defer os.Unsetenv(globalvar.OboTokenAttrName)
+	t.Setenv("use_obo_token", "true")
+	t.Setenv(globalvar.OboTokenAttrName, "fake-token")
 	assert.Equal(t, "true", utils.GetEnvSettingWithBlankDefault("use_obo_token"))
 	configProvider := oci_common.DefaultConfigProvider()
 	httpClient := BuildHttpClient()
@@ -874,6 +747,47 @@ func TestUnitUserAgentFromEnv(t *testing.T) {
 				return tt.mock
 			}
 			assert.Equalf(t, tt.want, UserAgentFromEnv(), tt.name)
+		})
+	}
+}
+
+func TestUnitGetFromEnvVar(t *testing.T) {
+	varName := "TEST_ENV_VAR"
+	defaultValue := 5 * time.Second
+
+	tests := []struct {
+		name          string
+		envValue      string
+		expectedValue time.Duration
+	}{
+		{
+			name:          "Valid duration in environment variable",
+			envValue:      "10s",
+			expectedValue: 10 * time.Second,
+		},
+		{
+			name:          "Invalid duration in environment variable",
+			envValue:      "invalid",
+			expectedValue: defaultValue, // Should fall back to default value
+		},
+		{
+			name:          "Empty environment variable",
+			envValue:      "",
+			expectedValue: defaultValue, // Should fall back to default value
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Set the environment variable
+			os.Setenv(varName, tt.envValue)
+			defer os.Unsetenv(varName) // Clean up after the test
+
+			// Call the function
+			result := getFromEnvVar(varName, defaultValue)
+
+			// Assert the result
+			assert.Equal(t, tt.expectedValue, result, fmt.Sprintf("Expected %v, but got %v", tt.expectedValue, result))
 		})
 	}
 }

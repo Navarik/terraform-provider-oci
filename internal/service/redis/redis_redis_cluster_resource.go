@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
@@ -51,7 +51,6 @@ func RedisRedisClusterResource() *schema.Resource {
 			"software_version": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 			"subnet_id": {
 				Type:     schema.TypeString,
@@ -87,6 +86,11 @@ func RedisRedisClusterResource() *schema.Resource {
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
+			},
+			"oci_cache_config_set_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
 			},
 			"shard_count": {
 				Type:     schema.TypeInt,
@@ -298,6 +302,11 @@ func (s *RedisRedisClusterResourceCrud) Create() error {
 		}
 	}
 
+	if ociCacheConfigSetId, ok := s.D.GetOkExists("oci_cache_config_set_id"); ok {
+		tmp := ociCacheConfigSetId.(string)
+		request.OciCacheConfigSetId = &tmp
+	}
+
 	if shardCount, ok := s.D.GetOkExists("shard_count"); ok {
 		tmp := shardCount.(int)
 		request.ShardCount = &tmp
@@ -396,7 +405,7 @@ func redisClusterWaitForWorkRequest(wId *string, entityType string, action oci_r
 	retryPolicy.ShouldRetryOperation = redisClusterWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_redis.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_redis.OperationStatusInProgress),
 			string(oci_redis.OperationStatusAccepted),
@@ -549,6 +558,16 @@ func (s *RedisRedisClusterResourceCrud) Update() error {
 		}
 	}
 
+	if ociCacheConfigSetId, ok := s.D.GetOkExists("oci_cache_config_set_id"); ok && s.D.HasChange("oci_cache_config_set_id") {
+		tmp := ociCacheConfigSetId.(string)
+		request := oci_redis.UpdateRedisClusterRequest{}
+		request.OciCacheConfigSetId = &tmp
+		err := s.updateRedisCluster(request)
+		if err != nil {
+			return err
+		}
+	}
+
 	if nodeMemoryInGBs, ok := s.D.GetOkExists("node_memory_in_gbs"); ok && s.D.HasChange("node_memory_in_gbs") {
 		request := oci_redis.UpdateRedisClusterRequest{}
 		tmp, ok := nodeMemoryInGBs.(float32)
@@ -581,6 +600,16 @@ func (s *RedisRedisClusterResourceCrud) Update() error {
 			return err
 		}
 	}
+
+	if softwareVersion, ok := s.D.GetOkExists("software_version"); ok && s.D.HasChange("software_version") {
+		request := oci_redis.UpdateRedisClusterRequest{}
+		request.SoftwareVersion = oci_redis.RedisClusterSoftwareVersionEnum(softwareVersion.(string))
+		err := s.updateRedisCluster(request)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -644,6 +673,10 @@ func (s *RedisRedisClusterResourceCrud) SetData() error {
 		nsgIds = append(nsgIds, item)
 	}
 	s.D.Set("nsg_ids", schema.NewSet(tfresource.LiteralTypeHashCodeForSets, nsgIds))
+
+	if s.Res.OciCacheConfigSetId != nil {
+		s.D.Set("oci_cache_config_set_id", *s.Res.OciCacheConfigSetId)
+	}
 
 	if s.Res.PrimaryEndpointIpAddress != nil {
 		s.D.Set("primary_endpoint_ip_address", *s.Res.PrimaryEndpointIpAddress)
@@ -761,6 +794,10 @@ func RedisClusterSummaryToMap(obj oci_redis.RedisClusterSummary, datasource bool
 		result["nsg_ids"] = nsgIds
 	} else {
 		result["nsg_ids"] = schema.NewSet(tfresource.LiteralTypeHashCodeForSets, nsgIds)
+	}
+
+	if obj.OciCacheConfigSetId != nil {
+		result["oci_cache_config_set_id"] = string(*obj.OciCacheConfigSetId)
 	}
 
 	if obj.PrimaryEndpointIpAddress != nil {

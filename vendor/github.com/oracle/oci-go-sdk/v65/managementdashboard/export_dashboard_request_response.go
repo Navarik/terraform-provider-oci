@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementdashboard/ExportDashboard.go.html to see an example of how to use ExportDashboardRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementdashboard/ExportDashboard.go.html to see an example of how to use ExportDashboardRequest.
 type ExportDashboardRequest struct {
 
 	// List of dashboardIds in plain text. The syntax is '{"dashboardIds":["dashboardId1", "dashboardId2", ...]}'. Escaping is needed when using in OCI CLI. For example, "{\"dashboardIds\":[\"ocid1.managementdashboard.oc1..dashboardId1\"]}" .
@@ -30,6 +30,10 @@ type ExportDashboardRequest struct {
 
 	// The client request ID for tracing.
 	OpcRequestId *string `mandatory:"false" contributesTo:"header" name:"opc-request-id"`
+
+	// Indicates whether tags must be included when exporting dashboards and saved searches. If this attribute is set to true, then both defined and free-form tags are included in the response. The default is false and tag fields are empty objects in the response.
+	// If set to true, NotAuthorizedException is returned if you do not have the permission to access tags, even if you have the permission to access dashboards and saved searches.
+	ExportTags *string `mandatory:"false" contributesTo:"query" name:"exportTags"`
 
 	// Metadata about the request. This information will not be transmitted to the service, but
 	// represents information that the SDK will consume to drive retry behavior.

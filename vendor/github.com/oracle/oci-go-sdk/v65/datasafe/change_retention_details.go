@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,17 +18,16 @@ import (
 // ChangeRetentionDetails Details for the audit retention months to be modified.
 type ChangeRetentionDetails struct {
 
-	// Indicates the number of months the audit records will be stored online in Oracle Data Safe audit repository for
-	// immediate reporting and analysis. Minimum: 1; Maximum:12 months
+	// Number of months the audit records will be stored online in the audit repository for immediate reporting and analysis. Minimum: 1; Maximum: 12 months
 	OnlineMonths *int `mandatory:"false" json:"onlineMonths"`
 
-	// Indicates the number of months the audit records will be stored offline in the Data Safe audit archive.
-	// Minimum: 0; Maximum: 72 months.
-	// If you have a requirement to store the audit data even longer in archive, please contact the Oracle Support.
+	// Number of months the audit records will be stored offline in the offline archive.
+	//    Minimum: 0; Maximum: 72 months.
+	//    If you have a requirement to store the audit data even longer in the offline archive, please contact the Oracle Support.
 	OfflineMonths *int `mandatory:"false" json:"offlineMonths"`
 
-	// Indicates whether audit retention settings like online and offline months is set at the
-	// target level overriding the global audit retention settings.
+	// Indicates whether audit retention settings like online and offline months set at the
+	// target level override both the global settings and the target group level audit retention settings.
 	IsOverrideGlobalRetentionSetting *bool `mandatory:"false" json:"isOverrideGlobalRetentionSetting"`
 }
 

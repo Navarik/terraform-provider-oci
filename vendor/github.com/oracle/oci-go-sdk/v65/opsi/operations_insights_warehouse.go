@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -6,7 +6,7 @@
 //
 // Use the Ops Insights API to perform data extraction operations to obtain database
 // resource utilization, performance statistics, and reference information. For more information,
-// see About Oracle Cloud Infrastructure Ops Insights (https://docs.cloud.oracle.com/en-us/iaas/operations-insights/doc/operations-insights.html).
+// see About Oracle Cloud Infrastructure Ops Insights (https://docs.oracle.com/iaas/en-us/iaas/operations-insights/doc/operations-insights.html).
 //
 
 package opsi
@@ -23,13 +23,13 @@ type OperationsInsightsWarehouse struct {
 	// OPSI Warehouse OCID
 	Id *string `mandatory:"true" json:"id"`
 
-	// The OCID (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
 	// User-friedly name of Ops Insights Warehouse that does not have to be unique.
 	DisplayName *string `mandatory:"true" json:"displayName"`
 
-	// Number of OCPUs allocated to OPSI Warehouse ADW.
+	// Number of CPUs allocated to OPSI Warehouse ADW.
 	CpuAllocated *float64 `mandatory:"true" json:"cpuAllocated"`
 
 	// The time at which the resource was first created. An RFC3339 formatted datetime string
@@ -37,6 +37,9 @@ type OperationsInsightsWarehouse struct {
 
 	// Possible lifecycle states
 	LifecycleState OperationsInsightsWarehouseLifecycleStateEnum `mandatory:"true" json:"lifecycleState"`
+
+	// The compute model for the OPSI warehouse ADW (OCPU or ECPU)
+	ComputeModel OperationsInsightsWarehouseComputeModelEnum `mandatory:"false" json:"computeModel,omitempty"`
 
 	// Number of OCPUs used by OPSI Warehouse ADW. Can be fractional.
 	CpuUsed *float64 `mandatory:"false" json:"cpuUsed"`
@@ -88,8 +91,53 @@ func (m OperationsInsightsWarehouse) ValidateEnumValue() (bool, error) {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LifecycleState: %s. Supported values are: %s.", m.LifecycleState, strings.Join(GetOperationsInsightsWarehouseLifecycleStateEnumStringValues(), ",")))
 	}
 
+	if _, ok := GetMappingOperationsInsightsWarehouseComputeModelEnum(string(m.ComputeModel)); !ok && m.ComputeModel != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for ComputeModel: %s. Supported values are: %s.", m.ComputeModel, strings.Join(GetOperationsInsightsWarehouseComputeModelEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
 	return false, nil
+}
+
+// OperationsInsightsWarehouseComputeModelEnum Enum with underlying type: string
+type OperationsInsightsWarehouseComputeModelEnum string
+
+// Set of constants representing the allowable values for OperationsInsightsWarehouseComputeModelEnum
+const (
+	OperationsInsightsWarehouseComputeModelOcpu OperationsInsightsWarehouseComputeModelEnum = "OCPU"
+	OperationsInsightsWarehouseComputeModelEcpu OperationsInsightsWarehouseComputeModelEnum = "ECPU"
+)
+
+var mappingOperationsInsightsWarehouseComputeModelEnum = map[string]OperationsInsightsWarehouseComputeModelEnum{
+	"OCPU": OperationsInsightsWarehouseComputeModelOcpu,
+	"ECPU": OperationsInsightsWarehouseComputeModelEcpu,
+}
+
+var mappingOperationsInsightsWarehouseComputeModelEnumLowerCase = map[string]OperationsInsightsWarehouseComputeModelEnum{
+	"ocpu": OperationsInsightsWarehouseComputeModelOcpu,
+	"ecpu": OperationsInsightsWarehouseComputeModelEcpu,
+}
+
+// GetOperationsInsightsWarehouseComputeModelEnumValues Enumerates the set of values for OperationsInsightsWarehouseComputeModelEnum
+func GetOperationsInsightsWarehouseComputeModelEnumValues() []OperationsInsightsWarehouseComputeModelEnum {
+	values := make([]OperationsInsightsWarehouseComputeModelEnum, 0)
+	for _, v := range mappingOperationsInsightsWarehouseComputeModelEnum {
+		values = append(values, v)
+	}
+	return values
+}
+
+// GetOperationsInsightsWarehouseComputeModelEnumStringValues Enumerates the set of values in String for OperationsInsightsWarehouseComputeModelEnum
+func GetOperationsInsightsWarehouseComputeModelEnumStringValues() []string {
+	return []string{
+		"OCPU",
+		"ECPU",
+	}
+}
+
+// GetMappingOperationsInsightsWarehouseComputeModelEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingOperationsInsightsWarehouseComputeModelEnum(val string) (OperationsInsightsWarehouseComputeModelEnum, bool) {
+	enum, ok := mappingOperationsInsightsWarehouseComputeModelEnumLowerCase[strings.ToLower(val)]
+	return enum, ok
 }

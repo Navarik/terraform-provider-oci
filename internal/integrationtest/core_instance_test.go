@@ -13,9 +13,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_core "github.com/oracle/oci-go-sdk/v65/core"
 
@@ -201,6 +201,7 @@ var (
 		"is_pv_encryption_in_transit_enabled": acctest.Representation{RepType: acctest.Optional, Create: `false`},
 		"launch_options":                      acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstanceLaunchOptionsRepresentation_FlexShape},
 		"metadata":                            acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"user_data": "abcd"}, Update: map[string]string{"user_data": "abcd", "volatile_data": "stringE"}},
+		"placement_constraint_details":        acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstancePlacementConstraintDetailsRepresentation},
 		"security_attributes":                 acctest.Representation{RepType: acctest.Optional, Create: map[string]any{"Oracle-DataSecurity-ZPR": map[string]any{"MaxEgressCount": map[string]string{"value": "42", "mode": "audit"}}}},
 		"shape_config":                        acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstanceShapeConfigRepresentation},
 		"source_details":                      acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstanceSourceDetailsRepresentation},
@@ -337,11 +338,28 @@ var (
 		"type": acctest.Representation{RepType: acctest.Required, Create: `bootVolume`},
 	}
 	CoreInstanceSourceDetailsRepresentation = map[string]interface{}{
-		"source_id":               acctest.Representation{RepType: acctest.Required, Create: `${var.InstanceImageOCID[var.region]}`},
-		"source_type":             acctest.Representation{RepType: acctest.Required, Create: `image`},
-		"boot_volume_vpus_per_gb": acctest.Representation{RepType: acctest.Optional, Create: `10`},
-		"kms_key_id":              acctest.Representation{RepType: acctest.Optional, Create: `${lookup(data.oci_kms_keys.test_keys_dependency.keys[0], "id")}`},
-		"boot_volume_size_in_gbs": acctest.Representation{RepType: acctest.Optional, Create: `60`, Update: `70`},
+		"source_id":                            acctest.Representation{RepType: acctest.Required, Create: `${var.InstanceImageOCID[var.region]}`},
+		"source_type":                          acctest.Representation{RepType: acctest.Required, Create: `image`, Update: `image`},
+		"boot_volume_size_in_gbs":              acctest.Representation{RepType: acctest.Optional, Create: `60`, Update: `70`},
+		"boot_volume_vpus_per_gb":              acctest.Representation{RepType: acctest.Optional, Create: `10`},
+		"kms_key_id":                           acctest.Representation{RepType: acctest.Optional, Create: `${lookup(data.oci_kms_keys.test_keys_dependency.keys[0], "id")}`},
+		"instance_source_image_filter_details": acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstanceSourceDetailsInstanceSourceImageFilterDetailsRepresentation},
+	}
+	CoreInstanceLicensingConfigsRepresentation = map[string]interface{}{
+		"type":         acctest.Representation{RepType: acctest.Required, Create: `WINDOWS`},
+		"license_type": acctest.Representation{RepType: acctest.Optional, Create: `OCI_PROVIDED`, Update: `BRING_YOUR_OWN_LICENSE`},
+	}
+	CoreInstancePlacementConstraintDetailsRepresentation = map[string]interface{}{
+		"type":                       acctest.Representation{RepType: acctest.Required, Create: `COMPUTE_BARE_METAL_HOST`},
+		"compute_bare_metal_host_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compute_bare_metal_host_id}`},
+	}
+	CoreHGPlacementConstraintDetailsRepresentation = map[string]interface{}{
+		"type":                  acctest.Representation{RepType: acctest.Required, Create: `HOST_GROUP`},
+		"compute_host_group_id": acctest.Representation{RepType: acctest.Required, Create: `${var.compute_host_group_id}`},
+	}
+	CoreInstanceSourceDetailsRepresentationWindows = map[string]interface{}{
+		"source_id":   acctest.Representation{RepType: acctest.Required, Create: `${var.image_id}`},
+		"source_type": acctest.Representation{RepType: acctest.Required, Create: `image`},
 	}
 	CoreInstanceSourceDetailsUpdateBootVolumeIdRepresentation = map[string]interface{}{
 		"source_id":                       acctest.Representation{RepType: acctest.Required, Create: `${oci_core_boot_volume.test_boot_volume_swap.id}`},
@@ -504,7 +522,6 @@ data "oci_kms_keys" "test_keys_dependency_RSA" {
 		"fault_domain":   acctest.Representation{RepType: acctest.Optional, Create: `FAULT-DOMAIN-3`},
 		"shape":          acctest.Representation{RepType: acctest.Required, Create: `VM.Standard.AMD.Generic`},
 		"image":          acctest.Representation{RepType: acctest.Required, Create: `${var.FlexInstanceImageOCID[var.region]}`},
-		"shape_config":   acctest.RepresentationGroup{RepType: acctest.Optional, Group: instanceShapeConfigRepresentation_ForFungibleShapeConfig},
 		"source_details": acctest.RepresentationGroup{RepType: acctest.Optional, Group: instanceFlexSourceDetailsRepresentation},
 	}), []string{
 		"dedicated_vm_host_id",
@@ -836,6 +853,19 @@ data "oci_kms_keys" "test_keys_dependency_RSA" {
 		"subnet_id":                           acctest.Representation{RepType: acctest.Required, Create: `${oci_core_subnet.test_subnet.id}`},
 		"state":                               acctest.Representation{RepType: acctest.Optional, Create: `STOPPED`, Update: `RUNNING`},
 	}
+
+	// ---- Launch with licensing configs ----
+	InstanceRepresentationWithLicensingConfigs = map[string]interface{}{
+		"availability_domain":         acctest.Representation{RepType: acctest.Required, Create: `${data.oci_identity_availability_domains.test_availability_domains.availability_domains.0.name}`},
+		"compartment_id":              acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"shape":                       acctest.Representation{RepType: acctest.Required, Create: `VM.Standard2.1`},
+		"update_operation_constraint": acctest.Representation{RepType: acctest.Optional, Create: `ALLOW_DOWNTIME`, Update: `ALLOW_DOWNTIME`},
+		"display_name":                acctest.Representation{RepType: acctest.Optional, Create: `displayName`, Update: `displayName2`},
+		"fault_domain":                acctest.Representation{RepType: acctest.Optional, Create: `FAULT-DOMAIN-2`},
+		"source_details":              acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstanceSourceDetailsRepresentationWindows},
+		"licensing_configs":           acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstanceLicensingConfigsRepresentation},
+		"subnet_id":                   acctest.Representation{RepType: acctest.Required, Create: `${oci_core_subnet.test_subnet.id}`},
+	}
 	InstanceSourceDetailsRepresentationWithImageFilters = map[string]interface{}{
 		"source_type":                          acctest.Representation{RepType: acctest.Required, Create: `image`},
 		"instance_source_image_filter_details": acctest.RepresentationGroup{RepType: acctest.Optional, Group: CoreInstanceSourceDetailsInstanceSourceImageFilterDetailsRepresentation},
@@ -870,6 +900,44 @@ data "oci_kms_keys" "test_keys_dependency_RSA" {
 		"source_details":                      acctest.RepresentationGroup{RepType: acctest.Optional, Group: instanceSourceDetailsSansKmsRepresentation},
 		"subnet_id":                           acctest.Representation{RepType: acctest.Required, Create: `${oci_core_subnet.test_subnet.id}`},
 		"state":                               acctest.Representation{RepType: acctest.Optional, Create: `STOPPED`, Update: `RUNNING`},
+	}
+	instanceUpdateShapeAndCapacityReservation = map[string]interface{}{
+		"availability_domain":     acctest.Representation{RepType: acctest.Required, Create: `${data.oci_identity_availability_domains.test_availability_domains.availability_domains.0.name}`},
+		"compartment_id":          acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"shape":                   acctest.Representation{RepType: acctest.Required, Create: `VM.Standard2.1`, Update: `VM.Standard2.2`},
+		"capacity_reservation_id": acctest.Representation{RepType: acctest.Required, Create: `${oci_core_compute_capacity_reservation.before_test_compute_capacity_reservation.id}`, Update: `${oci_core_compute_capacity_reservation.after_test_compute_capacity_reservation.id}`},
+		"create_vnic_details":     acctest.RepresentationGroup{RepType: acctest.Required, Group: CoreInstanceCreateVnicDetailsRepresentation},
+		"display_name":            acctest.Representation{RepType: acctest.Required, Create: `displayName`},
+		"source_details":          acctest.RepresentationGroup{RepType: acctest.Required, Group: CoreInstanceSourceDetailsRepresentation},
+	}
+	instanceplacementConstraintDetails = map[string]interface{}{
+		"availability_domain":          acctest.Representation{RepType: acctest.Required, Create: `rGsG:US-ASHBURN-AD-1`},
+		"compartment_id":               acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"shape":                        acctest.Representation{RepType: acctest.Required, Create: `BM.Standard3.64`, Update: `BM.Standard3.64`},
+		"placement_constraint_details": acctest.RepresentationGroup{RepType: acctest.Required, Group: CoreInstancePlacementConstraintDetailsRepresentation},
+		"create_vnic_details":          acctest.RepresentationGroup{RepType: acctest.Required, Group: CoreInstanceCreateVnicDetailsRepresentation},
+		"display_name":                 acctest.Representation{RepType: acctest.Required, Create: `displayName`},
+		"source_details":               acctest.RepresentationGroup{RepType: acctest.Required, Group: CoreInstanceSourceDetailsRepresentation},
+	}
+	createCapacityReservationForInstanceBeforeUpdate = map[string]interface{}{
+		"availability_domain":          acctest.Representation{RepType: acctest.Required, Create: `${data.oci_identity_availability_domains.test_availability_domains.availability_domains.0.name}`},
+		"compartment_id":               acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"instance_reservation_configs": acctest.RepresentationGroup{RepType: acctest.Required, Group: setCapacityReservationShapeBeforeUpdate},
+		"is_default_reservation":       acctest.Representation{RepType: acctest.Required, Create: `false`},
+	}
+	setCapacityReservationShapeBeforeUpdate = map[string]interface{}{
+		"instance_shape": acctest.Representation{RepType: acctest.Required, Create: `VM.Standard2.1`},
+		"reserved_count": acctest.Representation{RepType: acctest.Required, Create: `1`},
+	}
+	createCapacityReservationForInstanceAfterUpdate = map[string]interface{}{
+		"availability_domain":          acctest.Representation{RepType: acctest.Required, Create: `${data.oci_identity_availability_domains.test_availability_domains.availability_domains.0.name}`},
+		"compartment_id":               acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"instance_reservation_configs": acctest.RepresentationGroup{RepType: acctest.Required, Group: setCapacityReservationShapeAfterUpdate},
+		"is_default_reservation":       acctest.Representation{RepType: acctest.Required, Create: `false`},
+	}
+	setCapacityReservationShapeAfterUpdate = map[string]interface{}{
+		"instance_shape": acctest.Representation{RepType: acctest.Required, Create: `VM.Standard2.2`},
+		"reserved_count": acctest.Representation{RepType: acctest.Required, Create: `1`},
 	}
 )
 
@@ -1858,6 +1926,129 @@ func TestCoreInstanceResource_updateBootVolumeKmsKey(t *testing.T) {
 	})
 }
 
+func TestCoreInstanceResource_updateShapeAndCapacityReservation(t *testing.T) {
+	httpreplay.SetScenario("TestCoreInstanceResource_updateShapeAndCapacityReservation")
+	defer httpreplay.SaveScenario()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	resourceName := "oci_core_instance.test_instance"
+
+	capacityReservationConfig :=
+		utils.OciImageIdsVariable +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_network_security_group", "test_network_security_group", acctest.Required, acctest.Create, CoreNetworkSecurityGroupRepresentation) +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_subnet", "test_subnet", acctest.Required, acctest.Create, acctest.RepresentationCopyWithNewProperties(CoreSubnetRepresentation, map[string]interface{}{
+				"dns_label": acctest.Representation{RepType: acctest.Required, Create: `dnslabel`},
+			})) +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_vcn", "test_vcn", acctest.Required, acctest.Create, acctest.RepresentationCopyWithNewProperties(CoreVcnRepresentation, map[string]interface{}{
+				"dns_label": acctest.Representation{RepType: acctest.Required, Create: `dnslabel`},
+			})) +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_vlan", "test_vlan", acctest.Required, acctest.Create,
+				acctest.GetUpdatedRepresentationCopy("cidr_block", acctest.Representation{RepType: acctest.Required, Create: `10.0.1.0/30`}, CoreVlanRepresentation)) +
+			AvailabilityDomainConfig +
+			DefinedTagsDependencies +
+			CoreKeyResourceDependencyConfig +
+			acctest.ProviderTestConfig() + compartmentIdVariableStr +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_compute_capacity_reservation", "before_test_compute_capacity_reservation", acctest.Required, acctest.Create, createCapacityReservationForInstanceBeforeUpdate) +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_compute_capacity_reservation", "after_test_compute_capacity_reservation", acctest.Required, acctest.Create, createCapacityReservationForInstanceAfterUpdate)
+
+	var resId, resId2 string
+	instanceCreationConfig := capacityReservationConfig +
+		acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Required, acctest.Create,
+			instanceUpdateShapeAndCapacityReservation)
+	// Save TF content to Create resource with optional properties.
+	acctest.SaveConfigContent(instanceCreationConfig, "core", "instance", t)
+
+	acctest.ResourceTest(t, testAccCheckCoreInstanceDestroy, []resource.TestStep{
+		// verify Create
+		{
+			Config: instanceCreationConfig,
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "shape", "VM.Standard2.1"),
+
+				func(s *terraform.State) (err error) {
+					resId, err = acctest.FromInstanceState(s, resourceName, "id")
+					return err
+				},
+			),
+		},
+		// verify update to add kms key id in source details
+		{
+			Config: capacityReservationConfig +
+				acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Required, acctest.Update,
+					instanceUpdateShapeAndCapacityReservation),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "shape", "VM.Standard2.2"),
+
+				func(s *terraform.State) (err error) {
+					resId2, err = acctest.FromInstanceState(s, resourceName, "id")
+					if resId != resId2 {
+						return fmt.Errorf("resource recreated when it was supposed to be updated")
+					}
+					return err
+				},
+			),
+		},
+	})
+}
+
+func TestCoreInstanceResource_placementConstraintDetails(t *testing.T) {
+	httpreplay.SetScenario("TestCoreInstanceResource_placementConstraintDetails")
+	defer httpreplay.SaveScenario()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	resourceName := "oci_core_instance.test_instance"
+
+	config :=
+		acctest.GenerateResourceFromRepresentationMap("oci_core_network_security_group", "test_network_security_group", acctest.Required, acctest.Create, CoreNetworkSecurityGroupRepresentation) +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_subnet", "test_subnet", acctest.Required, acctest.Create, acctest.RepresentationCopyWithNewProperties(CoreSubnetRepresentation, map[string]interface{}{
+				"dns_label": acctest.Representation{RepType: acctest.Required, Create: `dnslabel`},
+			})) +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_vcn", "test_vcn", acctest.Required, acctest.Create, acctest.RepresentationCopyWithNewProperties(CoreVcnRepresentation, map[string]interface{}{
+				"dns_label": acctest.Representation{RepType: acctest.Required, Create: `dnslabel`},
+			})) +
+			acctest.GenerateResourceFromRepresentationMap("oci_core_vlan", "test_vlan", acctest.Required, acctest.Create,
+				acctest.GetUpdatedRepresentationCopy("cidr_block", acctest.Representation{RepType: acctest.Required, Create: `10.0.1.0/30`}, CoreVlanRepresentation)) +
+			acctest.ProviderTestConfig() +
+			compartmentIdVariableStr
+
+	// Save TF content to Create resource with optional properties.
+	acctest.SaveConfigContent(config, "core", "instance", t)
+
+	acctest.ResourceTest(t, testAccCheckCoreInstanceDestroy, []resource.TestStep{
+		// Target launch Customer Baremetal host
+		{
+			Config: config +
+				acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Required, acctest.Create,
+					instanceplacementConstraintDetails),
+
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "shape", "BM.Standard3.64"),
+				resource.TestCheckResourceAttr(resourceName, "placement_constraint_details.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "placement_constraint_details.0.compute_bare_metal_host_id"),
+				resource.TestCheckResourceAttr(resourceName, "placement_constraint_details.0.type", "COMPUTE_BARE_METAL_HOST"),
+			),
+		},
+		// Targeted Launch Host group
+		{
+			Config: config +
+				acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Required, acctest.Create,
+					acctest.RepresentationCopyWithNewProperties(instanceplacementConstraintDetails, map[string]interface{}{
+						"placement_constraint_details": acctest.RepresentationGroup{RepType: acctest.Required, Group: CoreHGPlacementConstraintDetailsRepresentation},
+					})),
+			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(resourceName, "shape", "BM.Standard3.64"),
+				resource.TestCheckResourceAttr(resourceName, "placement_constraint_details.#", "1"),
+				resource.TestCheckResourceAttrSet(resourceName, "placement_constraint_details.0.compute_host_group_id"),
+				resource.TestCheckResourceAttr(resourceName, "placement_constraint_details.0.type", "HOST_GROUP"),
+			),
+		},
+	})
+}
+
 // this test uses a hard coded cluster placement group due to Platform team will not implement
 // Terraform provider for MVP stage
 func TestCoreInstanceResource_clusterPlacementGroup(t *testing.T) {
@@ -1959,6 +2150,113 @@ func TestCoreInstanceResource_clusterPlacementGroup(t *testing.T) {
 						}
 						return err
 					},
+				),
+			},
+		},
+	})
+}
+
+func TestAccResourceCoreInstance_UpdateLicensingConfig(t *testing.T) {
+	httpreplay.SetScenario("TestAccResourceCoreInstance_UpdateLicensingConfig")
+	defer httpreplay.SaveScenario()
+	provider := acctest.TestAccProvider
+
+	config := acctest.ProviderTestConfig()
+
+	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
+	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
+
+	// windows imageId
+	imageId := utils.GetEnvSettingWithBlankDefault("image_id")
+	imageIdVariableStr := fmt.Sprintf("variable \"image_id\" { default = \"%s\" }\n", imageId)
+
+	managementEndpoint := utils.GetEnvSettingWithBlankDefault("management_endpoint")
+	managementEndpointStr := fmt.Sprintf("variable \"management_endpoint\" { default = \"%s\" }\n", managementEndpoint)
+	singularDatasourceName := "data.oci_core_instance.test_instance"
+
+	resourceName := "oci_core_instance.test_instance"
+
+	var resId, resId2 string
+
+	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(t) },
+		Providers: map[string]*schema.Provider{
+			"oci": provider,
+		},
+		CheckDestroy: testAccCheckCoreInstanceDestroy,
+		Steps: []resource.TestStep{
+
+			// Step 0 - verify create
+			{
+				Config: config + compartmentIdVariableStr + managementEndpointStr + CoreInstanceResourceDependenciesWithoutDHV +
+					imageIdVariableStr + acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Optional, acctest.Create, InstanceRepresentationWithLicensingConfigs),
+				Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+					resource.TestCheckResourceAttrSet(resourceName, "availability_domain"),
+					resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+					resource.TestCheckResourceAttr(resourceName, "shape", "VM.Standard2.1"),
+					resource.TestCheckResourceAttrSet(resourceName, "subnet_id"),
+					resource.TestCheckResourceAttr(resourceName, "platform_config.#", "0"),
+					resource.TestCheckResourceAttr(resourceName, "licensing_configs.#", "1"),
+					resource.TestCheckResourceAttrSet(resourceName, "licensing_configs.0.os_version"),
+					resource.TestCheckResourceAttr(resourceName, "licensing_configs.0.license_type", "OCI_PROVIDED"),
+					resource.TestCheckResourceAttr(resourceName, "licensing_configs.0.type", "WINDOWS"),
+					func(s *terraform.State) (err error) {
+						resId, err = acctest.FromInstanceState(s, resourceName, "id")
+						if isEnableExportCompartment, _ := strconv.ParseBool(utils.GetEnvSettingWithDefault("enable_export_compartment", "true")); isEnableExportCompartment {
+							if errExport := resourcediscovery.TestExportCompartmentWithResourceName(&resId, &compartmentId, resourceName); errExport != nil {
+								return errExport
+							}
+						}
+						return err
+					},
+				),
+			},
+
+			// Step 1 - verify update
+			{
+				Config: config + compartmentIdVariableStr + managementEndpointStr + CoreInstanceResourceDependenciesWithoutDHV + imageIdVariableStr +
+					acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Optional, acctest.Update, InstanceRepresentationWithLicensingConfigs),
+				Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+					resource.TestCheckResourceAttrSet(resourceName, "availability_domain"),
+					resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+					resource.TestCheckResourceAttr(resourceName, "shape", "VM.Standard2.1"),
+					resource.TestCheckResourceAttrSet(resourceName, "subnet_id"),
+					resource.TestCheckResourceAttr(resourceName, "platform_config.#", "0"),
+					resource.TestCheckResourceAttr(resourceName, "display_name", "displayName2"),
+					resource.TestCheckResourceAttrSet(resourceName, "licensing_configs.0.os_version"),
+					resource.TestCheckResourceAttr(resourceName, "licensing_configs.#", "1"),
+					resource.TestCheckResourceAttr(resourceName, "licensing_configs.0.license_type", "BRING_YOUR_OWN_LICENSE"),
+					resource.TestCheckResourceAttr(resourceName, "licensing_configs.0.type", "WINDOWS"),
+					func(s *terraform.State) (err error) {
+						resId2, err = acctest.FromInstanceState(s, resourceName, "id")
+						if resId != resId2 {
+							return fmt.Errorf("Resource recreated when it was supposed to be updated.")
+						}
+						return err
+					},
+				),
+			},
+			// Step 2 - verify singular datasource
+			{
+				Config: config +
+					acctest.GenerateDataSourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Optional, acctest.Create, CoreCoreInstanceSingularDataSourceRepresentation) +
+					compartmentIdVariableStr + managementEndpointStr + CoreInstanceResourceDependenciesWithoutDHV + imageIdVariableStr +
+					acctest.GenerateResourceFromRepresentationMap("oci_core_instance", "test_instance", acctest.Optional, acctest.Update, InstanceRepresentationWithLicensingConfigs),
+				Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+					resource.TestCheckResourceAttrSet(singularDatasourceName, "availability_domain"),
+					resource.TestCheckResourceAttrSet(singularDatasourceName, "instance_id"),
+					resource.TestCheckResourceAttrSet(singularDatasourceName, "image"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "shape_config.#", "1"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "shape_config.0.ocpus", "1"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "shape_config.0.vcpus", "2"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "compartment_id", compartmentId),
+					resource.TestCheckResourceAttr(singularDatasourceName, "shape", "VM.Standard2.1"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "platform_config.#", "0"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "display_name", "displayName2"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "licensing_configs.#", "1"),
+					resource.TestCheckResourceAttrSet(resourceName, "licensing_configs.0.os_version"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "licensing_configs.0.license_type", "BRING_YOUR_OWN_LICENSE"),
+					resource.TestCheckResourceAttr(singularDatasourceName, "licensing_configs.0.type", "WINDOWS"),
 				),
 			},
 		},
@@ -2896,6 +3194,7 @@ func TestAccResourceCoreInstance_UpdatePlatformConfig(t *testing.T) {
 
 	config := `
       provider oci {
+		 alias = "update-platform-config"
          test_time_maintenance_reboot_due = "2030-01-01 00:00:00"
       }
    ` + acctest.CommonTestVariables()
@@ -2923,6 +3222,7 @@ func TestAccResourceCoreInstance_UpdatePlatformConfig(t *testing.T) {
 					resource.TestCheckResourceAttrSet(resourceName, "availability_domain"),
 					resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
 					resource.TestCheckResourceAttr(resourceName, "shape", "VM.Standard2.1"),
+					resource.TestCheckResourceAttr(resourceName, "licensing_configs.#", "0"),
 					resource.TestCheckResourceAttrSet(resourceName, "subnet_id"),
 					resource.TestCheckResourceAttr(resourceName, "platform_config.#", "0"),
 

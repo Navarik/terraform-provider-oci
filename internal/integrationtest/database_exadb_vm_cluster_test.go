@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/oracle/oci-go-sdk/v65/common"
 	oci_database "github.com/oracle/oci-go-sdk/v65/database"
 
@@ -24,6 +24,11 @@ import (
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 )
 
+/*
+Pre-requisite to run the tests:
+1. create a cluster placement group and set its ocid to env variable TF_VAR_cpg_id
+2. set env variable TF_VAR_grid_image_id to the ocid of a valid gridImage
+*/
 var (
 	DatabaseExadbVmClusterRequiredOnlyResource = DatabaseExadbVmClusterResourceDependencies +
 		acctest.GenerateResourceFromRepresentationMap("oci_database_exadb_vm_cluster", "test_exadb_vm_cluster", acctest.Required, acctest.Create, DatabaseExadbVmClusterRepresentation)
@@ -37,6 +42,7 @@ var (
 
 	DatabaseExadbVmClusterDataSourceRepresentation = map[string]interface{}{
 		"compartment_id":               acctest.Representation{RepType: acctest.Required, Create: `${var.compartment_id}`},
+		"cluster_placement_group_id":   acctest.Representation{RepType: acctest.Optional, Create: `${var.cpg_id}`},
 		"display_name":                 acctest.Representation{RepType: acctest.Optional, Create: `TFExadbVmCluster`, Update: `TFExadbVmClusterUpdatedName`},
 		"exascale_db_storage_vault_id": acctest.Representation{RepType: acctest.Optional, Create: `${oci_database_exascale_db_storage_vault.test_exascale_db_storage_vault.id}`},
 		"state":                        acctest.Representation{RepType: acctest.Optional, Create: `AVAILABLE`},
@@ -53,9 +59,10 @@ var (
 		"display_name":                 acctest.Representation{RepType: acctest.Required, Create: `TFExadbVmCluster`, Update: `TFExadbVmClusterUpdatedName`},
 		"exascale_db_storage_vault_id": acctest.Representation{RepType: acctest.Required, Create: `${oci_database_exascale_db_storage_vault.test_exascale_db_storage_vault.id}`},
 		"grid_image_id":                acctest.Representation{RepType: acctest.Required, Create: `${var.grid_image_id}`},
-		"hostname":                     acctest.Representation{RepType: acctest.Required, Create: `apollo`},
+		"hostname":                     acctest.Representation{RepType: acctest.Required, Create: `APOLLO`}, // hostname is in UPPERCASE in config and in lowercase in response (hence state) but there will be no diff since hostname is considered case-insensitive
 		"shape":                        acctest.Representation{RepType: acctest.Required, Create: `EXADBXS`},
 		"ssh_public_keys":              acctest.Representation{RepType: acctest.Required, Create: []string{`ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDOuBJgh6lTmQvQJ4BA3RCJdSmxRtmiXAQEEIP68/G4gF3XuZdKEYTFeputacmRq9yO5ZnNXgO9akdUgePpf8+CfFtveQxmN5xo3HVCDKxu/70lbMgeu7+wJzrMOlzj+a4zNq2j0Ww2VWMsisJ6eV3bJTnO/9VLGCOC8M9noaOlcKcLgIYy4aDM724MxFX2lgn7o6rVADHRxkvLEXPVqYT4syvYw+8OVSnNgE4MJLxaw8/2K0qp19YlQyiriIXfQpci3ThxwLjymYRPj+kjU1xIxv6qbFQzHR7ds0pSWp1U06cIoKPfCazU9hGWW8yIe/vzfTbWrt2DK6pLwBn/G0x3 sample`}},
+		"security_attributes":          acctest.Representation{RepType: acctest.Optional, Create: map[string]string{"oracle-zpr.maxegresscount.value": "42", "oracle-zpr.maxegresscount.mode": "enforce"}, Update: map[string]string{"oracle-zpr.maxegresscount.value": "updatedValue", "oracle-zpr.maxegresscount.mode": "enforce"}},
 		"subnet_id":                    acctest.Representation{RepType: acctest.Required, Create: `${oci_core_subnet.exadbxs_client_subnet.id}`},
 		"backup_subnet_id":             acctest.Representation{RepType: acctest.Required, Create: `${oci_core_subnet.exadbxs_backup_subnet.id}`},
 		"node_config":                  acctest.RepresentationGroup{RepType: acctest.Required, Group: DatabaseExadbVmClusterNodeConfigRepresentation},
@@ -193,10 +200,16 @@ var (
         }
 `
 
-	// Note: set env variable TF_VAR_grid_image_id before running this test
-	GridImageIdDependency                      = `variable "grid_image_id" {}`
-	DatabaseExadbVmClusterResourceDependencies = AvailabilityDomainConfig + ExadbVmClusterNetwork + GridImageIdDependency +
-		acctest.GenerateResourceFromRepresentationMap("oci_database_exascale_db_storage_vault", "test_exascale_db_storage_vault", acctest.Required, acctest.Create, DatabaseExascaleDbStorageVaultRepresentation)
+	ExadbVmClusterVariables = `
+        variable "grid_image_id" {}
+        variable "cpg_id" {} 
+`
+
+	DatabaseExadbVmClusterResourceDependencies = AvailabilityDomainConfig + ExadbVmClusterNetwork + ExadbVmClusterVariables +
+		acctest.GenerateResourceFromRepresentationMap("oci_database_exascale_db_storage_vault", "test_exascale_db_storage_vault", acctest.Required, acctest.Create,
+			acctest.RepresentationCopyWithNewProperties(DatabaseExascaleDbStorageVaultRepresentation, map[string]interface{}{
+				"cluster_placement_group_id": acctest.Representation{RepType: acctest.Required, Create: `${var.cpg_id}`},
+			}))
 )
 
 // issue-routing-tag: database/ExaCS
@@ -206,6 +219,7 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 
 	config := acctest.ProviderTestConfig()
 
+	cpgId := utils.GetRequiredEnvSetting("cpg_id")
 	compartmentId := utils.GetEnvSettingWithBlankDefault("compartment_ocid")
 	compartmentIdVariableStr := fmt.Sprintf("variable \"compartment_id\" { default = \"%s\" }\n", compartmentId)
 
@@ -229,6 +243,7 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(resourceName, "availability_domain"),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
+				resource.TestCheckResourceAttr(resourceName, "cluster_placement_group_id", cpgId),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "TFExadbVmCluster"),
 				resource.TestCheckResourceAttrSet(resourceName, "exascale_db_storage_vault_id"),
 				resource.TestCheckResourceAttrSet(resourceName, "gi_version"),
@@ -263,6 +278,7 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_database_exadb_vm_cluster", "test_exadb_vm_cluster", acctest.Optional, acctest.Create, DatabaseExadbVmClusterRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(resourceName, "availability_domain"),
+				resource.TestCheckResourceAttr(resourceName, "cluster_placement_group_id", cpgId),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "TFExadbVmCluster"),
 				resource.TestCheckResourceAttrSet(resourceName, "exascale_db_storage_vault_id"),
@@ -292,6 +308,9 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "license_model", "LICENSE_INCLUDED"),
 				resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tcp", "1521"),
 				resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tcp_ssl", "2484"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "2"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.maxegresscount.value", "42"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.maxegresscount.mode", "enforce"),
 				resource.TestCheckResourceAttr(resourceName, "time_zone", "US/Pacific"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.Department", "Finance"),
@@ -320,6 +339,7 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 					})),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(resourceName, "availability_domain"),
+				resource.TestCheckResourceAttr(resourceName, "cluster_placement_group_id", cpgId),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentIdU),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "TFExadbVmCluster"),
 				resource.TestCheckResourceAttrSet(resourceName, "exascale_db_storage_vault_id"),
@@ -349,6 +369,9 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "license_model", "LICENSE_INCLUDED"),
 				resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tcp", "1521"),
 				resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tcp_ssl", "2484"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "2"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.maxegresscount.value", "42"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.maxegresscount.mode", "enforce"),
 				resource.TestCheckResourceAttr(resourceName, "time_zone", "US/Pacific"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.Department", "Finance"),
@@ -372,6 +395,7 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				acctest.GenerateResourceFromRepresentationMap("oci_database_exadb_vm_cluster", "test_exadb_vm_cluster", acctest.Optional, acctest.Update, DatabaseExadbVmClusterRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
 				resource.TestCheckResourceAttrSet(resourceName, "availability_domain"),
+				resource.TestCheckResourceAttr(resourceName, "cluster_placement_group_id", cpgId),
 				resource.TestCheckResourceAttr(resourceName, "compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(resourceName, "display_name", "TFExadbVmClusterUpdatedName"),
 				resource.TestCheckResourceAttrSet(resourceName, "exascale_db_storage_vault_id"),
@@ -401,6 +425,9 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(resourceName, "license_model", "LICENSE_INCLUDED"),
 				resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tcp", "1521"),
 				resource.TestCheckResourceAttr(resourceName, "scan_listener_port_tcp_ssl", "2484"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.%", "2"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.maxegresscount.value", "updatedValue"),
+				resource.TestCheckResourceAttr(resourceName, "security_attributes.oracle-zpr.maxegresscount.mode", "enforce"),
 				resource.TestCheckResourceAttr(resourceName, "time_zone", "US/Pacific"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.%", "1"),
 				resource.TestCheckResourceAttr(resourceName, "freeform_tags.Department", "Accounting"),
@@ -424,6 +451,7 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				compartmentIdVariableStr + DatabaseExadbVmClusterResourceDependencies +
 				acctest.GenerateResourceFromRepresentationMap("oci_database_exadb_vm_cluster", "test_exadb_vm_cluster", acctest.Optional, acctest.Update, DatabaseExadbVmClusterRepresentation),
 			Check: acctest.ComposeAggregateTestCheckFuncWrapper(
+				resource.TestCheckResourceAttr(datasourceName, "cluster_placement_group_id", cpgId),
 				resource.TestCheckResourceAttr(datasourceName, "compartment_id", compartmentId),
 				resource.TestCheckResourceAttr(datasourceName, "display_name", "TFExadbVmClusterUpdatedName"),
 				resource.TestCheckResourceAttrSet(datasourceName, "exascale_db_storage_vault_id"),
@@ -465,9 +493,13 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(datasourceName, "exadb_vm_clusters.0.freeform_tags.Department", "Accounting"),
 				resource.TestCheckResourceAttr(datasourceName, "exadb_vm_clusters.0.system_tags.%", "0"),
 				// computed fields
+				resource.TestCheckResourceAttr(datasourceName, "exadb_vm_clusters.0.cluster_placement_group_id", cpgId),
 				resource.TestCheckResourceAttrSet(datasourceName, "exadb_vm_clusters.0.listener_port"),
 				resource.TestCheckResourceAttrSet(datasourceName, "exadb_vm_clusters.0.scan_dns_name"),
 				resource.TestCheckResourceAttrSet(datasourceName, "exadb_vm_clusters.0.scan_dns_record_id"),
+				resource.TestCheckResourceAttr(datasourceName, "exadb_vm_clusters.0.security_attributes.%", "2"),
+				resource.TestCheckResourceAttr(datasourceName, "exadb_vm_clusters.0.security_attributes.oracle-zpr.maxegresscount.value", "updatedValue"),
+				resource.TestCheckResourceAttr(datasourceName, "exadb_vm_clusters.0.security_attributes.oracle-zpr.maxegresscount.mode", "enforce"),
 				resource.TestCheckResourceAttr(datasourceName, "exadb_vm_clusters.0.scan_ip_ids.#", "3"),
 				resource.TestCheckResourceAttrSet(datasourceName, "exadb_vm_clusters.0.time_created"),
 				resource.TestCheckResourceAttrSet(datasourceName, "exadb_vm_clusters.0.id"),
@@ -517,9 +549,13 @@ func TestDatabaseExadbVmClusterResource_basic(t *testing.T) {
 				resource.TestCheckResourceAttr(singularDatasourceName, "freeform_tags.Department", "Accounting"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "system_tags.%", "0"),
 				// computed fields
+				resource.TestCheckResourceAttr(singularDatasourceName, "cluster_placement_group_id", cpgId),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "listener_port"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "scan_dns_name"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "scan_dns_record_id"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "security_attributes.%", "2"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "security_attributes.oracle-zpr.maxegresscount.value", "updatedValue"),
+				resource.TestCheckResourceAttr(singularDatasourceName, "security_attributes.oracle-zpr.maxegresscount.mode", "enforce"),
 				resource.TestCheckResourceAttr(singularDatasourceName, "scan_ip_ids.#", "3"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "time_created"),
 				resource.TestCheckResourceAttrSet(singularDatasourceName, "id"),

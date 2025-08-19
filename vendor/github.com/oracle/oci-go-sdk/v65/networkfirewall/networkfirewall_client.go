@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -95,7 +95,7 @@ func (client *NetworkFirewallClient) ConfigurationProvider() *common.Configurati
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ApplyNetworkFirewallPolicy.go.html to see an example of how to use ApplyNetworkFirewallPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ApplyNetworkFirewallPolicy.go.html to see an example of how to use ApplyNetworkFirewallPolicy API.
 // A default retry strategy applies to this operation ApplyNetworkFirewallPolicy()
 func (client NetworkFirewallClient) ApplyNetworkFirewallPolicy(ctx context.Context, request ApplyNetworkFirewallPolicyRequest) (response ApplyNetworkFirewallPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -158,7 +158,7 @@ func (client NetworkFirewallClient) applyNetworkFirewallPolicy(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadAddressLists.go.html to see an example of how to use BulkUploadAddressLists API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadAddressLists.go.html to see an example of how to use BulkUploadAddressLists API.
 // A default retry strategy applies to this operation BulkUploadAddressLists()
 func (client NetworkFirewallClient) BulkUploadAddressLists(ctx context.Context, request BulkUploadAddressListsRequest) (response BulkUploadAddressListsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -221,7 +221,7 @@ func (client NetworkFirewallClient) bulkUploadAddressLists(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadApplicationGroups.go.html to see an example of how to use BulkUploadApplicationGroups API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadApplicationGroups.go.html to see an example of how to use BulkUploadApplicationGroups API.
 // A default retry strategy applies to this operation BulkUploadApplicationGroups()
 func (client NetworkFirewallClient) BulkUploadApplicationGroups(ctx context.Context, request BulkUploadApplicationGroupsRequest) (response BulkUploadApplicationGroupsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -284,7 +284,7 @@ func (client NetworkFirewallClient) bulkUploadApplicationGroups(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadApplications.go.html to see an example of how to use BulkUploadApplications API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadApplications.go.html to see an example of how to use BulkUploadApplications API.
 // A default retry strategy applies to this operation BulkUploadApplications()
 func (client NetworkFirewallClient) BulkUploadApplications(ctx context.Context, request BulkUploadApplicationsRequest) (response BulkUploadApplicationsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -347,7 +347,7 @@ func (client NetworkFirewallClient) bulkUploadApplications(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadDecryptionProfiles.go.html to see an example of how to use BulkUploadDecryptionProfiles API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadDecryptionProfiles.go.html to see an example of how to use BulkUploadDecryptionProfiles API.
 // A default retry strategy applies to this operation BulkUploadDecryptionProfiles()
 func (client NetworkFirewallClient) BulkUploadDecryptionProfiles(ctx context.Context, request BulkUploadDecryptionProfilesRequest) (response BulkUploadDecryptionProfilesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -410,7 +410,7 @@ func (client NetworkFirewallClient) bulkUploadDecryptionProfiles(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadDecryptionRules.go.html to see an example of how to use BulkUploadDecryptionRules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadDecryptionRules.go.html to see an example of how to use BulkUploadDecryptionRules API.
 // A default retry strategy applies to this operation BulkUploadDecryptionRules()
 func (client NetworkFirewallClient) BulkUploadDecryptionRules(ctx context.Context, request BulkUploadDecryptionRulesRequest) (response BulkUploadDecryptionRulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -473,7 +473,7 @@ func (client NetworkFirewallClient) bulkUploadDecryptionRules(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadMappedSecrets.go.html to see an example of how to use BulkUploadMappedSecrets API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadMappedSecrets.go.html to see an example of how to use BulkUploadMappedSecrets API.
 // A default retry strategy applies to this operation BulkUploadMappedSecrets()
 func (client NetworkFirewallClient) BulkUploadMappedSecrets(ctx context.Context, request BulkUploadMappedSecretsRequest) (response BulkUploadMappedSecretsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -532,11 +532,74 @@ func (client NetworkFirewallClient) bulkUploadMappedSecrets(ctx context.Context,
 	return response, err
 }
 
+// BulkUploadNatRules Creates a new NAT Rule at bulk for the Network Firewall Policy.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadNatRules.go.html to see an example of how to use BulkUploadNatRules API.
+// A default retry strategy applies to this operation BulkUploadNatRules()
+func (client NetworkFirewallClient) BulkUploadNatRules(ctx context.Context, request BulkUploadNatRulesRequest) (response BulkUploadNatRulesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.bulkUploadNatRules, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = BulkUploadNatRulesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = BulkUploadNatRulesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(BulkUploadNatRulesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into BulkUploadNatRulesResponse")
+	}
+	return
+}
+
+// bulkUploadNatRules implements the OCIOperation interface (enables retrying operations)
+func (client NetworkFirewallClient) bulkUploadNatRules(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/networkFirewallPolicies/{networkFirewallPolicyId}/natRules/actions/bulkUpload", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response BulkUploadNatRulesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/natRule/BulkUploadNatRules"
+		err = common.PostProcessServiceError(err, "NetworkFirewall", "BulkUploadNatRules", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // BulkUploadSecurityRules Creates a new Security Rule at bulk for the Network Firewall Policy.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadSecurityRules.go.html to see an example of how to use BulkUploadSecurityRules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadSecurityRules.go.html to see an example of how to use BulkUploadSecurityRules API.
 // A default retry strategy applies to this operation BulkUploadSecurityRules()
 func (client NetworkFirewallClient) BulkUploadSecurityRules(ctx context.Context, request BulkUploadSecurityRulesRequest) (response BulkUploadSecurityRulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -599,7 +662,7 @@ func (client NetworkFirewallClient) bulkUploadSecurityRules(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadServiceLists.go.html to see an example of how to use BulkUploadServiceLists API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadServiceLists.go.html to see an example of how to use BulkUploadServiceLists API.
 // A default retry strategy applies to this operation BulkUploadServiceLists()
 func (client NetworkFirewallClient) BulkUploadServiceLists(ctx context.Context, request BulkUploadServiceListsRequest) (response BulkUploadServiceListsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -662,7 +725,7 @@ func (client NetworkFirewallClient) bulkUploadServiceLists(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadServices.go.html to see an example of how to use BulkUploadServices API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadServices.go.html to see an example of how to use BulkUploadServices API.
 // A default retry strategy applies to this operation BulkUploadServices()
 func (client NetworkFirewallClient) BulkUploadServices(ctx context.Context, request BulkUploadServicesRequest) (response BulkUploadServicesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -725,7 +788,7 @@ func (client NetworkFirewallClient) bulkUploadServices(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadTunnelInspectionRules.go.html to see an example of how to use BulkUploadTunnelInspectionRules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadTunnelInspectionRules.go.html to see an example of how to use BulkUploadTunnelInspectionRules API.
 // A default retry strategy applies to this operation BulkUploadTunnelInspectionRules()
 func (client NetworkFirewallClient) BulkUploadTunnelInspectionRules(ctx context.Context, request BulkUploadTunnelInspectionRulesRequest) (response BulkUploadTunnelInspectionRulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -788,7 +851,7 @@ func (client NetworkFirewallClient) bulkUploadTunnelInspectionRules(ctx context.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadUrlLists.go.html to see an example of how to use BulkUploadUrlLists API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/BulkUploadUrlLists.go.html to see an example of how to use BulkUploadUrlLists API.
 // A default retry strategy applies to this operation BulkUploadUrlLists()
 func (client NetworkFirewallClient) BulkUploadUrlLists(ctx context.Context, request BulkUploadUrlListsRequest) (response BulkUploadUrlListsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -851,7 +914,7 @@ func (client NetworkFirewallClient) bulkUploadUrlLists(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CancelWorkRequest.go.html to see an example of how to use CancelWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CancelWorkRequest.go.html to see an example of how to use CancelWorkRequest API.
 // A default retry strategy applies to this operation CancelWorkRequest()
 func (client NetworkFirewallClient) CancelWorkRequest(ctx context.Context, request CancelWorkRequestRequest) (response CancelWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -909,7 +972,7 @@ func (client NetworkFirewallClient) cancelWorkRequest(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ChangeNetworkFirewallCompartment.go.html to see an example of how to use ChangeNetworkFirewallCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ChangeNetworkFirewallCompartment.go.html to see an example of how to use ChangeNetworkFirewallCompartment API.
 // A default retry strategy applies to this operation ChangeNetworkFirewallCompartment()
 func (client NetworkFirewallClient) ChangeNetworkFirewallCompartment(ctx context.Context, request ChangeNetworkFirewallCompartmentRequest) (response ChangeNetworkFirewallCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -972,7 +1035,7 @@ func (client NetworkFirewallClient) changeNetworkFirewallCompartment(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ChangeNetworkFirewallPolicyCompartment.go.html to see an example of how to use ChangeNetworkFirewallPolicyCompartment API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ChangeNetworkFirewallPolicyCompartment.go.html to see an example of how to use ChangeNetworkFirewallPolicyCompartment API.
 // A default retry strategy applies to this operation ChangeNetworkFirewallPolicyCompartment()
 func (client NetworkFirewallClient) ChangeNetworkFirewallPolicyCompartment(ctx context.Context, request ChangeNetworkFirewallPolicyCompartmentRequest) (response ChangeNetworkFirewallPolicyCompartmentResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1031,11 +1094,11 @@ func (client NetworkFirewallClient) changeNetworkFirewallPolicyCompartment(ctx c
 	return response, err
 }
 
-// CloneNetworkFirewallPolicy Moves a NetworkFirewallPolicy resource from one compartment identifier to another. When provided, If-Match is checked against ETag values of the resource.
+// CloneNetworkFirewallPolicy Clones a NetworkFirewallPolicy resource from an existing Network Firewall Policy. When provided, If-Match is checked against ETag values of the resource.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CloneNetworkFirewallPolicy.go.html to see an example of how to use CloneNetworkFirewallPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CloneNetworkFirewallPolicy.go.html to see an example of how to use CloneNetworkFirewallPolicy API.
 // A default retry strategy applies to this operation CloneNetworkFirewallPolicy()
 func (client NetworkFirewallClient) CloneNetworkFirewallPolicy(ctx context.Context, request CloneNetworkFirewallPolicyRequest) (response CloneNetworkFirewallPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1098,7 +1161,7 @@ func (client NetworkFirewallClient) cloneNetworkFirewallPolicy(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateAddressList.go.html to see an example of how to use CreateAddressList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateAddressList.go.html to see an example of how to use CreateAddressList API.
 // A default retry strategy applies to this operation CreateAddressList()
 func (client NetworkFirewallClient) CreateAddressList(ctx context.Context, request CreateAddressListRequest) (response CreateAddressListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1161,7 +1224,7 @@ func (client NetworkFirewallClient) createAddressList(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateApplication.go.html to see an example of how to use CreateApplication API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateApplication.go.html to see an example of how to use CreateApplication API.
 // A default retry strategy applies to this operation CreateApplication()
 func (client NetworkFirewallClient) CreateApplication(ctx context.Context, request CreateApplicationRequest) (response CreateApplicationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1224,7 +1287,7 @@ func (client NetworkFirewallClient) createApplication(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateApplicationGroup.go.html to see an example of how to use CreateApplicationGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateApplicationGroup.go.html to see an example of how to use CreateApplicationGroup API.
 // A default retry strategy applies to this operation CreateApplicationGroup()
 func (client NetworkFirewallClient) CreateApplicationGroup(ctx context.Context, request CreateApplicationGroupRequest) (response CreateApplicationGroupResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1287,7 +1350,7 @@ func (client NetworkFirewallClient) createApplicationGroup(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateDecryptionProfile.go.html to see an example of how to use CreateDecryptionProfile API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateDecryptionProfile.go.html to see an example of how to use CreateDecryptionProfile API.
 // A default retry strategy applies to this operation CreateDecryptionProfile()
 func (client NetworkFirewallClient) CreateDecryptionProfile(ctx context.Context, request CreateDecryptionProfileRequest) (response CreateDecryptionProfileResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1350,7 +1413,7 @@ func (client NetworkFirewallClient) createDecryptionProfile(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateDecryptionRule.go.html to see an example of how to use CreateDecryptionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateDecryptionRule.go.html to see an example of how to use CreateDecryptionRule API.
 // A default retry strategy applies to this operation CreateDecryptionRule()
 func (client NetworkFirewallClient) CreateDecryptionRule(ctx context.Context, request CreateDecryptionRuleRequest) (response CreateDecryptionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1413,7 +1476,7 @@ func (client NetworkFirewallClient) createDecryptionRule(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateMappedSecret.go.html to see an example of how to use CreateMappedSecret API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateMappedSecret.go.html to see an example of how to use CreateMappedSecret API.
 // A default retry strategy applies to this operation CreateMappedSecret()
 func (client NetworkFirewallClient) CreateMappedSecret(ctx context.Context, request CreateMappedSecretRequest) (response CreateMappedSecretResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1472,11 +1535,74 @@ func (client NetworkFirewallClient) createMappedSecret(ctx context.Context, requ
 	return response, err
 }
 
+// CreateNatRule Creates a new NAT Rule for the Network Firewall Policy.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateNatRule.go.html to see an example of how to use CreateNatRule API.
+// A default retry strategy applies to this operation CreateNatRule()
+func (client NetworkFirewallClient) CreateNatRule(ctx context.Context, request CreateNatRuleRequest) (response CreateNatRuleResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.createNatRule, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CreateNatRuleResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CreateNatRuleResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CreateNatRuleResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CreateNatRuleResponse")
+	}
+	return
+}
+
+// createNatRule implements the OCIOperation interface (enables retrying operations)
+func (client NetworkFirewallClient) createNatRule(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/networkFirewallPolicies/{networkFirewallPolicyId}/natRules", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CreateNatRuleResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/NatRule/CreateNatRule"
+		err = common.PostProcessServiceError(err, "NetworkFirewall", "CreateNatRule", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponseWithPolymorphicBody(httpResponse, &response, &natrule{})
+	return response, err
+}
+
 // CreateNetworkFirewall Creates a new NetworkFirewall.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateNetworkFirewall.go.html to see an example of how to use CreateNetworkFirewall API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateNetworkFirewall.go.html to see an example of how to use CreateNetworkFirewall API.
 // A default retry strategy applies to this operation CreateNetworkFirewall()
 func (client NetworkFirewallClient) CreateNetworkFirewall(ctx context.Context, request CreateNetworkFirewallRequest) (response CreateNetworkFirewallResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1539,7 +1665,7 @@ func (client NetworkFirewallClient) createNetworkFirewall(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateNetworkFirewallPolicy.go.html to see an example of how to use CreateNetworkFirewallPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateNetworkFirewallPolicy.go.html to see an example of how to use CreateNetworkFirewallPolicy API.
 // A default retry strategy applies to this operation CreateNetworkFirewallPolicy()
 func (client NetworkFirewallClient) CreateNetworkFirewallPolicy(ctx context.Context, request CreateNetworkFirewallPolicyRequest) (response CreateNetworkFirewallPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1602,7 +1728,7 @@ func (client NetworkFirewallClient) createNetworkFirewallPolicy(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateSecurityRule.go.html to see an example of how to use CreateSecurityRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateSecurityRule.go.html to see an example of how to use CreateSecurityRule API.
 // A default retry strategy applies to this operation CreateSecurityRule()
 func (client NetworkFirewallClient) CreateSecurityRule(ctx context.Context, request CreateSecurityRuleRequest) (response CreateSecurityRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1665,7 +1791,7 @@ func (client NetworkFirewallClient) createSecurityRule(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateService.go.html to see an example of how to use CreateService API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateService.go.html to see an example of how to use CreateService API.
 // A default retry strategy applies to this operation CreateService()
 func (client NetworkFirewallClient) CreateService(ctx context.Context, request CreateServiceRequest) (response CreateServiceResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1728,7 +1854,7 @@ func (client NetworkFirewallClient) createService(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateServiceList.go.html to see an example of how to use CreateServiceList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateServiceList.go.html to see an example of how to use CreateServiceList API.
 // A default retry strategy applies to this operation CreateServiceList()
 func (client NetworkFirewallClient) CreateServiceList(ctx context.Context, request CreateServiceListRequest) (response CreateServiceListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1791,7 +1917,7 @@ func (client NetworkFirewallClient) createServiceList(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateTunnelInspectionRule.go.html to see an example of how to use CreateTunnelInspectionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateTunnelInspectionRule.go.html to see an example of how to use CreateTunnelInspectionRule API.
 // A default retry strategy applies to this operation CreateTunnelInspectionRule()
 func (client NetworkFirewallClient) CreateTunnelInspectionRule(ctx context.Context, request CreateTunnelInspectionRuleRequest) (response CreateTunnelInspectionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1854,7 +1980,7 @@ func (client NetworkFirewallClient) createTunnelInspectionRule(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateUrlList.go.html to see an example of how to use CreateUrlList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/CreateUrlList.go.html to see an example of how to use CreateUrlList API.
 // A default retry strategy applies to this operation CreateUrlList()
 func (client NetworkFirewallClient) CreateUrlList(ctx context.Context, request CreateUrlListRequest) (response CreateUrlListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1917,7 +2043,7 @@ func (client NetworkFirewallClient) createUrlList(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteAddressList.go.html to see an example of how to use DeleteAddressList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteAddressList.go.html to see an example of how to use DeleteAddressList API.
 // A default retry strategy applies to this operation DeleteAddressList()
 func (client NetworkFirewallClient) DeleteAddressList(ctx context.Context, request DeleteAddressListRequest) (response DeleteAddressListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1975,7 +2101,7 @@ func (client NetworkFirewallClient) deleteAddressList(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteApplication.go.html to see an example of how to use DeleteApplication API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteApplication.go.html to see an example of how to use DeleteApplication API.
 // A default retry strategy applies to this operation DeleteApplication()
 func (client NetworkFirewallClient) DeleteApplication(ctx context.Context, request DeleteApplicationRequest) (response DeleteApplicationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2033,7 +2159,7 @@ func (client NetworkFirewallClient) deleteApplication(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteApplicationGroup.go.html to see an example of how to use DeleteApplicationGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteApplicationGroup.go.html to see an example of how to use DeleteApplicationGroup API.
 // A default retry strategy applies to this operation DeleteApplicationGroup()
 func (client NetworkFirewallClient) DeleteApplicationGroup(ctx context.Context, request DeleteApplicationGroupRequest) (response DeleteApplicationGroupResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2091,7 +2217,7 @@ func (client NetworkFirewallClient) deleteApplicationGroup(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteDecryptionProfile.go.html to see an example of how to use DeleteDecryptionProfile API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteDecryptionProfile.go.html to see an example of how to use DeleteDecryptionProfile API.
 // A default retry strategy applies to this operation DeleteDecryptionProfile()
 func (client NetworkFirewallClient) DeleteDecryptionProfile(ctx context.Context, request DeleteDecryptionProfileRequest) (response DeleteDecryptionProfileResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2149,7 +2275,7 @@ func (client NetworkFirewallClient) deleteDecryptionProfile(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteDecryptionRule.go.html to see an example of how to use DeleteDecryptionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteDecryptionRule.go.html to see an example of how to use DeleteDecryptionRule API.
 // A default retry strategy applies to this operation DeleteDecryptionRule()
 func (client NetworkFirewallClient) DeleteDecryptionRule(ctx context.Context, request DeleteDecryptionRuleRequest) (response DeleteDecryptionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2207,7 +2333,7 @@ func (client NetworkFirewallClient) deleteDecryptionRule(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteMappedSecret.go.html to see an example of how to use DeleteMappedSecret API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteMappedSecret.go.html to see an example of how to use DeleteMappedSecret API.
 // A default retry strategy applies to this operation DeleteMappedSecret()
 func (client NetworkFirewallClient) DeleteMappedSecret(ctx context.Context, request DeleteMappedSecretRequest) (response DeleteMappedSecretResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2261,11 +2387,69 @@ func (client NetworkFirewallClient) deleteMappedSecret(ctx context.Context, requ
 	return response, err
 }
 
+// DeleteNatRule Deletes a NAT Rule resource with the given identifier.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteNatRule.go.html to see an example of how to use DeleteNatRule API.
+// A default retry strategy applies to this operation DeleteNatRule()
+func (client NetworkFirewallClient) DeleteNatRule(ctx context.Context, request DeleteNatRuleRequest) (response DeleteNatRuleResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.deleteNatRule, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DeleteNatRuleResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DeleteNatRuleResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DeleteNatRuleResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DeleteNatRuleResponse")
+	}
+	return
+}
+
+// deleteNatRule implements the OCIOperation interface (enables retrying operations)
+func (client NetworkFirewallClient) deleteNatRule(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/networkFirewallPolicies/{networkFirewallPolicyId}/natRules/{natRuleName}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DeleteNatRuleResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/NatRule/DeleteNatRule"
+		err = common.PostProcessServiceError(err, "NetworkFirewall", "DeleteNatRule", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // DeleteNetworkFirewall Deletes a NetworkFirewall resource by identifier
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteNetworkFirewall.go.html to see an example of how to use DeleteNetworkFirewall API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteNetworkFirewall.go.html to see an example of how to use DeleteNetworkFirewall API.
 // A default retry strategy applies to this operation DeleteNetworkFirewall()
 func (client NetworkFirewallClient) DeleteNetworkFirewall(ctx context.Context, request DeleteNetworkFirewallRequest) (response DeleteNetworkFirewallResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2323,7 +2507,7 @@ func (client NetworkFirewallClient) deleteNetworkFirewall(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteNetworkFirewallPolicy.go.html to see an example of how to use DeleteNetworkFirewallPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteNetworkFirewallPolicy.go.html to see an example of how to use DeleteNetworkFirewallPolicy API.
 // A default retry strategy applies to this operation DeleteNetworkFirewallPolicy()
 func (client NetworkFirewallClient) DeleteNetworkFirewallPolicy(ctx context.Context, request DeleteNetworkFirewallPolicyRequest) (response DeleteNetworkFirewallPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2381,7 +2565,7 @@ func (client NetworkFirewallClient) deleteNetworkFirewallPolicy(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteSecurityRule.go.html to see an example of how to use DeleteSecurityRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteSecurityRule.go.html to see an example of how to use DeleteSecurityRule API.
 // A default retry strategy applies to this operation DeleteSecurityRule()
 func (client NetworkFirewallClient) DeleteSecurityRule(ctx context.Context, request DeleteSecurityRuleRequest) (response DeleteSecurityRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2439,7 +2623,7 @@ func (client NetworkFirewallClient) deleteSecurityRule(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteService.go.html to see an example of how to use DeleteService API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteService.go.html to see an example of how to use DeleteService API.
 // A default retry strategy applies to this operation DeleteService()
 func (client NetworkFirewallClient) DeleteService(ctx context.Context, request DeleteServiceRequest) (response DeleteServiceResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2497,7 +2681,7 @@ func (client NetworkFirewallClient) deleteService(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteServiceList.go.html to see an example of how to use DeleteServiceList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteServiceList.go.html to see an example of how to use DeleteServiceList API.
 // A default retry strategy applies to this operation DeleteServiceList()
 func (client NetworkFirewallClient) DeleteServiceList(ctx context.Context, request DeleteServiceListRequest) (response DeleteServiceListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2555,7 +2739,7 @@ func (client NetworkFirewallClient) deleteServiceList(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteTunnelInspectionRule.go.html to see an example of how to use DeleteTunnelInspectionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteTunnelInspectionRule.go.html to see an example of how to use DeleteTunnelInspectionRule API.
 // A default retry strategy applies to this operation DeleteTunnelInspectionRule()
 func (client NetworkFirewallClient) DeleteTunnelInspectionRule(ctx context.Context, request DeleteTunnelInspectionRuleRequest) (response DeleteTunnelInspectionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2613,7 +2797,7 @@ func (client NetworkFirewallClient) deleteTunnelInspectionRule(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteUrlList.go.html to see an example of how to use DeleteUrlList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/DeleteUrlList.go.html to see an example of how to use DeleteUrlList API.
 // A default retry strategy applies to this operation DeleteUrlList()
 func (client NetworkFirewallClient) DeleteUrlList(ctx context.Context, request DeleteUrlListRequest) (response DeleteUrlListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2671,7 +2855,7 @@ func (client NetworkFirewallClient) deleteUrlList(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetAddressList.go.html to see an example of how to use GetAddressList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetAddressList.go.html to see an example of how to use GetAddressList API.
 // A default retry strategy applies to this operation GetAddressList()
 func (client NetworkFirewallClient) GetAddressList(ctx context.Context, request GetAddressListRequest) (response GetAddressListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2729,7 +2913,7 @@ func (client NetworkFirewallClient) getAddressList(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetApplication.go.html to see an example of how to use GetApplication API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetApplication.go.html to see an example of how to use GetApplication API.
 // A default retry strategy applies to this operation GetApplication()
 func (client NetworkFirewallClient) GetApplication(ctx context.Context, request GetApplicationRequest) (response GetApplicationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2787,7 +2971,7 @@ func (client NetworkFirewallClient) getApplication(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetApplicationGroup.go.html to see an example of how to use GetApplicationGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetApplicationGroup.go.html to see an example of how to use GetApplicationGroup API.
 // A default retry strategy applies to this operation GetApplicationGroup()
 func (client NetworkFirewallClient) GetApplicationGroup(ctx context.Context, request GetApplicationGroupRequest) (response GetApplicationGroupResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2845,7 +3029,7 @@ func (client NetworkFirewallClient) getApplicationGroup(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetDecryptionProfile.go.html to see an example of how to use GetDecryptionProfile API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetDecryptionProfile.go.html to see an example of how to use GetDecryptionProfile API.
 // A default retry strategy applies to this operation GetDecryptionProfile()
 func (client NetworkFirewallClient) GetDecryptionProfile(ctx context.Context, request GetDecryptionProfileRequest) (response GetDecryptionProfileResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2903,7 +3087,7 @@ func (client NetworkFirewallClient) getDecryptionProfile(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetDecryptionRule.go.html to see an example of how to use GetDecryptionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetDecryptionRule.go.html to see an example of how to use GetDecryptionRule API.
 // A default retry strategy applies to this operation GetDecryptionRule()
 func (client NetworkFirewallClient) GetDecryptionRule(ctx context.Context, request GetDecryptionRuleRequest) (response GetDecryptionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -2961,7 +3145,7 @@ func (client NetworkFirewallClient) getDecryptionRule(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetMappedSecret.go.html to see an example of how to use GetMappedSecret API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetMappedSecret.go.html to see an example of how to use GetMappedSecret API.
 // A default retry strategy applies to this operation GetMappedSecret()
 func (client NetworkFirewallClient) GetMappedSecret(ctx context.Context, request GetMappedSecretRequest) (response GetMappedSecretResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3015,11 +3199,69 @@ func (client NetworkFirewallClient) getMappedSecret(ctx context.Context, request
 	return response, err
 }
 
+// GetNatRule Get NAT Rule by the given name in the context of network firewall policy.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetNatRule.go.html to see an example of how to use GetNatRule API.
+// A default retry strategy applies to this operation GetNatRule()
+func (client NetworkFirewallClient) GetNatRule(ctx context.Context, request GetNatRuleRequest) (response GetNatRuleResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getNatRule, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetNatRuleResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetNatRuleResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetNatRuleResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetNatRuleResponse")
+	}
+	return
+}
+
+// getNatRule implements the OCIOperation interface (enables retrying operations)
+func (client NetworkFirewallClient) getNatRule(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/networkFirewallPolicies/{networkFirewallPolicyId}/natRules/{natRuleName}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetNatRuleResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/NatRule/GetNatRule"
+		err = common.PostProcessServiceError(err, "NetworkFirewall", "GetNatRule", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponseWithPolymorphicBody(httpResponse, &response, &natrule{})
+	return response, err
+}
+
 // GetNetworkFirewall Gets a NetworkFirewall by identifier
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetNetworkFirewall.go.html to see an example of how to use GetNetworkFirewall API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetNetworkFirewall.go.html to see an example of how to use GetNetworkFirewall API.
 // A default retry strategy applies to this operation GetNetworkFirewall()
 func (client NetworkFirewallClient) GetNetworkFirewall(ctx context.Context, request GetNetworkFirewallRequest) (response GetNetworkFirewallResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3077,7 +3319,7 @@ func (client NetworkFirewallClient) getNetworkFirewall(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetNetworkFirewallPolicy.go.html to see an example of how to use GetNetworkFirewallPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetNetworkFirewallPolicy.go.html to see an example of how to use GetNetworkFirewallPolicy API.
 // A default retry strategy applies to this operation GetNetworkFirewallPolicy()
 func (client NetworkFirewallClient) GetNetworkFirewallPolicy(ctx context.Context, request GetNetworkFirewallPolicyRequest) (response GetNetworkFirewallPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3135,7 +3377,7 @@ func (client NetworkFirewallClient) getNetworkFirewallPolicy(ctx context.Context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetSecurityRule.go.html to see an example of how to use GetSecurityRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetSecurityRule.go.html to see an example of how to use GetSecurityRule API.
 // A default retry strategy applies to this operation GetSecurityRule()
 func (client NetworkFirewallClient) GetSecurityRule(ctx context.Context, request GetSecurityRuleRequest) (response GetSecurityRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3193,7 +3435,7 @@ func (client NetworkFirewallClient) getSecurityRule(ctx context.Context, request
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetService.go.html to see an example of how to use GetService API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetService.go.html to see an example of how to use GetService API.
 // A default retry strategy applies to this operation GetService()
 func (client NetworkFirewallClient) GetService(ctx context.Context, request GetServiceRequest) (response GetServiceResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3251,7 +3493,7 @@ func (client NetworkFirewallClient) getService(ctx context.Context, request comm
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetServiceList.go.html to see an example of how to use GetServiceList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetServiceList.go.html to see an example of how to use GetServiceList API.
 // A default retry strategy applies to this operation GetServiceList()
 func (client NetworkFirewallClient) GetServiceList(ctx context.Context, request GetServiceListRequest) (response GetServiceListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3309,7 +3551,7 @@ func (client NetworkFirewallClient) getServiceList(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetTunnelInspectionRule.go.html to see an example of how to use GetTunnelInspectionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetTunnelInspectionRule.go.html to see an example of how to use GetTunnelInspectionRule API.
 // A default retry strategy applies to this operation GetTunnelInspectionRule()
 func (client NetworkFirewallClient) GetTunnelInspectionRule(ctx context.Context, request GetTunnelInspectionRuleRequest) (response GetTunnelInspectionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3367,7 +3609,7 @@ func (client NetworkFirewallClient) getTunnelInspectionRule(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetUrlList.go.html to see an example of how to use GetUrlList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetUrlList.go.html to see an example of how to use GetUrlList API.
 // A default retry strategy applies to this operation GetUrlList()
 func (client NetworkFirewallClient) GetUrlList(ctx context.Context, request GetUrlListRequest) (response GetUrlListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3425,7 +3667,7 @@ func (client NetworkFirewallClient) getUrlList(ctx context.Context, request comm
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
 // A default retry strategy applies to this operation GetWorkRequest()
 func (client NetworkFirewallClient) GetWorkRequest(ctx context.Context, request GetWorkRequestRequest) (response GetWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3483,7 +3725,7 @@ func (client NetworkFirewallClient) getWorkRequest(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListAddressLists.go.html to see an example of how to use ListAddressLists API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListAddressLists.go.html to see an example of how to use ListAddressLists API.
 // A default retry strategy applies to this operation ListAddressLists()
 func (client NetworkFirewallClient) ListAddressLists(ctx context.Context, request ListAddressListsRequest) (response ListAddressListsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3541,7 +3783,7 @@ func (client NetworkFirewallClient) listAddressLists(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListApplicationGroups.go.html to see an example of how to use ListApplicationGroups API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListApplicationGroups.go.html to see an example of how to use ListApplicationGroups API.
 // A default retry strategy applies to this operation ListApplicationGroups()
 func (client NetworkFirewallClient) ListApplicationGroups(ctx context.Context, request ListApplicationGroupsRequest) (response ListApplicationGroupsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3599,7 +3841,7 @@ func (client NetworkFirewallClient) listApplicationGroups(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListApplications.go.html to see an example of how to use ListApplications API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListApplications.go.html to see an example of how to use ListApplications API.
 // A default retry strategy applies to this operation ListApplications()
 func (client NetworkFirewallClient) ListApplications(ctx context.Context, request ListApplicationsRequest) (response ListApplicationsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3657,7 +3899,7 @@ func (client NetworkFirewallClient) listApplications(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListDecryptionProfiles.go.html to see an example of how to use ListDecryptionProfiles API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListDecryptionProfiles.go.html to see an example of how to use ListDecryptionProfiles API.
 // A default retry strategy applies to this operation ListDecryptionProfiles()
 func (client NetworkFirewallClient) ListDecryptionProfiles(ctx context.Context, request ListDecryptionProfilesRequest) (response ListDecryptionProfilesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3715,7 +3957,7 @@ func (client NetworkFirewallClient) listDecryptionProfiles(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListDecryptionRules.go.html to see an example of how to use ListDecryptionRules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListDecryptionRules.go.html to see an example of how to use ListDecryptionRules API.
 // A default retry strategy applies to this operation ListDecryptionRules()
 func (client NetworkFirewallClient) ListDecryptionRules(ctx context.Context, request ListDecryptionRulesRequest) (response ListDecryptionRulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3773,7 +4015,7 @@ func (client NetworkFirewallClient) listDecryptionRules(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListMappedSecrets.go.html to see an example of how to use ListMappedSecrets API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListMappedSecrets.go.html to see an example of how to use ListMappedSecrets API.
 // A default retry strategy applies to this operation ListMappedSecrets()
 func (client NetworkFirewallClient) ListMappedSecrets(ctx context.Context, request ListMappedSecretsRequest) (response ListMappedSecretsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3827,11 +4069,69 @@ func (client NetworkFirewallClient) listMappedSecrets(ctx context.Context, reque
 	return response, err
 }
 
+// ListNatRules Returns a list of NAT Rules for the Network Firewall Policy.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListNatRules.go.html to see an example of how to use ListNatRules API.
+// A default retry strategy applies to this operation ListNatRules()
+func (client NetworkFirewallClient) ListNatRules(ctx context.Context, request ListNatRulesRequest) (response ListNatRulesResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listNatRules, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListNatRulesResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListNatRulesResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListNatRulesResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListNatRulesResponse")
+	}
+	return
+}
+
+// listNatRules implements the OCIOperation interface (enables retrying operations)
+func (client NetworkFirewallClient) listNatRules(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/networkFirewallPolicies/{networkFirewallPolicyId}/natRules", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListNatRulesResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/NatRule/ListNatRules"
+		err = common.PostProcessServiceError(err, "NetworkFirewall", "ListNatRules", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // ListNetworkFirewallPolicies Returns a list of Network Firewall Policies.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListNetworkFirewallPolicies.go.html to see an example of how to use ListNetworkFirewallPolicies API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListNetworkFirewallPolicies.go.html to see an example of how to use ListNetworkFirewallPolicies API.
 // A default retry strategy applies to this operation ListNetworkFirewallPolicies()
 func (client NetworkFirewallClient) ListNetworkFirewallPolicies(ctx context.Context, request ListNetworkFirewallPoliciesRequest) (response ListNetworkFirewallPoliciesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3889,7 +4189,7 @@ func (client NetworkFirewallClient) listNetworkFirewallPolicies(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListNetworkFirewalls.go.html to see an example of how to use ListNetworkFirewalls API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListNetworkFirewalls.go.html to see an example of how to use ListNetworkFirewalls API.
 // A default retry strategy applies to this operation ListNetworkFirewalls()
 func (client NetworkFirewallClient) ListNetworkFirewalls(ctx context.Context, request ListNetworkFirewallsRequest) (response ListNetworkFirewallsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -3947,7 +4247,7 @@ func (client NetworkFirewallClient) listNetworkFirewalls(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListSecurityRules.go.html to see an example of how to use ListSecurityRules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListSecurityRules.go.html to see an example of how to use ListSecurityRules API.
 // A default retry strategy applies to this operation ListSecurityRules()
 func (client NetworkFirewallClient) ListSecurityRules(ctx context.Context, request ListSecurityRulesRequest) (response ListSecurityRulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4005,7 +4305,7 @@ func (client NetworkFirewallClient) listSecurityRules(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListServiceLists.go.html to see an example of how to use ListServiceLists API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListServiceLists.go.html to see an example of how to use ListServiceLists API.
 // A default retry strategy applies to this operation ListServiceLists()
 func (client NetworkFirewallClient) ListServiceLists(ctx context.Context, request ListServiceListsRequest) (response ListServiceListsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4063,7 +4363,7 @@ func (client NetworkFirewallClient) listServiceLists(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListServices.go.html to see an example of how to use ListServices API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListServices.go.html to see an example of how to use ListServices API.
 // A default retry strategy applies to this operation ListServices()
 func (client NetworkFirewallClient) ListServices(ctx context.Context, request ListServicesRequest) (response ListServicesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4121,7 +4421,7 @@ func (client NetworkFirewallClient) listServices(ctx context.Context, request co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListTunnelInspectionRules.go.html to see an example of how to use ListTunnelInspectionRules API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListTunnelInspectionRules.go.html to see an example of how to use ListTunnelInspectionRules API.
 // A default retry strategy applies to this operation ListTunnelInspectionRules()
 func (client NetworkFirewallClient) ListTunnelInspectionRules(ctx context.Context, request ListTunnelInspectionRulesRequest) (response ListTunnelInspectionRulesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4179,7 +4479,7 @@ func (client NetworkFirewallClient) listTunnelInspectionRules(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListUrlLists.go.html to see an example of how to use ListUrlLists API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListUrlLists.go.html to see an example of how to use ListUrlLists API.
 // A default retry strategy applies to this operation ListUrlLists()
 func (client NetworkFirewallClient) ListUrlLists(ctx context.Context, request ListUrlListsRequest) (response ListUrlListsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4237,7 +4537,7 @@ func (client NetworkFirewallClient) listUrlLists(ctx context.Context, request co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
 // A default retry strategy applies to this operation ListWorkRequestErrors()
 func (client NetworkFirewallClient) ListWorkRequestErrors(ctx context.Context, request ListWorkRequestErrorsRequest) (response ListWorkRequestErrorsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4295,7 +4595,7 @@ func (client NetworkFirewallClient) listWorkRequestErrors(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
 // A default retry strategy applies to this operation ListWorkRequestLogs()
 func (client NetworkFirewallClient) ListWorkRequestLogs(ctx context.Context, request ListWorkRequestLogsRequest) (response ListWorkRequestLogsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4353,7 +4653,7 @@ func (client NetworkFirewallClient) listWorkRequestLogs(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
 // A default retry strategy applies to this operation ListWorkRequests()
 func (client NetworkFirewallClient) ListWorkRequests(ctx context.Context, request ListWorkRequestsRequest) (response ListWorkRequestsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4411,7 +4711,7 @@ func (client NetworkFirewallClient) listWorkRequests(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/MigrateNetworkFirewallPolicy.go.html to see an example of how to use MigrateNetworkFirewallPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/MigrateNetworkFirewallPolicy.go.html to see an example of how to use MigrateNetworkFirewallPolicy API.
 // A default retry strategy applies to this operation MigrateNetworkFirewallPolicy()
 func (client NetworkFirewallClient) MigrateNetworkFirewallPolicy(ctx context.Context, request MigrateNetworkFirewallPolicyRequest) (response MigrateNetworkFirewallPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4474,7 +4774,7 @@ func (client NetworkFirewallClient) migrateNetworkFirewallPolicy(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateAddressList.go.html to see an example of how to use UpdateAddressList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateAddressList.go.html to see an example of how to use UpdateAddressList API.
 // A default retry strategy applies to this operation UpdateAddressList()
 func (client NetworkFirewallClient) UpdateAddressList(ctx context.Context, request UpdateAddressListRequest) (response UpdateAddressListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4532,7 +4832,7 @@ func (client NetworkFirewallClient) updateAddressList(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateApplication.go.html to see an example of how to use UpdateApplication API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateApplication.go.html to see an example of how to use UpdateApplication API.
 // A default retry strategy applies to this operation UpdateApplication()
 func (client NetworkFirewallClient) UpdateApplication(ctx context.Context, request UpdateApplicationRequest) (response UpdateApplicationResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4590,7 +4890,7 @@ func (client NetworkFirewallClient) updateApplication(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateApplicationGroup.go.html to see an example of how to use UpdateApplicationGroup API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateApplicationGroup.go.html to see an example of how to use UpdateApplicationGroup API.
 // A default retry strategy applies to this operation UpdateApplicationGroup()
 func (client NetworkFirewallClient) UpdateApplicationGroup(ctx context.Context, request UpdateApplicationGroupRequest) (response UpdateApplicationGroupResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4648,7 +4948,7 @@ func (client NetworkFirewallClient) updateApplicationGroup(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateDecryptionProfile.go.html to see an example of how to use UpdateDecryptionProfile API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateDecryptionProfile.go.html to see an example of how to use UpdateDecryptionProfile API.
 // A default retry strategy applies to this operation UpdateDecryptionProfile()
 func (client NetworkFirewallClient) UpdateDecryptionProfile(ctx context.Context, request UpdateDecryptionProfileRequest) (response UpdateDecryptionProfileResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4706,7 +5006,7 @@ func (client NetworkFirewallClient) updateDecryptionProfile(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateDecryptionRule.go.html to see an example of how to use UpdateDecryptionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateDecryptionRule.go.html to see an example of how to use UpdateDecryptionRule API.
 // A default retry strategy applies to this operation UpdateDecryptionRule()
 func (client NetworkFirewallClient) UpdateDecryptionRule(ctx context.Context, request UpdateDecryptionRuleRequest) (response UpdateDecryptionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4764,7 +5064,7 @@ func (client NetworkFirewallClient) updateDecryptionRule(ctx context.Context, re
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateMappedSecret.go.html to see an example of how to use UpdateMappedSecret API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateMappedSecret.go.html to see an example of how to use UpdateMappedSecret API.
 // A default retry strategy applies to this operation UpdateMappedSecret()
 func (client NetworkFirewallClient) UpdateMappedSecret(ctx context.Context, request UpdateMappedSecretRequest) (response UpdateMappedSecretResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4818,11 +5118,69 @@ func (client NetworkFirewallClient) updateMappedSecret(ctx context.Context, requ
 	return response, err
 }
 
+// UpdateNatRule Updates the NAT Rule with the given name in the network firewall policy.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateNatRule.go.html to see an example of how to use UpdateNatRule API.
+// A default retry strategy applies to this operation UpdateNatRule()
+func (client NetworkFirewallClient) UpdateNatRule(ctx context.Context, request UpdateNatRuleRequest) (response UpdateNatRuleResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.updateNatRule, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateNatRuleResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateNatRuleResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateNatRuleResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateNatRuleResponse")
+	}
+	return
+}
+
+// updateNatRule implements the OCIOperation interface (enables retrying operations)
+func (client NetworkFirewallClient) updateNatRule(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/networkFirewallPolicies/{networkFirewallPolicyId}/natRules/{natRuleName}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateNatRuleResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/NatRule/UpdateNatRule"
+		err = common.PostProcessServiceError(err, "NetworkFirewall", "UpdateNatRule", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponseWithPolymorphicBody(httpResponse, &response, &natrule{})
+	return response, err
+}
+
 // UpdateNetworkFirewall Updates the NetworkFirewall
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateNetworkFirewall.go.html to see an example of how to use UpdateNetworkFirewall API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateNetworkFirewall.go.html to see an example of how to use UpdateNetworkFirewall API.
 // A default retry strategy applies to this operation UpdateNetworkFirewall()
 func (client NetworkFirewallClient) UpdateNetworkFirewall(ctx context.Context, request UpdateNetworkFirewallRequest) (response UpdateNetworkFirewallResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4880,7 +5238,7 @@ func (client NetworkFirewallClient) updateNetworkFirewall(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateNetworkFirewallPolicy.go.html to see an example of how to use UpdateNetworkFirewallPolicy API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateNetworkFirewallPolicy.go.html to see an example of how to use UpdateNetworkFirewallPolicy API.
 // A default retry strategy applies to this operation UpdateNetworkFirewallPolicy()
 func (client NetworkFirewallClient) UpdateNetworkFirewallPolicy(ctx context.Context, request UpdateNetworkFirewallPolicyRequest) (response UpdateNetworkFirewallPolicyResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4938,7 +5296,7 @@ func (client NetworkFirewallClient) updateNetworkFirewallPolicy(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateSecurityRule.go.html to see an example of how to use UpdateSecurityRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateSecurityRule.go.html to see an example of how to use UpdateSecurityRule API.
 // A default retry strategy applies to this operation UpdateSecurityRule()
 func (client NetworkFirewallClient) UpdateSecurityRule(ctx context.Context, request UpdateSecurityRuleRequest) (response UpdateSecurityRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -4996,7 +5354,7 @@ func (client NetworkFirewallClient) updateSecurityRule(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateService.go.html to see an example of how to use UpdateService API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateService.go.html to see an example of how to use UpdateService API.
 // A default retry strategy applies to this operation UpdateService()
 func (client NetworkFirewallClient) UpdateService(ctx context.Context, request UpdateServiceRequest) (response UpdateServiceResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5054,7 +5412,7 @@ func (client NetworkFirewallClient) updateService(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateServiceList.go.html to see an example of how to use UpdateServiceList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateServiceList.go.html to see an example of how to use UpdateServiceList API.
 // A default retry strategy applies to this operation UpdateServiceList()
 func (client NetworkFirewallClient) UpdateServiceList(ctx context.Context, request UpdateServiceListRequest) (response UpdateServiceListResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5112,7 +5470,7 @@ func (client NetworkFirewallClient) updateServiceList(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateTunnelInspectionRule.go.html to see an example of how to use UpdateTunnelInspectionRule API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateTunnelInspectionRule.go.html to see an example of how to use UpdateTunnelInspectionRule API.
 // A default retry strategy applies to this operation UpdateTunnelInspectionRule()
 func (client NetworkFirewallClient) UpdateTunnelInspectionRule(ctx context.Context, request UpdateTunnelInspectionRuleRequest) (response UpdateTunnelInspectionRuleResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -5170,7 +5528,7 @@ func (client NetworkFirewallClient) updateTunnelInspectionRule(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateUrlList.go.html to see an example of how to use UpdateUrlList API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/networkfirewall/UpdateUrlList.go.html to see an example of how to use UpdateUrlList API.
 // A default retry strategy applies to this operation UpdateUrlList()
 func (client NetworkFirewallClient) UpdateUrlList(ctx context.Context, request UpdateUrlListRequest) (response UpdateUrlListResponse, err error) {
 	var ociResponse common.OCIResponse

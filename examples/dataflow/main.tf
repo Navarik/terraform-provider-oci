@@ -82,8 +82,19 @@ resource "oci_dataflow_pool" "test_pool" {
   freeform_tags = {
     "Department" = "Finance"
   }
-  configurations = [{shape: "VM.Standard2.1", shapeConfig: {ocpus: 1, memoryInGBs: 15}, min: 0, max: 1}]
-  schedules = [{dayOfWeek: "SUNDAY", startTime: 3}]
+  configurations {
+    shape = "VM.Standard2.1"
+    shape_config {
+      ocpus = 1
+      memory_in_gbs = 15
+    }
+    min = 0
+    max = 1
+  }
+  schedules {
+    day_of_week = "SUNDAY"
+    start_time = 3
+  }
 }
 
 resource "oci_dataflow_application" "tf_application" {
@@ -116,6 +127,7 @@ resource "oci_dataflow_application" "tf_application" {
 
   #warehouse_bucket_uri = var.application_warehouse_bucket_uri}"
   metastore_id = var.metastore_id
+  terminate_runs_on_deletion = true
 }
 
 data "oci_dataflow_applications" "tf_applications" {
@@ -422,42 +434,4 @@ data "oci_logging_logs" "test_log" {
   display_name    = "log_displayName"
   log_type        = "CUSTOM"
   state           = "ACTIVE"
-}
-
-resource "oci_dataflow_sql_endpoint" "test_sql_endpoint" {
-  compartment_id        = var.compartment_id
-  display_name          = "test_sql_endpoint"
-  driver_shape          = "VM.Standard.E4.Flex"
-  driver_shape_config {
-    memory_in_gbs = 32
-    ocpus = 2
-  }
-  executor_shape        = "VM.Standard.E4.Flex"
-  executor_shape_config {
-    memory_in_gbs = 32
-    ocpus = 2
-  }
-  max_executor_count    = 2
-  metastore_id          = var.metastore_id
-  min_executor_count    = 1
-  network_configuration {
-    network_type = "SECURE_ACCESS"
-  }
-  sql_endpoint_version  = "3.2.1"
-  #Optional
-  #defined_tags         = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
-  #description          = var.description
-  freeform_tags = {
-      "Department" = "Finance"
-  }
-}
-
-data "oci_dataflow_sql_endpoints" "tf_sql_endpoints" {
-    #Required
-    compartment_id = var.compartment_id
-}
-
-data "oci_dataflow_sql_endpoint" "tf_sql_endpoint_data" {
-    #Required
-    sql_endpoint_id = oci_dataflow_sql_endpoint.test_sql_endpoint.id
 }

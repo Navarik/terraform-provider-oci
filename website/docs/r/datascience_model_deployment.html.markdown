@@ -35,6 +35,7 @@ resource "oci_datascience_model_deployment" "test_model_deployment" {
 					memory_in_gbs = var.model_deployment_model_deployment_configuration_details_model_configuration_details_instance_configuration_model_deployment_instance_shape_config_details_memory_in_gbs
 					ocpus = var.model_deployment_model_deployment_configuration_details_model_configuration_details_instance_configuration_model_deployment_instance_shape_config_details_ocpus
 				}
+				private_endpoint_id = oci_datascience_private_endpoint.test_private_endpoint.id
 				subnet_id = oci_core_subnet.test_subnet.id
 			}
 			model_id = oci_datascience_model.test_model.id
@@ -154,12 +155,13 @@ The following arguments are supported:
 		* `server_port` - (Applicable when environment_configuration_type=OCIR_CONTAINER) (Updatable) The port on which the web server serving the inference is running. The port can be anything between `1024` and `65535`. The following ports cannot be used `24224`, `8446`, `8447`. 
 	* `model_configuration_details` - (Required) (Updatable) The model configuration details.
 		* `bandwidth_mbps` - (Optional) (Updatable) The minimum network bandwidth for the model deployment.
-		* `instance_configuration` - (Required) (Updatable) The model deployment instance configuration
+		* `instance_configuration` - (Required) (Updatable) The model deployment instance configuration.
 			* `instance_shape_name` - (Required) (Updatable) The shape used to launch the model deployment instances.
 			* `model_deployment_instance_shape_config_details` - (Optional) (Updatable) Details for the model-deployment instance shape configuration.
 				* `cpu_baseline` - (Optional) (Updatable) The baseline OCPU utilization for a subcore burstable VM instance. If this attribute is left blank, it will default to `BASELINE_1_1`. The following values are supported: BASELINE_1_8 - baseline usage is 1/8 of an OCPU. BASELINE_1_2 - baseline usage is 1/2 of an OCPU. BASELINE_1_1 - baseline usage is an entire OCPU. This represents a non-burstable instance. 
 				* `memory_in_gbs` - (Optional) (Updatable) A model-deployment instance of type VM.Standard.E3.Flex or VM.Standard.E4.Flex allows the memory to be specified with in the range of 6 to 1024 GB. VM.Standard3.Flex memory range is between 6 to 512 GB and VM.Optimized3.Flex memory range is between 6 to 256 GB. 
-				* `ocpus` - (Optional) (Updatable) A model-deployment instance of type VM.Standard.E3.Flex or VM.Standard.E4.Flex allows the ocpu count to be specified with in the range of 1 to 64 ocpu. VM.Standard3.Flex OCPU range is between 1 to 32 ocpu and for VM.Optimized3.Flex OCPU range is 1 to 18 ocpu. 
+				* `ocpus` - (Optional) (Updatable) A model-deployment instance of type VM.Standard.E3.Flex or VM.Standard.E4.Flex allows the ocpu count to be specified with in the range of 1 to 64 ocpu. VM.Standard3.Flex OCPU range is between 1 to 32 ocpu and for VM.Optimized3.Flex OCPU range is 1 to 18 ocpu.
+			* `private_endpoint_id` - (Optional) (Updatable) The OCID of a Data Science private endpoint. 
 			* `subnet_id` - (Optional) (Updatable) A model deployment instance is provided with a VNIC for network access.  This specifies the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subnet to create a VNIC in.  The subnet should be in a VCN with a NAT/SGW gateway for egress.
 		* `maximum_bandwidth_mbps` - (Optional) (Updatable) The maximum network bandwidth for the model deployment.
 		* `model_id` - (Required) (Updatable) The OCID of the model you want to deploy.
@@ -252,12 +254,13 @@ The following attributes are exported:
 		* `server_port` - The port on which the web server serving the inference is running. The port can be anything between `1024` and `65535`. The following ports cannot be used `24224`, `8446`, `8447`. 
 	* `model_configuration_details` - The model configuration details.
 		* `bandwidth_mbps` - The minimum network bandwidth for the model deployment.
-		* `instance_configuration` - The model deployment instance configuration
+		* `instance_configuration` - The model deployment instance configuration.
 			* `instance_shape_name` - The shape used to launch the model deployment instances.
 			* `model_deployment_instance_shape_config_details` - Details for the model-deployment instance shape configuration.
 				* `cpu_baseline` - The baseline OCPU utilization for a subcore burstable VM instance. If this attribute is left blank, it will default to `BASELINE_1_1`. The following values are supported: BASELINE_1_8 - baseline usage is 1/8 of an OCPU. BASELINE_1_2 - baseline usage is 1/2 of an OCPU. BASELINE_1_1 - baseline usage is an entire OCPU. This represents a non-burstable instance. 
 				* `memory_in_gbs` - A model-deployment instance of type VM.Standard.E3.Flex or VM.Standard.E4.Flex allows the memory to be specified with in the range of 6 to 1024 GB. VM.Standard3.Flex memory range is between 6 to 512 GB and VM.Optimized3.Flex memory range is between 6 to 256 GB. 
 				* `ocpus` - A model-deployment instance of type VM.Standard.E3.Flex or VM.Standard.E4.Flex allows the ocpu count to be specified with in the range of 1 to 64 ocpu. VM.Standard3.Flex OCPU range is between 1 to 32 ocpu and for VM.Optimized3.Flex OCPU range is 1 to 18 ocpu. 
+			* `private_endpoint_id` - The OCID of a Data Science private endpoint. 
 			* `subnet_id` - A model deployment instance is provided with a VNIC for network access.  This specifies the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subnet to create a VNIC in.  The subnet should be in a VCN with a NAT/SGW gateway for egress. 
 		* `maximum_bandwidth_mbps` - The maximum network bandwidth for the model deployment.
 		* `model_id` - The OCID of the model you want to deploy.

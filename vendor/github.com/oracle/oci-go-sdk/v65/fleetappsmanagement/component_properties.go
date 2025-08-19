@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -22,14 +22,10 @@ type ComponentProperties struct {
 	// The action to be taken in case of a failure.
 	ActionOnFailure ComponentPropertiesActionOnFailureEnum `mandatory:"true" json:"actionOnFailure"`
 
-	// The runOn condition for the task/group/container.
-	// Build task execution conditions if applicable to product and product-specific components.
-	// This condition is relevant when handling product stack workflows.
-	// Example: target.product.name = Oracle WebLogic Server OR target.product.name = Oracle HTTP Server
-	RunOn *string `mandatory:"false" json:"runOn"`
+	RunOn RunOnDetails `mandatory:"false" json:"runOn"`
 
 	// Build control flow conditions that determine the relevance of the task execution.
-	Condition *string `mandatory:"false" json:"condition"`
+	PreCondition *string `mandatory:"false" json:"preCondition"`
 
 	PauseDetails PauseDetails `mandatory:"false" json:"pauseDetails"`
 
@@ -58,8 +54,8 @@ func (m ComponentProperties) ValidateEnumValue() (bool, error) {
 // UnmarshalJSON unmarshals from json
 func (m *ComponentProperties) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
-		RunOn                   *string                                `json:"runOn"`
-		Condition               *string                                `json:"condition"`
+		RunOn                   runondetails                           `json:"runOn"`
+		PreCondition            *string                                `json:"preCondition"`
 		PauseDetails            pausedetails                           `json:"pauseDetails"`
 		NotificationPreferences *TaskNotificationPreferences           `json:"notificationPreferences"`
 		ActionOnFailure         ComponentPropertiesActionOnFailureEnum `json:"actionOnFailure"`
@@ -70,9 +66,17 @@ func (m *ComponentProperties) UnmarshalJSON(data []byte) (e error) {
 		return
 	}
 	var nn interface{}
-	m.RunOn = model.RunOn
+	nn, e = model.RunOn.UnmarshalPolymorphicJSON(model.RunOn.JsonData)
+	if e != nil {
+		return
+	}
+	if nn != nil {
+		m.RunOn = nn.(RunOnDetails)
+	} else {
+		m.RunOn = nil
+	}
 
-	m.Condition = model.Condition
+	m.PreCondition = model.PreCondition
 
 	nn, e = model.PauseDetails.UnmarshalPolymorphicJSON(model.PauseDetails.JsonData)
 	if e != nil {

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -27,9 +27,6 @@ type UpdateMaintenanceWindowDetails struct {
 	// Avoid entering confidential information.
 	Description *string `mandatory:"false" json:"description"`
 
-	// MaintenanceWindow Identifier
-	MaintenanceWindowType MaintenanceWindowTypeEnum `mandatory:"false" json:"maintenanceWindowType,omitempty"`
-
 	// Does the maintenenace window cause outage?
 	// An outage indicates whether a maintenance window can consider operations that require downtime.
 	// It means a period when the application is not accessible.
@@ -48,9 +45,6 @@ type UpdateMaintenanceWindowDetails struct {
 	// Recurrence rule specification if maintenance window recurring.
 	// Specify the frequency of running the maintenance window.
 	Recurrences *string `mandatory:"false" json:"recurrences"`
-
-	// Task initiation cutoff time for the maintenance window.
-	TaskInitiationCutoff *int `mandatory:"false" json:"taskInitiationCutoff"`
 
 	// Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
 	// Example: `{"bar-key": "value"}`
@@ -71,9 +65,6 @@ func (m UpdateMaintenanceWindowDetails) String() string {
 func (m UpdateMaintenanceWindowDetails) ValidateEnumValue() (bool, error) {
 	errMessage := []string{}
 
-	if _, ok := GetMappingMaintenanceWindowTypeEnum(string(m.MaintenanceWindowType)); !ok && m.MaintenanceWindowType != "" {
-		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for MaintenanceWindowType: %s. Supported values are: %s.", m.MaintenanceWindowType, strings.Join(GetMaintenanceWindowTypeEnumStringValues(), ",")))
-	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}

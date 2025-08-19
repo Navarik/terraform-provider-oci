@@ -12,7 +12,7 @@ import (
 
 	"github.com/oracle/terraform-provider-oci/internal/utils"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -825,6 +825,10 @@ func DatabaseMigrationMigrationResource() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"source_standby_database_connection_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 
 			// Computed
 			"executing_job_id": {
@@ -1017,7 +1021,7 @@ func migrationWaitForWorkRequest(wId *string, entityType string, action oci_data
 	retryPolicy.ShouldRetryOperation = migrationWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_database_migration.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_database_migration.OperationStatusInProgress),
 			string(oci_database_migration.OperationStatusAccepted),
@@ -1268,6 +1272,21 @@ func (s *DatabaseMigrationMigrationResourceCrud) SetData() error {
 		if v.DataTransferMediumDetails != nil {
 			dataTransferMediumDetailsArray := []interface{}{}
 			if dataTransferMediumDetailsMap := OracleDataTransferMediumDetailsToMap(&v.DataTransferMediumDetails); dataTransferMediumDetailsMap != nil {
+				// before setting the data replace the null secret_access_key with the one currently saved in state
+				// why? when we do the Read operation, the s.Res returned by the API will always be null,
+				// since this value is in a schema.TypeList (data_transfer_medium_details) the NULL is transformed into an ""
+				// terraform sees this and thinks there is state drift, this is to prevent that
+				if dataTransferMediumDetailsInState, ok := s.D.GetOkExists("data_transfer_medium_details"); ok {
+					dataTransferMediumDetailsArrayInState, isArray := dataTransferMediumDetailsInState.([]interface{})
+					if isArray && len(dataTransferMediumDetailsArrayInState) > 0 {
+						if dataTransferMediumDetailsMapInState, isMap := dataTransferMediumDetailsArrayInState[0].(map[string]interface{}); isMap {
+							if secretAccessKeyInState, keyExists := dataTransferMediumDetailsMapInState["secret_access_key"].(string); keyExists {
+								dataTransferMediumDetailsMap["secret_access_key"] = secretAccessKeyInState
+							}
+						}
+					}
+				}
+
 				dataTransferMediumDetailsArray = append(dataTransferMediumDetailsArray, dataTransferMediumDetailsMap)
 			}
 			s.D.Set("data_transfer_medium_details", dataTransferMediumDetailsArray)
@@ -1295,6 +1314,10 @@ func (s *DatabaseMigrationMigrationResourceCrud) SetData() error {
 
 		if v.SourceContainerDatabaseConnectionId != nil {
 			s.D.Set("source_container_database_connection_id", *v.SourceContainerDatabaseConnectionId)
+		}
+
+		if v.SourceStandbyDatabaseConnectionId != nil {
+			s.D.Set("source_standby_database_connection_id", *v.SourceStandbyDatabaseConnectionId)
 		}
 
 		if v.CompartmentId != nil {
@@ -2850,6 +2873,10 @@ func MigrationSummaryToMap(obj oci_database_migration.MigrationSummary) map[stri
 
 		if v.SourceContainerDatabaseConnectionId != nil {
 			result["source_container_database_connection_id"] = string(*v.SourceContainerDatabaseConnectionId)
+		}
+
+		if v.SourceStandbyDatabaseConnectionId != nil {
+			result["source_standby_database_connection_id"] = string(*v.SourceStandbyDatabaseConnectionId)
 		}
 	default:
 		log.Printf("[WARN] Received 'database_combination' of unknown type %v", obj)
@@ -5073,6 +5100,10 @@ func (s *DatabaseMigrationMigrationResourceCrud) populateTopLevelPolymorphicCrea
 			tmp := sourceContainerDatabaseConnectionId.(string)
 			details.SourceContainerDatabaseConnectionId = &tmp
 		}
+		if sourceStandbyDatabaseConnectionId, ok := s.D.GetOkExists("source_standby_database_connection_id"); ok {
+			tmp := sourceStandbyDatabaseConnectionId.(string)
+			details.SourceStandbyDatabaseConnectionId = &tmp
+		}
 		if compartmentId, ok := s.D.GetOkExists("compartment_id"); ok {
 			tmp := compartmentId.(string)
 			details.CompartmentId = &tmp
@@ -5278,6 +5309,10 @@ func (s *DatabaseMigrationMigrationResourceCrud) populateTopLevelPolymorphicUpda
 		if sourceContainerDatabaseConnectionId, ok := s.D.GetOkExists("source_container_database_connection_id"); ok {
 			tmp := sourceContainerDatabaseConnectionId.(string)
 			details.SourceContainerDatabaseConnectionId = &tmp
+		}
+		if sourceStandbyDatabaseConnectionId, ok := s.D.GetOkExists("source_standby_database_connection_id"); ok {
+			tmp := sourceStandbyDatabaseConnectionId.(string)
+			details.SourceStandbyDatabaseConnectionId = &tmp
 		}
 		if definedTags, ok := s.D.GetOkExists("defined_tags"); ok {
 			convertedDefinedTags, err := tfresource.MapToDefinedTags(definedTags.(map[string]interface{}))

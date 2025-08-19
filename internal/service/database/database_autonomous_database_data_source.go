@@ -123,6 +123,8 @@ func (s *DatabaseAutonomousDatabaseDataSourceCrud) SetData() error {
 		s.D.Set("character_set", *s.Res.CharacterSet)
 	}
 
+	s.D.Set("clone_table_space_list", s.Res.CloneTableSpaceList)
+
 	if s.Res.ClusterPlacementGroupId != nil {
 		s.D.Set("cluster_placement_group_id", *s.Res.ClusterPlacementGroupId)
 	}
@@ -251,6 +253,10 @@ func (s *DatabaseAutonomousDatabaseDataSourceCrud) SetData() error {
 
 	if s.Res.IsAutoScalingForStorageEnabled != nil {
 		s.D.Set("is_auto_scaling_for_storage_enabled", *s.Res.IsAutoScalingForStorageEnabled)
+	}
+
+	if s.Res.IsBackupRetentionLocked != nil {
+		s.D.Set("is_backup_retention_locked", *s.Res.IsBackupRetentionLocked)
 	}
 
 	if s.Res.IsDataGuardEnabled != nil {
@@ -423,6 +429,8 @@ func (s *DatabaseAutonomousDatabaseDataSourceCrud) SetData() error {
 	}
 	s.D.Set("scheduled_operations", scheduledOperations)
 
+	s.D.Set("security_attributes", tfresource.SecurityAttributesToMap(s.Res.SecurityAttributes))
+
 	if s.Res.ServiceConsoleUrl != nil {
 		s.D.Set("service_console_url", *s.Res.ServiceConsoleUrl)
 	}
@@ -471,6 +479,14 @@ func (s *DatabaseAutonomousDatabaseDataSourceCrud) SetData() error {
 		s.D.Set("time_disaster_recovery_role_changed", s.Res.TimeDisasterRecoveryRoleChanged.String())
 	}
 
+	if s.Res.TimeEarliestAvailableDbVersionUpgrade != nil {
+		s.D.Set("time_earliest_available_db_version_upgrade", s.Res.TimeEarliestAvailableDbVersionUpgrade.String())
+	}
+
+	if s.Res.TimeLatestAvailableDbVersionUpgrade != nil {
+		s.D.Set("time_latest_available_db_version_upgrade", s.Res.TimeLatestAvailableDbVersionUpgrade.String())
+	}
+
 	if s.Res.TimeLocalDataGuardEnabled != nil {
 		s.D.Set("time_local_data_guard_enabled", s.Res.TimeLocalDataGuardEnabled.String())
 	}
@@ -481,6 +497,10 @@ func (s *DatabaseAutonomousDatabaseDataSourceCrud) SetData() error {
 
 	if s.Res.TimeMaintenanceEnd != nil {
 		s.D.Set("time_maintenance_end", s.Res.TimeMaintenanceEnd.String())
+	}
+
+	if s.Res.MaintenanceTargetComponent != nil {
+		s.D.Set("maintenance_target_component", *s.Res.MaintenanceTargetComponent)
 	}
 
 	if s.Res.TimeOfAutoRefreshStart != nil {
@@ -513,6 +533,10 @@ func (s *DatabaseAutonomousDatabaseDataSourceCrud) SetData() error {
 
 	if s.Res.TimeReclamationOfFreeAutonomousDatabase != nil {
 		s.D.Set("time_reclamation_of_free_autonomous_database", s.Res.TimeReclamationOfFreeAutonomousDatabase.String())
+	}
+
+	if s.Res.TimeScheduledDbVersionUpgrade != nil {
+		s.D.Set("time_scheduled_db_version_upgrade", s.Res.TimeScheduledDbVersionUpgrade.String())
 	}
 
 	if s.Res.TimeUndeleted != nil {

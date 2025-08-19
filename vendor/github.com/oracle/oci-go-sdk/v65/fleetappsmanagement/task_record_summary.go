@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-// TaskRecordSummary Summary of the TaskRecord.
+// TaskRecordSummary Summary of the task record.
 type TaskRecordSummary struct {
 
 	// The OCID of the resource.
@@ -29,7 +29,7 @@ type TaskRecordSummary struct {
 	// Task type.
 	Type TaskRecordTypeEnum `mandatory:"true" json:"type"`
 
-	// The current state of the TaskRecord.
+	// The current state of the task record.
 	LifecycleState TaskRecordLifecycleStateEnum `mandatory:"true" json:"lifecycleState"`
 
 	// The time this resource was created. An RFC3339 formatted datetime string.
@@ -50,7 +50,7 @@ type TaskRecordSummary struct {
 	// A message describing the current state in more detail. For example, can be used to provide actionable information for a resource in Failed state.
 	LifecycleDetails *string `mandatory:"false" json:"lifecycleDetails"`
 
-	// The version of the task
+	// The version of the task record.
 	Version *string `mandatory:"false" json:"version"`
 
 	// Associated region

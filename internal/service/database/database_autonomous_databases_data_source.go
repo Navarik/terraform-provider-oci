@@ -254,6 +254,8 @@ func (s *DatabaseAutonomousDatabasesDataSourceCrud) SetData() error {
 			autonomousDatabase["character_set"] = *r.CharacterSet
 		}
 
+		autonomousDatabase["clone_table_space_list"] = r.CloneTableSpaceList
+
 		if r.ClusterPlacementGroupId != nil {
 			autonomousDatabase["cluster_placement_group_id"] = *r.ClusterPlacementGroupId
 		}
@@ -376,6 +378,10 @@ func (s *DatabaseAutonomousDatabasesDataSourceCrud) SetData() error {
 			autonomousDatabase["is_auto_scaling_for_storage_enabled"] = *r.IsAutoScalingForStorageEnabled
 		}
 
+		if r.IsBackupRetentionLocked != nil {
+			autonomousDatabase["is_backup_retention_locked"] = *r.IsBackupRetentionLocked
+		}
+
 		if r.IsDataGuardEnabled != nil {
 			autonomousDatabase["is_data_guard_enabled"] = *r.IsDataGuardEnabled
 		}
@@ -466,9 +472,20 @@ func (s *DatabaseAutonomousDatabasesDataSourceCrud) SetData() error {
 			autonomousDatabase["long_term_backup_schedule"] = nil
 		}
 
+		if r.MaintenanceTargetComponent != nil {
+			autonomousDatabase["maintenance_target_component"] = *r.MaintenanceTargetComponent
+		}
+		//if r.MaxCpuCoreCount != nil {
+		//	autonomousDatabase["max_cpu_core_count"] = *r.MaxCpuCoreCount
+		//}
+
 		if r.MemoryPerOracleComputeUnitInGBs != nil {
 			autonomousDatabase["memory_per_oracle_compute_unit_in_gbs"] = *r.MemoryPerOracleComputeUnitInGBs
 		}
+
+		//if r.MaxCpuCoreCount != nil {
+		//	autonomousDatabase["max_cpu_core_count"] = *r.MaxCpuCoreCount
+		//}
 
 		if r.NcharacterSet != nil {
 			autonomousDatabase["ncharacter_set"] = *r.NcharacterSet
@@ -546,6 +563,8 @@ func (s *DatabaseAutonomousDatabasesDataSourceCrud) SetData() error {
 		}
 		autonomousDatabase["scheduled_operations"] = scheduledOperations
 
+		autonomousDatabase["security_attributes"] = tfresource.SecurityAttributesToMap(r.SecurityAttributes)
+
 		if r.ServiceConsoleUrl != nil {
 			autonomousDatabase["service_console_url"] = *r.ServiceConsoleUrl
 		}
@@ -594,6 +613,14 @@ func (s *DatabaseAutonomousDatabasesDataSourceCrud) SetData() error {
 			autonomousDatabase["time_disaster_recovery_role_changed"] = r.TimeDisasterRecoveryRoleChanged.String()
 		}
 
+		if r.TimeEarliestAvailableDbVersionUpgrade != nil {
+			autonomousDatabase["time_earliest_available_db_version_upgrade"] = r.TimeEarliestAvailableDbVersionUpgrade.String()
+		}
+
+		if r.TimeLatestAvailableDbVersionUpgrade != nil {
+			autonomousDatabase["time_latest_available_db_version_upgrade"] = r.TimeLatestAvailableDbVersionUpgrade.String()
+		}
+
 		if r.TimeLocalDataGuardEnabled != nil {
 			autonomousDatabase["time_local_data_guard_enabled"] = r.TimeLocalDataGuardEnabled.String()
 		}
@@ -636,6 +663,10 @@ func (s *DatabaseAutonomousDatabasesDataSourceCrud) SetData() error {
 
 		if r.TimeReclamationOfFreeAutonomousDatabase != nil {
 			autonomousDatabase["time_reclamation_of_free_autonomous_database"] = r.TimeReclamationOfFreeAutonomousDatabase.String()
+		}
+
+		if r.TimeScheduledDbVersionUpgrade != nil {
+			autonomousDatabase["time_scheduled_db_version_upgrade"] = r.TimeScheduledDbVersionUpgrade.String()
 		}
 
 		if r.TimeUndeleted != nil {

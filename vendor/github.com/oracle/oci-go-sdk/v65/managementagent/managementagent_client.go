@@ -1,11 +1,11 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
 // Management Agent API
 //
 // Use the Management Agent API to manage your infrastructure's management agents, including their plugins and install keys.
-// For more information, see Management Agent (https://docs.cloud.oracle.com/iaas/management-agents/index.html).
+// For more information, see Management Agent (https://docs.oracle.com/iaas/management-agents/index.html).
 //
 
 package managementagent
@@ -96,7 +96,7 @@ func (client *ManagementAgentClient) ConfigurationProvider() *common.Configurati
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/CreateDataSource.go.html to see an example of how to use CreateDataSource API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/CreateDataSource.go.html to see an example of how to use CreateDataSource API.
 func (client ManagementAgentClient) CreateDataSource(ctx context.Context, request CreateDataSourceRequest) (response CreateDataSourceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -158,7 +158,7 @@ func (client ManagementAgentClient) createDataSource(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/CreateManagementAgentInstallKey.go.html to see an example of how to use CreateManagementAgentInstallKey API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/CreateManagementAgentInstallKey.go.html to see an example of how to use CreateManagementAgentInstallKey API.
 func (client ManagementAgentClient) CreateManagementAgentInstallKey(ctx context.Context, request CreateManagementAgentInstallKeyRequest) (response CreateManagementAgentInstallKeyResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -216,11 +216,73 @@ func (client ManagementAgentClient) createManagementAgentInstallKey(ctx context.
 	return response, err
 }
 
+// CreateNamedCredential Named credential creation request to given Management Agent.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/CreateNamedCredential.go.html to see an example of how to use CreateNamedCredential API.
+func (client ManagementAgentClient) CreateNamedCredential(ctx context.Context, request CreateNamedCredentialRequest) (response CreateNamedCredentialResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.createNamedCredential, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = CreateNamedCredentialResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = CreateNamedCredentialResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(CreateNamedCredentialResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into CreateNamedCredentialResponse")
+	}
+	return
+}
+
+// createNamedCredential implements the OCIOperation interface (enables retrying operations)
+func (client ManagementAgentClient) createNamedCredential(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/namedCredentials", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response CreateNamedCredentialResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/management-agent/20200202/NamedCredential/CreateNamedCredential"
+		err = common.PostProcessServiceError(err, "ManagementAgent", "CreateNamedCredential", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // DeleteDataSource Datasource delete request to given Management Agent.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteDataSource.go.html to see an example of how to use DeleteDataSource API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteDataSource.go.html to see an example of how to use DeleteDataSource API.
 func (client ManagementAgentClient) DeleteDataSource(ctx context.Context, request DeleteDataSourceRequest) (response DeleteDataSourceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -277,7 +339,7 @@ func (client ManagementAgentClient) deleteDataSource(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteManagementAgent.go.html to see an example of how to use DeleteManagementAgent API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteManagementAgent.go.html to see an example of how to use DeleteManagementAgent API.
 func (client ManagementAgentClient) DeleteManagementAgent(ctx context.Context, request DeleteManagementAgentRequest) (response DeleteManagementAgentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -334,7 +396,7 @@ func (client ManagementAgentClient) deleteManagementAgent(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteManagementAgentInstallKey.go.html to see an example of how to use DeleteManagementAgentInstallKey API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteManagementAgentInstallKey.go.html to see an example of how to use DeleteManagementAgentInstallKey API.
 func (client ManagementAgentClient) DeleteManagementAgentInstallKey(ctx context.Context, request DeleteManagementAgentInstallKeyRequest) (response DeleteManagementAgentInstallKeyResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -387,11 +449,68 @@ func (client ManagementAgentClient) deleteManagementAgentInstallKey(ctx context.
 	return response, err
 }
 
+// DeleteNamedCredential Named credential delete request to sent to associated Management Agent.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteNamedCredential.go.html to see an example of how to use DeleteNamedCredential API.
+func (client ManagementAgentClient) DeleteNamedCredential(ctx context.Context, request DeleteNamedCredentialRequest) (response DeleteNamedCredentialResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.deleteNamedCredential, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = DeleteNamedCredentialResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = DeleteNamedCredentialResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(DeleteNamedCredentialResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into DeleteNamedCredentialResponse")
+	}
+	return
+}
+
+// deleteNamedCredential implements the OCIOperation interface (enables retrying operations)
+func (client ManagementAgentClient) deleteNamedCredential(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodDelete, "/namedCredentials/{namedCredentialId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response DeleteNamedCredentialResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/management-agent/20200202/ManagementAgent/DeleteNamedCredential"
+		err = common.PostProcessServiceError(err, "ManagementAgent", "DeleteNamedCredential", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // DeleteWorkRequest Cancel the work request with the given ID.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteWorkRequest.go.html to see an example of how to use DeleteWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeleteWorkRequest.go.html to see an example of how to use DeleteWorkRequest API.
 func (client ManagementAgentClient) DeleteWorkRequest(ctx context.Context, request DeleteWorkRequestRequest) (response DeleteWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -448,7 +567,7 @@ func (client ManagementAgentClient) deleteWorkRequest(ctx context.Context, reque
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeployPlugins.go.html to see an example of how to use DeployPlugins API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/DeployPlugins.go.html to see an example of how to use DeployPlugins API.
 func (client ManagementAgentClient) DeployPlugins(ctx context.Context, request DeployPluginsRequest) (response DeployPluginsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -511,7 +630,7 @@ func (client ManagementAgentClient) deployPlugins(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetAutoUpgradableConfig.go.html to see an example of how to use GetAutoUpgradableConfig API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetAutoUpgradableConfig.go.html to see an example of how to use GetAutoUpgradableConfig API.
 func (client ManagementAgentClient) GetAutoUpgradableConfig(ctx context.Context, request GetAutoUpgradableConfigRequest) (response GetAutoUpgradableConfigResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -568,7 +687,7 @@ func (client ManagementAgentClient) getAutoUpgradableConfig(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetDataSource.go.html to see an example of how to use GetDataSource API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetDataSource.go.html to see an example of how to use GetDataSource API.
 func (client ManagementAgentClient) GetDataSource(ctx context.Context, request GetDataSourceRequest) (response GetDataSourceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -630,7 +749,7 @@ func (client ManagementAgentClient) getDataSource(ctx context.Context, request c
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetManagementAgent.go.html to see an example of how to use GetManagementAgent API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetManagementAgent.go.html to see an example of how to use GetManagementAgent API.
 func (client ManagementAgentClient) GetManagementAgent(ctx context.Context, request GetManagementAgentRequest) (response GetManagementAgentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -687,7 +806,7 @@ func (client ManagementAgentClient) getManagementAgent(ctx context.Context, requ
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetManagementAgentInstallKey.go.html to see an example of how to use GetManagementAgentInstallKey API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetManagementAgentInstallKey.go.html to see an example of how to use GetManagementAgentInstallKey API.
 func (client ManagementAgentClient) GetManagementAgentInstallKey(ctx context.Context, request GetManagementAgentInstallKeyRequest) (response GetManagementAgentInstallKeyResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -744,7 +863,7 @@ func (client ManagementAgentClient) getManagementAgentInstallKey(ctx context.Con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetManagementAgentInstallKeyContent.go.html to see an example of how to use GetManagementAgentInstallKeyContent API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetManagementAgentInstallKeyContent.go.html to see an example of how to use GetManagementAgentInstallKeyContent API.
 func (client ManagementAgentClient) GetManagementAgentInstallKeyContent(ctx context.Context, request GetManagementAgentInstallKeyContentRequest) (response GetManagementAgentInstallKeyContentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -796,11 +915,130 @@ func (client ManagementAgentClient) getManagementAgentInstallKeyContent(ctx cont
 	return response, err
 }
 
+// GetNamedCredential Get Named credential details for given Id and given Management Agent.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetNamedCredential.go.html to see an example of how to use GetNamedCredential API.
+func (client ManagementAgentClient) GetNamedCredential(ctx context.Context, request GetNamedCredentialRequest) (response GetNamedCredentialResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.getNamedCredential, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetNamedCredentialResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetNamedCredentialResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetNamedCredentialResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetNamedCredentialResponse")
+	}
+	return
+}
+
+// getNamedCredential implements the OCIOperation interface (enables retrying operations)
+func (client ManagementAgentClient) getNamedCredential(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/namedCredentials/{namedCredentialId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetNamedCredentialResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/management-agent/20200202/ManagementAgent/GetNamedCredential"
+		err = common.PostProcessServiceError(err, "ManagementAgent", "GetNamedCredential", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// GetNamedCredentialsMetadatum Return the Metadata definition for Named Credentials supported by Management Agent.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetNamedCredentialsMetadatum.go.html to see an example of how to use GetNamedCredentialsMetadatum API.
+func (client ManagementAgentClient) GetNamedCredentialsMetadatum(ctx context.Context, request GetNamedCredentialsMetadatumRequest) (response GetNamedCredentialsMetadatumResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.getNamedCredentialsMetadatum, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = GetNamedCredentialsMetadatumResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = GetNamedCredentialsMetadatumResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(GetNamedCredentialsMetadatumResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into GetNamedCredentialsMetadatumResponse")
+	}
+	return
+}
+
+// getNamedCredentialsMetadatum implements the OCIOperation interface (enables retrying operations)
+func (client ManagementAgentClient) getNamedCredentialsMetadatum(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/managementAgents/namedCredentialsMetadata", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response GetNamedCredentialsMetadatumResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/management-agent/20200202/NamedCredential/GetNamedCredentialsMetadatum"
+		err = common.PostProcessServiceError(err, "ManagementAgent", "GetNamedCredentialsMetadatum", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // GetWorkRequest Gets the status of the work request with the given ID.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/GetWorkRequest.go.html to see an example of how to use GetWorkRequest API.
 func (client ManagementAgentClient) GetWorkRequest(ctx context.Context, request GetWorkRequestRequest) (response GetWorkRequestResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -857,7 +1095,7 @@ func (client ManagementAgentClient) getWorkRequest(ctx context.Context, request 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListAvailabilityHistories.go.html to see an example of how to use ListAvailabilityHistories API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListAvailabilityHistories.go.html to see an example of how to use ListAvailabilityHistories API.
 func (client ManagementAgentClient) ListAvailabilityHistories(ctx context.Context, request ListAvailabilityHistoriesRequest) (response ListAvailabilityHistoriesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -930,7 +1168,7 @@ func (m *listdatasourcesummary) UnmarshalPolymorphicJSON(data []byte) (interface
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListDataSources.go.html to see an example of how to use ListDataSources API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListDataSources.go.html to see an example of how to use ListDataSources API.
 func (client ManagementAgentClient) ListDataSources(ctx context.Context, request ListDataSourcesRequest) (response ListDataSourcesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -987,7 +1225,7 @@ func (client ManagementAgentClient) listDataSources(ctx context.Context, request
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgentImages.go.html to see an example of how to use ListManagementAgentImages API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgentImages.go.html to see an example of how to use ListManagementAgentImages API.
 func (client ManagementAgentClient) ListManagementAgentImages(ctx context.Context, request ListManagementAgentImagesRequest) (response ListManagementAgentImagesResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1049,7 +1287,7 @@ func (client ManagementAgentClient) listManagementAgentImages(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgentInstallKeys.go.html to see an example of how to use ListManagementAgentInstallKeys API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgentInstallKeys.go.html to see an example of how to use ListManagementAgentInstallKeys API.
 func (client ManagementAgentClient) ListManagementAgentInstallKeys(ctx context.Context, request ListManagementAgentInstallKeysRequest) (response ListManagementAgentInstallKeysResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1106,7 +1344,7 @@ func (client ManagementAgentClient) listManagementAgentInstallKeys(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgentPlugins.go.html to see an example of how to use ListManagementAgentPlugins API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgentPlugins.go.html to see an example of how to use ListManagementAgentPlugins API.
 func (client ManagementAgentClient) ListManagementAgentPlugins(ctx context.Context, request ListManagementAgentPluginsRequest) (response ListManagementAgentPluginsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1165,7 +1403,7 @@ func (client ManagementAgentClient) listManagementAgentPlugins(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgents.go.html to see an example of how to use ListManagementAgents API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListManagementAgents.go.html to see an example of how to use ListManagementAgents API.
 func (client ManagementAgentClient) ListManagementAgents(ctx context.Context, request ListManagementAgentsRequest) (response ListManagementAgentsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1218,11 +1456,68 @@ func (client ManagementAgentClient) listManagementAgents(ctx context.Context, re
 	return response, err
 }
 
+// ListNamedCredentials A list of Management Agent Data Sources for the given Management Agent Id.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListNamedCredentials.go.html to see an example of how to use ListNamedCredentials API.
+func (client ManagementAgentClient) ListNamedCredentials(ctx context.Context, request ListNamedCredentialsRequest) (response ListNamedCredentialsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listNamedCredentials, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListNamedCredentialsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListNamedCredentialsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListNamedCredentialsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListNamedCredentialsResponse")
+	}
+	return
+}
+
+// listNamedCredentials implements the OCIOperation interface (enables retrying operations)
+func (client ManagementAgentClient) listNamedCredentials(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/namedCredentials", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListNamedCredentialsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/management-agent/20200202/NamedCredential/ListNamedCredentials"
+		err = common.PostProcessServiceError(err, "ManagementAgent", "ListNamedCredentials", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // ListWorkRequestErrors Return a (paginated) list of errors for a given work request.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListWorkRequestErrors.go.html to see an example of how to use ListWorkRequestErrors API.
 func (client ManagementAgentClient) ListWorkRequestErrors(ctx context.Context, request ListWorkRequestErrorsRequest) (response ListWorkRequestErrorsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1279,7 +1574,7 @@ func (client ManagementAgentClient) listWorkRequestErrors(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListWorkRequestLogs.go.html to see an example of how to use ListWorkRequestLogs API.
 func (client ManagementAgentClient) ListWorkRequestLogs(ctx context.Context, request ListWorkRequestLogsRequest) (response ListWorkRequestLogsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1336,7 +1631,7 @@ func (client ManagementAgentClient) listWorkRequestLogs(ctx context.Context, req
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/ListWorkRequests.go.html to see an example of how to use ListWorkRequests API.
 func (client ManagementAgentClient) ListWorkRequests(ctx context.Context, request ListWorkRequestsRequest) (response ListWorkRequestsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1394,7 +1689,7 @@ func (client ManagementAgentClient) listWorkRequests(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/SetAutoUpgradableConfig.go.html to see an example of how to use SetAutoUpgradableConfig API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/SetAutoUpgradableConfig.go.html to see an example of how to use SetAutoUpgradableConfig API.
 func (client ManagementAgentClient) SetAutoUpgradableConfig(ctx context.Context, request SetAutoUpgradableConfigRequest) (response SetAutoUpgradableConfigResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1457,7 +1752,7 @@ func (client ManagementAgentClient) setAutoUpgradableConfig(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/SummarizeManagementAgentCounts.go.html to see an example of how to use SummarizeManagementAgentCounts API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/SummarizeManagementAgentCounts.go.html to see an example of how to use SummarizeManagementAgentCounts API.
 func (client ManagementAgentClient) SummarizeManagementAgentCounts(ctx context.Context, request SummarizeManagementAgentCountsRequest) (response SummarizeManagementAgentCountsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1515,7 +1810,7 @@ func (client ManagementAgentClient) summarizeManagementAgentCounts(ctx context.C
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/SummarizeManagementAgentPluginCounts.go.html to see an example of how to use SummarizeManagementAgentPluginCounts API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/SummarizeManagementAgentPluginCounts.go.html to see an example of how to use SummarizeManagementAgentPluginCounts API.
 func (client ManagementAgentClient) SummarizeManagementAgentPluginCounts(ctx context.Context, request SummarizeManagementAgentPluginCountsRequest) (response SummarizeManagementAgentPluginCountsResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1572,7 +1867,7 @@ func (client ManagementAgentClient) summarizeManagementAgentPluginCounts(ctx con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/UpdateDataSource.go.html to see an example of how to use UpdateDataSource API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/UpdateDataSource.go.html to see an example of how to use UpdateDataSource API.
 func (client ManagementAgentClient) UpdateDataSource(ctx context.Context, request UpdateDataSourceRequest) (response UpdateDataSourceResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1634,7 +1929,7 @@ func (client ManagementAgentClient) updateDataSource(ctx context.Context, reques
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/UpdateManagementAgent.go.html to see an example of how to use UpdateManagementAgent API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/UpdateManagementAgent.go.html to see an example of how to use UpdateManagementAgent API.
 func (client ManagementAgentClient) UpdateManagementAgent(ctx context.Context, request UpdateManagementAgentRequest) (response UpdateManagementAgentResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1696,7 +1991,7 @@ func (client ManagementAgentClient) updateManagementAgent(ctx context.Context, r
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/UpdateManagementAgentInstallKey.go.html to see an example of how to use UpdateManagementAgentInstallKey API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/UpdateManagementAgentInstallKey.go.html to see an example of how to use UpdateManagementAgentInstallKey API.
 func (client ManagementAgentClient) UpdateManagementAgentInstallKey(ctx context.Context, request UpdateManagementAgentInstallKeyRequest) (response UpdateManagementAgentInstallKeyResponse, err error) {
 	var ociResponse common.OCIResponse
 	policy := common.NoRetryPolicy()
@@ -1747,6 +2042,68 @@ func (client ManagementAgentClient) updateManagementAgentInstallKey(ctx context.
 	if err != nil {
 		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/management-agent/20200202/ManagementAgentInstallKey/UpdateManagementAgentInstallKey"
 		err = common.PostProcessServiceError(err, "ManagementAgent", "UpdateManagementAgentInstallKey", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// UpdateNamedCredential Named credential update request to given Management Agent.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/managementagent/UpdateNamedCredential.go.html to see an example of how to use UpdateNamedCredential API.
+func (client ManagementAgentClient) UpdateNamedCredential(ctx context.Context, request UpdateNamedCredentialRequest) (response UpdateNamedCredentialResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.NoRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.updateNamedCredential, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = UpdateNamedCredentialResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = UpdateNamedCredentialResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(UpdateNamedCredentialResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into UpdateNamedCredentialResponse")
+	}
+	return
+}
+
+// updateNamedCredential implements the OCIOperation interface (enables retrying operations)
+func (client ManagementAgentClient) updateNamedCredential(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPut, "/namedCredentials/{namedCredentialId}", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response UpdateNamedCredentialResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/management-agent/20200202/ManagementAgent/UpdateNamedCredential"
+		err = common.PostProcessServiceError(err, "ManagementAgent", "UpdateNamedCredential", apiReferenceLink)
 		return response, err
 	}
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -18,7 +18,7 @@ import (
 // GenerateSecurityAssessmentReportDetails The details used to generate a new security assessment report.
 type GenerateSecurityAssessmentReportDetails struct {
 
-	// Format of the report.
+	// Format of the Security Assessment report.
 	Format GenerateSecurityAssessmentReportDetailsFormatEnum `mandatory:"true" json:"format"`
 }
 
@@ -46,18 +46,21 @@ type GenerateSecurityAssessmentReportDetailsFormatEnum string
 
 // Set of constants representing the allowable values for GenerateSecurityAssessmentReportDetailsFormatEnum
 const (
-	GenerateSecurityAssessmentReportDetailsFormatPdf GenerateSecurityAssessmentReportDetailsFormatEnum = "PDF"
-	GenerateSecurityAssessmentReportDetailsFormatXls GenerateSecurityAssessmentReportDetailsFormatEnum = "XLS"
+	GenerateSecurityAssessmentReportDetailsFormatPdf     GenerateSecurityAssessmentReportDetailsFormatEnum = "PDF"
+	GenerateSecurityAssessmentReportDetailsFormatXls     GenerateSecurityAssessmentReportDetailsFormatEnum = "XLS"
+	GenerateSecurityAssessmentReportDetailsFormatStigxls GenerateSecurityAssessmentReportDetailsFormatEnum = "STIGXLS"
 )
 
 var mappingGenerateSecurityAssessmentReportDetailsFormatEnum = map[string]GenerateSecurityAssessmentReportDetailsFormatEnum{
-	"PDF": GenerateSecurityAssessmentReportDetailsFormatPdf,
-	"XLS": GenerateSecurityAssessmentReportDetailsFormatXls,
+	"PDF":     GenerateSecurityAssessmentReportDetailsFormatPdf,
+	"XLS":     GenerateSecurityAssessmentReportDetailsFormatXls,
+	"STIGXLS": GenerateSecurityAssessmentReportDetailsFormatStigxls,
 }
 
 var mappingGenerateSecurityAssessmentReportDetailsFormatEnumLowerCase = map[string]GenerateSecurityAssessmentReportDetailsFormatEnum{
-	"pdf": GenerateSecurityAssessmentReportDetailsFormatPdf,
-	"xls": GenerateSecurityAssessmentReportDetailsFormatXls,
+	"pdf":     GenerateSecurityAssessmentReportDetailsFormatPdf,
+	"xls":     GenerateSecurityAssessmentReportDetailsFormatXls,
+	"stigxls": GenerateSecurityAssessmentReportDetailsFormatStigxls,
 }
 
 // GetGenerateSecurityAssessmentReportDetailsFormatEnumValues Enumerates the set of values for GenerateSecurityAssessmentReportDetailsFormatEnum
@@ -74,6 +77,7 @@ func GetGenerateSecurityAssessmentReportDetailsFormatEnumStringValues() []string
 	return []string{
 		"PDF",
 		"XLS",
+		"STIGXLS",
 	}
 }
 

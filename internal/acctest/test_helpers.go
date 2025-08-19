@@ -5,6 +5,7 @@ package acctest
 
 import (
 	"bytes"
+	"context"
 	"crypto/rsa"
 	"encoding/base64"
 	"encoding/json"
@@ -18,6 +19,10 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
+	"github.com/hashicorp/terraform-plugin-go/tfprotov5"
+	"github.com/hashicorp/terraform-plugin-mux/tf5muxserver"
+
 	"github.com/hashicorp/go-multierror"
 
 	"github.com/stretchr/testify/assert"
@@ -26,9 +31,9 @@ import (
 
 	"github.com/oracle/terraform-provider-oci/httpreplay"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
 
 	tf_client "github.com/oracle/terraform-provider-oci/internal/client"
@@ -632,8 +637,22 @@ func ResourceTest(t *testing.T, checkDestroyFunc resource.TestCheckFunc, steps [
 
 	resource.Test(&ociTest, resource.TestCase{
 		PreCheck: func() { PreCheck(t) },
-		Providers: map[string]*schema.Provider{
-			"oci": TestAccProvider,
+		ProtoV5ProviderFactories: map[string]func() (tfprotov5.ProviderServer, error){
+			"oci": func() (tfprotov5.ProviderServer, error) {
+				ctx := context.Background()
+				providers := []func() tfprotov5.ProviderServer{
+					providerserver.NewProtocol5(tf_provider.New()), // Example terraform-plugin-framework provider
+					TestAccProvider.GRPCProvider,                   // Example terraform-plugin-sdk provider
+				}
+
+				muxServer, err := tf5muxserver.NewMuxServer(ctx, providers...)
+
+				if err != nil {
+					return nil, err
+				}
+
+				return muxServer.ProviderServer(), nil
+			},
 		},
 		CheckDestroy: checkDestroyFunc,
 		Steps:        steps,
@@ -681,9 +700,6 @@ func ProviderTestCopy(configfn schema.ConfigureFunc) *schema.Provider {
 		ConfigureFunc:  configfn,
 	}
 
-	// Additions for test parameters
-	result.Schema["test_time_maintenance_reboot_due"] = &schema.Schema{Type: schema.TypeString, Optional: true}
-
 	return result
 }
 
@@ -706,6 +722,69 @@ func CommonTestVariables() string {
 	}
 
 	`
+}
+
+func BaseDBCommonTestVariables() string {
+	return fmt.Sprintf(`
+variable "tenancy_ocid" {
+default = "%s"
+}
+
+variable "compartment_ocid" {
+default = "%s"
+}
+
+variable "compartment_id" {
+default = "%s"
+}
+
+variable "region" {
+default = "%s"
+}
+
+variable "ssh_public_key" {
+default = "%s"
+}
+
+variable "kms_key_id" {
+default = "%s"
+}
+
+variable "kms_key_version_id" {
+default = "%s"
+}
+
+variable "vault_id" {
+default = "%s"
+}
+
+variable "ssl_secret_id" {
+default = "%s"
+}
+
+variable "admin_password" {
+default = "%s"
+}
+
+variable "tag_namespace_name" {
+default = "%s"
+}`,
+		getEnvSettingWithBlankDefaultVar("tenancy_ocid"),
+		getEnvSettingWithBlankDefaultVar("compartment_ocid"),
+		getEnvSettingWithBlankDefaultVar("compartment_ocid"),
+		getEnvSettingWithBlankDefaultVar("region"),
+		getEnvSettingWithBlankDefaultVar("ssh_public_key"),
+		getEnvSettingWithBlankDefaultVar("kms_key_id"),
+		getEnvSettingWithBlankDefaultVar("kms_key_version_id"),
+		getEnvSettingWithBlankDefaultVar("vault_id"),
+		getEnvSettingWithDefaultVar("ssl_secret_id", "test_secret_id"),
+		getEnvSettingWithBlankDefaultVar("admin_password"),
+		getEnvSettingWithDefaultVar("tag_namespace_name", "tfTagNamespace"),
+	)
+}
+
+func BaseDBProviderTestConfig() string {
+	return BaseDBCommonTestVariables()
 }
 
 func GetTestClients(data *schema.ResourceData) *tf_client.OracleClients {

@@ -930,6 +930,19 @@ var exportCoreComputeCapacityTopologyHints = &tf_export.TerraformResourceHints{
 	},
 }
 
+var exportCoreByoasnHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_core_byoasn",
+	DatasourceClass:        "oci_core_byoasns",
+	DatasourceItemsAttr:    "byoasn_collection",
+	IsDatasourceCollection: true,
+	ResourceAbbreviation:   "byoasn",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_core.ByoasnLifecycleStateActive),
+		string(oci_core.ByoasnLifecycleStateCreating),
+	},
+}
+
 var exportCoreInstanceMaintenanceEventHints = &tf_export.TerraformResourceHints{
 	ResourceClass:          "oci_core_instance_maintenance_event",
 	DatasourceClass:        "oci_core_instance_maintenance_events",
@@ -938,6 +951,54 @@ var exportCoreInstanceMaintenanceEventHints = &tf_export.TerraformResourceHints{
 	RequireResourceRefresh: true,
 	DiscoverableLifecycleStates: []string{
 		string(oci_core.InstanceMaintenanceEventLifecycleStateSucceeded),
+	},
+}
+
+var exportCoreComputeGpuMemoryClusterHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_core_compute_gpu_memory_cluster",
+	DatasourceClass:        "oci_core_compute_gpu_memory_clusters",
+	DatasourceItemsAttr:    "compute_gpu_memory_cluster_collection",
+	IsDatasourceCollection: true,
+	ResourceAbbreviation:   "compute_gpu_memory_cluster",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_core.ComputeGpuMemoryClusterLifecycleStateActive),
+	},
+}
+
+var exportCoreComputeGpuMemoryFabricHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_core_compute_gpu_memory_fabric",
+	DatasourceClass:        "oci_core_compute_gpu_memory_fabrics",
+	DatasourceItemsAttr:    "compute_gpu_memory_fabric_collection",
+	IsDatasourceCollection: true,
+	ResourceAbbreviation:   "compute_gpu_memory_fabric",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_core.ComputeGpuMemoryFabricLifecycleStateAvailable),
+	},
+}
+
+var exportCoreComputeHostHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_core_compute_host",
+	DatasourceClass:        "oci_core_compute_hosts",
+	DatasourceItemsAttr:    "compute_host_collection",
+	IsDatasourceCollection: true,
+	ResourceAbbreviation:   "compute_host",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_core.ComputeHostLifecycleStateAvailable),
+	},
+}
+
+var exportCoreComputeHostGroupHints = &tf_export.TerraformResourceHints{
+	ResourceClass:          "oci_core_compute_host_group",
+	DatasourceClass:        "oci_core_compute_host_groups",
+	DatasourceItemsAttr:    "compute_host_group_collection",
+	IsDatasourceCollection: true,
+	ResourceAbbreviation:   "compute_host_group",
+	RequireResourceRefresh: true,
+	DiscoverableLifecycleStates: []string{
+		string(oci_core.ComputeHostGroupLifecycleStateActive),
 	},
 }
 
@@ -992,6 +1053,11 @@ var coreResourceGraph = tf_export.TerraformResourceGraph{
 		{TerraformResourceHints: exportCoreComputeClusterHints},
 		{TerraformResourceHints: exportCoreInstanceMaintenanceEventHints},
 		{TerraformResourceHints: exportCoreComputeCapacityTopologyHints},
+		{TerraformResourceHints: exportCoreByoasnHints},
+		{TerraformResourceHints: exportCoreComputeGpuMemoryClusterHints},
+		{TerraformResourceHints: exportCoreComputeGpuMemoryFabricHints},
+		{TerraformResourceHints: exportCoreComputeHostHints},
+		{TerraformResourceHints: exportCoreComputeHostGroupHints},
 	},
 	"oci_core_boot_volume": {
 		{

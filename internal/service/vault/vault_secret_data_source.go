@@ -85,6 +85,14 @@ func (s *VaultSecretDataSourceCrud) SetData() error {
 
 	s.D.Set("freeform_tags", s.Res.FreeformTags)
 
+	if s.Res.IsAutoGenerationEnabled != nil {
+		s.D.Set("is_auto_generation_enabled", *s.Res.IsAutoGenerationEnabled)
+	}
+
+	if s.Res.IsReplica != nil {
+		s.D.Set("is_replica", *s.Res.IsReplica)
+	}
+
 	if s.Res.KeyId != nil {
 		s.D.Set("key_id", *s.Res.KeyId)
 	}
@@ -103,6 +111,12 @@ func (s *VaultSecretDataSourceCrud) SetData() error {
 		s.D.Set("next_rotation_time", s.Res.NextRotationTime.String())
 	}
 
+	if s.Res.ReplicationConfig != nil {
+		s.D.Set("replication_config", []interface{}{ReplicationConfigToMap(s.Res.ReplicationConfig)})
+	} else {
+		s.D.Set("replication_config", nil)
+	}
+
 	if s.Res.RotationConfig != nil {
 		s.D.Set("rotation_config", []interface{}{RotationConfigToMap(s.Res.RotationConfig)})
 	} else {
@@ -110,6 +124,16 @@ func (s *VaultSecretDataSourceCrud) SetData() error {
 	}
 
 	s.D.Set("rotation_status", s.Res.RotationStatus)
+
+	if s.Res.SecretGenerationContext != nil {
+		secretGenerationContextArray := []interface{}{}
+		if secretGenerationContextMap := SecretGenerationContextToMap(&s.Res.SecretGenerationContext); secretGenerationContextMap != nil {
+			secretGenerationContextArray = append(secretGenerationContextArray, secretGenerationContextMap)
+		}
+		s.D.Set("secret_generation_context", secretGenerationContextArray)
+	} else {
+		s.D.Set("secret_generation_context", nil)
+	}
 
 	if s.Res.SecretName != nil {
 		s.D.Set("secret_name", *s.Res.SecretName)
@@ -120,6 +144,12 @@ func (s *VaultSecretDataSourceCrud) SetData() error {
 		secretRules = append(secretRules, SecretRuleToMap(item))
 	}
 	s.D.Set("secret_rules", secretRules)
+
+	if s.Res.SourceRegionInformation != nil {
+		s.D.Set("source_region_information", []interface{}{SourceRegionInformationToMap(s.Res.SourceRegionInformation)})
+	} else {
+		s.D.Set("source_region_information", nil)
+	}
 
 	s.D.Set("state", s.Res.LifecycleState)
 

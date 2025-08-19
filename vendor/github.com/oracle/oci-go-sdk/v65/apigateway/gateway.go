@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -6,7 +6,7 @@
 //
 // API for the API Gateway service. Use this API to manage gateways, deployments, and related items.
 // For more information, see
-// Overview of API Gateway (https://docs.cloud.oracle.com/iaas/Content/APIGateway/Concepts/apigatewayoverview.htm).
+// Overview of API Gateway (https://docs.oracle.com/iaas/Content/APIGateway/Concepts/apigatewayoverview.htm).
 //
 
 package apigateway
@@ -19,13 +19,13 @@ import (
 )
 
 // Gateway A gateway is a virtual network appliance in a regional subnet. A gateway routes inbound traffic to back-end services including public, private, and partner HTTP APIs, as well as Oracle Functions. Avoid entering confidential information. For more information, see
-// API Gateway Concepts (https://docs.cloud.oracle.com/iaas/Content/APIGateway/Concepts/apigatewayconcepts.htm).
+// API Gateway Concepts (https://docs.oracle.com/iaas/Content/APIGateway/Concepts/apigatewayconcepts.htm).
 type Gateway struct {
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the resource.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the resource.
 	Id *string `mandatory:"true" json:"id"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment in which the
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which the
 	// resource is created.
 	CompartmentId *string `mandatory:"true" json:"compartmentId"`
 
@@ -39,7 +39,7 @@ type Gateway struct {
 	// Example: `My new resource`
 	DisplayName *string `mandatory:"false" json:"displayName"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet in which
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subnet in which
 	// related resources are created.
 	SubnetId *string `mandatory:"false" json:"subnetId"`
 
@@ -60,10 +60,13 @@ type Gateway struct {
 	// resource in a Failed state.
 	LifecycleDetails *string `mandatory:"false" json:"lifecycleDetails"`
 
+	// Locks associated with this resource.
+	Locks []ResourceLock `mandatory:"false" json:"locks"`
+
 	// The hostname for APIs deployed on the gateway.
 	Hostname *string `mandatory:"false" json:"hostname"`
 
-	// The OCID (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the resource.
+	// The OCID (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the resource.
 	CertificateId *string `mandatory:"false" json:"certificateId"`
 
 	// An array of IP addresses associated with the gateway.
@@ -73,15 +76,19 @@ type Gateway struct {
 
 	// Free-form tags for this resource. Each tag is a simple key-value pair
 	// with no predefined name, type, or namespace. For more information, see
-	// Resource Tags (https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+	// Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
 	// Example: `{"Department": "Finance"}`
 	FreeformTags map[string]string `mandatory:"false" json:"freeformTags"`
 
 	// Defined tags for this resource. Each key is predefined and scoped to a
 	// namespace. For more information, see
-	// Resource Tags (https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+	// Resource Tags (https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
 	// Example: `{"Operations": {"CostCenter": "42"}}`
 	DefinedTags map[string]map[string]interface{} `mandatory:"false" json:"definedTags"`
+
+	// System tags for this resource. Each key is predefined and scoped to a namespace.
+	// Example: `{"orcl-cloud": {"free-tier-retained": "true"}}`
+	SystemTags map[string]map[string]interface{} `mandatory:"false" json:"systemTags"`
 
 	// An array of CA bundles that should be used on the Gateway for TLS validation.
 	CaBundles []CaBundle `mandatory:"false" json:"caBundles"`
@@ -119,12 +126,14 @@ func (m *Gateway) UnmarshalJSON(data []byte) (e error) {
 		TimeUpdated             *common.SDKTime                   `json:"timeUpdated"`
 		LifecycleState          GatewayLifecycleStateEnum         `json:"lifecycleState"`
 		LifecycleDetails        *string                           `json:"lifecycleDetails"`
+		Locks                   []ResourceLock                    `json:"locks"`
 		Hostname                *string                           `json:"hostname"`
 		CertificateId           *string                           `json:"certificateId"`
 		IpAddresses             []IpAddress                       `json:"ipAddresses"`
 		ResponseCacheDetails    responsecachedetails              `json:"responseCacheDetails"`
 		FreeformTags            map[string]string                 `json:"freeformTags"`
 		DefinedTags             map[string]map[string]interface{} `json:"definedTags"`
+		SystemTags              map[string]map[string]interface{} `json:"systemTags"`
 		CaBundles               []cabundle                        `json:"caBundles"`
 		Id                      *string                           `json:"id"`
 		CompartmentId           *string                           `json:"compartmentId"`
@@ -150,6 +159,8 @@ func (m *Gateway) UnmarshalJSON(data []byte) (e error) {
 
 	m.LifecycleDetails = model.LifecycleDetails
 
+	m.Locks = make([]ResourceLock, len(model.Locks))
+	copy(m.Locks, model.Locks)
 	m.Hostname = model.Hostname
 
 	m.CertificateId = model.CertificateId
@@ -169,6 +180,8 @@ func (m *Gateway) UnmarshalJSON(data []byte) (e error) {
 	m.FreeformTags = model.FreeformTags
 
 	m.DefinedTags = model.DefinedTags
+
+	m.SystemTags = model.SystemTags
 
 	m.CaBundles = make([]CaBundle, len(model.CaBundles))
 	for i, n := range model.CaBundles {

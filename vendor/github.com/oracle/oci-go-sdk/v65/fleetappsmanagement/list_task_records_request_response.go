@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,13 +15,14 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListTaskRecords.go.html to see an example of how to use ListTaskRecordsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListTaskRecords.go.html to see an example of how to use ListTaskRecordsRequest.
 type ListTaskRecordsRequest struct {
 
 	// The ID of the compartment in which to list resources.
+	// Empty only if the resource OCID query param is not specified.
 	CompartmentId *string `mandatory:"false" contributesTo:"query" name:"compartmentId"`
 
-	// The platform for the Task.
+	// The platform for the task record.
 	Platform *string `mandatory:"false" contributesTo:"query" name:"platform"`
 
 	// The type of the Task.
@@ -30,7 +31,12 @@ type ListTaskRecordsRequest struct {
 	// A filter to return only resources that match the entire display name given.
 	DisplayName *string `mandatory:"false" contributesTo:"query" name:"displayName"`
 
-	// unique TaskDetail identifier
+	// A filter to return task records whose operation matches the given lifecycle operation.
+	Operation *string `mandatory:"false" contributesTo:"query" name:"operation"`
+
+	// Unique identifier or OCID for listing a single task record by id.
+	// Either compartmentId or id must be provided.
+	//
 	Id *string `mandatory:"false" contributesTo:"query" name:"id"`
 
 	// The maximum number of items to return.
@@ -39,7 +45,7 @@ type ListTaskRecordsRequest struct {
 	// A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
-	// The current state of the Task.
+	// The current state of the task record.
 	LifecycleState TaskRecordLifecycleStateEnum `mandatory:"false" contributesTo:"query" name:"lifecycleState" omitEmpty:"true"`
 
 	// The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending.

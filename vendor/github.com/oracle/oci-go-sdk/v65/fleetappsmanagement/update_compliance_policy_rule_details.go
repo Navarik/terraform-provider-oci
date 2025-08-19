@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -21,7 +21,7 @@ type UpdateCompliancePolicyRuleDetails struct {
 	ProductVersion *ProductVersionDetails `mandatory:"false" json:"productVersion"`
 
 	// PlatformConfiguration OCID for the patch type to which this CompliancePolicyRule applies.
-	PatchType []string `mandatory:"false" json:"patchType"`
+	PatchTypeId []string `mandatory:"false" json:"patchTypeId"`
 
 	// Severity to which this CompliancePolicyRule applies.
 	Severity []ComplianceRuleSeverityEnum `mandatory:"false" json:"severity,omitempty"`
@@ -67,7 +67,7 @@ func (m UpdateCompliancePolicyRuleDetails) ValidateEnumValue() (bool, error) {
 func (m *UpdateCompliancePolicyRuleDetails) UnmarshalJSON(data []byte) (e error) {
 	model := struct {
 		ProductVersion *ProductVersionDetails            `json:"productVersion"`
-		PatchType      []string                          `json:"patchType"`
+		PatchTypeId    []string                          `json:"patchTypeId"`
 		Severity       []ComplianceRuleSeverityEnum      `json:"severity"`
 		PatchSelection patchselectiondetails             `json:"patchSelection"`
 		GracePeriod    *string                           `json:"gracePeriod"`
@@ -82,8 +82,8 @@ func (m *UpdateCompliancePolicyRuleDetails) UnmarshalJSON(data []byte) (e error)
 	var nn interface{}
 	m.ProductVersion = model.ProductVersion
 
-	m.PatchType = make([]string, len(model.PatchType))
-	copy(m.PatchType, model.PatchType)
+	m.PatchTypeId = make([]string, len(model.PatchTypeId))
+	copy(m.PatchTypeId, model.PatchTypeId)
 	m.Severity = make([]ComplianceRuleSeverityEnum, len(model.Severity))
 	copy(m.Severity, model.Severity)
 	nn, e = model.PatchSelection.UnmarshalPolymorphicJSON(model.PatchSelection.JsonData)

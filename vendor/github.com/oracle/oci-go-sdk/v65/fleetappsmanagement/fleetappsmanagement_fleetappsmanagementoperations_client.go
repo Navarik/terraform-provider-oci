@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -60,7 +60,7 @@ func newFleetAppsManagementOperationsClientFromBaseClient(baseClient common.Base
 	common.ConfigCircuitBreakerFromGlobalVar(&baseClient)
 
 	client = FleetAppsManagementOperationsClient{BaseClient: baseClient}
-	client.BasePath = "20230831"
+	client.BasePath = "20250228"
 	err = client.setConfigurationProvider(configProvider)
 	return
 }
@@ -91,11 +91,75 @@ func (client *FleetAppsManagementOperationsClient) ConfigurationProvider() *comm
 	return client.config
 }
 
+// ChangePatchCompartment Moves a Patch into a different compartment within the same tenancy. For information about moving resources between
+// compartments, see Moving Resources to a Different Compartment (https://docs.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ChangePatchCompartment.go.html to see an example of how to use ChangePatchCompartment API.
+// A default retry strategy applies to this operation ChangePatchCompartment()
+func (client FleetAppsManagementOperationsClient) ChangePatchCompartment(ctx context.Context, request ChangePatchCompartmentRequest) (response ChangePatchCompartmentResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+
+	if !(request.OpcRetryToken != nil && *request.OpcRetryToken != "") {
+		request.OpcRetryToken = common.String(common.RetryToken())
+	}
+
+	ociResponse, err = common.Retry(ctx, request, client.changePatchCompartment, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ChangePatchCompartmentResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ChangePatchCompartmentResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ChangePatchCompartmentResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ChangePatchCompartmentResponse")
+	}
+	return
+}
+
+// changePatchCompartment implements the OCIOperation interface (enables retrying operations)
+func (client FleetAppsManagementOperationsClient) changePatchCompartment(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodPost, "/patches/{patchId}/actions/changeCompartment", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ChangePatchCompartmentResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Patch/ChangePatchCompartment"
+		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ChangePatchCompartment", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
 // CreatePatch Creates a new Patch.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreatePatch.go.html to see an example of how to use CreatePatch API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreatePatch.go.html to see an example of how to use CreatePatch API.
 // A default retry strategy applies to this operation CreatePatch()
 func (client FleetAppsManagementOperationsClient) CreatePatch(ctx context.Context, request CreatePatchRequest) (response CreatePatchResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -145,7 +209,7 @@ func (client FleetAppsManagementOperationsClient) createPatch(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Patch/CreatePatch"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Patch/CreatePatch"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "CreatePatch", apiReferenceLink)
 		return response, err
 	}
@@ -158,7 +222,7 @@ func (client FleetAppsManagementOperationsClient) createPatch(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateSchedulerDefinition.go.html to see an example of how to use CreateSchedulerDefinition API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/CreateSchedulerDefinition.go.html to see an example of how to use CreateSchedulerDefinition API.
 // A default retry strategy applies to this operation CreateSchedulerDefinition()
 func (client FleetAppsManagementOperationsClient) CreateSchedulerDefinition(ctx context.Context, request CreateSchedulerDefinitionRequest) (response CreateSchedulerDefinitionResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -208,7 +272,7 @@ func (client FleetAppsManagementOperationsClient) createSchedulerDefinition(ctx 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerDefinition/CreateSchedulerDefinition"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerDefinition/CreateSchedulerDefinition"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "CreateSchedulerDefinition", apiReferenceLink)
 		return response, err
 	}
@@ -217,11 +281,11 @@ func (client FleetAppsManagementOperationsClient) createSchedulerDefinition(ctx 
 	return response, err
 }
 
-// DeletePatch Deletes a Patch resource by identifier
+// DeletePatch Deletes the patch specified by identifier.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeletePatch.go.html to see an example of how to use DeletePatch API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeletePatch.go.html to see an example of how to use DeletePatch API.
 // A default retry strategy applies to this operation DeletePatch()
 func (client FleetAppsManagementOperationsClient) DeletePatch(ctx context.Context, request DeletePatchRequest) (response DeletePatchResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -266,7 +330,7 @@ func (client FleetAppsManagementOperationsClient) deletePatch(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Patch/DeletePatch"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Patch/DeletePatch"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "DeletePatch", apiReferenceLink)
 		return response, err
 	}
@@ -279,7 +343,7 @@ func (client FleetAppsManagementOperationsClient) deletePatch(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteSchedulerDefinition.go.html to see an example of how to use DeleteSchedulerDefinition API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteSchedulerDefinition.go.html to see an example of how to use DeleteSchedulerDefinition API.
 // A default retry strategy applies to this operation DeleteSchedulerDefinition()
 func (client FleetAppsManagementOperationsClient) DeleteSchedulerDefinition(ctx context.Context, request DeleteSchedulerDefinitionRequest) (response DeleteSchedulerDefinitionResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -324,7 +388,7 @@ func (client FleetAppsManagementOperationsClient) deleteSchedulerDefinition(ctx 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerDefinition/DeleteSchedulerDefinition"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerDefinition/DeleteSchedulerDefinition"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "DeleteSchedulerDefinition", apiReferenceLink)
 		return response, err
 	}
@@ -333,11 +397,11 @@ func (client FleetAppsManagementOperationsClient) deleteSchedulerDefinition(ctx 
 	return response, err
 }
 
-// DeleteSchedulerJob Delete a lifecycle operation schedule in Fleet Application Management.
+// DeleteSchedulerJob Deletes the schedule job specified by an identifier.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteSchedulerJob.go.html to see an example of how to use DeleteSchedulerJob API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/DeleteSchedulerJob.go.html to see an example of how to use DeleteSchedulerJob API.
 // A default retry strategy applies to this operation DeleteSchedulerJob()
 func (client FleetAppsManagementOperationsClient) DeleteSchedulerJob(ctx context.Context, request DeleteSchedulerJobRequest) (response DeleteSchedulerJobResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -382,7 +446,7 @@ func (client FleetAppsManagementOperationsClient) deleteSchedulerJob(ctx context
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerJob/DeleteSchedulerJob"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerJob/DeleteSchedulerJob"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "DeleteSchedulerJob", apiReferenceLink)
 		return response, err
 	}
@@ -395,7 +459,7 @@ func (client FleetAppsManagementOperationsClient) deleteSchedulerJob(ctx context
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ExportComplianceReport.go.html to see an example of how to use ExportComplianceReport API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ExportComplianceReport.go.html to see an example of how to use ExportComplianceReport API.
 // A default retry strategy applies to this operation ExportComplianceReport()
 func (client FleetAppsManagementOperationsClient) ExportComplianceReport(ctx context.Context, request ExportComplianceReportRequest) (response ExportComplianceReportResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -444,7 +508,7 @@ func (client FleetAppsManagementOperationsClient) exportComplianceReport(ctx con
 	httpResponse, err = client.Call(ctx, &httpRequest)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/ComplianceRecord/ExportComplianceReport"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/ComplianceRecord/ExportComplianceReport"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ExportComplianceReport", apiReferenceLink)
 		return response, err
 	}
@@ -457,7 +521,7 @@ func (client FleetAppsManagementOperationsClient) exportComplianceReport(ctx con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetExecution.go.html to see an example of how to use GetExecution API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetExecution.go.html to see an example of how to use GetExecution API.
 // A default retry strategy applies to this operation GetExecution()
 func (client FleetAppsManagementOperationsClient) GetExecution(ctx context.Context, request GetExecutionRequest) (response GetExecutionResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -502,7 +566,7 @@ func (client FleetAppsManagementOperationsClient) getExecution(ctx context.Conte
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Execution/GetExecution"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Execution/GetExecution"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "GetExecution", apiReferenceLink)
 		return response, err
 	}
@@ -515,7 +579,7 @@ func (client FleetAppsManagementOperationsClient) getExecution(ctx context.Conte
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetJobActivity.go.html to see an example of how to use GetJobActivity API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetJobActivity.go.html to see an example of how to use GetJobActivity API.
 // A default retry strategy applies to this operation GetJobActivity()
 func (client FleetAppsManagementOperationsClient) GetJobActivity(ctx context.Context, request GetJobActivityRequest) (response GetJobActivityResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -560,7 +624,7 @@ func (client FleetAppsManagementOperationsClient) getJobActivity(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/JobActivity/GetJobActivity"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/JobActivity/GetJobActivity"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "GetJobActivity", apiReferenceLink)
 		return response, err
 	}
@@ -569,11 +633,11 @@ func (client FleetAppsManagementOperationsClient) getJobActivity(ctx context.Con
 	return response, err
 }
 
-// GetPatch Gets a Patch by identifier
+// GetPatch Gets a Patch by identifier.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetPatch.go.html to see an example of how to use GetPatch API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetPatch.go.html to see an example of how to use GetPatch API.
 // A default retry strategy applies to this operation GetPatch()
 func (client FleetAppsManagementOperationsClient) GetPatch(ctx context.Context, request GetPatchRequest) (response GetPatchResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -618,7 +682,7 @@ func (client FleetAppsManagementOperationsClient) getPatch(ctx context.Context, 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Patch/GetPatch"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Patch/GetPatch"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "GetPatch", apiReferenceLink)
 		return response, err
 	}
@@ -631,7 +695,7 @@ func (client FleetAppsManagementOperationsClient) getPatch(ctx context.Context, 
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetSchedulerDefinition.go.html to see an example of how to use GetSchedulerDefinition API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetSchedulerDefinition.go.html to see an example of how to use GetSchedulerDefinition API.
 // A default retry strategy applies to this operation GetSchedulerDefinition()
 func (client FleetAppsManagementOperationsClient) GetSchedulerDefinition(ctx context.Context, request GetSchedulerDefinitionRequest) (response GetSchedulerDefinitionResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -676,7 +740,7 @@ func (client FleetAppsManagementOperationsClient) getSchedulerDefinition(ctx con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerDefinition/GetSchedulerDefinition"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerDefinition/GetSchedulerDefinition"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "GetSchedulerDefinition", apiReferenceLink)
 		return response, err
 	}
@@ -689,7 +753,7 @@ func (client FleetAppsManagementOperationsClient) getSchedulerDefinition(ctx con
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetSchedulerJob.go.html to see an example of how to use GetSchedulerJob API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/GetSchedulerJob.go.html to see an example of how to use GetSchedulerJob API.
 // A default retry strategy applies to this operation GetSchedulerJob()
 func (client FleetAppsManagementOperationsClient) GetSchedulerJob(ctx context.Context, request GetSchedulerJobRequest) (response GetSchedulerJobResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -734,7 +798,7 @@ func (client FleetAppsManagementOperationsClient) getSchedulerJob(ctx context.Co
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerJob/GetSchedulerJob"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerJob/GetSchedulerJob"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "GetSchedulerJob", apiReferenceLink)
 		return response, err
 	}
@@ -747,7 +811,7 @@ func (client FleetAppsManagementOperationsClient) getSchedulerJob(ctx context.Co
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListComplianceRecords.go.html to see an example of how to use ListComplianceRecords API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListComplianceRecords.go.html to see an example of how to use ListComplianceRecords API.
 // A default retry strategy applies to this operation ListComplianceRecords()
 func (client FleetAppsManagementOperationsClient) ListComplianceRecords(ctx context.Context, request ListComplianceRecordsRequest) (response ListComplianceRecordsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -792,7 +856,7 @@ func (client FleetAppsManagementOperationsClient) listComplianceRecords(ctx cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/ComplianceRecordCollection/ListComplianceRecords"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/ComplianceRecordCollection/ListComplianceRecords"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListComplianceRecords", apiReferenceLink)
 		return response, err
 	}
@@ -805,7 +869,7 @@ func (client FleetAppsManagementOperationsClient) listComplianceRecords(ctx cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListExecutions.go.html to see an example of how to use ListExecutions API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListExecutions.go.html to see an example of how to use ListExecutions API.
 // A default retry strategy applies to this operation ListExecutions()
 func (client FleetAppsManagementOperationsClient) ListExecutions(ctx context.Context, request ListExecutionsRequest) (response ListExecutionsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -850,7 +914,7 @@ func (client FleetAppsManagementOperationsClient) listExecutions(ctx context.Con
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/ExecutionCollection/ListExecutions"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/ExecutionCollection/ListExecutions"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListExecutions", apiReferenceLink)
 		return response, err
 	}
@@ -859,11 +923,70 @@ func (client FleetAppsManagementOperationsClient) listExecutions(ctx context.Con
 	return response, err
 }
 
-// ListPatches Returns a list of Patches.
+// ListInventoryRecords Gets a list of inventoryDetails.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListPatches.go.html to see an example of how to use ListPatches API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListInventoryRecords.go.html to see an example of how to use ListInventoryRecords API.
+// A default retry strategy applies to this operation ListInventoryRecords()
+func (client FleetAppsManagementOperationsClient) ListInventoryRecords(ctx context.Context, request ListInventoryRecordsRequest) (response ListInventoryRecordsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listInventoryRecords, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListInventoryRecordsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListInventoryRecordsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListInventoryRecordsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListInventoryRecordsResponse")
+	}
+	return
+}
+
+// listInventoryRecords implements the OCIOperation interface (enables retrying operations)
+func (client FleetAppsManagementOperationsClient) listInventoryRecords(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/inventoryRecords", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListInventoryRecordsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/InventoryRecordCollection/ListInventoryRecords"
+		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListInventoryRecords", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListPatches Returns a list of all the Patches in the specified compartment.
+// The query parameter `compartmentId` is required unless the query parameter `id` is specified.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListPatches.go.html to see an example of how to use ListPatches API.
 // A default retry strategy applies to this operation ListPatches()
 func (client FleetAppsManagementOperationsClient) ListPatches(ctx context.Context, request ListPatchesRequest) (response ListPatchesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -908,7 +1031,7 @@ func (client FleetAppsManagementOperationsClient) listPatches(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/PatchCollection/ListPatches"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/PatchCollection/ListPatches"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListPatches", apiReferenceLink)
 		return response, err
 	}
@@ -921,7 +1044,7 @@ func (client FleetAppsManagementOperationsClient) listPatches(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListResources.go.html to see an example of how to use ListResources API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListResources.go.html to see an example of how to use ListResources API.
 // A default retry strategy applies to this operation ListResources()
 func (client FleetAppsManagementOperationsClient) ListResources(ctx context.Context, request ListResourcesRequest) (response ListResourcesResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -966,7 +1089,7 @@ func (client FleetAppsManagementOperationsClient) listResources(ctx context.Cont
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/ResourceCollection/ListResources"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/ResourceCollection/ListResources"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListResources", apiReferenceLink)
 		return response, err
 	}
@@ -979,7 +1102,7 @@ func (client FleetAppsManagementOperationsClient) listResources(ctx context.Cont
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListScheduledFleets.go.html to see an example of how to use ListScheduledFleets API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListScheduledFleets.go.html to see an example of how to use ListScheduledFleets API.
 // A default retry strategy applies to this operation ListScheduledFleets()
 func (client FleetAppsManagementOperationsClient) ListScheduledFleets(ctx context.Context, request ListScheduledFleetsRequest) (response ListScheduledFleetsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1024,7 +1147,7 @@ func (client FleetAppsManagementOperationsClient) listScheduledFleets(ctx contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/ScheduledFleetCollection/ListScheduledFleets"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/ScheduledFleetCollection/ListScheduledFleets"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListScheduledFleets", apiReferenceLink)
 		return response, err
 	}
@@ -1033,11 +1156,12 @@ func (client FleetAppsManagementOperationsClient) listScheduledFleets(ctx contex
 	return response, err
 }
 
-// ListSchedulerDefinitions List all lifecycle management schedules in Fleet Application Management.
+// ListSchedulerDefinitions Returns a list of all the Schedule Definitions in the specified compartment.
+// The query parameter `compartmentId` is required unless the query parameter `id` is specified.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListSchedulerDefinitions.go.html to see an example of how to use ListSchedulerDefinitions API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListSchedulerDefinitions.go.html to see an example of how to use ListSchedulerDefinitions API.
 // A default retry strategy applies to this operation ListSchedulerDefinitions()
 func (client FleetAppsManagementOperationsClient) ListSchedulerDefinitions(ctx context.Context, request ListSchedulerDefinitionsRequest) (response ListSchedulerDefinitionsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1082,7 +1206,7 @@ func (client FleetAppsManagementOperationsClient) listSchedulerDefinitions(ctx c
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerDefinitionCollection/ListSchedulerDefinitions"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerDefinitionCollection/ListSchedulerDefinitions"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListSchedulerDefinitions", apiReferenceLink)
 		return response, err
 	}
@@ -1091,11 +1215,70 @@ func (client FleetAppsManagementOperationsClient) listSchedulerDefinitions(ctx c
 	return response, err
 }
 
-// ListSchedulerJobs List scheduled lifecycle operation jobs in Fleet Application Management.
+// ListSchedulerExecutions Returns a list of all Fleets that are scheduled.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListSchedulerJobs.go.html to see an example of how to use ListSchedulerJobs API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListSchedulerExecutions.go.html to see an example of how to use ListSchedulerExecutions API.
+// A default retry strategy applies to this operation ListSchedulerExecutions()
+func (client FleetAppsManagementOperationsClient) ListSchedulerExecutions(ctx context.Context, request ListSchedulerExecutionsRequest) (response ListSchedulerExecutionsResponse, err error) {
+	var ociResponse common.OCIResponse
+	policy := common.DefaultRetryPolicy()
+	if client.RetryPolicy() != nil {
+		policy = *client.RetryPolicy()
+	}
+	if request.RetryPolicy() != nil {
+		policy = *request.RetryPolicy()
+	}
+	ociResponse, err = common.Retry(ctx, request, client.listSchedulerExecutions, policy)
+	if err != nil {
+		if ociResponse != nil {
+			if httpResponse := ociResponse.HTTPResponse(); httpResponse != nil {
+				opcRequestId := httpResponse.Header.Get("opc-request-id")
+				response = ListSchedulerExecutionsResponse{RawResponse: httpResponse, OpcRequestId: &opcRequestId}
+			} else {
+				response = ListSchedulerExecutionsResponse{}
+			}
+		}
+		return
+	}
+	if convertedResponse, ok := ociResponse.(ListSchedulerExecutionsResponse); ok {
+		response = convertedResponse
+	} else {
+		err = fmt.Errorf("failed to convert OCIResponse into ListSchedulerExecutionsResponse")
+	}
+	return
+}
+
+// listSchedulerExecutions implements the OCIOperation interface (enables retrying operations)
+func (client FleetAppsManagementOperationsClient) listSchedulerExecutions(ctx context.Context, request common.OCIRequest, binaryReqBody *common.OCIReadSeekCloser, extraHeaders map[string]string) (common.OCIResponse, error) {
+
+	httpRequest, err := request.HTTPRequest(http.MethodGet, "/schedulerExecutions", binaryReqBody, extraHeaders)
+	if err != nil {
+		return nil, err
+	}
+
+	var response ListSchedulerExecutionsResponse
+	var httpResponse *http.Response
+	httpResponse, err = client.Call(ctx, &httpRequest)
+	defer common.CloseBodyIfValid(httpResponse)
+	response.RawResponse = httpResponse
+	if err != nil {
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerExecutionCollection/ListSchedulerExecutions"
+		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListSchedulerExecutions", apiReferenceLink)
+		return response, err
+	}
+
+	err = common.UnmarshalResponse(httpResponse, &response)
+	return response, err
+}
+
+// ListSchedulerJobs Returns a list of all schedule jobs in the specified compartment.
+// The query parameter `compartmentId` is required unless the query parameter `id` is specified.
+//
+// # See also
+//
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListSchedulerJobs.go.html to see an example of how to use ListSchedulerJobs API.
 // A default retry strategy applies to this operation ListSchedulerJobs()
 func (client FleetAppsManagementOperationsClient) ListSchedulerJobs(ctx context.Context, request ListSchedulerJobsRequest) (response ListSchedulerJobsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1140,7 +1323,7 @@ func (client FleetAppsManagementOperationsClient) listSchedulerJobs(ctx context.
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerJobCollection/ListSchedulerJobs"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerJobCollection/ListSchedulerJobs"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListSchedulerJobs", apiReferenceLink)
 		return response, err
 	}
@@ -1153,7 +1336,7 @@ func (client FleetAppsManagementOperationsClient) listSchedulerJobs(ctx context.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListSteps.go.html to see an example of how to use ListSteps API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ListSteps.go.html to see an example of how to use ListSteps API.
 // A default retry strategy applies to this operation ListSteps()
 func (client FleetAppsManagementOperationsClient) ListSteps(ctx context.Context, request ListStepsRequest) (response ListStepsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1198,7 +1381,7 @@ func (client FleetAppsManagementOperationsClient) listSteps(ctx context.Context,
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/StepCollection/ListSteps"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/StepCollection/ListSteps"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ListSteps", apiReferenceLink)
 		return response, err
 	}
@@ -1211,7 +1394,7 @@ func (client FleetAppsManagementOperationsClient) listSteps(ctx context.Context,
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ManageJobExecution.go.html to see an example of how to use ManageJobExecution API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/ManageJobExecution.go.html to see an example of how to use ManageJobExecution API.
 // A default retry strategy applies to this operation ManageJobExecution()
 func (client FleetAppsManagementOperationsClient) ManageJobExecution(ctx context.Context, request ManageJobExecutionRequest) (response ManageJobExecutionResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1261,7 +1444,7 @@ func (client FleetAppsManagementOperationsClient) manageJobExecution(ctx context
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerJob/ManageJobExecution"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerJob/ManageJobExecution"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "ManageJobExecution", apiReferenceLink)
 		return response, err
 	}
@@ -1270,11 +1453,11 @@ func (client FleetAppsManagementOperationsClient) manageJobExecution(ctx context
 	return response, err
 }
 
-// SummarizeComplianceRecordCounts Retrieve  aggregated summary information of ComplianceRecords within a Tenancy.
+// SummarizeComplianceRecordCounts Retrieve  aggregated summary information of ComplianceRecords within a Compartment.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/SummarizeComplianceRecordCounts.go.html to see an example of how to use SummarizeComplianceRecordCounts API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/SummarizeComplianceRecordCounts.go.html to see an example of how to use SummarizeComplianceRecordCounts API.
 // A default retry strategy applies to this operation SummarizeComplianceRecordCounts()
 func (client FleetAppsManagementOperationsClient) SummarizeComplianceRecordCounts(ctx context.Context, request SummarizeComplianceRecordCountsRequest) (response SummarizeComplianceRecordCountsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1319,7 +1502,7 @@ func (client FleetAppsManagementOperationsClient) summarizeComplianceRecordCount
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/ComplianceRecordAggregationCollection/SummarizeComplianceRecordCounts"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/ComplianceRecordAggregationCollection/SummarizeComplianceRecordCounts"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "SummarizeComplianceRecordCounts", apiReferenceLink)
 		return response, err
 	}
@@ -1328,11 +1511,11 @@ func (client FleetAppsManagementOperationsClient) summarizeComplianceRecordCount
 	return response, err
 }
 
-// SummarizeManagedEntityCounts Retrieve  aggregated summary information of Managed Entities within a Tenancy.
+// SummarizeManagedEntityCounts Retrieve  aggregated summary information of Managed entities within a Compartment.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/SummarizeManagedEntityCounts.go.html to see an example of how to use SummarizeManagedEntityCounts API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/SummarizeManagedEntityCounts.go.html to see an example of how to use SummarizeManagedEntityCounts API.
 // A default retry strategy applies to this operation SummarizeManagedEntityCounts()
 func (client FleetAppsManagementOperationsClient) SummarizeManagedEntityCounts(ctx context.Context, request SummarizeManagedEntityCountsRequest) (response SummarizeManagedEntityCountsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1377,7 +1560,7 @@ func (client FleetAppsManagementOperationsClient) summarizeManagedEntityCounts(c
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/ManagedEntityAggregationCollection/SummarizeManagedEntityCounts"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/ManagedEntityAggregationCollection/SummarizeManagedEntityCounts"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "SummarizeManagedEntityCounts", apiReferenceLink)
 		return response, err
 	}
@@ -1386,11 +1569,11 @@ func (client FleetAppsManagementOperationsClient) summarizeManagedEntityCounts(c
 	return response, err
 }
 
-// SummarizeSchedulerJobCounts Retrieve aggregated summary information of Scheduler Jobs within a Tenancy.
+// SummarizeSchedulerJobCounts Retrieve aggregated summary information of Scheduler Jobs within a Compartment.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/SummarizeSchedulerJobCounts.go.html to see an example of how to use SummarizeSchedulerJobCounts API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/SummarizeSchedulerJobCounts.go.html to see an example of how to use SummarizeSchedulerJobCounts API.
 // A default retry strategy applies to this operation SummarizeSchedulerJobCounts()
 func (client FleetAppsManagementOperationsClient) SummarizeSchedulerJobCounts(ctx context.Context, request SummarizeSchedulerJobCountsRequest) (response SummarizeSchedulerJobCountsResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1435,7 +1618,7 @@ func (client FleetAppsManagementOperationsClient) summarizeSchedulerJobCounts(ct
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerJobAggregationCollection/SummarizeSchedulerJobCounts"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerJobAggregationCollection/SummarizeSchedulerJobCounts"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "SummarizeSchedulerJobCounts", apiReferenceLink)
 		return response, err
 	}
@@ -1444,11 +1627,11 @@ func (client FleetAppsManagementOperationsClient) summarizeSchedulerJobCounts(ct
 	return response, err
 }
 
-// UpdatePatch Updates the Patch
+// UpdatePatch Updates the patch specified by the identifier.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdatePatch.go.html to see an example of how to use UpdatePatch API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdatePatch.go.html to see an example of how to use UpdatePatch API.
 // A default retry strategy applies to this operation UpdatePatch()
 func (client FleetAppsManagementOperationsClient) UpdatePatch(ctx context.Context, request UpdatePatchRequest) (response UpdatePatchResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1493,7 +1676,7 @@ func (client FleetAppsManagementOperationsClient) updatePatch(ctx context.Contex
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/Patch/UpdatePatch"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/Patch/UpdatePatch"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "UpdatePatch", apiReferenceLink)
 		return response, err
 	}
@@ -1506,7 +1689,7 @@ func (client FleetAppsManagementOperationsClient) updatePatch(ctx context.Contex
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateSchedulerDefinition.go.html to see an example of how to use UpdateSchedulerDefinition API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateSchedulerDefinition.go.html to see an example of how to use UpdateSchedulerDefinition API.
 // A default retry strategy applies to this operation UpdateSchedulerDefinition()
 func (client FleetAppsManagementOperationsClient) UpdateSchedulerDefinition(ctx context.Context, request UpdateSchedulerDefinitionRequest) (response UpdateSchedulerDefinitionResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1551,7 +1734,7 @@ func (client FleetAppsManagementOperationsClient) updateSchedulerDefinition(ctx 
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerDefinition/UpdateSchedulerDefinition"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerDefinition/UpdateSchedulerDefinition"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "UpdateSchedulerDefinition", apiReferenceLink)
 		return response, err
 	}
@@ -1560,11 +1743,11 @@ func (client FleetAppsManagementOperationsClient) updateSchedulerDefinition(ctx 
 	return response, err
 }
 
-// UpdateSchedulerJob Update a lifecycle operation job schedule in Fleet Application Management.
+// UpdateSchedulerJob Updates certain attributes for the specified schedule job.
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateSchedulerJob.go.html to see an example of how to use UpdateSchedulerJob API.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/fleetappsmanagement/UpdateSchedulerJob.go.html to see an example of how to use UpdateSchedulerJob API.
 // A default retry strategy applies to this operation UpdateSchedulerJob()
 func (client FleetAppsManagementOperationsClient) UpdateSchedulerJob(ctx context.Context, request UpdateSchedulerJobRequest) (response UpdateSchedulerJobResponse, err error) {
 	var ociResponse common.OCIResponse
@@ -1609,7 +1792,7 @@ func (client FleetAppsManagementOperationsClient) updateSchedulerJob(ctx context
 	defer common.CloseBodyIfValid(httpResponse)
 	response.RawResponse = httpResponse
 	if err != nil {
-		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20230831/SchedulerJob/UpdateSchedulerJob"
+		apiReferenceLink := "https://docs.oracle.com/iaas/api/#/en/fleet-management/20250228/SchedulerJob/UpdateSchedulerJob"
 		err = common.PostProcessServiceError(err, "FleetAppsManagementOperations", "UpdateSchedulerJob", apiReferenceLink)
 		return response, err
 	}

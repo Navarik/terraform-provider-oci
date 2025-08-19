@@ -9,13 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
 	oci_fleet_apps_management "github.com/oracle/oci-go-sdk/v65/fleetappsmanagement"
-
 	"github.com/oracle/terraform-provider-oci/internal/client"
+
 	"github.com/oracle/terraform-provider-oci/internal/tfresource"
 )
 
@@ -39,6 +38,11 @@ func FleetAppsManagementMaintenanceWindowResource() *schema.Resource {
 			"duration": {
 				Type:     schema.TypeString,
 				Required: true,
+			},
+			"time_schedule_start": {
+				Type:             schema.TypeString,
+				Required:         true,
+				DiffSuppressFunc: tfresource.TimeDiffSuppressFunction,
 			},
 
 			// Optional
@@ -75,26 +79,10 @@ func FleetAppsManagementMaintenanceWindowResource() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
-			"maintenance_window_type": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Computed: true,
-			},
 			"recurrences": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
-			},
-			"task_initiation_cutoff": {
-				Type:     schema.TypeInt,
-				Optional: true,
-				Computed: true,
-			},
-			"time_schedule_start": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
-				DiffSuppressFunc: tfresource.TimeDiffSuppressFunction,
 			},
 
 			// Computed
@@ -131,7 +119,7 @@ func createFleetAppsManagementMaintenanceWindow(d *schema.ResourceData, m interf
 	sync := &FleetAppsManagementMaintenanceWindowResourceCrud{}
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).FleetAppsManagementMaintenanceWindowClient()
-	sync.FleetClient = m.(*client.OracleClients).FleetAppsManagementClient()
+	sync.WorkRequestClient = m.(*client.OracleClients).FleetAppsManagementFleetAppsManagementWorkRequestClient()
 
 	return tfresource.CreateResource(d, sync)
 }
@@ -140,7 +128,6 @@ func readFleetAppsManagementMaintenanceWindow(d *schema.ResourceData, m interfac
 	sync := &FleetAppsManagementMaintenanceWindowResourceCrud{}
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).FleetAppsManagementMaintenanceWindowClient()
-	sync.FleetClient = m.(*client.OracleClients).FleetAppsManagementClient()
 
 	return tfresource.ReadResource(sync)
 }
@@ -149,7 +136,7 @@ func updateFleetAppsManagementMaintenanceWindow(d *schema.ResourceData, m interf
 	sync := &FleetAppsManagementMaintenanceWindowResourceCrud{}
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).FleetAppsManagementMaintenanceWindowClient()
-	sync.FleetClient = m.(*client.OracleClients).FleetAppsManagementClient()
+	sync.WorkRequestClient = m.(*client.OracleClients).FleetAppsManagementFleetAppsManagementWorkRequestClient()
 
 	return tfresource.UpdateResource(d, sync)
 }
@@ -158,8 +145,8 @@ func deleteFleetAppsManagementMaintenanceWindow(d *schema.ResourceData, m interf
 	sync := &FleetAppsManagementMaintenanceWindowResourceCrud{}
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).FleetAppsManagementMaintenanceWindowClient()
-	sync.FleetClient = m.(*client.OracleClients).FleetAppsManagementClient()
 	sync.DisableNotFoundRetries = true
+	sync.WorkRequestClient = m.(*client.OracleClients).FleetAppsManagementFleetAppsManagementWorkRequestClient()
 
 	return tfresource.DeleteResource(d, sync)
 }
@@ -167,9 +154,9 @@ func deleteFleetAppsManagementMaintenanceWindow(d *schema.ResourceData, m interf
 type FleetAppsManagementMaintenanceWindowResourceCrud struct {
 	tfresource.BaseCrud
 	Client                 *oci_fleet_apps_management.FleetAppsManagementMaintenanceWindowClient
-	FleetClient            *oci_fleet_apps_management.FleetAppsManagementClient
 	Res                    *oci_fleet_apps_management.MaintenanceWindow
 	DisableNotFoundRetries bool
+	WorkRequestClient      *oci_fleet_apps_management.FleetAppsManagementWorkRequestClient
 }
 
 func (s *FleetAppsManagementMaintenanceWindowResourceCrud) ID() string {
@@ -244,18 +231,9 @@ func (s *FleetAppsManagementMaintenanceWindowResourceCrud) Create() error {
 		request.IsRecurring = &tmp
 	}
 
-	if maintenanceWindowType, ok := s.D.GetOkExists("maintenance_window_type"); ok {
-		request.MaintenanceWindowType = oci_fleet_apps_management.MaintenanceWindowTypeEnum(maintenanceWindowType.(string))
-	}
-
 	if recurrences, ok := s.D.GetOkExists("recurrences"); ok {
 		tmp := recurrences.(string)
 		request.Recurrences = &tmp
-	}
-
-	if taskInitiationCutoff, ok := s.D.GetOkExists("task_initiation_cutoff"); ok {
-		tmp := taskInitiationCutoff.(int)
-		request.TaskInitiationCutoff = &tmp
 	}
 
 	if timeScheduleStart, ok := s.D.GetOkExists("time_schedule_start"); ok {
@@ -282,7 +260,7 @@ func (s *FleetAppsManagementMaintenanceWindowResourceCrud) getMaintenanceWindowF
 
 	// Wait until it finishes
 	maintenanceWindowId, err := maintenanceWindowWaitForWorkRequest(workId, "maintenance-window",
-		actionTypeEnum, timeout, s.DisableNotFoundRetries, s.FleetClient)
+		actionTypeEnum, timeout, s.DisableNotFoundRetries, s.WorkRequestClient)
 
 	if err != nil {
 		return err
@@ -316,12 +294,12 @@ func maintenanceWindowWorkRequestShouldRetryFunc(timeout time.Duration) func(res
 }
 
 func maintenanceWindowWaitForWorkRequest(wId *string, entityType string, action oci_fleet_apps_management.ActionTypeEnum,
-	timeout time.Duration, disableFoundRetries bool, client *oci_fleet_apps_management.FleetAppsManagementClient) (*string, error) {
+	timeout time.Duration, disableFoundRetries bool, client *oci_fleet_apps_management.FleetAppsManagementWorkRequestClient) (*string, error) {
 	retryPolicy := tfresource.GetRetryPolicy(disableFoundRetries, "fleet_apps_management")
 	retryPolicy.ShouldRetryOperation = maintenanceWindowWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_fleet_apps_management.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_fleet_apps_management.OperationStatusInProgress),
 			string(oci_fleet_apps_management.OperationStatusAccepted),
@@ -369,7 +347,7 @@ func maintenanceWindowWaitForWorkRequest(wId *string, entityType string, action 
 	return identifier, nil
 }
 
-func getErrorFromFleetAppsManagementMaintenanceWindowWorkRequest(client *oci_fleet_apps_management.FleetAppsManagementClient, workId *string, retryPolicy *oci_common.RetryPolicy, entityType string, action oci_fleet_apps_management.ActionTypeEnum) error {
+func getErrorFromFleetAppsManagementMaintenanceWindowWorkRequest(client *oci_fleet_apps_management.FleetAppsManagementWorkRequestClient, workId *string, retryPolicy *oci_common.RetryPolicy, entityType string, action oci_fleet_apps_management.ActionTypeEnum) error {
 	response, err := client.ListWorkRequestErrors(context.Background(),
 		oci_fleet_apps_management.ListWorkRequestErrorsRequest{
 			WorkRequestId: workId,
@@ -452,18 +430,9 @@ func (s *FleetAppsManagementMaintenanceWindowResourceCrud) Update() error {
 	tmp := s.D.Id()
 	request.MaintenanceWindowId = &tmp
 
-	if maintenanceWindowType, ok := s.D.GetOkExists("maintenance_window_type"); ok {
-		request.MaintenanceWindowType = oci_fleet_apps_management.MaintenanceWindowTypeEnum(maintenanceWindowType.(string))
-	}
-
 	if recurrences, ok := s.D.GetOkExists("recurrences"); ok {
 		tmp := recurrences.(string)
 		request.Recurrences = &tmp
-	}
-
-	if taskInitiationCutoff, ok := s.D.GetOkExists("task_initiation_cutoff"); ok {
-		tmp := taskInitiationCutoff.(int)
-		request.TaskInitiationCutoff = &tmp
 	}
 
 	if timeScheduleStart, ok := s.D.GetOkExists("time_schedule_start"); ok {
@@ -501,7 +470,7 @@ func (s *FleetAppsManagementMaintenanceWindowResourceCrud) Delete() error {
 	workId := response.OpcWorkRequestId
 	// Wait until it finishes
 	_, delWorkRequestErr := maintenanceWindowWaitForWorkRequest(workId, "maintenance-window",
-		oci_fleet_apps_management.ActionTypeDeleted, s.D.Timeout(schema.TimeoutDelete), s.DisableNotFoundRetries, s.FleetClient)
+		oci_fleet_apps_management.ActionTypeDeleted, s.D.Timeout(schema.TimeoutDelete), s.DisableNotFoundRetries, s.WorkRequestClient)
 	return delWorkRequestErr
 }
 
@@ -542,8 +511,6 @@ func (s *FleetAppsManagementMaintenanceWindowResourceCrud) SetData() error {
 		s.D.Set("lifecycle_details", *s.Res.LifecycleDetails)
 	}
 
-	s.D.Set("maintenance_window_type", s.Res.MaintenanceWindowType)
-
 	if s.Res.Recurrences != nil {
 		s.D.Set("recurrences", *s.Res.Recurrences)
 	}
@@ -556,10 +523,6 @@ func (s *FleetAppsManagementMaintenanceWindowResourceCrud) SetData() error {
 
 	if s.Res.SystemTags != nil {
 		s.D.Set("system_tags", tfresource.SystemTagsToMap(s.Res.SystemTags))
-	}
-
-	if s.Res.TaskInitiationCutoff != nil {
-		s.D.Set("task_initiation_cutoff", *s.Res.TaskInitiationCutoff)
 	}
 
 	if s.Res.TimeCreated != nil {
@@ -618,8 +581,6 @@ func MaintenanceWindowSummaryToMap(obj oci_fleet_apps_management.MaintenanceWind
 		result["lifecycle_details"] = string(*obj.LifecycleDetails)
 	}
 
-	result["maintenance_window_type"] = string(obj.MaintenanceWindowType)
-
 	if obj.Recurrences != nil {
 		result["recurrences"] = string(*obj.Recurrences)
 	}
@@ -632,10 +593,6 @@ func MaintenanceWindowSummaryToMap(obj oci_fleet_apps_management.MaintenanceWind
 
 	if obj.SystemTags != nil {
 		result["system_tags"] = tfresource.SystemTagsToMap(obj.SystemTags)
-	}
-
-	if obj.TaskInitiationCutoff != nil {
-		result["task_initiation_cutoff"] = int(*obj.TaskInitiationCutoff)
 	}
 
 	if obj.TimeCreated != nil {

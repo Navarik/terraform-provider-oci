@@ -23,7 +23,11 @@ func DevopsDeploymentResource() *schema.Resource {
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
 		},
-		Timeouts:      tfresource.DefaultTimeout,
+		Timeouts: &schema.ResourceTimeout{
+			Create: &tfresource.TwoHours,
+			Update: &tfresource.TwoHours,
+			Delete: &tfresource.TwoHours,
+		},
 		Create:        createDevopsDeployment,
 		Read:          readDevopsDeployment,
 		Update:        updateDevopsDeployment,
@@ -93,7 +97,7 @@ func DevopsDeploymentResource() *schema.Resource {
 									"value": {
 										Type:     schema.TypeString,
 										Optional: true,
-										Computed: true,
+										Default:  "{value}",
 										ForceNew: true,
 									},
 
@@ -935,7 +939,7 @@ func (s *DevopsDeploymentResourceCrud) mapToDeployArtifactOverrideArgument(field
 		result.Name = &tmp
 	}
 
-	if value, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "value")); ok {
+	if value := s.D.Get(fmt.Sprintf(fieldKeyFormat, "value")); value != "{value}" {
 		tmp := value.(string)
 		result.Value = &tmp
 	}

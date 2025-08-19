@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 
@@ -214,6 +214,10 @@ func DisasterRecoveryDrPlanExecutionResource() *schema.Resource {
 										Computed: true,
 									},
 									"type": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"type_display_name": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -481,7 +485,7 @@ func drPlanExecutionWaitForWorkRequest(wId *string, entityType string, action oc
 	retryPolicy.ShouldRetryOperation = drPlanExecutionWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_disaster_recovery.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_disaster_recovery.OperationStatusInProgress),
 			string(oci_disaster_recovery.OperationStatusAccepted),
@@ -1029,6 +1033,10 @@ func DrPlanStepExecutionToMap(obj oci_disaster_recovery.DrPlanStepExecution) map
 	}
 
 	result["type"] = string(obj.Type)
+
+	if obj.TypeDisplayName != nil {
+		result["type_display_name"] = string(*obj.TypeDisplayName)
+	}
 
 	return result
 }

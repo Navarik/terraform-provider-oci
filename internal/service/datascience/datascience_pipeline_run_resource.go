@@ -111,6 +111,68 @@ func DatasciencePipelineRunResource() *schema.Resource {
 				Computed: true,
 				Elem:     schema.TypeString,
 			},
+			"infrastructure_configuration_override_details": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
+				MaxItems: 1,
+				MinItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						// Required
+						"block_storage_size_in_gbs": {
+							Type:     schema.TypeInt,
+							Required: true,
+							ForceNew: true,
+						},
+						"shape_name": {
+							Type:     schema.TypeString,
+							Required: true,
+							ForceNew: true,
+						},
+
+						// Optional
+						"shape_config_details": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+							MaxItems: 1,
+							MinItems: 1,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+
+									// Optional
+									"memory_in_gbs": {
+										Type:     schema.TypeFloat,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+									"ocpus": {
+										Type:     schema.TypeFloat,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+
+									// Computed
+								},
+							},
+						},
+						"subnet_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+						},
+
+						// Computed
+					},
+				},
+			},
 			"delete_related_job_runs": {
 				Type:     schema.TypeBool,
 				Optional: true,
@@ -274,6 +336,192 @@ func DatasciencePipelineRunResource() *schema.Resource {
 								},
 							},
 						},
+						"step_dataflow_configuration_details": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+							MaxItems: 1,
+							MinItems: 1,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+
+									// Optional
+									"configuration": {
+										Type:             schema.TypeMap,
+										Optional:         true,
+										Computed:         true,
+										Elem:             schema.TypeString,
+										DiffSuppressFunc: tfresource.JsonStringDiffSuppressFunction,
+									},
+									"driver_shape": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+									"driver_shape_config_details": {
+										Type:     schema.TypeList,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+										MaxItems: 1,
+										MinItems: 1,
+										Elem: &schema.Resource{
+											Schema: map[string]*schema.Schema{
+												// Required
+
+												// Optional
+												"cpu_baseline": {
+													Type:     schema.TypeString,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+												"memory_in_gbs": {
+													Type:     schema.TypeFloat,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+												"ocpus": {
+													Type:     schema.TypeFloat,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+
+												// Computed
+											},
+										},
+									},
+									"executor_shape": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+									"executor_shape_config_details": {
+										Type:     schema.TypeList,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+										MaxItems: 1,
+										MinItems: 1,
+										Elem: &schema.Resource{
+											Schema: map[string]*schema.Schema{
+												// Required
+
+												// Optional
+												"cpu_baseline": {
+													Type:     schema.TypeString,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+												"memory_in_gbs": {
+													Type:     schema.TypeFloat,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+												"ocpus": {
+													Type:     schema.TypeFloat,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+
+												// Computed
+											},
+										},
+									},
+									"logs_bucket_uri": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+									"num_executors": {
+										Type:     schema.TypeInt,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+									"warehouse_bucket_uri": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+
+									// Computed
+								},
+							},
+						},
+						"step_infrastructure_configuration_details": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Computed: true,
+							ForceNew: true,
+							MaxItems: 1,
+							MinItems: 1,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
+									"block_storage_size_in_gbs": {
+										Type:     schema.TypeInt,
+										Required: true,
+										ForceNew: true,
+									},
+									"shape_name": {
+										Type:     schema.TypeString,
+										Required: true,
+										ForceNew: true,
+									},
+
+									// Optional
+									"shape_config_details": {
+										Type:     schema.TypeList,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+										MaxItems: 1,
+										MinItems: 1,
+										Elem: &schema.Resource{
+											Schema: map[string]*schema.Schema{
+												// Required
+
+												// Optional
+												"memory_in_gbs": {
+													Type:     schema.TypeFloat,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+												"ocpus": {
+													Type:     schema.TypeFloat,
+													Optional: true,
+													Computed: true,
+													ForceNew: true,
+												},
+
+												// Computed
+											},
+										},
+									},
+									"subnet_id": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+										ForceNew: true,
+									},
+
+									// Computed
+								},
+							},
+						},
 
 						// Computed
 					},
@@ -361,6 +609,10 @@ func DatasciencePipelineRunResource() *schema.Resource {
 						// Optional
 
 						// Computed
+						"dataflow_run_id": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"job_run_id": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -526,6 +778,17 @@ func (s *DatasciencePipelineRunResourceCrud) Create() error {
 
 	if freeformTags, ok := s.D.GetOkExists("freeform_tags"); ok {
 		request.FreeformTags = tfresource.ObjectMapToStringMap(freeformTags.(map[string]interface{}))
+	}
+
+	if infrastructureConfigurationOverrideDetails, ok := s.D.GetOkExists("infrastructure_configuration_override_details"); ok {
+		if tmpList := infrastructureConfigurationOverrideDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormat := fmt.Sprintf("%s.%d.%%s", "infrastructure_configuration_override_details", 0)
+			tmp, err := s.mapToPipelineInfrastructureConfigurationDetails(fieldKeyFormat)
+			if err != nil {
+				return err
+			}
+			request.InfrastructureConfigurationOverrideDetails = &tmp
+		}
 	}
 
 	if logConfigurationOverrideDetails, ok := s.D.GetOkExists("log_configuration_override_details"); ok {
@@ -706,6 +969,12 @@ func (s *DatasciencePipelineRunResourceCrud) SetData() error {
 
 	s.D.Set("freeform_tags", s.Res.FreeformTags)
 
+	if s.Res.InfrastructureConfigurationOverrideDetails != nil {
+		s.D.Set("infrastructure_configuration_override_details", []interface{}{PipelineInfrastructureConfigurationDetailsToMap(s.Res.InfrastructureConfigurationOverrideDetails)})
+	} else {
+		s.D.Set("infrastructure_configuration_override_details", nil)
+	}
+
 	if s.Res.LifecycleDetails != nil {
 		s.D.Set("lifecycle_details", *s.Res.LifecycleDetails)
 	}
@@ -882,6 +1151,139 @@ func (s *DatasciencePipelineRunResourceCrud) mapToPipelineStepContainerConfigura
 	return baseObject, nil
 }
 
+func (s *DatasciencePipelineRunResourceCrud) mapToPipelineDataflowConfigurationDetails(fieldKeyFormat string) (oci_datascience.PipelineDataflowConfigurationDetails, error) {
+	result := oci_datascience.PipelineDataflowConfigurationDetails{}
+
+	if configuration, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "configuration")); ok {
+		tmp := configuration.(map[string]interface{})
+		pointerToMap := &tmp
+		// Wrap the map pointer in an interface{}
+		var i interface{} = pointerToMap
+
+		// Take the address of the interface{}
+		result.Configuration = &i
+	}
+
+	if driverShape, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "driver_shape")); ok {
+		tmp := driverShape.(string)
+		result.DriverShape = &tmp
+	}
+
+	if driverShapeConfigDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "driver_shape_config_details")); ok {
+		if tmpList := driverShapeConfigDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "driver_shape_config_details"), 0)
+			tmp, err := s.mapToPipelineShapeConfigDetails(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, fmt.Errorf("unable to convert driver_shape_config_details, encountered error: %v", err)
+			}
+			result.DriverShapeConfigDetails = &tmp
+		}
+	}
+
+	if executorShape, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "executor_shape")); ok {
+		tmp := executorShape.(string)
+		result.ExecutorShape = &tmp
+	}
+
+	if executorShapeConfigDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "executor_shape_config_details")); ok {
+		if tmpList := executorShapeConfigDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "executor_shape_config_details"), 0)
+			tmp, err := s.mapToPipelineShapeConfigDetails(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, fmt.Errorf("unable to convert executor_shape_config_details, encountered error: %v", err)
+			}
+			result.ExecutorShapeConfigDetails = &tmp
+		}
+	}
+
+	if logsBucketUri, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "logs_bucket_uri")); ok {
+		tmp := logsBucketUri.(string)
+		result.LogsBucketUri = &tmp
+	}
+
+	if numExecutors, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "num_executors")); ok {
+		tmp := numExecutors.(int)
+		result.NumExecutors = &tmp
+	}
+
+	if warehouseBucketUri, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "warehouse_bucket_uri")); ok {
+		tmp := warehouseBucketUri.(string)
+		result.WarehouseBucketUri = &tmp
+	}
+
+	return result, nil
+}
+
+// func PipelineDataflowConfigurationDetailsToMap(obj *oci_datascience.PipelineDataflowConfigurationDetails) map[string]interface{} {
+// 	result := map[string]interface{}{}
+
+// 	if obj.Configuration != nil {
+// 		result["configuration"] = []interface{}{objectToMap(obj.Configuration)}
+// 	}
+
+// 	if obj.DriverShape != nil {
+// 		result["driver_shape"] = string(*obj.DriverShape)
+// 	}
+
+// 	if obj.DriverShapeConfigDetails != nil {
+// 		result["driver_shape_config_details"] = []interface{}{PipelineShapeConfigDetailsToMap(obj.DriverShapeConfigDetails)}
+// 	}
+
+// 	if obj.ExecutorShape != nil {
+// 		result["executor_shape"] = string(*obj.ExecutorShape)
+// 	}
+
+// 	if obj.ExecutorShapeConfigDetails != nil {
+// 		result["executor_shape_config_details"] = []interface{}{PipelineShapeConfigDetailsToMap(obj.ExecutorShapeConfigDetails)}
+// 	}
+
+// 	if obj.LogsBucketUri != nil {
+// 		result["logs_bucket_uri"] = string(*obj.LogsBucketUri)
+// 	}
+
+// 	if obj.NumExecutors != nil {
+// 		result["num_executors"] = int(*obj.NumExecutors)
+// 	}
+
+// 	if obj.WarehouseBucketUri != nil {
+// 		result["warehouse_bucket_uri"] = string(*obj.WarehouseBucketUri)
+// 	}
+
+// 	return result
+// }
+
+func (s *DatasciencePipelineRunResourceCrud) mapToPipelineInfrastructureConfigurationDetails(fieldKeyFormat string) (oci_datascience.PipelineInfrastructureConfigurationDetails, error) {
+	result := oci_datascience.PipelineInfrastructureConfigurationDetails{}
+
+	if blockStorageSizeInGBs, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "block_storage_size_in_gbs")); ok {
+		tmp := blockStorageSizeInGBs.(int)
+		result.BlockStorageSizeInGBs = &tmp
+	}
+
+	if shapeConfigDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "shape_config_details")); ok {
+		if tmpList := shapeConfigDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "shape_config_details"), 0)
+			tmp, err := s.mapToPipelineShapeConfigDetails(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, fmt.Errorf("unable to convert shape_config_details, encountered error: %v", err)
+			}
+			result.ShapeConfigDetails = &tmp
+		}
+	}
+
+	if shapeName, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "shape_name")); ok {
+		tmp := shapeName.(string)
+		result.ShapeName = &tmp
+	}
+
+	if subnetId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "subnet_id")); ok {
+		tmp := subnetId.(string)
+		result.SubnetId = &tmp
+	}
+
+	return result, nil
+}
+
 func (s *DatasciencePipelineRunResourceCrud) mapToPipelineLogConfigurationDetails(fieldKeyFormat string) (oci_datascience.PipelineLogConfigurationDetails, error) {
 	result := oci_datascience.PipelineLogConfigurationDetails{}
 
@@ -939,6 +1341,42 @@ func PipelineRunLogDetailsToMap(obj *oci_datascience.PipelineRunLogDetails) map[
 
 	if obj.LogId != nil {
 		result["log_id"] = string(*obj.LogId)
+	}
+
+	return result
+}
+
+func (s *DatasciencePipelineRunResourceCrud) mapToPipelineShapeConfigDetails(fieldKeyFormat string) (oci_datascience.PipelineShapeConfigDetails, error) {
+	result := oci_datascience.PipelineShapeConfigDetails{}
+
+	if cpuBaseline, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "cpu_baseline")); ok {
+		result.CpuBaseline = oci_datascience.PipelineShapeConfigDetailsCpuBaselineEnum(cpuBaseline.(string))
+	}
+
+	if memoryInGBs, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "memory_in_gbs")); ok {
+		tmp := float32(memoryInGBs.(float64))
+		result.MemoryInGBs = &tmp
+	}
+
+	if ocpus, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "ocpus")); ok {
+		tmp := float32(ocpus.(float64))
+		result.Ocpus = &tmp
+	}
+
+	return result, nil
+}
+
+func PipelineShapeConfigDetailsToMap(obj *oci_datascience.PipelineShapeConfigDetails) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	result["cpu_baseline"] = string(obj.CpuBaseline)
+
+	if obj.MemoryInGBs != nil {
+		result["memory_in_gbs"] = float32(*obj.MemoryInGBs)
+	}
+
+	if obj.Ocpus != nil {
+		result["ocpus"] = float32(*obj.Ocpus)
 	}
 
 	return result
@@ -1009,6 +1447,28 @@ func (s *DatasciencePipelineRunResourceCrud) mapToPipelineStepOverrideDetails(fi
 		}
 	}
 
+	if stepDataflowConfigurationDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "step_dataflow_configuration_details")); ok {
+		if tmpList := stepDataflowConfigurationDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "step_dataflow_configuration_details"), 0)
+			tmp, err := s.mapToPipelineDataflowConfigurationDetails(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, fmt.Errorf("unable to convert step_dataflow_configuration_details, encountered error: %v", err)
+			}
+			result.StepDataflowConfigurationDetails = &tmp
+		}
+	}
+
+	if stepInfrastructureConfigurationDetails, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "step_infrastructure_configuration_details")); ok {
+		if tmpList := stepInfrastructureConfigurationDetails.([]interface{}); len(tmpList) > 0 {
+			fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "step_infrastructure_configuration_details"), 0)
+			tmp, err := s.mapToPipelineInfrastructureConfigurationDetails(fieldKeyFormatNextLevel)
+			if err != nil {
+				return result, fmt.Errorf("unable to convert step_infrastructure_configuration_details, encountered error: %v", err)
+			}
+			result.StepInfrastructureConfigurationDetails = &tmp
+		}
+	}
+
 	if stepName, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "step_name")); ok {
 		tmp := stepName.(string)
 		result.StepName = &tmp
@@ -1026,6 +1486,14 @@ func PipelineStepOverrideDetailsToMap(obj oci_datascience.PipelineStepOverrideDe
 
 	if obj.StepConfigurationDetails != nil {
 		result["step_configuration_details"] = []interface{}{PipelineStepConfigurationDetailsToMap(obj.StepConfigurationDetails)}
+	}
+
+	if obj.StepDataflowConfigurationDetails != nil {
+		result["step_dataflow_configuration_details"] = []interface{}{PipelineDataflowConfigurationDetailsToMap(obj.StepDataflowConfigurationDetails)}
+	}
+
+	if obj.StepInfrastructureConfigurationDetails != nil {
+		result["step_infrastructure_configuration_details"] = []interface{}{PipelineInfrastructureConfigurationDetailsToMap(obj.StepInfrastructureConfigurationDetails)}
 	}
 
 	if obj.StepName != nil {
@@ -1059,6 +1527,30 @@ func PipelineStepRunToMap(obj oci_datascience.PipelineStepRun) map[string]interf
 		}
 	case oci_datascience.PipelineCustomScriptStepRun:
 		result["step_type"] = "CUSTOM_SCRIPT"
+
+		if v.LifecycleDetails != nil {
+			result["lifecycle_details"] = string(*v.LifecycleDetails)
+		}
+
+		result["state"] = string(v.LifecycleState)
+
+		if v.StepName != nil {
+			result["step_name"] = string(*v.StepName)
+		}
+
+		if v.TimeFinished != nil {
+			result["time_finished"] = v.TimeFinished.String()
+		}
+
+		if v.TimeStarted != nil {
+			result["time_started"] = v.TimeStarted.String()
+		}
+	case oci_datascience.PipelineDataflowStepRun:
+		result["step_type"] = "DATAFLOW"
+
+		if v.DataflowRunId != nil {
+			result["dataflow_run_id"] = string(*v.DataflowRunId)
+		}
 
 		if v.LifecycleDetails != nil {
 			result["lifecycle_details"] = string(*v.LifecycleDetails)

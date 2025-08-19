@@ -163,6 +163,12 @@ func (s *DatabaseAutonomousContainerDatabasesDataSourceCrud) SetData() error {
 			"compartment_id": *r.CompartmentId,
 		}
 
+		associatedBackupConfigurationDetails := []interface{}{}
+		for _, item := range r.AssociatedBackupConfigurationDetails {
+			associatedBackupConfigurationDetails = append(associatedBackupConfigurationDetails, BackupDestinationConfigurationSummaryToMap(item))
+		}
+		autonomousContainerDatabase["associated_backup_configuration_details"] = associatedBackupConfigurationDetails
+
 		if r.AutonomousExadataInfrastructureId != nil {
 			autonomousContainerDatabase["autonomous_exadata_infrastructure_id"] = *r.AutonomousExadataInfrastructureId
 		}
@@ -185,11 +191,35 @@ func (s *DatabaseAutonomousContainerDatabasesDataSourceCrud) SetData() error {
 			autonomousContainerDatabase["backup_config"] = nil
 		}
 
+		backupDestinationPropertiesList := []interface{}{}
+		for _, item := range r.BackupDestinationPropertiesList {
+			backupDestinationPropertiesList = append(backupDestinationPropertiesList, BackupDestinationPropertiesToMap(item))
+		}
+		autonomousContainerDatabase["backup_destination_properties_list"] = backupDestinationPropertiesList
+
 		if r.CloudAutonomousVmClusterId != nil {
 			autonomousContainerDatabase["cloud_autonomous_vm_cluster_id"] = *r.CloudAutonomousVmClusterId
 		}
 
 		autonomousContainerDatabase["compute_model"] = r.ComputeModel
+
+		customerContacts := []interface{}{}
+		for _, item := range r.CustomerContacts {
+			customerContacts = append(customerContacts, ACDCustomerContactToMap(item))
+		}
+		autonomousContainerDatabase["customer_contacts"] = customerContacts
+
+		if r.Dataguard != nil {
+			autonomousContainerDatabase["dataguard"] = []interface{}{AutonomousContainerDatabaseDataguardToMap(r.Dataguard)}
+		} else {
+			autonomousContainerDatabase["dataguard"] = nil
+		}
+
+		dataguardGroupMembers := []interface{}{}
+		for _, item := range r.DataguardGroupMembers {
+			dataguardGroupMembers = append(dataguardGroupMembers, AutonomousContainerDatabaseDataguardToMap(&item))
+		}
+		autonomousContainerDatabase["dataguard_group_members"] = dataguardGroupMembers
 
 		if r.DbName != nil {
 			autonomousContainerDatabase["db_name"] = *r.DbName
@@ -229,8 +259,16 @@ func (s *DatabaseAutonomousContainerDatabasesDataSourceCrud) SetData() error {
 
 		autonomousContainerDatabase["infrastructure_type"] = r.InfrastructureType
 
+		if r.IsDataGuardEnabled != nil {
+			autonomousContainerDatabase["is_data_guard_enabled"] = *r.IsDataGuardEnabled
+		}
+
 		if r.IsDstFileUpdateEnabled != nil {
 			autonomousContainerDatabase["is_dst_file_update_enabled"] = *r.IsDstFileUpdateEnabled
+		}
+
+		if r.IsMultipleStandby != nil {
+			autonomousContainerDatabase["is_multiple_standby"] = *r.IsMultipleStandby
 		}
 
 		keyHistoryEntry := []interface{}{}
@@ -285,6 +323,10 @@ func (s *DatabaseAutonomousContainerDatabasesDataSourceCrud) SetData() error {
 			autonomousContainerDatabase["next_maintenance_run_id"] = *r.NextMaintenanceRunId
 		}
 
+		if r.OkvEndPointGroupName != nil {
+			autonomousContainerDatabase["okv_end_point_group_name"] = *r.OkvEndPointGroupName
+		}
+
 		if r.PatchId != nil {
 			autonomousContainerDatabase["patch_id"] = *r.PatchId
 		}
@@ -301,6 +343,12 @@ func (s *DatabaseAutonomousContainerDatabasesDataSourceCrud) SetData() error {
 			autonomousContainerDatabase["reclaimable_cpus"] = *r.ReclaimableCpus
 		}
 
+		if r.RecoveryApplianceDetails != nil {
+			autonomousContainerDatabase["recovery_appliance_details"] = []interface{}{RecoveryApplianceDetailsToMap(r.RecoveryApplianceDetails)}
+		} else {
+			autonomousContainerDatabase["recovery_appliance_details"] = nil
+		}
+
 		if r.ReservedCpus != nil {
 			autonomousContainerDatabase["reserved_cpus"] = *r.ReservedCpus
 		}
@@ -314,6 +362,10 @@ func (s *DatabaseAutonomousContainerDatabasesDataSourceCrud) SetData() error {
 		}
 
 		autonomousContainerDatabase["state"] = r.LifecycleState
+
+		if r.SystemTags != nil {
+			autonomousContainerDatabase["system_tags"] = tfresource.SystemTagsToMap(r.SystemTags)
+		}
 
 		if r.TimeCreated != nil {
 			autonomousContainerDatabase["time_created"] = r.TimeCreated.String()

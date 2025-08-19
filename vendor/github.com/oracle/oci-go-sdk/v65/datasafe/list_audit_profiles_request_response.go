@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListAuditProfiles.go.html to see an example of how to use ListAuditProfilesRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListAuditProfiles.go.html to see an example of how to use ListAuditProfilesRequest.
 type ListAuditProfilesRequest struct {
 
 	// A filter to return only resources that match the specified compartment OCID.
@@ -37,13 +37,19 @@ type ListAuditProfilesRequest struct {
 	// A filter to return only items related to a specific target OCID.
 	TargetId *string `mandatory:"false" contributesTo:"query" name:"targetId"`
 
+	// A filter to return the target database group that matches the specified OCID.
+	TargetDatabaseGroupId *string `mandatory:"false" contributesTo:"query" name:"targetDatabaseGroupId"`
+
+	// A optional filter to return only resources that belong to the specified audit profile type.
+	TargetType ListAuditProfilesTargetTypeEnum `mandatory:"false" contributesTo:"query" name:"targetType" omitEmpty:"true"`
+
 	// A filter to return only resources that match the specified display name.
 	DisplayName *string `mandatory:"false" contributesTo:"query" name:"displayName"`
 
-	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
 
-	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
 	// A optional filter to return only resources that match the specified lifecycle state.
@@ -111,6 +117,9 @@ func (request ListAuditProfilesRequest) ValidateEnumValue() (bool, error) {
 	if _, ok := GetMappingListAuditProfilesAccessLevelEnum(string(request.AccessLevel)); !ok && request.AccessLevel != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for AccessLevel: %s. Supported values are: %s.", request.AccessLevel, strings.Join(GetListAuditProfilesAccessLevelEnumStringValues(), ",")))
 	}
+	if _, ok := GetMappingListAuditProfilesTargetTypeEnum(string(request.TargetType)); !ok && request.TargetType != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for TargetType: %s. Supported values are: %s.", request.TargetType, strings.Join(GetListAuditProfilesTargetTypeEnumStringValues(), ",")))
+	}
 	if _, ok := GetMappingListAuditProfilesLifecycleStateEnum(string(request.LifecycleState)); !ok && request.LifecycleState != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for LifecycleState: %s. Supported values are: %s.", request.LifecycleState, strings.Join(GetListAuditProfilesLifecycleStateEnumStringValues(), ",")))
 	}
@@ -138,7 +147,7 @@ type ListAuditProfilesResponse struct {
 	// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
 	OpcRequestId *string `presentIn:"header" name:"opc-request-id"`
 
-	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 
 	// For pagination of a list of items. When paging through a list, if this header appears in the response,
@@ -195,6 +204,48 @@ func GetListAuditProfilesAccessLevelEnumStringValues() []string {
 // GetMappingListAuditProfilesAccessLevelEnum performs case Insensitive comparison on enum value and return the desired enum
 func GetMappingListAuditProfilesAccessLevelEnum(val string) (ListAuditProfilesAccessLevelEnum, bool) {
 	enum, ok := mappingListAuditProfilesAccessLevelEnumLowerCase[strings.ToLower(val)]
+	return enum, ok
+}
+
+// ListAuditProfilesTargetTypeEnum Enum with underlying type: string
+type ListAuditProfilesTargetTypeEnum string
+
+// Set of constants representing the allowable values for ListAuditProfilesTargetTypeEnum
+const (
+	ListAuditProfilesTargetTypeDatabase      ListAuditProfilesTargetTypeEnum = "TARGET_DATABASE"
+	ListAuditProfilesTargetTypeDatabaseGroup ListAuditProfilesTargetTypeEnum = "TARGET_DATABASE_GROUP"
+)
+
+var mappingListAuditProfilesTargetTypeEnum = map[string]ListAuditProfilesTargetTypeEnum{
+	"TARGET_DATABASE":       ListAuditProfilesTargetTypeDatabase,
+	"TARGET_DATABASE_GROUP": ListAuditProfilesTargetTypeDatabaseGroup,
+}
+
+var mappingListAuditProfilesTargetTypeEnumLowerCase = map[string]ListAuditProfilesTargetTypeEnum{
+	"target_database":       ListAuditProfilesTargetTypeDatabase,
+	"target_database_group": ListAuditProfilesTargetTypeDatabaseGroup,
+}
+
+// GetListAuditProfilesTargetTypeEnumValues Enumerates the set of values for ListAuditProfilesTargetTypeEnum
+func GetListAuditProfilesTargetTypeEnumValues() []ListAuditProfilesTargetTypeEnum {
+	values := make([]ListAuditProfilesTargetTypeEnum, 0)
+	for _, v := range mappingListAuditProfilesTargetTypeEnum {
+		values = append(values, v)
+	}
+	return values
+}
+
+// GetListAuditProfilesTargetTypeEnumStringValues Enumerates the set of values in String for ListAuditProfilesTargetTypeEnum
+func GetListAuditProfilesTargetTypeEnumStringValues() []string {
+	return []string{
+		"TARGET_DATABASE",
+		"TARGET_DATABASE_GROUP",
+	}
+}
+
+// GetMappingListAuditProfilesTargetTypeEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingListAuditProfilesTargetTypeEnum(val string) (ListAuditProfilesTargetTypeEnum, bool) {
+	enum, ok := mappingListAuditProfilesTargetTypeEnumLowerCase[strings.ToLower(val)]
 	return enum, ok
 }
 

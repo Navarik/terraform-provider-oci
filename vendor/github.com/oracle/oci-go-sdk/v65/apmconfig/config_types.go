@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -19,24 +19,30 @@ type ConfigTypesEnum string
 
 // Set of constants representing the allowable values for ConfigTypesEnum
 const (
-	ConfigTypesSpanFilter  ConfigTypesEnum = "SPAN_FILTER"
-	ConfigTypesMetricGroup ConfigTypesEnum = "METRIC_GROUP"
-	ConfigTypesApdex       ConfigTypesEnum = "APDEX"
-	ConfigTypesOptions     ConfigTypesEnum = "OPTIONS"
+	ConfigTypesSpanFilter       ConfigTypesEnum = "SPAN_FILTER"
+	ConfigTypesMetricGroup      ConfigTypesEnum = "METRIC_GROUP"
+	ConfigTypesApdex            ConfigTypesEnum = "APDEX"
+	ConfigTypesOptions          ConfigTypesEnum = "OPTIONS"
+	ConfigTypesAgent            ConfigTypesEnum = "AGENT"
+	ConfigTypesMacsApmExtension ConfigTypesEnum = "MACS_APM_EXTENSION"
 )
 
 var mappingConfigTypesEnum = map[string]ConfigTypesEnum{
-	"SPAN_FILTER":  ConfigTypesSpanFilter,
-	"METRIC_GROUP": ConfigTypesMetricGroup,
-	"APDEX":        ConfigTypesApdex,
-	"OPTIONS":      ConfigTypesOptions,
+	"SPAN_FILTER":        ConfigTypesSpanFilter,
+	"METRIC_GROUP":       ConfigTypesMetricGroup,
+	"APDEX":              ConfigTypesApdex,
+	"OPTIONS":            ConfigTypesOptions,
+	"AGENT":              ConfigTypesAgent,
+	"MACS_APM_EXTENSION": ConfigTypesMacsApmExtension,
 }
 
 var mappingConfigTypesEnumLowerCase = map[string]ConfigTypesEnum{
-	"span_filter":  ConfigTypesSpanFilter,
-	"metric_group": ConfigTypesMetricGroup,
-	"apdex":        ConfigTypesApdex,
-	"options":      ConfigTypesOptions,
+	"span_filter":        ConfigTypesSpanFilter,
+	"metric_group":       ConfigTypesMetricGroup,
+	"apdex":              ConfigTypesApdex,
+	"options":            ConfigTypesOptions,
+	"agent":              ConfigTypesAgent,
+	"macs_apm_extension": ConfigTypesMacsApmExtension,
 }
 
 // GetConfigTypesEnumValues Enumerates the set of values for ConfigTypesEnum
@@ -55,6 +61,8 @@ func GetConfigTypesEnumStringValues() []string {
 		"METRIC_GROUP",
 		"APDEX",
 		"OPTIONS",
+		"AGENT",
+		"MACS_APM_EXTENSION",
 	}
 }
 

@@ -69,6 +69,11 @@ func LoadBalancerLoadBalancerResource() *schema.Resource {
 				Computed: true,
 				ForceNew: true,
 			},
+			"ipv6subnet_cidr": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"is_delete_protection_enabled": {
 				Type:     schema.TypeBool,
 				Optional: true,
@@ -117,6 +122,12 @@ func LoadBalancerLoadBalancerResource() *schema.Resource {
 						// Computed
 					},
 				},
+			},
+			"security_attributes": {
+				Type:     schema.TypeMap,
+				Optional: true,
+				Computed: true,
+				Elem:     schema.TypeString,
 			},
 			"shape_details": {
 				Type:     schema.TypeList,
@@ -319,6 +330,11 @@ func (s *LoadBalancerLoadBalancerResourceCrud) Create() error {
 		request.IpMode = oci_load_balancer.CreateLoadBalancerDetailsIpModeEnum(ipMode.(string))
 	}
 
+	if ipv6SubnetCidr, ok := s.D.GetOkExists("ipv6subnet_cidr"); ok {
+		tmp := ipv6SubnetCidr.(string)
+		request.Ipv6SubnetCidr = &tmp
+	}
+
 	if isDeleteProtectionEnabled, ok := s.D.GetOkExists("is_delete_protection_enabled"); ok {
 		tmp := isDeleteProtectionEnabled.(bool)
 		request.IsDeleteProtectionEnabled = &tmp
@@ -370,6 +386,11 @@ func (s *LoadBalancerLoadBalancerResourceCrud) Create() error {
 		if len(tmp) != 0 || s.D.HasChange("reserved_ips") {
 			request.ReservedIps = tmp
 		}
+	}
+
+	if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+		convertedAttributes := tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+		request.SecurityAttributes = convertedAttributes
 	}
 
 	if shape, ok := s.D.GetOkExists("shape"); ok {
@@ -527,12 +548,14 @@ func (s *LoadBalancerLoadBalancerResourceCrud) Update() error {
 	request.LoadBalancerId = &tmp
 
 	if requestIdHeader, ok := s.D.GetOkExists("request_id_header"); ok {
-		if requestIdHeader != nil {
-			tmp := requestIdHeader.(string)
-			request.RequestIdHeader = &tmp
-		}
+		tmp := requestIdHeader.(string)
+		request.RequestIdHeader = &tmp
 	}
 
+	if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+		convertedAttributes := tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+		request.SecurityAttributes = convertedAttributes
+	}
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "load_balancer")
 
 	response, err := s.Client.UpdateLoadBalancer(context.Background(), request)
@@ -609,10 +632,10 @@ func (s *LoadBalancerLoadBalancerResourceCrud) SetData() error {
 	for _, ad := range s.Res.IpAddresses {
 		if ad.IpAddress != nil {
 			ipAddresses = append(ipAddresses, *ad.IpAddress)
-		}
-		tmp := *ad.IpAddress
-		if !isIPV4(tmp) {
-			ipMode = "IPV6"
+			tmp := *ad.IpAddress
+			if !isIPV4(tmp) {
+				ipMode = "IPV6"
+			}
 		}
 	}
 	s.D.Set("ip_mode", ipMode)
@@ -647,6 +670,8 @@ func (s *LoadBalancerLoadBalancerResourceCrud) SetData() error {
 	if s.Res.RequestIdHeader != nil {
 		s.D.Set("request_id_header", *s.Res.RequestIdHeader)
 	}
+
+	s.D.Set("security_attributes", tfresource.SecurityAttributesToMap(s.Res.SecurityAttributes))
 
 	if s.Res.ShapeName != nil {
 		s.D.Set("shape", *s.Res.ShapeName)

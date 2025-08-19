@@ -68,9 +68,10 @@ func DatabaseExadbVmClusterResource() *schema.Resource {
 				Required: true,
 			},
 			"hostname": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Type:             schema.TypeString,
+				Required:         true,
+				ForceNew:         true,
+				DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
 			},
 			"shape": {
 				Type:     schema.TypeString,
@@ -253,6 +254,18 @@ func DatabaseExadbVmClusterResource() *schema.Resource {
 				Computed: true,
 				ForceNew: true,
 			},
+			"security_attributes": {
+				Type:     schema.TypeMap,
+				Optional: true,
+				Computed: true,
+				Elem:     schema.TypeString,
+			},
+			"subscription_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
+			},
 			"system_version": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -266,6 +279,10 @@ func DatabaseExadbVmClusterResource() *schema.Resource {
 			},
 
 			// Computed
+			"cluster_placement_group_id": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 			"gi_version": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -586,6 +603,10 @@ func (s *DatabaseExadbVmClusterResourceCrud) Create() error {
 		request.ScanListenerPortTcpSsl = &tmp
 	}
 
+	if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+		request.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+	}
+
 	if shape, ok := s.D.GetOkExists("shape"); ok {
 		tmp := shape.(string)
 		request.Shape = &tmp
@@ -607,6 +628,11 @@ func (s *DatabaseExadbVmClusterResourceCrud) Create() error {
 	if subnetId, ok := s.D.GetOkExists("subnet_id"); ok {
 		tmp := subnetId.(string)
 		request.SubnetId = &tmp
+	}
+
+	if subscriptionId, ok := s.D.GetOkExists("subscription_id"); ok {
+		tmp := subscriptionId.(string)
+		request.SubscriptionId = &tmp
 	}
 
 	if systemVersion, ok := s.D.GetOkExists("system_version"); ok {
@@ -818,6 +844,9 @@ func (s *DatabaseExadbVmClusterResourceCrud) Update() error {
 		}
 	}
 
+	if securityAttributes, ok := s.D.GetOkExists("security_attributes"); ok {
+		request.SecurityAttributes = tfresource.MapToSecurityAttributes(securityAttributes.(map[string]interface{}))
+	}
 	if sshPublicKeys, ok := s.D.GetOkExists("ssh_public_keys"); ok && s.D.HasChange("ssh_public_keys") {
 		updateRequired = true
 		interfaces := sshPublicKeys.([]interface{})
@@ -903,6 +932,10 @@ func (s *DatabaseExadbVmClusterResourceCrud) SetData() error {
 
 	if s.Res.ClusterName != nil {
 		s.D.Set("cluster_name", *s.Res.ClusterName)
+	}
+
+	if s.Res.ClusterPlacementGroupId != nil {
+		s.D.Set("cluster_placement_group_id", *s.Res.ClusterPlacementGroupId)
 	}
 
 	if s.Res.CompartmentId != nil {
@@ -1065,6 +1098,8 @@ func (s *DatabaseExadbVmClusterResourceCrud) SetData() error {
 		s.D.Set("scan_listener_port_tcp_ssl", *s.Res.ScanListenerPortTcpSsl)
 	}
 
+	s.D.Set("security_attributes", tfresource.SecurityAttributesToMap(s.Res.SecurityAttributes))
+
 	if s.Res.Shape != nil {
 		s.D.Set("shape", *s.Res.Shape)
 	}
@@ -1075,6 +1110,10 @@ func (s *DatabaseExadbVmClusterResourceCrud) SetData() error {
 
 	if s.Res.SubnetId != nil {
 		s.D.Set("subnet_id", *s.Res.SubnetId)
+	}
+
+	if s.Res.SubscriptionId != nil {
+		s.D.Set("subscription_id", *s.Res.SubscriptionId)
 	}
 
 	if s.Res.SystemTags != nil {

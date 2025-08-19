@@ -7,19 +7,16 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"net/url"
-	"regexp"
 	"strings"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-
 	oci_common "github.com/oracle/oci-go-sdk/v65/common"
 	oci_fleet_apps_management "github.com/oracle/oci-go-sdk/v65/fleetappsmanagement"
-
 	"github.com/oracle/terraform-provider-oci/internal/client"
+
 	"github.com/oracle/terraform-provider-oci/internal/tfresource"
 )
 
@@ -54,19 +51,47 @@ func FleetAppsManagementFleetCredentialResource() *schema.Resource {
 							Required:         true,
 							DiffSuppressFunc: tfresource.EqualIgnoreCaseSuppressDiff,
 							ValidateFunc: validation.StringInSlice([]string{
+								"FLEET",
+								"RESOURCE",
 								"TARGET",
 							}, true),
 						},
+
+						// Optional
 						"resource_id": {
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
+							Computed: true,
 						},
 						"target": {
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
+							Computed: true,
 						},
+						"variables": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Computed: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									// Required
 
-						// Optional
+									// Optional
+									"name": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+									},
+									"value": {
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+									},
+
+									// Computed
+								},
+							},
+						},
 
 						// Computed
 					},
@@ -220,6 +245,7 @@ func createFleetAppsManagementFleetCredential(d *schema.ResourceData, m interfac
 	sync := &FleetAppsManagementFleetCredentialResourceCrud{}
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).FleetAppsManagementClient()
+	sync.WorkRequestClient = m.(*client.OracleClients).FleetAppsManagementFleetAppsManagementWorkRequestClient()
 
 	return tfresource.CreateResource(d, sync)
 }
@@ -236,6 +262,7 @@ func updateFleetAppsManagementFleetCredential(d *schema.ResourceData, m interfac
 	sync := &FleetAppsManagementFleetCredentialResourceCrud{}
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).FleetAppsManagementClient()
+	sync.WorkRequestClient = m.(*client.OracleClients).FleetAppsManagementFleetAppsManagementWorkRequestClient()
 
 	return tfresource.UpdateResource(d, sync)
 }
@@ -245,6 +272,7 @@ func deleteFleetAppsManagementFleetCredential(d *schema.ResourceData, m interfac
 	sync.D = d
 	sync.Client = m.(*client.OracleClients).FleetAppsManagementClient()
 	sync.DisableNotFoundRetries = true
+	sync.WorkRequestClient = m.(*client.OracleClients).FleetAppsManagementFleetAppsManagementWorkRequestClient()
 
 	return tfresource.DeleteResource(d, sync)
 }
@@ -254,10 +282,11 @@ type FleetAppsManagementFleetCredentialResourceCrud struct {
 	Client                 *oci_fleet_apps_management.FleetAppsManagementClient
 	Res                    *oci_fleet_apps_management.FleetCredential
 	DisableNotFoundRetries bool
+	WorkRequestClient      *oci_fleet_apps_management.FleetAppsManagementWorkRequestClient
 }
 
 func (s *FleetAppsManagementFleetCredentialResourceCrud) ID() string {
-	return GetFleetCredentialCompositeId(*s.Res.Id, s.D.Get("fleet_id").(string))
+	return *s.Res.Id
 }
 
 func (s *FleetAppsManagementFleetCredentialResourceCrud) CreatedPending() []string {
@@ -282,11 +311,6 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) DeletedTarget() []strin
 
 func (s *FleetAppsManagementFleetCredentialResourceCrud) Create() error {
 	request := oci_fleet_apps_management.CreateFleetCredentialRequest{}
-
-	if compartmentId, ok := s.D.GetOkExists("compartment_id"); ok {
-		tmp := compartmentId.(string)
-		request.CompartmentId = &tmp
-	}
 
 	if displayName, ok := s.D.GetOkExists("display_name"); ok {
 		tmp := displayName.(string)
@@ -338,8 +362,13 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) Create() error {
 		return err
 	}
 
-	s.Res = &response.FleetCredential
-	return nil
+	workId := response.OpcWorkRequestId
+	var identifier *string
+	identifier = response.Id
+	if identifier != nil {
+		s.D.SetId(*identifier)
+	}
+	return s.getFleetCredentialFromWorkRequest(workId, tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "fleet_apps_management"), oci_fleet_apps_management.ActionTypeCreated, s.D.Timeout(schema.TimeoutCreate))
 }
 
 func (s *FleetAppsManagementFleetCredentialResourceCrud) getFleetCredentialFromWorkRequest(workId *string, retryPolicy *oci_common.RetryPolicy,
@@ -347,7 +376,7 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) getFleetCredentialFromW
 
 	// Wait until it finishes
 	fleetCredentialId, err := fleetCredentialWaitForWorkRequest(workId, "fleetcredential",
-		actionTypeEnum, timeout, s.DisableNotFoundRetries, s.Client)
+		actionTypeEnum, timeout, s.DisableNotFoundRetries, s.WorkRequestClient)
 
 	if err != nil {
 		return err
@@ -381,12 +410,12 @@ func fleetCredentialWorkRequestShouldRetryFunc(timeout time.Duration) func(respo
 }
 
 func fleetCredentialWaitForWorkRequest(wId *string, entityType string, action oci_fleet_apps_management.ActionTypeEnum,
-	timeout time.Duration, disableFoundRetries bool, client *oci_fleet_apps_management.FleetAppsManagementClient) (*string, error) {
+	timeout time.Duration, disableFoundRetries bool, client *oci_fleet_apps_management.FleetAppsManagementWorkRequestClient) (*string, error) {
 	retryPolicy := tfresource.GetRetryPolicy(disableFoundRetries, "fleet_apps_management")
 	retryPolicy.ShouldRetryOperation = fleetCredentialWorkRequestShouldRetryFunc(timeout)
 
 	response := oci_fleet_apps_management.GetWorkRequestResponse{}
-	stateConf := &resource.StateChangeConf{
+	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			string(oci_fleet_apps_management.OperationStatusInProgress),
 			string(oci_fleet_apps_management.OperationStatusAccepted),
@@ -434,7 +463,7 @@ func fleetCredentialWaitForWorkRequest(wId *string, entityType string, action oc
 	return identifier, nil
 }
 
-func getErrorFromFleetAppsManagementFleetCredentialWorkRequest(client *oci_fleet_apps_management.FleetAppsManagementClient, workId *string, retryPolicy *oci_common.RetryPolicy, entityType string, action oci_fleet_apps_management.ActionTypeEnum) error {
+func getErrorFromFleetAppsManagementFleetCredentialWorkRequest(client *oci_fleet_apps_management.FleetAppsManagementWorkRequestClient, workId *string, retryPolicy *oci_common.RetryPolicy, entityType string, action oci_fleet_apps_management.ActionTypeEnum) error {
 	response, err := client.ListWorkRequestErrors(context.Background(),
 		oci_fleet_apps_management.ListWorkRequestErrorsRequest{
 			WorkRequestId: workId,
@@ -466,14 +495,6 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) Get() error {
 	if fleetId, ok := s.D.GetOkExists("fleet_id"); ok {
 		tmp := fleetId.(string)
 		request.FleetId = &tmp
-	}
-
-	fleetCredentialId, fleetId, err := parseFleetCredentialCompositeId(s.D.Id())
-	if err == nil {
-		request.FleetCredentialId = &fleetCredentialId
-		request.FleetId = &fleetId
-	} else {
-		log.Printf("[WARN] Get() unable to parse current ID: %s", s.D.Id())
 	}
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "fleet_apps_management")
@@ -560,25 +581,19 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) Delete() error {
 
 	request.RequestMetadata.RetryPolicy = tfresource.GetRetryPolicy(s.DisableNotFoundRetries, "fleet_apps_management")
 
-	_, err := s.Client.DeleteFleetCredential(context.Background(), request)
+	response, err := s.Client.DeleteFleetCredential(context.Background(), request)
 	if err != nil {
 		return err
 	}
 
-	// This call is synchronous, and returns an invalid WorkRequestId
-	return nil
+	workId := response.OpcWorkRequestId
+	// Wait until it finishes
+	_, delWorkRequestErr := fleetCredentialWaitForWorkRequest(workId, "fleetcredential",
+		oci_fleet_apps_management.ActionTypeDeleted, s.D.Timeout(schema.TimeoutDelete), s.DisableNotFoundRetries, s.WorkRequestClient)
+	return delWorkRequestErr
 }
 
 func (s *FleetAppsManagementFleetCredentialResourceCrud) SetData() error {
-
-	fleetCredentialId, fleetId, err := parseFleetCredentialCompositeId(s.D.Id())
-	if err == nil {
-		s.D.SetId(fleetCredentialId)
-		s.D.Set("fleet_id", &fleetId)
-	} else {
-		log.Printf("[WARN] SetData() unable to parse current ID: %s", s.D.Id())
-	}
-
 	if s.Res.CompartmentId != nil {
 		s.D.Set("compartment_id", *s.Res.CompartmentId)
 	} else {
@@ -638,25 +653,6 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) SetData() error {
 	}
 
 	return nil
-}
-
-func GetFleetCredentialCompositeId(fleetCredentialId string, fleetId string) string {
-	fleetCredentialId = url.PathEscape(fleetCredentialId)
-	fleetId = url.PathEscape(fleetId)
-	compositeId := "fleets/" + fleetId + "/fleetCredentials/" + fleetCredentialId
-	return compositeId
-}
-
-func parseFleetCredentialCompositeId(compositeId string) (fleetCredentialId string, fleetId string, err error) {
-	parts := strings.Split(compositeId, "/")
-	match, _ := regexp.MatchString("fleets/.*/fleetCredentials/.*", compositeId)
-	if !match || len(parts) != 4 {
-		err = fmt.Errorf("illegal compositeId %s encountered", compositeId)
-		return
-	}
-	fleetId, _ = url.PathUnescape(parts[1])
-	fleetCredentialId, _ = url.PathUnescape(parts[3])
-	return
 }
 
 func (s *FleetAppsManagementFleetCredentialResourceCrud) mapToCredentialDetails(fieldKeyFormat string) (oci_fleet_apps_management.CredentialDetails, error) {
@@ -769,6 +765,32 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) mapToCredentialEntitySp
 		credentialLevel = "" // default value
 	}
 	switch strings.ToLower(credentialLevel) {
+	case strings.ToLower("FLEET"):
+		details := oci_fleet_apps_management.FleetCredentialEntitySpecificDetails{}
+		if variables, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "variables")); ok {
+			interfaces := variables.([]interface{})
+			tmp := make([]oci_fleet_apps_management.Variable, len(interfaces))
+			for i := range interfaces {
+				stateDataIndex := i
+				fieldKeyFormatNextLevel := fmt.Sprintf("%s.%d.%%s", fmt.Sprintf(fieldKeyFormat, "variables"), stateDataIndex)
+				converted, err := s.mapToVariable(fieldKeyFormatNextLevel)
+				if err != nil {
+					return details, err
+				}
+				tmp[i] = converted
+			}
+			if len(tmp) != 0 || s.D.HasChange(fmt.Sprintf(fieldKeyFormat, "variables")) {
+				details.Variables = tmp
+			}
+		}
+		baseObject = details
+	case strings.ToLower("RESOURCE"):
+		details := oci_fleet_apps_management.ResourceCredentialEntitySpecificDetails{}
+		if resourceId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "resource_id")); ok {
+			tmp := resourceId.(string)
+			details.ResourceId = &tmp
+		}
+		baseObject = details
 	case strings.ToLower("TARGET"):
 		details := oci_fleet_apps_management.TargetCredentialEntitySpecificDetails{}
 		if resourceId, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "resource_id")); ok {
@@ -789,6 +811,20 @@ func (s *FleetAppsManagementFleetCredentialResourceCrud) mapToCredentialEntitySp
 func CredentialEntitySpecificDetailsToMap(obj *oci_fleet_apps_management.CredentialEntitySpecificDetails) map[string]interface{} {
 	result := map[string]interface{}{}
 	switch v := (*obj).(type) {
+	case oci_fleet_apps_management.FleetCredentialEntitySpecificDetails:
+		result["credential_level"] = "FLEET"
+
+		variables := []interface{}{}
+		for _, item := range v.Variables {
+			variables = append(variables, VariableToMap(item))
+		}
+		result["variables"] = variables
+	case oci_fleet_apps_management.ResourceCredentialEntitySpecificDetails:
+		result["credential_level"] = "RESOURCE"
+
+		if v.ResourceId != nil {
+			result["resource_id"] = string(*v.ResourceId)
+		}
 	case oci_fleet_apps_management.TargetCredentialEntitySpecificDetails:
 		result["credential_level"] = "TARGET"
 
@@ -862,6 +898,36 @@ func FleetCredentialSummaryToMap(obj oci_fleet_apps_management.FleetCredentialSu
 			userArray = append(userArray, userMap)
 		}
 		result["user"] = userArray
+	}
+
+	return result
+}
+
+func (s *FleetAppsManagementFleetCredentialResourceCrud) mapToVariable(fieldKeyFormat string) (oci_fleet_apps_management.Variable, error) {
+	result := oci_fleet_apps_management.Variable{}
+
+	if name, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "name")); ok {
+		tmp := name.(string)
+		result.Name = &tmp
+	}
+
+	if value, ok := s.D.GetOkExists(fmt.Sprintf(fieldKeyFormat, "value")); ok {
+		tmp := value.(string)
+		result.Value = &tmp
+	}
+
+	return result, nil
+}
+
+func VariableToMap(obj oci_fleet_apps_management.Variable) map[string]interface{} {
+	result := map[string]interface{}{}
+
+	if obj.Name != nil {
+		result["name"] = string(*obj.Name)
+	}
+
+	if obj.Value != nil {
+		result["value"] = string(*obj.Value)
 	}
 
 	return result

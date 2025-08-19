@@ -1,11 +1,11 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
 // PGSQL Control Plane API
 //
 // Use the OCI Database with PostgreSQL API to manage resources such as database systems, database nodes, backups, and configurations.
-// For information, see the user guide documentation for the service (https://docs.cloud.oracle.com/iaas/Content/postgresql/home.htm).
+// For information, see the user guide documentation for the service (https://docs.oracle.com/iaas/Content/postgresql/home.htm).
 //
 
 package psql
@@ -37,7 +37,7 @@ type DefaultConfiguration struct {
 	DbVersion *string `mandatory:"true" json:"dbVersion"`
 
 	// The name of the shape for the configuration.
-	// Example: `VM.Standard.E4.Flex`
+	// For multi-shape enabled configurations, it is set to PostgreSQL. Please use compatibleShapes property to get list of supported shapes for such configurations.
 	Shape *string `mandatory:"true" json:"shape"`
 
 	// CPU core count.
@@ -47,6 +47,9 @@ type DefaultConfiguration struct {
 	// Memory size in gigabytes with 1GB increment.
 	// Its value is set to 0 if configuration is for a flexible shape.
 	InstanceMemorySizeInGBs *int `mandatory:"true" json:"instanceMemorySizeInGBs"`
+
+	// Indicates the collection of compatible shapes for this configuration.
+	CompatibleShapes []string `mandatory:"true" json:"compatibleShapes"`
 
 	ConfigurationDetails *DefaultConfigurationDetails `mandatory:"true" json:"configurationDetails"`
 

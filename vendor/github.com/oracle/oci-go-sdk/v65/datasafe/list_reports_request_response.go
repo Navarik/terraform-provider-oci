@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -15,7 +15,7 @@ import (
 //
 // # See also
 //
-// Click https://docs.cloud.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListReports.go.html to see an example of how to use ListReportsRequest.
+// Click https://docs.oracle.com/en-us/iaas/tools/go-sdk-examples/latest/datasafe/ListReports.go.html to see an example of how to use ListReportsRequest.
 type ListReportsRequest struct {
 
 	// A filter to return only resources that match the specified compartment OCID.
@@ -34,10 +34,10 @@ type ListReportsRequest struct {
 	// The name of the report definition to query.
 	DisplayName *string `mandatory:"false" contributesTo:"query" name:"displayName"`
 
-	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The maximum number of items to return per page in a paginated "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Limit *int `mandatory:"false" contributesTo:"query" name:"limit"`
 
-	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous "List" call. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
 	Page *string `mandatory:"false" contributesTo:"query" name:"page"`
 
 	// The sort order to use, either ascending (ASC) or descending (DESC).
@@ -73,6 +73,9 @@ type ListReportsRequest struct {
 
 	// An optional filter to return only resources that match the specified type.
 	Type ListReportsTypeEnum `mandatory:"false" contributesTo:"query" name:"type" omitEmpty:"true"`
+
+	// Specifies the name of a resource that provides data for the report. For example  alerts, events.
+	DataSource ListReportsDataSourceEnum `mandatory:"false" contributesTo:"query" name:"dataSource" omitEmpty:"true"`
 
 	// Metadata about the request. This information will not be transmitted to the service, but
 	// represents information that the SDK will consume to drive retry behavior.
@@ -128,6 +131,9 @@ func (request ListReportsRequest) ValidateEnumValue() (bool, error) {
 	if _, ok := GetMappingListReportsTypeEnum(string(request.Type)); !ok && request.Type != "" {
 		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for Type: %s. Supported values are: %s.", request.Type, strings.Join(GetListReportsTypeEnumStringValues(), ",")))
 	}
+	if _, ok := GetMappingListReportsDataSourceEnum(string(request.DataSource)); !ok && request.DataSource != "" {
+		errMessage = append(errMessage, fmt.Sprintf("unsupported enum value for DataSource: %s. Supported values are: %s.", request.DataSource, strings.Join(GetListReportsDataSourceEnumStringValues(), ",")))
+	}
 	if len(errMessage) > 0 {
 		return true, fmt.Errorf(strings.Join(errMessage, "\n"))
 	}
@@ -146,7 +152,7 @@ type ListReportsResponse struct {
 	// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
 	OpcRequestId *string `presentIn:"header" name:"opc-request-id"`
 
-	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+	// For list pagination. When this header appears in the response, additional pages of results remain. Include opc-next-page value as the page parameter for the subsequent GET request to get the next batch of items. For details about how pagination works, see List Pagination (https://docs.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
 	OpcNextPage *string `presentIn:"header" name:"opc-next-page"`
 }
 
@@ -420,5 +426,59 @@ func GetListReportsTypeEnumStringValues() []string {
 // GetMappingListReportsTypeEnum performs case Insensitive comparison on enum value and return the desired enum
 func GetMappingListReportsTypeEnum(val string) (ListReportsTypeEnum, bool) {
 	enum, ok := mappingListReportsTypeEnumLowerCase[strings.ToLower(val)]
+	return enum, ok
+}
+
+// ListReportsDataSourceEnum Enum with underlying type: string
+type ListReportsDataSourceEnum string
+
+// Set of constants representing the allowable values for ListReportsDataSourceEnum
+const (
+	ListReportsDataSourceEvents             ListReportsDataSourceEnum = "EVENTS"
+	ListReportsDataSourceAlerts             ListReportsDataSourceEnum = "ALERTS"
+	ListReportsDataSourceSecurityAssessment ListReportsDataSourceEnum = "SECURITY_ASSESSMENT"
+	ListReportsDataSourceViolations         ListReportsDataSourceEnum = "VIOLATIONS"
+	ListReportsDataSourceAllowedSql         ListReportsDataSourceEnum = "ALLOWED_SQL"
+)
+
+var mappingListReportsDataSourceEnum = map[string]ListReportsDataSourceEnum{
+	"EVENTS":              ListReportsDataSourceEvents,
+	"ALERTS":              ListReportsDataSourceAlerts,
+	"SECURITY_ASSESSMENT": ListReportsDataSourceSecurityAssessment,
+	"VIOLATIONS":          ListReportsDataSourceViolations,
+	"ALLOWED_SQL":         ListReportsDataSourceAllowedSql,
+}
+
+var mappingListReportsDataSourceEnumLowerCase = map[string]ListReportsDataSourceEnum{
+	"events":              ListReportsDataSourceEvents,
+	"alerts":              ListReportsDataSourceAlerts,
+	"security_assessment": ListReportsDataSourceSecurityAssessment,
+	"violations":          ListReportsDataSourceViolations,
+	"allowed_sql":         ListReportsDataSourceAllowedSql,
+}
+
+// GetListReportsDataSourceEnumValues Enumerates the set of values for ListReportsDataSourceEnum
+func GetListReportsDataSourceEnumValues() []ListReportsDataSourceEnum {
+	values := make([]ListReportsDataSourceEnum, 0)
+	for _, v := range mappingListReportsDataSourceEnum {
+		values = append(values, v)
+	}
+	return values
+}
+
+// GetListReportsDataSourceEnumStringValues Enumerates the set of values in String for ListReportsDataSourceEnum
+func GetListReportsDataSourceEnumStringValues() []string {
+	return []string{
+		"EVENTS",
+		"ALERTS",
+		"SECURITY_ASSESSMENT",
+		"VIOLATIONS",
+		"ALLOWED_SQL",
+	}
+}
+
+// GetMappingListReportsDataSourceEnum performs case Insensitive comparison on enum value and return the desired enum
+func GetMappingListReportsDataSourceEnum(val string) (ListReportsDataSourceEnum, bool) {
+	enum, ok := mappingListReportsDataSourceEnumLowerCase[strings.ToLower(val)]
 	return enum, ok
 }

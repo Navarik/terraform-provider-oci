@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2018, 2024, Oracle and/or its affiliates.  All rights reserved.
+// Copyright (c) 2016, 2018, 2025, Oracle and/or its affiliates.  All rights reserved.
 // This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 // Code generated. DO NOT EDIT.
 
@@ -50,12 +50,16 @@ func (m *entrydetails) UnmarshalPolymorphicJSON(data []byte) (interface{}, error
 
 	var err error
 	switch m.EntryType {
+	case "AUDIT_POLICY":
+		mm := AuditPolicyEntryDetails{}
+		err = json.Unmarshal(data, &mm)
+		return mm, err
 	case "FIREWALL_POLICY":
 		mm := FirewallPolicyEntryDetails{}
 		err = json.Unmarshal(data, &mm)
 		return mm, err
 	default:
-		common.Logf("Recieved unsupported enum value for EntryDetails: %s.", m.EntryType)
+		common.Logf("Received unsupported enum value for EntryDetails: %s.", m.EntryType)
 		return *m, nil
 	}
 }
@@ -82,14 +86,17 @@ type EntryDetailsEntryTypeEnum string
 // Set of constants representing the allowable values for EntryDetailsEntryTypeEnum
 const (
 	EntryDetailsEntryTypeFirewallPolicy EntryDetailsEntryTypeEnum = "FIREWALL_POLICY"
+	EntryDetailsEntryTypeAuditPolicy    EntryDetailsEntryTypeEnum = "AUDIT_POLICY"
 )
 
 var mappingEntryDetailsEntryTypeEnum = map[string]EntryDetailsEntryTypeEnum{
 	"FIREWALL_POLICY": EntryDetailsEntryTypeFirewallPolicy,
+	"AUDIT_POLICY":    EntryDetailsEntryTypeAuditPolicy,
 }
 
 var mappingEntryDetailsEntryTypeEnumLowerCase = map[string]EntryDetailsEntryTypeEnum{
 	"firewall_policy": EntryDetailsEntryTypeFirewallPolicy,
+	"audit_policy":    EntryDetailsEntryTypeAuditPolicy,
 }
 
 // GetEntryDetailsEntryTypeEnumValues Enumerates the set of values for EntryDetailsEntryTypeEnum
@@ -105,6 +112,7 @@ func GetEntryDetailsEntryTypeEnumValues() []EntryDetailsEntryTypeEnum {
 func GetEntryDetailsEntryTypeEnumStringValues() []string {
 	return []string{
 		"FIREWALL_POLICY",
+		"AUDIT_POLICY",
 	}
 }
 

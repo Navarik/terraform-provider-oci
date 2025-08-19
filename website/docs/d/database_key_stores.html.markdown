@@ -41,6 +41,7 @@ The following attributes are exported:
 
 * `associated_databases` - List of databases associated with the key store.
 	* `db_name` - The name of the database that is associated with the key store.
+	* `db_unique_name` - The unique name of the database that is associated with the key store.
 	* `id` - The database [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
 * `compartment_id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
 * `defined_tags` - Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm). 
@@ -49,6 +50,7 @@ The following attributes are exported:
 * `id` - The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the key store.
 * `lifecycle_details` - Additional information about the current lifecycle state.
 * `state` - The current state of the key store.
+* `system_tags` - System tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm). 
 * `time_created` - The date and time that the key store was created.
 * `type_details` - Key store type details.
 	* `admin_username` - The administrator username to connect to Oracle Key Vault
